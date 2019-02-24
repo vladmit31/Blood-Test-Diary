@@ -13,11 +13,11 @@ Team Pacane
         * [resources](./src/main/resources)
             * [views](./src/main/resources/views) <--- views go here
     * [test](./src/test)
-        * [java/seg/major](./src/test/java/seg/major)
-        * [resources](./src/test/resources)
+        * [java/seg/major](./src/test/java/seg/major) <--- tests go in here
+        * [resources](./src/test/resources) <--- test resources go in here
 
 
-## To build the project, run the following commands from the [main folder](./):
+## To build the project, run the following commands from the main folder:
 
 For Linux/MacOS:
 
@@ -31,7 +31,7 @@ For Windows:
 
     gradlew.bat build
 
-## To run the project, run the following commands from the [main folder](./):
+## To run the project, run the following commands from the main folder:
 
 For Linux/MacOS
 
