@@ -1,7 +1,51 @@
 # SEG Major
 Team Pacane
 
-Project 1: Blood test diary
+# Project Structure
+
+### Default project structure to follow:
+* [src](./src)
+    * [main](./src/main)
+        * [java](./src/main/java)
+            * [seg/major](./src/main/java/seg/major)
+                * [controller](./src/main/java/seg/major/controller) <--- Code for controllers
+                * [model](./src/main/java/seg/major/model) <--- Backend logic goes here
+        * [resources](./src/main/resources)
+            * [views](./src/main/resources/views) <--- views go here
+    * [test](./src/test)
+        * [java/seg/major](./src/test/java/seg/major) <--- tests go in here
+        * [resources](./src/test/resources) <--- test resources go in here
+
+
+## To build the project, run the following commands from the main folder:
+
+For Linux/MacOS:
+
+    gradlew build
+
+or
+
+    ./gradlew build
+
+For Windows:
+
+    gradlew.bat build
+
+## To run the project, run the following commands from the main folder:
+
+For Linux/MacOS
+
+    gradlew run
+
+or
+
+    ./gradlew run
+
+For Windows:
+
+    gradlew.bat run
+
+# Project 1: Blood test diary
 Client: Dr Marianne Samyn, King's College Hospital
 
 Background: Patients of the paediatric liver service at King's College Hospital need to undergo regular blood tests to enable the service to monitor their condition. Currently, the service employs an Excel spreadsheet to track when blood tests are due, chase patients who are overdue to get a blood test and chase local laboratories who are overdue to produce test results. This solution does not scale well with the number of patients (about 850) in the spreadsheet. Data entry, setting the next due dates of blood tests/results, identification of overdue tests/results, communication with patients and their carers, laboratories are all done manually by means of the spreadsheet. It is time-consuming and prone to errors.
