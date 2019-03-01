@@ -45,6 +45,10 @@ For Windows:
 
     gradlew.bat run
 
+## JDBC MySQL Connector
+
+Download from [here](https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.15.zip)
+
 # Project 1: Blood test diary
 Client: Dr Marianne Samyn, King's College Hospital
 
