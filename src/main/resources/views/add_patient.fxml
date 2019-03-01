@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.AddPatientController">
   <children>
       <BorderPane>
          <left>
@@ -84,12 +84,12 @@
                   <Insets top="20.0" />
                </padding>
                <children>
-                  <TextField prefHeight="25.0" prefWidth="395.0" />
-                  <TextField GridPane.rowIndex="1" />
-                  <DatePicker GridPane.rowIndex="2" />
-                  <DatePicker GridPane.rowIndex="5" />
-                  <TextField GridPane.rowIndex="3" />
-                  <TextField GridPane.rowIndex="4" />
+                  <TextField fx:id="forenameField" prefHeight="25.0" prefWidth="395.0" />
+                  <TextField fx:id="surnameField" GridPane.rowIndex="1" />
+                  <DatePicker fx:id="dobField" GridPane.rowIndex="2" />
+                  <DatePicker fx:id="nextAppField" GridPane.rowIndex="5" />
+                  <TextField fx:id="hospitalField" GridPane.rowIndex="3" />
+                  <TextField fx:id="localField" GridPane.rowIndex="4" />
                </children>
             </GridPane>
          </center>
@@ -119,12 +119,12 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Button mnemonicParsing="false" text="Cancel" GridPane.rowIndex="1">
+                  <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#cancel" text="Cancel" GridPane.rowIndex="1">
                      <GridPane.margin>
                         <Insets left="250.0" />
                      </GridPane.margin>
                   </Button>
-                  <Button mnemonicParsing="false" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                  <Button fx:id="submitButton" mnemonicParsing="false" onMouseClicked="#submit" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                </children>
             </GridPane>
          </bottom>
