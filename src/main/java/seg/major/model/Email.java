@@ -19,7 +19,6 @@ public class Email {
 	private String emailTo;
 	private String subject;
 	private String body;
-	private boolean sent;
 
 	public Email() {
 	}
@@ -33,7 +32,6 @@ public class Email {
 		this.emailTo = emailTo;
 		this.subject = subject;
 		this.body = body;
-		this.sent = false;
 	}
 
 	public String getEmailHost() {
@@ -116,10 +114,7 @@ public class Email {
 
 			Transport.send(message);
 
-			this.sent = true;
-
 		} catch (MessagingException e) {
-			this.sent = false;
 			throw new RuntimeException(e);
 		}
 	}
