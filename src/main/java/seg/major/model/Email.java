@@ -1,4 +1,4 @@
-package seg.major.controller;
+package seg.major.model;
 
 import java.util.Properties;
 
