@@ -30,7 +30,7 @@ dependencies {
     
     // Email package...
     // https://mvnrepository.com/artifact/javax.mail/javax.mail-api
-    compile group: 'javax.mail', name: 'javax.mail-api', version: '1.4.1'
+    compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.1'
 
 }
 
