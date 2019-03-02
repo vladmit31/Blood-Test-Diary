@@ -1,11 +1,15 @@
 package seg.major.database;
 
 
+import com.ja.security.PasswordHash;
 import javafx.scene.control.DatePicker;
 import seg.major.structure.Patient;
+import seg.major.structure.User;
 
 import javax.xml.crypto.Data;
 import javax.xml.transform.Result;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -160,6 +164,101 @@ public class DatabaseConnection {
         }
         java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
         return sqlDate;
+    }
+
+    public static User getUserByUsername(String username) {
+        try {
+            con = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Statement stt = null;
+        ResultSet resultSet = null;
+
+        try {
+            stt = con.createStatement();
+            stt.execute("USE db");
+            resultSet = stt.executeQuery("SELECT * FROM user WHERE username LIKE" + "'" + username + "'");
+
+            while (resultSet.next()) {
+
+                String userName = resultSet.getString("username");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+
+                return new User(userName, email, password);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                stt.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public static List<User> getUsers() {
+        try {
+            con = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<User> resList = new ArrayList<User>();
+        Statement stt = null;
+        ResultSet resultSet = null;
+
+        try {
+            stt = con.createStatement();
+            stt.execute("USE db");
+            resultSet = stt.executeQuery("SELECT * FROM user");
+
+            while (resultSet.next()) {
+
+                String username = resultSet.getString("username");
+                String email = resultSet.getString("email");
+                String password = resultSet.getString("password");
+
+                resList.add(new User(username,email,password));
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                stt.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return resList;
+    }
+
+    public static void inputNewUser(User user) {
+        String command = null;
+        try {
+            command = "INSERT INTO user " +
+                    "VALUES(\'" + user.getUsername() + "\', \'" + user.getEmail() + "\', \'" + (new PasswordHash()).createHash(user.getPassword()) + "\' , \'" + 0 + "\' );";
+
+            System.out.println(command);
+
+            execute(command);
+
+
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
+        }
     }
 /*
     public static void main(String[] args) {
