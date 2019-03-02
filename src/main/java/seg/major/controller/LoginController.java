@@ -2,19 +2,15 @@ package seg.major.controller;
 
 import java.util.ResourceBundle;
 
-import java.io.IOException;
 import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.Stage;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import seg.major.model.LoginModel;
 import javafx.fxml.FXMLLoader;
-import javafx.event.*;
 
 public class LoginController implements Initializable {
 
