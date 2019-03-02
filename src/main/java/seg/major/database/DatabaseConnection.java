@@ -2,6 +2,7 @@ package seg.major.database;
 
 
 import javafx.scene.control.DatePicker;
+import seg.major.structure.Patient;
 
 import javax.xml.crypto.Data;
 import javax.xml.transform.Result;
@@ -9,6 +10,7 @@ import java.sql.*;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -23,25 +25,22 @@ public class DatabaseConnection {
 
     private static Connection con;
 
-    public static void insertPatient(String fname, String sname,
-                                     String vnumber, Date dob,
-                                     String local_clinic, Date next_appointment,
-                                     Double refreshRate) {
+    public static void insertPatient(Patient patient) {
         String command = "INSERT INTO patient(vnumber, fname, sname, dob, local_clinic, next_appointment, refresh_rate) " +
-                         "VALUES(\'" + vnumber + "\', \'" + fname + "\', \'" + sname + "\', \'" + dob + "\', \'" + local_clinic +
-                         "\', \'" + next_appointment + "\', \'" + refreshRate + "\');";
+                         "VALUES(\'" + patient.getHospitalNumber() + "\', \'" + patient.getForename() + "\', \'" + patient.getSurname() + "\', \'" + patient.getDob() + "\', \'" + patient.getLocalClinic() +
+                         "\', \'" + patient.getNextAppointment() + "\', \'" + Patient.DEFAULT_REFRESH_RATE + "\');";
 
 
         execute(command);
 
         int patientID = getLastInsertedPatientID();
         
-        addAppointment(patientID, next_appointment);
+        addAppointment(patientID, patient.getNextAppointment());
         
 
     }
 
-    private static void addAppointment(int patientID, Date next_appointment) {
+    private static void addAppointment(int patientID, LocalDate next_appointment) {
         String command = "INSERT INTO appointment(due_date, patient_id) " +
                          "VALUES(\'" + next_appointment + "\', \'" + patientID + "\');";
 
@@ -94,10 +93,6 @@ public class DatabaseConnection {
                 return (int)(resultSet.getInt(1));
             }
 
-
-
-
-
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -112,13 +107,13 @@ public class DatabaseConnection {
         return -1;
     }
 
-    public static List getPatients() {
+    public static List<Patient> getPatients() {
         try {
             con = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        List resList = new ArrayList();
+        List<Patient> resList = new ArrayList<Patient>();
         Statement stt = null;
         ResultSet resultSet = null;
 
@@ -138,15 +133,7 @@ public class DatabaseConnection {
                 Date next_appointment = resultSet.getDate("next_appointment");
                 Double refresh_rate = resultSet.getDouble("refresh_rate");
 
-                System.out.println(id);
-                System.out.println(vnumber);
-                System.out.println(fname);
-                System.out.println(sname);
-                System.out.println(dob);
-                System.out.println(local_clinic);
-                System.out.println(next_appointment);
-                System.out.println(refresh_rate);
-                System.out.println();
+                resList.add(new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic,((java.sql.Date) next_appointment).toLocalDate()));
             }
 
         } catch (SQLException e) {
@@ -174,12 +161,18 @@ public class DatabaseConnection {
         java.sql.Date sqlDate = new java.sql.Date(myDate.getTime());
         return sqlDate;
     }
-
+/*
     public static void main(String[] args) {
-        Date date1 = getMySqlDate("1998-01-01");
-        Date date2 = getMySqlDate("2019-03-02");
-        insertPatient("Horia", "Pavel", "v1234", date1, "cluj", date2, 2.0);
-        List obj = getPatients();
+        List<Patient> obj = getPatients();
         System.out.println();
-    }
+        for (Patient p : obj) {
+            System.out.println(p.getForename());
+            System.out.println(p.getSurname());
+            System.out.println(p.getDob());
+            System.out.println(p.getHospitalNumber());
+            System.out.println(p.getLocalClinic());
+            System.out.println(p.getNextAppointment());
+            System.out.println();
+        }
+    }*/
 }
