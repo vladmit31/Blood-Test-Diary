@@ -1,7 +1,11 @@
 package seg.major.controller;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
+import javafx.stage.Stage;
+import seg.major.database.DatabaseConnection;
 import seg.major.model.AddPatientModel;
 import seg.major.structure.Patient;
 
@@ -9,12 +13,11 @@ import javax.swing.*;
 
 public class AddPatientController {
 
+    @FXML
+    private TextField forenameField;
 
     @FXML
-    private JTextField forenameField;
-
-    @FXML
-    private JTextField surnameField;
+    private TextField surnameField;
 
     @FXML
     private DatePicker dobField;
@@ -23,49 +26,60 @@ public class AddPatientController {
     private DatePicker nextAppField;
 
     @FXML
-    private JTextField hospitalField;
+    private TextField hospitalField;
 
     @FXML
-    private JTextField clinicField;
+    private TextField clinicField;
 
     @FXML
-    private JButton cancelButton;
+    private Button cancelButton;
 
     @FXML
-    private JButton submitButton;
+    private Button submitButton;
 
-    @FXML
     private AddPatientModel model;
 
-    public AddPatientController(AddPatientModel model){
-        this.model = model;
+    @FXML
+    public void initialize() {
+        model = new AddPatientModel();
     }
 
-
     @FXML
-    public Patient submit()
+    public void submit()
     {
+        /*
+        System.out.println(forenameField.getText());
+        System.out.println(surnameField.getText());
+        System.out.println(dobField.getValue());
+        System.out.println(hospitalField.getText());
+        System.out.println(clinicField.getText());
+        System.out.println(nextAppField.getValue());
+        */
+
         if(!forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue()!=null &&
-                !hospitalField.equals("") && !clinicField.equals("") &&  nextAppField.getValue()!=null) {
+                !hospitalField.getText().equals("") && !clinicField.getText().equals("") &&  nextAppField.getValue()!=null) {
             Patient newPatient = model.createPatient(forenameField.getText(), surnameField.getText(),
                     dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
 
+            System.out.println(newPatient);
 
-            return newPatient;
+            DatabaseConnection.insertPatient(newPatient);
+            /*System.out.println(newPatient);
+            return newPatient;*/
         }
         else{
             JOptionPane.showMessageDialog(null,
                     "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
-                return null;
         }
     }
 
 
     @FXML
     public void cancel(){
+        // TODO: Link back to the patient panel
+        Stage stage = (Stage) cancelButton.getScene().getWindow();
 
-
+        stage.close();
     }
-
 
 }
