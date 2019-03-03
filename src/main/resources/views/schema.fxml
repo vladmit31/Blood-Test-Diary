@@ -189,7 +189,7 @@
                                 </FlowPane>
                             </left>
                             <right>
-                                <FlowPane hgap="4.0" prefHeight="25.0" prefWidth="181.0" BorderPane.alignment="CENTER">
+                                <FlowPane hgap="4.0" prefWidth="224.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="You logged in as Sarah" />
                                         <Button mnemonicParsing="false" text="Logout" />
@@ -201,7 +201,7 @@
                     <bottom>
                         <BorderPane BorderPane.alignment="CENTER">
                             <right>
-                                <FlowPane prefWidth="124.0" BorderPane.alignment="CENTER">
+                                <FlowPane prefWidth="153.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <Button mnemonicParsing="false" text="Under 12" />
                                         <Button mnemonicParsing="false" text="Over 12" />
