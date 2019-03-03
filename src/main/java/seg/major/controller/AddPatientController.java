@@ -56,8 +56,7 @@ public class AddPatientController {
         System.out.println(nextAppField.getValue());
         */
 
-        if(!forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue()!=null &&
-                !hospitalField.getText().equals("") && !clinicField.getText().equals("") &&  nextAppField.getValue()!=null) {
+        if(checkUserInput()) {
             Patient newPatient = model.createPatient(forenameField.getText(), surnameField.getText(),
                     dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
 
@@ -80,6 +79,11 @@ public class AddPatientController {
         Stage stage = (Stage) cancelButton.getScene().getWindow();
 
         stage.close();
+    }
+
+    private boolean checkUserInput() {
+        return !forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue()!=null &&
+                !hospitalField.getText().equals("") && !clinicField.getText().equals("") &&  nextAppField.getValue()!=null;
     }
 
 }
