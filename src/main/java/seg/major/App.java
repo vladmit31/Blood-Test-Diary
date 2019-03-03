@@ -4,32 +4,35 @@
 package seg.major;
 
 import javafx.stage.Stage;
-import seg.major.controller.LoginController;
 import javafx.application.Application;
 import javafx.scene.*;
-import javafx.scene.layout.BorderPane;
+import seg.major.controller.PrimaryController;
 
 public class App extends Application {
 
-    public String getGreeting() {
-        return "Hello world.";
-    }
+    // Name of the view that is shown on first loading the application
+    public static String login = "login";
+    public static String addPatient = "add_patient";
+    public static String patients = "patients";
+    public static String schema = "schema";
 
     public static void main(String[] args) {
-        System.out.println(new App().getGreeting());
+        System.out.println("App Started!");
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        LoginController loginController = new LoginController();
-        BorderPane root = new BorderPane();
-        root.setCenter(loginController.getPane());
+
+        PrimaryController primaryController = new PrimaryController();
+        primaryController.addViews(new String[] { login, addPatient, patients, schema });
+        primaryController.setPane(App.login);
+
+        Group root = new Group();
+        root.getChildren().addAll(primaryController);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        primaryStage.setTitle("Login");
-        primaryStage.setResizable(false);
+        System.out.println(primaryStage.isResizable());
         primaryStage.show();
-
     }
 }
