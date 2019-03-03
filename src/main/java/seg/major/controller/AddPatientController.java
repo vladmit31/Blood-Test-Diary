@@ -5,9 +5,9 @@ import java.net.URL;
 import javafx.fxml.Initializable;
 
 /**
- * SchemaController acts as the controller for the schema.fxml file
+ * AddPatientController acts as the controller for the add_patient.fxml file
  */
-public class SchemaController implements Initializable, ViewsController {
+public class AddPatientController implements Initializable, ViewsController {
 
   private PrimaryController primaryController;
 
