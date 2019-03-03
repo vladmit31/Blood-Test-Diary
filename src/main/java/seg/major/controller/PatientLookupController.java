@@ -24,7 +24,7 @@ public class PatientLookupController {
     public Button under12Button;
     public Button over12Button;
 
-    public PatientLookupController() {
+    public void initialize() {
         this.patientModel = new PatientLookupModel();
         patientModel.fetchData();
         setButtons();
