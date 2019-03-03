@@ -9,11 +9,11 @@ import javafx.scene.layout.VBox;
 import java.util.HashMap;
 
 /**
- * PrimaryController is the mains views controller, it works by storing a
- * HashMap (panes in this case) that can be set as the active content in a
- * window very easily. Each view contoller (that is - any files which have a
- * .fxml in the resouorces folder) will need to inject *this* PrimaryController
- * in order to change windows.
+ * PrimaryController is the main views controller, it works by storing a HashMap
+ * (Nodes [VBox'] in this case) that can be set as the active content in a
+ * StackPane. Each view contoller (that is - any files which have a .fxml in the
+ * resouorces folder) will need to inject *this* PrimaryController in order to
+ * change windows.
  */
 public class PrimaryController extends StackPane {
 
