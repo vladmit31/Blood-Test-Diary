@@ -4,6 +4,7 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import seg.major.database.DatabaseConnection;
 import seg.major.structure.Patient;
 
 public class PatientLookupModel {
@@ -14,24 +15,8 @@ public class PatientLookupModel {
         return patientList;
     }
 
-    private static void openConnection() {
-
-    }
-
-    public List fetchData() {
-        openConnection();
-
-
-        //TODO:
-
-        patientList = new ArrayList<Patient>();
-
-
-        closeConnection();
-        return patientList;
-    }
-
-    private static void closeConnection() {
+    public void fetchData() {
+        patientList = DatabaseConnection.getPatients();
     }
 
     /*
