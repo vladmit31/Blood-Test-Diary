@@ -13,121 +13,121 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
-  <children>
-      <BorderPane>
-         <left>
-            <GridPane prefHeight="200.0" prefWidth="243.0" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Forename">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" GridPane.rowIndex="2">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Local Clinic" wrappingWidth="91.4039306640625" GridPane.rowIndex="4">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next Appointment" GridPane.rowIndex="5">
-                     <font>
-                        <Font size="14.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital Number" GridPane.rowIndex="3">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Surname" GridPane.rowIndex="1">
-                     <font>
-                        <Font name="Consolas" size="14.0" />
-                     </font>
-                  </Text>
-               </children>
-               <padding>
-                  <Insets left="20.0" top="20.0" />
-               </padding>
-            </GridPane>
-         </left>
-         <center>
-            <GridPane prefHeight="200.0" prefWidth="147.0" BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <padding>
-                  <Insets top="20.0" />
-               </padding>
-               <children>
-                  <TextField prefHeight="25.0" prefWidth="395.0" />
-                  <TextField GridPane.rowIndex="1" />
-                  <DatePicker GridPane.rowIndex="2" />
-                  <DatePicker GridPane.rowIndex="5" />
-                  <TextField GridPane.rowIndex="3" />
-                  <TextField GridPane.rowIndex="4" />
-               </children>
-            </GridPane>
-         </center>
-         <top>
-            <FlowPane BorderPane.alignment="CENTER">
-               <children>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Input a new patient" textAlignment="CENTER">
-                     <font>
-                        <Font name="Consolas" size="20.0" />
-                     </font>
-                     <FlowPane.margin>
-                        <Insets left="20.0" top="10.0" />
-                     </FlowPane.margin>
-                  </Text>
-               </children>
-            </FlowPane>
-         </top>
-         <bottom>
-            <GridPane BorderPane.alignment="CENTER">
-              <columnConstraints>
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-              </columnConstraints>
-              <rowConstraints>
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="ALWAYS" />
-                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-              </rowConstraints>
-               <children>
-                  <Button mnemonicParsing="false" text="Cancel" GridPane.rowIndex="1">
-                     <GridPane.margin>
-                        <Insets left="250.0" />
-                     </GridPane.margin>
-                  </Button>
-                  <Button mnemonicParsing="false" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-               </children>
-            </GridPane>
-         </bottom>
-      </BorderPane>
-  </children>
+<VBox prefHeight="400.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.AddPatientController">
+    <children>
+        <BorderPane>
+            <left>
+                <GridPane prefHeight="200.0" prefWidth="243.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Forename">
+                            <font>
+                                <Font name="Consolas" size="14.0" />
+                            </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Date of Birth" GridPane.rowIndex="2">
+                            <font>
+                                <Font name="Consolas" size="14.0" />
+                            </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Local Clinic" wrappingWidth="91.4039306640625" GridPane.rowIndex="4">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next Appointment" GridPane.rowIndex="5">
+                            <font>
+                                <Font size="14.0" />
+                            </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Hospital Number" GridPane.rowIndex="3">
+                            <font>
+                                <Font name="Consolas" size="14.0" />
+                            </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Surname" GridPane.rowIndex="1">
+                            <font>
+                                <Font name="Consolas" size="14.0" />
+                            </font>
+                        </Text>
+                    </children>
+                    <padding>
+                        <Insets left="20.0" top="20.0" />
+                    </padding>
+                </GridPane>
+            </left>
+            <center>
+                <GridPane prefHeight="200.0" prefWidth="147.0" BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <padding>
+                        <Insets top="20.0" />
+                    </padding>
+                    <children>
+                        <TextField fx:id="forenameField" prefHeight="25.0" prefWidth="395.0" />
+                        <TextField fx:id="surnameField" GridPane.rowIndex="1" />
+                        <DatePicker fx:id="dobField" GridPane.rowIndex="2" />
+                        <DatePicker fx:id="nextAppField" GridPane.rowIndex="5" />
+                        <TextField fx:id="hospitalField" GridPane.rowIndex="3" />
+                        <TextField fx:id="clinicField" GridPane.rowIndex="4" />
+                    </children>
+                </GridPane>
+            </center>
+            <top>
+                <FlowPane BorderPane.alignment="CENTER">
+                    <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Input a new patient" textAlignment="CENTER">
+                            <font>
+                                <Font name="Consolas" size="20.0" />
+                            </font>
+                            <FlowPane.margin>
+                                <Insets left="20.0" top="10.0" />
+                            </FlowPane.margin>
+                        </Text>
+                    </children>
+                </FlowPane>
+            </top>
+            <bottom>
+                <GridPane BorderPane.alignment="CENTER">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" valignment="TOP" vgrow="ALWAYS" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                    <children>
+                        <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#cancel" text="Cancel" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="250.0" />
+                            </GridPane.margin>
+                        </Button>
+                        <Button fx:id="submitButton" mnemonicParsing="false" onMouseClicked="#submit" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                    </children>
+                </GridPane>
+            </bottom>
+        </BorderPane>
+    </children>
 </VBox>

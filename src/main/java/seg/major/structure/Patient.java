@@ -12,6 +12,8 @@ public class Patient {
     private String localClinic;
     private LocalDate nextAppointment;
 
+    public static final double DEFAULT_REFRESH_RATE = 1.0;
+
     public Patient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment){
         this.forename = forename;
         this.surname = surname;
