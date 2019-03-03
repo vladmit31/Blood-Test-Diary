@@ -10,9 +10,9 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.LoginController">
+<VBox prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.LoginController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar>
       <menus>
         <Menu mnemonicParsing="false" text="Help">
           <items>
@@ -27,10 +27,10 @@
             <TextField fx:id="username" layoutX="146.0" layoutY="28.0" />
             <Label layoutX="62.0" layoutY="32.0" text="Username" />
             <Label layoutX="64.0" layoutY="85.0" text="Password" />
-            <Button fx:id="login_button" layoutX="249.0" layoutY="131.0" mnemonicParsing="false" text="Login" />
-            <Button fx:id="register_button" layoutX="75.0" layoutY="131.0" mnemonicParsing="false" text="Register new staff member" />
+            <Button fx:id="login_button" layoutX="249.0" layoutY="131.0" mnemonicParsing="false" onAction="#loginBtn" text="Login" />
+            <Button fx:id="register_button" layoutX="75.0" layoutY="131.0" mnemonicParsing="false" onAction="#registerBtn" text="Register new staff member" />
             <PasswordField fx:id="password" layoutX="146.0" layoutY="81.0" />
       </children>
     </AnchorPane>
   </children>
-</AnchorPane>
+</VBox>
