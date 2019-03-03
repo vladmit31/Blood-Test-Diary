@@ -22,12 +22,13 @@ public class PatientLookupModel {
     /*
      * search and filter methods
      * TODO handle failed searches
+     * TODO Allow multiple filters at once
      *
      */
     public List searchByName(String name){
         List<Patient> filtered = new ArrayList<Patient>();
         patientList.stream()
-                .filter(p -> (p.getForename() + " " + p.getSurname()).contains(name))
+                .filter(p -> (p.getForename() + " " + p.getSurname()).toLowerCase().contains(name.toLowerCase()))
                 .forEach(p -> filtered.add(p));
         return filtered;
     }
@@ -35,7 +36,7 @@ public class PatientLookupModel {
     public List searchByNumber(String number){
         List<Patient> filtered = new ArrayList<Patient>();
         patientList.stream()
-                .filter(p -> p.getHospitalNumber().contains(number))
+                .filter(p -> p.getHospitalNumber().toLowerCase().contains(number.toLowerCase()))
                 .forEach(p -> filtered.add(p));
         return filtered;
     }

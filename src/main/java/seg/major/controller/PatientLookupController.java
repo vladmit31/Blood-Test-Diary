@@ -4,6 +4,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import seg.major.model.PatientLookupModel;
 
 import seg.major.structure.Patient;
@@ -19,7 +20,7 @@ public class PatientLookupController {
     public TableColumn forename;
     public TableColumn surname;
     public TableColumn hospitalNumber;
-    public TableColumn local;
+    public TableColumn localClinic;
     public TableColumn nextAppointment;
     public Button under12Button;
     public Button over12Button;
@@ -27,8 +28,17 @@ public class PatientLookupController {
     public void initialize() {
         this.patientModel = new PatientLookupModel();
         patientModel.fetchData();
+        setColumns();
         setButtons();
         fillTable();
+    }
+
+    private void setColumns(){
+        forename.setCellValueFactory(new PropertyValueFactory("forename"));
+        surname.setCellValueFactory(new PropertyValueFactory("surname"));
+        hospitalNumber.setCellValueFactory(new PropertyValueFactory("hospitalNumber"));
+        localClinic.setCellValueFactory(new PropertyValueFactory("localClinic"));
+        nextAppointment.setCellValueFactory(new PropertyValueFactory("nextAppointment"));
     }
 
     private void setButtons() {
@@ -45,7 +55,6 @@ public class PatientLookupController {
     }
 
     private void fillTable(){
-        // may need to assign column to attributes using setCellValueFactory
         patientTable.getItems().clear();
         for (Patient patient : patientModel.getPatientList()) {
             patientTable.getItems().add(patient);
