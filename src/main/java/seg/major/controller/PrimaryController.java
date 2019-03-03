@@ -4,7 +4,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.util.HashMap;
@@ -74,17 +73,15 @@ public class PrimaryController extends StackPane {
     VBox n;
     if (panes.get(name) != null) {
       n = (VBox) panes.get(name);
-      n.setVgrow(this, Priority.ALWAYS);
       if (!getChildren().isEmpty()) {
         getChildren().remove(0);
         getChildren().add(0, n);
-        setMinSize(n.prefWidth(-1), n.prefHeight(-1));
 
       } else {
         getChildren().add(n);
-        setMinSize(n.prefWidth(-1), n.prefHeight(-1));
 
       }
+      setMinSize(n.prefWidth(-1), n.prefHeight(-1));
       return true;
     } else {
       System.out.println("screen hasn't been loaded!!! \n");
