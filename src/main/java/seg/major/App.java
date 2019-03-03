@@ -32,7 +32,9 @@ public class App extends Application {
         root.getChildren().addAll(primaryController);
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
-        System.out.println(primaryStage.isResizable());
+        primaryStage.minWidthProperty().bind(primaryController.minWidthProperty());
+        primaryStage.minHeightProperty().bind(primaryController.minHeightProperty());
         primaryStage.show();
+
     }
 }
