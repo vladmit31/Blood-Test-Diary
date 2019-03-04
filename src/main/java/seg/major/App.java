@@ -3,12 +3,18 @@
  */
 package seg.major;
 
+import seg.major.model.Props;
+
 public class App {
     public String getGreeting() {
         return "Hello world.";
     }
 
+
+
     public static void main(String[] args) {
         System.out.println(new App().getGreeting());
+
+        System.out.println(new Props("src/main/resources/props.properties").getAllProperties());
     }
 }
