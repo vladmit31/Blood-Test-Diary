@@ -1,30 +1,31 @@
 package seg.major.model;
 
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 import java.util.HashMap;
 import java.util.Map;
 import java.io.OutputStream;
+import java.net.URL;
 import java.io.FileOutputStream;
 
 /**
- * Props allows access to a properties file, giving access to external variables such as usernames,
- * passwords, and settings.
+ * Props allows access to a properties file, giving access to external variables
+ * such as usernames, passwords, and settings.
  */
 public class Props extends Properties {
 
     private static final long serialVersionUID = 1L;
-    private String filepath;
+    private URL location;
 
-    public Props(String filepath) {
-        this.filepath = filepath;
+    public Props(URL location) {
+        this.location = location;
         readProperties();
     }
 
     /**
-     * Read the properties from the filepath and put the properties in the props HashMap
+     * Read the properties from the location and put the properties in the props
+     * HashMap
      */
     public void readProperties() {
 
@@ -32,7 +33,7 @@ public class Props extends Properties {
 
         try {
 
-            input = new FileInputStream(filepath);
+            input = location.openStream();
             this.load(input);
 
         } catch (IOException ex) {
@@ -61,7 +62,8 @@ public class Props extends Properties {
 
         try {
 
-            output = new FileOutputStream(filepath);
+            // output = new FileOutputStream(location);
+            output = new FileOutputStream(location.getFile());
 
             // set the properties value and save the file
             this.setProperty(p, val);
@@ -86,7 +88,7 @@ public class Props extends Properties {
      */
     public Map<String, String> getAllProperties() {
 
-        Map<String, String> props= new HashMap<String, String>();
+        Map<String, String> props = new HashMap<String, String>();
         for (String key : this.stringPropertyNames()) {
             String value = this.getProperty(key);
             props.put(key, value);
