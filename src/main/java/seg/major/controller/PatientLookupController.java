@@ -30,7 +30,8 @@ public class PatientLookupController {
         patientModel.fetchData();
         setColumns();
         setButtons();
-        fillTable();
+        fillTable(patientModel.under12());
+        under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
     }
 
     private void setColumns(){
@@ -43,9 +44,13 @@ public class PatientLookupController {
 
     private void setButtons() {
         under12Button.setOnAction(e -> {
+            under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+            over12Button.setStyle(null);
             fillTable(patientModel.under12());
         });
         over12Button.setOnAction(e -> {
+            under12Button.setStyle(null);
+            over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
             fillTable(patientModel.over12());
         });
         searchButton.setOnAction(e -> {
