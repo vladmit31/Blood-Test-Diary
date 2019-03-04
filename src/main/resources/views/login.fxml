@@ -22,12 +22,12 @@
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="184.0" prefWidth="268.0" VBox.vgrow="ALWAYS">
+    <AnchorPane prefHeight="184.0" prefWidth="268.0" VBox.vgrow="ALWAYS">
       <children>
             <TextField fx:id="username" layoutX="146.0" layoutY="28.0" />
             <Label layoutX="62.0" layoutY="32.0" text="Username" />
             <Label layoutX="64.0" layoutY="85.0" text="Password" />
-            <Button fx:id="loginButton" layoutX="220.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#login" prefHeight="25.0" prefWidth="75.0" text="Login" />
+            <Button fx:id="loginButton" layoutX="220.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#loginBtn" prefHeight="25.0" prefWidth="75.0" text="Login" />
             <PasswordField fx:id="password" layoutX="146.0" layoutY="81.0" />
       </children>
     </AnchorPane>
