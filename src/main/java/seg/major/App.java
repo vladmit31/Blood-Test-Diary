@@ -34,5 +34,6 @@ public class App extends Application {
         primaryStage.minWidthProperty().bind(primaryController.minWidthProperty());
         primaryStage.minHeightProperty().bind(primaryController.minHeightProperty());
         primaryStage.show();
+
     }
 }

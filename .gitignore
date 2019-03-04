@@ -222,11 +222,7 @@ Temporary Items
 .apdisk
 
 ### VisualStudioCode ###
-.vscode/*
-!.vscode/settings.json
-!.vscode/tasks.json
-!.vscode/launch.json
-!.vscode/extensions.json
+.vscode
 
 ### VisualStudioCode Patch ###
 # Ignore all local history of files
@@ -253,3 +249,4 @@ gradle-app.setting
 
 # End of https://www.gitignore.io/api/java,macos,gradle,eclipse,java-web,intellij,visualstudiocode
 .vscode/settings.json
+gradlew
