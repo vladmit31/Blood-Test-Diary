@@ -1,8 +1,6 @@
 package seg.major.structure;
 
 import java.time.LocalDate;
-import java.util.Date;
-
 
 public class Patient {
     private String forename;
@@ -14,7 +12,8 @@ public class Patient {
 
     public static final double DEFAULT_REFRESH_RATE = 1.0;
 
-    public Patient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment){
+    public Patient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic,
+            LocalDate nextAppointment) {
         this.forename = forename;
         this.surname = surname;
         this.dob = dob;

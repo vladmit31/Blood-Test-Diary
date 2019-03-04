@@ -1,13 +1,8 @@
 package seg.major.database;
 
-
 import com.ja.security.PasswordHash;
-import javafx.scene.control.DatePicker;
 import seg.major.structure.Patient;
 import seg.major.structure.User;
-
-import javax.xml.crypto.Data;
-import javax.xml.transform.Result;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.sql.*;
@@ -18,7 +13,6 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.text.DateFormat.*;
 
 public class DatabaseConnection {
 
@@ -30,27 +24,25 @@ public class DatabaseConnection {
     private static Connection con;
 
     public static void insertPatient(Patient patient) {
-        String command = "INSERT INTO patient(vnumber, fname, sname, dob, local_clinic, next_appointment, refresh_rate) " +
-                         "VALUES(\'" + patient.getHospitalNumber() + "\', \'" + patient.getForename() + "\', \'" + patient.getSurname() + "\', \'" + patient.getDob() + "\', \'" + patient.getLocalClinic() +
-                         "\', \'" + patient.getNextAppointment() + "\', \'" + Patient.DEFAULT_REFRESH_RATE + "\');";
-
+        String command = "INSERT INTO patient(vnumber, fname, sname, dob, local_clinic, next_appointment, refresh_rate) "
+                + "VALUES(\'" + patient.getHospitalNumber() + "\', \'" + patient.getForename() + "\', \'"
+                + patient.getSurname() + "\', \'" + patient.getDob() + "\', \'" + patient.getLocalClinic() + "\', \'"
+                + patient.getNextAppointment() + "\', \'" + Patient.DEFAULT_REFRESH_RATE + "\');";
 
         execute(command);
 
         int patientID = getLastInsertedPatientID();
-        
+
         addAppointment(patientID, patient.getNextAppointment());
-        
 
     }
 
     private static void addAppointment(int patientID, LocalDate next_appointment) {
-        String command = "INSERT INTO appointment(due_date, patient_id) " +
-                         "VALUES(\'" + next_appointment + "\', \'" + patientID + "\');";
+        String command = "INSERT INTO appointment(due_date, patient_id) " + "VALUES(\'" + next_appointment + "\', \'"
+                + patientID + "\');";
 
         execute(command);
     }
-
 
     private static void execute(String command) {
 
@@ -63,11 +55,9 @@ public class DatabaseConnection {
             } finally {
                 stt.close();
             }
-        }
-        catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
-        }
-        finally {
+        } finally {
             try {
                 con.close();
             } catch (SQLException e) {
@@ -77,13 +67,12 @@ public class DatabaseConnection {
 
     }
 
-    private static int getLastInsertedPatientID(){
+    private static int getLastInsertedPatientID() {
         try {
             con = DriverManager.getConnection(url, user, password);
         } catch (SQLException e) {
             e.printStackTrace();
         }
-        List resList = new ArrayList();
         Statement stt = null;
         ResultSet resultSet = null;
 
@@ -92,9 +81,9 @@ public class DatabaseConnection {
             stt.execute("USE db");
             resultSet = stt.executeQuery("SELECT MAX(id) FROM patient;");
 
-            if(resultSet.next()){
-                System.out.println((int)(resultSet.getInt(1)) + "asdfasdf");
-                return (int)(resultSet.getInt(1));
+            if (resultSet.next()) {
+                System.out.println((int) (resultSet.getInt(1)) + "asdfasdf");
+                return (int) (resultSet.getInt(1));
             }
 
         } catch (SQLException e) {
@@ -137,7 +126,8 @@ public class DatabaseConnection {
                 Date next_appointment = resultSet.getDate("next_appointment");
                 Double refresh_rate = resultSet.getDouble("refresh_rate");
 
-                resList.add(new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic,((java.sql.Date) next_appointment).toLocalDate()));
+                resList.add(new Patient(fname, sname, ((java.sql.Date) dob).toLocalDate(), vnumber, local_clinic,
+                        ((java.sql.Date) next_appointment).toLocalDate()));
             }
 
         } catch (SQLException e) {
@@ -226,7 +216,7 @@ public class DatabaseConnection {
                 String email = resultSet.getString("email");
                 String password = resultSet.getString("password");
 
-                resList.add(new User(username,email,password));
+                resList.add(new User(username, email, password));
             }
 
         } catch (SQLException e) {
@@ -246,13 +236,12 @@ public class DatabaseConnection {
     public static void inputNewUser(User user) {
         String command = null;
         try {
-            command = "INSERT INTO user " +
-                    "VALUES(\'" + user.getUsername() + "\', \'" + user.getEmail() + "\', \'" + (new PasswordHash()).createHash(user.getPassword()) + "\' , \'" + 0 + "\' );";
+            command = "INSERT INTO user " + "VALUES(\'" + user.getUsername() + "\', \'" + user.getEmail() + "\', \'"
+                    + (new PasswordHash()).createHash(user.getPassword()) + "\' , \'" + 0 + "\' );";
 
             System.out.println(command);
 
             execute(command);
-
 
         } catch (NoSuchAlgorithmException e) {
             e.printStackTrace();

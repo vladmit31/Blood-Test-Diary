@@ -1,25 +1,17 @@
 package seg.major.controller;
 
-
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import seg.major.App;
-import seg.major.database.DatabaseConnection;
 import seg.major.model.LoginModel;
 import seg.major.controller.PrimaryController;
 
-import seg.major.structure.User;
-
 import javax.swing.*;
-import java.io.IOException;
 
 public class LoginController implements Initializable, ViewsController {
 
@@ -43,15 +35,14 @@ public class LoginController implements Initializable, ViewsController {
             if (LoginModel.validateUser(username.getText(), password.getText())) {
                 primaryController.setPane(App.schema);
             } else {
-                JOptionPane.showMessageDialog(null,
-                        "Invalid credentials", "Wrong username/password", JOptionPane.NO_OPTION);
+                JOptionPane.showMessageDialog(null, "Invalid credentials", "Wrong username/password",
+                        JOptionPane.NO_OPTION);
             }
         } else {
-            JOptionPane.showMessageDialog(null,
-                    "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-      
+
     /** ---------- FXML ---------- */
 
     /** ---------- Inherited / Implemented ---------- */
@@ -72,5 +63,4 @@ public class LoginController implements Initializable, ViewsController {
     }
     /** ---------- Inherited / Implemented ---------- */
 
-    
 }
