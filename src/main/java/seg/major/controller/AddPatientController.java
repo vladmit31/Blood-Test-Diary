@@ -1,5 +1,8 @@
 package seg.major.controller;
 
+import java.util.ResourceBundle;
+import java.net.URL;
+import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
@@ -9,10 +12,15 @@ import seg.major.database.DatabaseConnection;
 import seg.major.model.AddPatientModel;
 import seg.major.structure.Patient;
 
-import javax.swing.*;
+/**
+ * AddPatientController acts as the controller for the add_patient.fxml file
+ */
+public class AddPatientController implements Initializable, ViewsController {
 
-public class AddPatientController {
+  private PrimaryController primaryController;
 
+  /** ---------- FXML ---------- */
+  
     @FXML
     private TextField forenameField;
 
@@ -39,23 +47,11 @@ public class AddPatientController {
 
     private AddPatientModel model;
 
-    @FXML
-    public void initialize() {
-        model = new AddPatientModel();
-    }
-
-    @FXML
+  /** ---------- FXML ---------- */
+  
+  @FXML
     public void submit()
     {
-        /*
-        System.out.println(forenameField.getText());
-        System.out.println(surnameField.getText());
-        System.out.println(dobField.getValue());
-        System.out.println(hospitalField.getText());
-        System.out.println(clinicField.getText());
-        System.out.println(nextAppField.getValue());
-        */
-
         if(checkUserInput()) {
             Patient newPatient = model.createPatient(forenameField.getText(), surnameField.getText(),
                     dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
@@ -71,9 +67,8 @@ public class AddPatientController {
                     "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
-
-    @FXML
+  
+   @FXML
     public void cancel(){
         // TODO: Link back to the patient panel
         Stage stage = (Stage) cancelButton.getScene().getWindow();
@@ -86,4 +81,22 @@ public class AddPatientController {
                 !hospitalField.getText().equals("") && !clinicField.getText().equals("") &&  nextAppField.getValue()!=null;
     }
 
+  /** ---------- Inherited / Implemented ---------- */
+  /**
+   * Allow javafx to initalise the controller with the view
+   */
+  public void initialize(URL url, ResourceBundle rb) {
+    model = new AddPatientModel();
+  }
+
+  /**
+   * Set the primaryController
+   * 
+   * @param primaryController the PrimaryController to set
+   */
+  public void setScreenParent(PrimaryController primaryController) {
+    this.primaryController = primaryController;
+  }
+  /** ---------- Inherited / Implemented ---------- */
+ 
 }

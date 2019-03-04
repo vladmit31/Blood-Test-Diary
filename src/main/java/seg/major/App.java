@@ -3,25 +3,36 @@
  */
 package seg.major;
 
-import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.application.Application;
+import javafx.scene.*;
+import seg.major.controller.PrimaryController;
 
 public class App extends Application {
-    public String getGreeting() {
-        return "Hello world.";
-    }
+
+    // Name of the view that is shown on first loading the application
+    public static String login = "login";
+    public static String addPatient = "add_patient";
+    public static String patients = "patients";
+    public static String schema = "schema";
 
     public static void main(String[] args) {
+        System.out.println("App Started!");
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("/views/login.fxml"));
-        primaryStage.setScene(new Scene(root, 400,400));
+        PrimaryController primaryController = new PrimaryController();
+        primaryController.addViews(new String[] { login, addPatient, patients, schema });
+        primaryController.setPane(App.login);
+
+        Group root = new Group();
+        root.getChildren().addAll(primaryController);
+        Scene scene = new Scene(root);
+        primaryStage.setScene(scene);
+        primaryStage.minWidthProperty().bind(primaryController.minWidthProperty());
+        primaryStage.minHeightProperty().bind(primaryController.minHeightProperty());
         primaryStage.show();
     }
 }
