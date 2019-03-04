@@ -12,6 +12,8 @@ import seg.major.database.DatabaseConnection;
 import seg.major.model.AddPatientModel;
 import seg.major.structure.Patient;
 
+import javax.swing.*;
+
 /**
  * AddPatientController acts as the controller for the add_patient.fxml file
  */
@@ -59,8 +61,6 @@ public class AddPatientController implements Initializable, ViewsController {
             System.out.println(newPatient);
 
             DatabaseConnection.insertPatient(newPatient);
-            /*System.out.println(newPatient);
-            return newPatient;*/
         }
         else{
             JOptionPane.showMessageDialog(null,
