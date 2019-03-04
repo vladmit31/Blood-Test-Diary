@@ -70,16 +70,13 @@ public class PrimaryController extends StackPane {
    * @return was the operation successful?
    */
   public boolean setPane(String name) {
-    VBox n;
-    if (panes.get(name) != null) {
-      n = (VBox) panes.get(name);
+    VBox n = (VBox) panes.get(name);
+    if (n != null) {
       if (!getChildren().isEmpty()) {
         getChildren().remove(0);
         getChildren().add(0, n);
-
       } else {
         getChildren().add(n);
-
       }
       setMinSize(n.prefWidth(-1), n.prefHeight(-1));
       return true;
