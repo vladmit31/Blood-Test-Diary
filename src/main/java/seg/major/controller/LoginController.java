@@ -11,8 +11,10 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
 import javafx.stage.Stage;
+import seg.major.App;
 import seg.major.database.DatabaseConnection;
 import seg.major.model.LoginModel;
+import seg.major.controller.PrimaryController;
 
 import seg.major.structure.User;
 
@@ -20,6 +22,9 @@ import javax.swing.*;
 import java.io.IOException;
 
 public class LoginController implements Initializable, ViewsController {
+
+    private PrimaryController primaryController;
+
     @FXML
     public TextField username;
     @FXML
@@ -33,19 +38,19 @@ public class LoginController implements Initializable, ViewsController {
      * @param e click event
      */
     @FXML
-    public void loginBtn(ActionEvent e) {
-        if(!username.getText().equals("") && !password.getText().equals("")) {
-            if(LoginModel.validateUser(username.getText(), password.getText())) {
+    public void loginBtn() {
+        if (!username.getText().equals("") && !password.getText().equals("")) {
+            if (LoginModel.validateUser(username.getText(), password.getText())) {
                 primaryController.setPane(App.schema);
-            }else {
+            } else {
                 JOptionPane.showMessageDialog(null,
                         "Invalid credentials", "Wrong username/password", JOptionPane.NO_OPTION);
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(null,
                     "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
         }
+    }
       
     /** ---------- FXML ---------- */
 
@@ -54,6 +59,7 @@ public class LoginController implements Initializable, ViewsController {
      * Allow javafx to initalise the controller with the view
      */
     public void initialize(URL url, ResourceBundle rb) {
+
     }
 
     /**
