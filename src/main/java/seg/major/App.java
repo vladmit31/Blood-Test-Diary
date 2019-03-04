@@ -5,8 +5,10 @@ package seg.major;
 
 import javafx.stage.Stage;
 import javafx.application.Application;
-import javafx.scene.*;
+import javafx.scene.Scene;
+import javafx.scene.Group;
 import seg.major.controller.PrimaryController;
+import seg.major.model.Props;
 
 public class App extends Application {
 
@@ -16,20 +18,23 @@ public class App extends Application {
     public static String patients = "patients";
     public static String schema = "schema";
 
+    public static String propertiesLocation = "props.properties";
+
     public static void main(String[] args) {
         System.out.println("App Started!");
+        System.out.println(new Props(App.class.getClassLoader().getResource(propertiesLocation)).getAllProperties());
         launch(args);
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         PrimaryController primaryController = new PrimaryController();
+        Group root = new Group();
+        Scene scene = new Scene(root);
+
         primaryController.addViews(new String[] { login, addPatient, patients, schema });
         primaryController.setPane(App.login);
-
-        Group root = new Group();
         root.getChildren().addAll(primaryController);
-        Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.minWidthProperty().bind(primaryController.minWidthProperty());
         primaryStage.minHeightProperty().bind(primaryController.minHeightProperty());
