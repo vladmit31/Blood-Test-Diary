@@ -260,18 +260,4 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-/*
-    public static void main(String[] args) {
-        List<Patient> obj = getPatients();
-        System.out.println();
-        for (Patient p : obj) {
-            System.out.println(p.getForename());
-            System.out.println(p.getSurname());
-            System.out.println(p.getDob());
-            System.out.println(p.getHospitalNumber());
-            System.out.println(p.getLocalClinic());
-            System.out.println(p.getNextAppointment());
-            System.out.println();
-        }
-    }*/
 }
