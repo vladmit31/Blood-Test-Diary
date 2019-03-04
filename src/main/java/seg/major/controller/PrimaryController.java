@@ -37,7 +37,7 @@ public class PrimaryController extends StackPane {
   /**
    * Loads a view from the views resource folder
    * 
-   * @param toAdd array of names of views to add
+   * @param toLoad array of names of views to add
    * @return the loadedNode
    */
   private Node loadView(String toLoad) {
