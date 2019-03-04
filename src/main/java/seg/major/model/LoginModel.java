@@ -1,35 +1,32 @@
 package seg.major.model;
 
+import com.ja.security.PasswordHash;
+import seg.major.database.DatabaseConnection;
+import seg.major.structure.User;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
+
 public class LoginModel {
-    // username = root，password = admin
-    public static boolean validateLogin(String username, String password) {
-        if(validateUsername(username) && validatePassword(password)) {
-            return true;
-        }
+
+    public static boolean validateUser(String username, String password) {
+
+        PasswordHash ph = new PasswordHash();
+
+        User toValidate = DatabaseConnection.getUserByUsername(username);
+
+        if(toValidate == null) {
             return false;
-    }
-    private static boolean validateUsername(String username) {
-        if(!NullOrEmpty(username)) {
-            if(username.equals("root")) {
-                return true;
-            }
         }
-        return false;
-    }
 
-    private static boolean validatePassword(String password) {
-        if(!NullOrEmpty(password)) {
-            if(password.equals("admin")) {
-                return true;
-            }
+        try {
+            return ph.validatePassword(password, toValidate.getPassword());
+        } catch (NoSuchAlgorithmException e) {
+            e.printStackTrace();
+        } catch (InvalidKeySpecException e) {
+            e.printStackTrace();
         }
-        return false;
-    }
 
-    private static boolean NullOrEmpty(String str) {
-        if(str == null || str.isEmpty()) {
-            return true;
-        }
         return false;
     }
 }

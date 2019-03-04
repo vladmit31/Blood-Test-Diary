@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import java.net.URL;
@@ -8,24 +9,21 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.stage.Stage;
+import seg.major.database.DatabaseConnection;
 import seg.major.model.LoginModel;
-import seg.major.App;
 
-/**
- * LoginController acts as the controller for the login.fxml file
- */
+import seg.major.structure.User;
+
+import javax.swing.*;
+import java.io.IOException;
+
 public class LoginController implements Initializable, ViewsController {
-
-    public static LoginModel loginModel;
-    private PrimaryController primaryController;
-
-    /** ---------- FXML ---------- */
     @FXML
     public TextField username;
     @FXML
-    public Button login_button;
-    @FXML
-    public Button register_button;
+    public Button loginButton;
     @FXML
     public PasswordField password;
 
@@ -35,25 +33,20 @@ public class LoginController implements Initializable, ViewsController {
      * @param e click event
      */
     @FXML
-    private void loginBtn(ActionEvent e) {
-        if (LoginModel.validateLogin(username.getText(), password.getText()) == true) {
-            primaryController.setPane(App.schema);
+    public void loginBtn(ActionEvent e) {
+        if(!username.getText().equals("") && !password.getText().equals("")) {
+            if(LoginModel.validateUser(username.getText(), password.getText())) {
+                primaryController.setPane(App.schema);
+            }else {
+                JOptionPane.showMessageDialog(null,
+                        "Invalid credentials", "Wrong username/password", JOptionPane.NO_OPTION);
+            }
         }
-        primaryController.setPane(App.schema);
-    }
-
-    /**
-     * The register button was clicked, so load the register staff view
-     * 
-     * TODO Create staff registration view and controller
-     * 
-     * @param e click event
-     */
-    @FXML
-    public void registerBtn(ActionEvent e) {
-
-    }
-
+        else{
+            JOptionPane.showMessageDialog(null,
+                    "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+      
     /** ---------- FXML ---------- */
 
     /** ---------- Inherited / Implemented ---------- */
@@ -73,4 +66,5 @@ public class LoginController implements Initializable, ViewsController {
     }
     /** ---------- Inherited / Implemented ---------- */
 
+    
 }

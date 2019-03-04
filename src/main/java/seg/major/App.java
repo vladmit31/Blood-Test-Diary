@@ -23,7 +23,6 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-
         PrimaryController primaryController = new PrimaryController();
         primaryController.addViews(new String[] { login, addPatient, patients, schema });
         primaryController.setPane(App.login);
@@ -35,6 +34,5 @@ public class App extends Application {
         primaryStage.minWidthProperty().bind(primaryController.minWidthProperty());
         primaryStage.minHeightProperty().bind(primaryController.minHeightProperty());
         primaryStage.show();
-
     }
 }
