@@ -137,7 +137,11 @@ public class DatabaseConnection {
                 Date next_appointment = resultSet.getDate("next_appointment");
                 Double refresh_rate = resultSet.getDouble("refresh_rate");
 
-                resList.add(new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic,((java.sql.Date) next_appointment).toLocalDate()));
+                Patient newPatient = new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic,((java.sql.Date) next_appointment).toLocalDate());
+
+                newPatient.setId(id);
+
+                resList.add(newPatient);
             }
 
         } catch (SQLException e) {
@@ -259,5 +263,18 @@ public class DatabaseConnection {
         } catch (InvalidKeySpecException e) {
             e.printStackTrace();
         }
+    }
+    public static void updatePatientData(Patient toBeUpdated){
+        String command = null;
+
+            command = "UPDATE patient SET vnumber=\'"+toBeUpdated.getHospitalNumber()+"\' ,"+
+                                              "fname=\'"+toBeUpdated.getForename()+"\' ,"+
+                                                "sname=\'"+toBeUpdated.getSurname()+"\' ,"+
+                                                 "dob=\'"+toBeUpdated.getDob()+"\' ,"+
+                                                    "local_clinic=\'"+toBeUpdated.getLocalClinic()+"\' ,"+
+                                                    "next_appointment=\'"+toBeUpdated.getNextAppointment()+"\'"+"WHERE id=" + 1;
+            System.out.println(command);
+
+            execute(command);
     }
 }
