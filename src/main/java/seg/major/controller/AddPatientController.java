@@ -58,8 +58,6 @@ public class AddPatientController implements Initializable, ViewsController {
             Patient newPatient = model.createPatient(forenameField.getText(), surnameField.getText(),
                     dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
 
-            System.out.println(newPatient);
-
             DatabaseConnection.insertPatient(newPatient);
         }
         else{

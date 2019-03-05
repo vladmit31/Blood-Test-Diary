@@ -13,8 +13,10 @@ public class App extends Application {
     // Name of the view that is shown on first loading the application
     public static String login = "login";
     public static String addPatient = "add_patient";
+    public static String updatePatient = "update_patient";
     public static String patients = "patients";
     public static String schema = "schema";
+
 
     public static void main(String[] args) {
         System.out.println("App Started!");
@@ -24,7 +26,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         PrimaryController primaryController = new PrimaryController();
-        primaryController.addViews(new String[] { login, addPatient, patients, schema });
+        primaryController.addViews(new String[] { login, addPatient, patients, schema, updatePatient });
         primaryController.setPane(App.login);
 
         Group root = new Group();
