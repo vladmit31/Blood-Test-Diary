@@ -2,24 +2,16 @@ package seg.major.controller;
 
 
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
-import javafx.stage.Stage;
 import seg.major.App;
-import seg.major.database.DatabaseConnection;
 import seg.major.model.LoginModel;
-import seg.major.controller.PrimaryController;
-
-import seg.major.structure.User;
-
 import javax.swing.*;
-import java.io.IOException;
+
 
 public class LoginController implements Initializable, ViewsController {
 
