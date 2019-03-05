@@ -6,15 +6,11 @@ import java.time.LocalDate;
 
 public class UpdatePatientModel {
 
-    public UpdatePatientModel(){
-
-    }
+    public UpdatePatientModel(){}
 
     public Patient updatePatient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment)
     {
-        Patient patient = new Patient(forename, surname, dob, hospitalNumber, localClinic, nextAppointment);
-        return patient;
-
+        return new Patient(forename, surname, dob, hospitalNumber, localClinic, nextAppointment);
     }
 
 }
