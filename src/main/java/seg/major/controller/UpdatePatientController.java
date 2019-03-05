@@ -62,8 +62,7 @@ public class UpdatePatientController implements Initializable, ViewsController {
             Patient newPatient = model.updatePatient(forenameField.getText(), surnameField.getText(),
                     dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
 
-            //DatabaseConnection.insertPatient(newPatient);
-            // need to create updatePatient() method in DatabaseConnection class
+            DatabaseConnection.updatePatientData(newPatient);
         }
         else{
             JOptionPane.showMessageDialog(null,
@@ -93,6 +92,15 @@ public class UpdatePatientController implements Initializable, ViewsController {
         TitleText.setText("Update patient data: " /* +rb.getString()*/);
 
     }
+
+    /*public void passPatient(Patient p) {
+        forenameField.setText(p.getForename());
+        surnameField.setText(p.getSurname());
+        dobField.setValue(p.getDob());
+        hospitalField.setText(p.getHospitalNumber());
+        clinicField.setText(p.getLocalClinic());
+        nextAppField.setValue(p.getNextAppointment());
+    } */
 
     /**
      * Set the primaryController
