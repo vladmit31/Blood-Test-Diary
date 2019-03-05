@@ -1,10 +1,8 @@
 package seg.major.controller;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.MouseButton;
 import seg.major.model.PatientLookupModel;
 
 import seg.major.structure.Patient;
@@ -28,13 +26,36 @@ public class PatientLookupController {
     public void initialize() {
         this.patientModel = new PatientLookupModel();
         patientModel.fetchData();
-        setColumns();
-        setButtons();
-        fillTable(patientModel.under12());
-        under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+        setupTable();
+        setupButtons();
     }
 
-    private void setColumns(){
+    private void setupTable() {
+        setupColumns();
+        setupRows();
+        fillTable(patientModel.under12());
+        under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+        patientTable.setPlaceholder(new Label("No patients found"));
+    }
+
+    private void setupRows() {
+        patientTable.setRowFactory(t -> {
+            TableRow<Patient> row = new TableRow<>();
+            row.setOnMouseClicked(click -> {
+                if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
+                    Patient patient = row.getItem();
+                    viewPatient(patient);
+                }
+            });
+            return row;
+        });
+    }
+
+    private void viewPatient(Patient patient){
+        System.out.println(patient.getForename() + " " + patient.getSurname());
+    }
+
+    private void setupColumns(){
         forename.setCellValueFactory(new PropertyValueFactory("forename"));
         surname.setCellValueFactory(new PropertyValueFactory("surname"));
         hospitalNumber.setCellValueFactory(new PropertyValueFactory("hospitalNumber"));
@@ -42,15 +63,15 @@ public class PatientLookupController {
         nextAppointment.setCellValueFactory(new PropertyValueFactory("nextAppointment"));
     }
 
-    private void setButtons() {
+    private void setupButtons() {
         under12Button.setOnAction(e -> {
             under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
             over12Button.setStyle(null);
             fillTable(patientModel.under12());
         });
         over12Button.setOnAction(e -> {
-            under12Button.setStyle(null);
             over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+            under12Button.setStyle(null);
             fillTable(patientModel.over12());
         });
         searchButton.setOnAction(e -> {
