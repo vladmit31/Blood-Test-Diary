@@ -1,6 +1,6 @@
 package seg.major.controller;
 
-import java.util.HashMap;
+import java.util.Map;
 
 /**
  * Interface to allow all view controllers to share the PrimaryController
@@ -8,6 +8,6 @@ import java.util.HashMap;
 public interface ControllerInterface {
   public void setScreenParent(PrimaryController primaryController);
 
-  public void setData(HashMap<String, String[]> toInject);
+  public void setData(Map<String, String[]> toInject);
 
 }

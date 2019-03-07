@@ -1,6 +1,6 @@
 package seg.major.controller;
 
-import java.util.HashMap;
+import java.util.Map;
 import java.util.ResourceBundle;
 import java.net.URL;
 import javafx.fxml.FXML;
@@ -17,7 +17,7 @@ import javax.swing.*;
 public class LoginController implements Initializable, ControllerInterface {
 
     private PrimaryController primaryController;
-    private HashMap<String, String[]> data;
+    private Map<String, String[]> data;
 
     /** ---------- FXML ---------- */
     @FXML
@@ -70,7 +70,7 @@ public class LoginController implements Initializable, ControllerInterface {
      * 
      * @param data the data to set
      */
-    public void setData(HashMap<String, String[]> data) {
+    public void setData(Map<String, String[]> data) {
         this.data = data;
     }
     /** ---------- Inherited / Implemented ---------- */

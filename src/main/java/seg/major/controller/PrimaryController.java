@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import java.util.Map;
 import java.util.HashMap;
 
 /**
@@ -17,7 +18,7 @@ import java.util.HashMap;
  */
 public class PrimaryController extends StackPane {
 
-  private HashMap<String, Node> panes = new HashMap<>();
+  private Map<String, Node> panes = new HashMap<>();
 
   public PrimaryController() {
     super();
@@ -119,7 +120,7 @@ public class PrimaryController extends StackPane {
     }
   }
 
-  private void injectData(HashMap<String, String[]> toInject, ControllerInterface target) {
+  private void injectData(Map<String, String[]> toInject, ControllerInterface target) {
     target.setData(toInject);
   }
 }
