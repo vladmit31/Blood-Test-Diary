@@ -11,20 +11,6 @@ public class PatientDAO implements DAOInterface<Patient> {
     }
 
     /** ---------- Inherited / Implemented ---------- */
-    /**
-     * Execute a command through the data source
-     * 
-     * @param command the command to be executed
-     */
-    public void execute(String command) {
-    };
-
-    /**
-     * @return how many records are stored
-     */
-    public int size() {
-        return 0;
-    };
 
     /**
      * Lookup a record by ID
@@ -33,7 +19,7 @@ public class PatientDAO implements DAOInterface<Patient> {
      */
     public Patient getById(int toGet) {
         return null;
-    };
+    }
 
     /**
      * Remove a record by ID
@@ -41,13 +27,13 @@ public class PatientDAO implements DAOInterface<Patient> {
      * @param toGet the ID to remove
      */
     public void removeById(int toRemove) {
-    };
+    }
 
     /**
      * @param toCreate the patient to create as a record
      */
     public void create(Patient toCreate) {
-    };
+    }
 
     /**
      * @param toGet the ID of the record
@@ -55,7 +41,7 @@ public class PatientDAO implements DAOInterface<Patient> {
      */
     public Patient get(int toGet) {
         return null;
-    };
+    }
 
     /**
      * @param toUpdate the patient to update
@@ -75,7 +61,7 @@ public class PatientDAO implements DAOInterface<Patient> {
      */
     public Patient get(Map<String, String> toGet) {
         return null;
-    };
+    }
 
     /** ---------- Inherited / Implemented ---------- */
 
