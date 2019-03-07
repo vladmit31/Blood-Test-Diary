@@ -10,6 +10,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import seg.major.App;
 import seg.major.model.LoginModel;
+import seg.major.structure.User;
+
 import javax.swing.*;
 
 
@@ -33,7 +35,15 @@ public class LoginController implements Initializable, ViewsController {
     public void loginBtn() {
         if (!username.getText().equals("") && !password.getText().equals("")) {
             if (LoginModel.validateUser(username.getText(), password.getText())) {
+                User userAuthenticated = new User(username.getText(),null,password.getText());
+
+                SchemaController sc = (SchemaController) primaryController.getControllerByName(App.schema);
+
+                sc.setData(userAuthenticated);
+
                 primaryController.setPane(App.schema);
+
+                sc.setAuthenticatedUser();
             } else {
                 JOptionPane.showMessageDialog(null,
                         "Invalid credentials", "Wrong username/password", JOptionPane.NO_OPTION);
