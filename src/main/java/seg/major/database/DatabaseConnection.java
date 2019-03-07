@@ -272,7 +272,7 @@ public class DatabaseConnection {
                                                 "sname=\'"+toBeUpdated.getSurname()+"\' ,"+
                                                  "dob=\'"+toBeUpdated.getDob()+"\' ,"+
                                                     "local_clinic=\'"+toBeUpdated.getLocalClinic()+"\' ,"+
-                                                    "next_appointment=\'"+toBeUpdated.getNextAppointment()+"\'"+"WHERE id=" + 1;
+                                                    "next_appointment=\'"+toBeUpdated.getNextAppointment()+"\'"+"WHERE id=" + toBeUpdated.getId();
             System.out.println(command);
 
             execute(command);
