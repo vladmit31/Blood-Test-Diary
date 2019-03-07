@@ -23,10 +23,6 @@ public class App extends Application {
     public static void main(String[] args) {
         System.out.println("App Started!");
         props = new Props(App.class.getClassLoader().getResource(propertiesLocation));
-        System.out.println(props.getProperty("db_url"));
-        System.out.println(props.getProperty("db_user"));
-        System.out.println(props.getProperty("db_password"));
-        System.out.println(props.getProperty("db_name"));
         launch(args);
     }
 
