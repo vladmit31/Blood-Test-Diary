@@ -1,21 +1,27 @@
 package seg.major.model;
 
 import com.ja.security.PasswordHash;
-import seg.major.database.DatabaseConnection;
 import seg.major.structure.User;
-
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 
 public class LoginModel {
 
-    public static boolean validateUser(String username, String password) {
+    public LoginModel() {
+    }
+
+    /**
+     * Attempt to validate a login attempt with username and password
+     * 
+     * @return true if the user was correctly logged in
+     */
+    public static boolean validateLogin(String username, String password) {
 
         PasswordHash ph = new PasswordHash();
 
-        User toValidate = DatabaseConnection.getUserByUsername(username);
+        User toValidate = UserDAO.getByUsername(username);
 
-        if(toValidate == null) {
+        if (toValidate == null) {
             return false;
         }
 
@@ -29,4 +35,5 @@ public class LoginModel {
 
         return false;
     }
+
 }
