@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.net.URL;
 import javafx.fxml.Initializable;
@@ -7,9 +8,10 @@ import javafx.fxml.Initializable;
 /**
  * SchemaController acts as the controller for the schema.fxml file
  */
-public class SchemaController implements Initializable, ViewsController {
+public class SchemaController implements Initializable, ControllerInterface {
 
   private PrimaryController primaryController;
+  private HashMap<String, String[]> data;
 
   /** ---------- FXML ---------- */
 
@@ -29,6 +31,15 @@ public class SchemaController implements Initializable, ViewsController {
    */
   public void setScreenParent(PrimaryController primaryController) {
     this.primaryController = primaryController;
+  }
+
+  /**
+   * Set the data
+   * 
+   * @param data the data to set
+   */
+  public void setData(HashMap<String, String[]> data) {
+    this.data = data;
   }
   /** ---------- Inherited / Implemented ---------- */
 
