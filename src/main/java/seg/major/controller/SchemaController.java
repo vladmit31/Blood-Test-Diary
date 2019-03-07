@@ -3,7 +3,10 @@ package seg.major.controller;
 import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.net.URL;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import seg.major.App;
 
 /**
  * SchemaController acts as the controller for the schema.fxml file
@@ -14,6 +17,18 @@ public class SchemaController implements Initializable, ControllerInterface {
   private HashMap<String, String[]> data;
 
   /** ---------- FXML ---------- */
+  @FXML
+  public Button logout;
+
+  /**
+   * The login button was clicked, so load the patient schema view
+   * 
+   * @param e click event
+   */
+  @FXML
+  public void logoutBtn() {
+    primaryController.setPane(App.login);
+  }
 
   /** ---------- FXML ---------- */
 
