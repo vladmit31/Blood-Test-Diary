@@ -8,6 +8,7 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import seg.major.controller.PrimaryController;
+import seg.major.model.util.Props;
 
 public class App extends Application {
 
@@ -16,11 +17,16 @@ public class App extends Application {
     public static String addPatient = "add_patient";
     public static String patients = "patients";
     public static String schema = "schema";
-
     public static String propertiesLocation = "props.properties";
+    public static Props props;
 
     public static void main(String[] args) {
         System.out.println("App Started!");
+        props = new Props(App.class.getClassLoader().getResource(propertiesLocation));
+        System.out.println(props.getProperty("db_url"));
+        System.out.println(props.getProperty("db_user"));
+        System.out.println(props.getProperty("db_password"));
+        System.out.println(props.getProperty("db_name"));
         launch(args);
     }
 
