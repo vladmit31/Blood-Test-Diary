@@ -35,6 +35,15 @@ public class PrimaryController extends StackPane {
   }
 
   /**
+   * Add a view from the views folder to the controller
+   * 
+   * @param toAdd view to add
+   */
+  public void addView(String toAdd) {
+    addPane(toAdd, loadView(toAdd));
+  }
+
+  /**
    * Loads a view from the views resource folder
    * 
    * @param toAdd array of names of views to add
@@ -44,7 +53,7 @@ public class PrimaryController extends StackPane {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/" + toLoad + ".fxml"));
       Parent toReturn = (Parent) loader.load();
-      ViewsController vc = ((ViewsController) loader.getController());
+      ControllerInterface vc = ((ControllerInterface) loader.getController());
       vc.setScreenParent(this);
       return toReturn;
     } catch (Exception e) {
@@ -84,5 +93,33 @@ public class PrimaryController extends StackPane {
       System.out.println("screen hasn't been loaded!!! \n");
       return false;
     }
+  }
+
+  /**
+   * Adds a pane to the controller
+   * 
+   * @param name name of the pane to set
+   * @return was the operation successful?
+   */
+  public boolean setPane(String name, HashMap<String, String[]> toInject) {
+    VBox n = (VBox) panes.get(name);
+    if (n != null) {
+      injectData(toInject, (ControllerInterface) n);
+      if (!getChildren().isEmpty()) {
+        getChildren().remove(0);
+        getChildren().add(0, n);
+      } else {
+        getChildren().add(n);
+      }
+      setMinSize(n.prefWidth(-1), n.prefHeight(-1));
+      return true;
+    } else {
+      System.out.println("screen hasn't been loaded!!! \n");
+      return false;
+    }
+  }
+
+  private void injectData(HashMap<String, String[]> toInject, ControllerInterface target) {
+    target.setData(toInject);
   }
 }
