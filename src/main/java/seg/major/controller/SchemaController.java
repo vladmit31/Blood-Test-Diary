@@ -127,4 +127,8 @@ public class SchemaController implements Initializable, ViewsController {
     public void logout(ActionEvent event) {
       primaryController.setPane(App.login);
     }
+
+    public void switchToPatients(ActionEvent event) {
+      primaryController.setPane(App.patients);
+    }
 }

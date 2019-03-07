@@ -23,7 +23,7 @@
                 <Menu mnemonicParsing="false" text="Menu">
                     <items>
                         <MenuItem mnemonicParsing="false" text="Add a new appointment" />
-                        <MenuItem fx:id="menuPatientsInfo" mnemonicParsing="false" text="Switch to Patient Info" />
+                        <MenuItem fx:id="menuPatientsInfo" mnemonicParsing="false" onAction="#switchToPatients" text="Switch to Patient Info" />
                         <MenuItem fx:id="menuExit" mnemonicParsing="false" text="Exit" />
                     </items></Menu>
             </menus>
