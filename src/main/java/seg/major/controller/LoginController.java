@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import java.util.HashMap;
 import java.util.ResourceBundle;
 import java.net.URL;
 import javafx.fxml.FXML;
@@ -13,10 +14,12 @@ import seg.major.controller.PrimaryController;
 
 import javax.swing.*;
 
-public class LoginController implements Initializable, ViewsController {
+public class LoginController implements Initializable, ControllerInterface {
 
     private PrimaryController primaryController;
+    private HashMap<String, String[]> data;
 
+    /** ---------- FXML ---------- */
     @FXML
     public TextField username;
     @FXML
@@ -32,7 +35,7 @@ public class LoginController implements Initializable, ViewsController {
     @FXML
     public void loginBtn() {
         if (!username.getText().equals("") && !password.getText().equals("")) {
-            if (LoginModel.validateUser(username.getText(), password.getText())) {
+            if (LoginModel.validateLogin(username.getText(), password.getText())) {
                 primaryController.setPane(App.schema);
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid credentials", "Wrong username/password",
@@ -60,6 +63,15 @@ public class LoginController implements Initializable, ViewsController {
      */
     public void setScreenParent(PrimaryController primaryController) {
         this.primaryController = primaryController;
+    }
+
+    /**
+     * Set the data
+     * 
+     * @param data the data to set
+     */
+    public void setData(HashMap<String, String[]> data) {
+        this.data = data;
     }
     /** ---------- Inherited / Implemented ---------- */
 
