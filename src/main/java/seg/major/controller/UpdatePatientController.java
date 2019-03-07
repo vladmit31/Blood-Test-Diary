@@ -7,6 +7,7 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import seg.major.App;
 import seg.major.database.DatabaseConnection;
 import seg.major.model.UpdatePatientModel;
 import seg.major.structure.Patient;
@@ -21,6 +22,8 @@ import java.util.ResourceBundle;
 public class UpdatePatientController implements Initializable, ViewsController {
 
     private PrimaryController primaryController;
+
+    private Object data;
 
     /** ---------- FXML ---------- */
 
@@ -62,6 +65,10 @@ public class UpdatePatientController implements Initializable, ViewsController {
             Patient newPatient = model.updatePatient(forenameField.getText(), surnameField.getText(),
                     dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
 
+
+
+            newPatient.setId(((Patient) data).getId());
+
             DatabaseConnection.updatePatientData(newPatient);
         }
         else{
@@ -73,9 +80,7 @@ public class UpdatePatientController implements Initializable, ViewsController {
     @FXML
     public void cancel(){
         // TODO: Link back to the patient panel
-        Stage stage = (Stage) cancelButton.getScene().getWindow();
-
-        stage.close();
+        primaryController.setPane(App.patients);
     }
 
     private boolean checkUserInput() {
@@ -89,18 +94,26 @@ public class UpdatePatientController implements Initializable, ViewsController {
      */
     public void initialize(URL url, ResourceBundle rb) {
         model = new UpdatePatientModel();
-        TitleText.setText("Update patient data: " /* +rb.getString()*/);
 
     }
 
-    /*public void passPatient(Patient p) {
+    public void setUp() {
+        Patient p = (Patient) data;
+        if(data == null) {
+            return;
+        }
+        TitleText.setText("Update patient data: " + p.getForename() + " " + p.getSurname());
+        passPatient(p);
+    }
+
+    public void passPatient(Patient p) {
         forenameField.setText(p.getForename());
         surnameField.setText(p.getSurname());
         dobField.setValue(p.getDob());
         hospitalField.setText(p.getHospitalNumber());
         clinicField.setText(p.getLocalClinic());
         nextAppField.setValue(p.getNextAppointment());
-    } */
+    }
 
     /**
      * Set the primaryController
@@ -112,4 +125,7 @@ public class UpdatePatientController implements Initializable, ViewsController {
     }
     /** ---------- Inherited / Implemented ---------- */
 
+    public void setData(Object newData) {
+        data = newData;
+    }
 }

@@ -8,6 +8,7 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import seg.major.App;
 import seg.major.model.PatientsModel;
 import seg.major.structure.Patient;
 
@@ -76,6 +77,11 @@ public class PatientsController implements Initializable, ViewsController {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
           Patient patient = row.getItem();
           viewPatient(patient);
+
+          UpdatePatientController upc = (UpdatePatientController) primaryController.getControllerByName(App.updatePatient);
+          upc.setData(patient);
+          primaryController.setPane(App.updatePatient);
+          upc.setUp();
         }
       });
       return row;
@@ -83,7 +89,7 @@ public class PatientsController implements Initializable, ViewsController {
   }
 
   private void viewPatient(Patient patient){
-    System.out.println(patient.getForename() + " " + patient.getSurname());
+    System.out.println(patient.getId() + " " + patient.getForename() + " " + patient.getSurname());
   }
 
   private void setupColumns(){
