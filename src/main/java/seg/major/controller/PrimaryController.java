@@ -6,6 +6,7 @@ import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import javax.swing.text.View;
 import java.util.HashMap;
 
 /**
@@ -18,6 +19,8 @@ import java.util.HashMap;
 public class PrimaryController extends StackPane {
 
   private HashMap<String, Node> panes = new HashMap<>();
+
+  private HashMap<String, ViewsController> controllers = new HashMap<>();
 
   public PrimaryController() {
     super();
@@ -46,6 +49,7 @@ public class PrimaryController extends StackPane {
       Parent toReturn = (Parent) loader.load();
       ViewsController vc = ((ViewsController) loader.getController());
       vc.setScreenParent(this);
+      controllers.put(toLoad, vc);
       return toReturn;
     } catch (Exception e) {
       e.printStackTrace();
@@ -84,5 +88,9 @@ public class PrimaryController extends StackPane {
       System.out.println("screen hasn't been loaded!!! \n");
       return false;
     }
+  }
+
+  public ViewsController getControllerByName(String schemaName){
+    return controllers.get(schemaName);
   }
 }
