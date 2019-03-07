@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -15,13 +16,13 @@ import seg.major.App;
 public class SchemaController implements Initializable, ControllerInterface {
 
   private PrimaryController primaryController;
-  private Map<String, String[]> data;
+  private Map<String, String> data = new HashMap<>();
 
   /** ---------- FXML ---------- */
   @FXML
   public Button logout;
   @FXML
-  public static Label currentUser;
+  public Label currentUserLabel;
 
   /**
    * The login button was clicked, so load the patient schema view
@@ -35,8 +36,9 @@ public class SchemaController implements Initializable, ControllerInterface {
    * Set the currentUser Text to the user of current user
    */
   @FXML
-  public static void currentUserLabel() {
-
+  public void currentUserLabel(String toSet) {
+    System.out.println(toSet);
+    currentUserLabel.setText(toSet);
   }
 
   /** ---------- FXML ---------- */
@@ -63,10 +65,19 @@ public class SchemaController implements Initializable, ControllerInterface {
    * 
    * @param toSet the data to set
    */
-  public void setData(Map<String, String[]> toSet) {
+  public void setData(Map<String, String> toSet) {
     this.data = toSet;
+  }
+
+  public void addData(String fxID, String toAdd) {
+    System.out.println(fxID + toAdd);
+    data.put(fxID, toAdd);
+    update();
   }
 
   /** ---------- Inherited / Implemented ---------- */
 
+  private void update() {
+    currentUserLabel(data.get("username"));
+  }
 }

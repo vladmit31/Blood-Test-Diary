@@ -17,7 +17,7 @@ import javax.swing.*;
 public class LoginController implements Initializable, ControllerInterface {
 
     private PrimaryController primaryController;
-    private Map<String, String[]> data;
+    private Map<String, String> data;
 
     /** ---------- FXML ---------- */
     @FXML
@@ -37,6 +37,7 @@ public class LoginController implements Initializable, ControllerInterface {
         if (!username.getText().equals("") && !password.getText().equals("")) {
             if (LoginModel.validateLogin(username.getText(), password.getText())) {
                 primaryController.setPane(App.schema);
+                primaryController.sendTo(App.schema, username.getText());
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid credentials", "Wrong username/password",
                         JOptionPane.NO_OPTION);
@@ -70,8 +71,13 @@ public class LoginController implements Initializable, ControllerInterface {
      * 
      * @param data the data to set
      */
-    public void setData(Map<String, String[]> toSet) {
+    public void setData(Map<String, String> toSet) {
         this.data = toSet;
+    }
+
+    @Override
+    public void addData(String fxID, String toAdd) {
+
     }
 
     /** ---------- Inherited / Implemented ---------- */

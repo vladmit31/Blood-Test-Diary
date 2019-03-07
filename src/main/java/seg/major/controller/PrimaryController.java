@@ -19,6 +19,7 @@ import java.util.HashMap;
 public class PrimaryController extends StackPane {
 
   private Map<String, Node> panes = new HashMap<>();
+  private Map<String, ControllerInterface> data = new HashMap<>();
 
   public PrimaryController() {
     super();
@@ -41,7 +42,8 @@ public class PrimaryController extends StackPane {
    * @param toAdd view to add
    */
   public void addView(String toAdd) {
-    addPane(toAdd, loadView(toAdd));
+    Node n = loadView(toAdd);
+    addPane(toAdd, n);
   }
 
   /**
@@ -54,8 +56,10 @@ public class PrimaryController extends StackPane {
     try {
       FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/" + toLoad + ".fxml"));
       Parent toReturn = (Parent) loader.load();
-      ControllerInterface vc = ((ControllerInterface) loader.getController());
-      vc.setScreenParent(this);
+      ControllerInterface ci = ((ControllerInterface) loader.getController());
+      System.out.println("Initalised " + toLoad);
+      ci.setScreenParent(this);
+      data.put(toLoad, ci);
       return toReturn;
     } catch (Exception e) {
       e.printStackTrace();
@@ -93,6 +97,16 @@ public class PrimaryController extends StackPane {
     } else {
       System.out.println("screen hasn't been loaded!!! \n");
       return false;
+    }
+  }
+
+  /**
+   * 
+   */
+  public void sendTo(String toReceive, String toSet) {
+    ControllerInterface ci = data.get(toReceive);
+    if (ci != null) {
+      ci.addData("username", toSet);
     }
   }
 

@@ -8,6 +8,8 @@ import java.util.Map;
 public interface ControllerInterface {
   public void setScreenParent(PrimaryController primaryController);
 
-  public void setData(Map<String, String[]> toInject);
+  public void setData(Map<String, String> toInject);
+
+  public void addData(String fxID, String toAdd);
 
 }

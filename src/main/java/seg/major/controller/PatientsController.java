@@ -11,7 +11,7 @@ import javafx.fxml.Initializable;
 public class PatientsController implements Initializable, ControllerInterface {
 
   private PrimaryController primaryController;
-  private Map<String, String[]> data;
+  private Map<String, String> data;
 
   /** ---------- FXML ---------- */
 
@@ -38,9 +38,14 @@ public class PatientsController implements Initializable, ControllerInterface {
    * 
    * @param data the data to set
    */
-  public void setData(Map<String, String[]> data) {
+  public void setData(Map<String, String> data) {
     this.data = data;
   }
+
   /** ---------- Inherited / Implemented ---------- */
+
+  public void addData(String fxID, String toAdd) {
+
+  }
 
 }
