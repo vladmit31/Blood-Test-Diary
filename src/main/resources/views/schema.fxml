@@ -192,7 +192,7 @@
                                 <FlowPane hgap="4.0" prefHeight="25.0" prefWidth="181.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <Text fx:id="userInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="You logged in as Sarah" />
-                                        <Button fx:id="logoutBtn" mnemonicParsing="false" text="Logout" />
+                                        <Button fx:id="logoutBtn" mnemonicParsing="false" onAction="#logout" text="Logout" />
                                     </children>
                                 </FlowPane>
                             </right>
@@ -211,7 +211,7 @@
                             <left>
                                 <BorderPane BorderPane.alignment="CENTER">
                                     <left>
-                                        <Text fx:id="bottomInfoBtn" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to datasource" BorderPane.alignment="CENTER">
+                                        <Text fx:id="bottomInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to datasource" BorderPane.alignment="CENTER">
                                             <BorderPane.margin>
                                                 <Insets left="6.0" />
                                             </BorderPane.margin>
