@@ -3,6 +3,8 @@ package seg.major.database;
 
 import com.ja.security.PasswordHash;
 import javafx.scene.control.DatePicker;
+import seg.major.App;
+import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.structure.User;
 
@@ -276,5 +278,50 @@ public class DatabaseConnection {
             System.out.println(command);
 
             execute(command);
+    }
+
+    public static List<Appointment> getAppointments() {
+        try {
+            con = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<Appointment> resList = new ArrayList<Appointment>();
+        Statement stt = null;
+        ResultSet resultSet = null;
+
+        try {
+            stt = con.createStatement();
+            stt.execute("USE db");
+            resultSet = stt.executeQuery("SELECT * FROM appointment");
+
+            while (resultSet.next()) {
+
+                int appId = resultSet.getInt("app_id");
+                int status = resultSet.getInt("status");
+                Date dueDate = resultSet.getDate("due_date");
+                int patientId = resultSet.getInt("patient_id");
+
+                LocalDate date = ((java.sql.Date) dueDate).toLocalDate();
+
+                Appointment a = new Appointment(status,date,patientId);
+                a.setAppId(appId);
+
+                resList.add(a);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                stt.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return resList;
     }
 }
