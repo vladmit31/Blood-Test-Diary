@@ -70,7 +70,6 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void addData(String fxID, String toAdd) {
-    System.out.println(fxID + toAdd);
     data.put(fxID, toAdd);
     update();
   }
