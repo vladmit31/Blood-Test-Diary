@@ -8,7 +8,6 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import seg.major.controller.PrimaryController;
-import seg.major.model.Props;
 
 public class App extends Application {
 
@@ -22,10 +21,12 @@ public class App extends Application {
 
     public static void main(String[] args) {
         System.out.println("App Started!");
-        System.out.println(new Props(App.class.getClassLoader().getResource(propertiesLocation)).getAllProperties());
         launch(args);
     }
 
+    /**
+     * Start the GUI and load panes
+     */
     @Override
     public void start(Stage primaryStage) throws Exception {
         PrimaryController primaryController = new PrimaryController();
