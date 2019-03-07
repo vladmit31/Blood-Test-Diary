@@ -9,35 +9,6 @@ import java.util.Map;
  * can be directly interacted by using the execute() method.
  */
 public interface DAOInterface<T> {
-
-  /**
-   * Execute a command through the data source
-   * 
-   * @param command the command to be executed
-   */
-  public void execute(String command);
-
-  /**
-   * @return how many records are stored
-   */
-  public int size();
-
-  /**
-   * Lookup a record by ID
-   * 
-   * @param toGet the ID to lookup and fetch the record for
-   */
-  public T getById(int toGet);
-
-  /**
-   * Remove a record by ID
-   * 
-   * @param toGet the ID to remove
-   */
-  public void removeById(int toRemove);
-
-  // Basic CRUD
-
   /**
    * @param toCreate the entity to create as a record
    */
