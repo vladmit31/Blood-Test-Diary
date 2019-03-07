@@ -6,6 +6,7 @@ import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import seg.major.App;
 
 /**
@@ -19,15 +20,23 @@ public class SchemaController implements Initializable, ControllerInterface {
   /** ---------- FXML ---------- */
   @FXML
   public Button logout;
+  @FXML
+  public static Label currentUser;
 
   /**
    * The login button was clicked, so load the patient schema view
-   * 
-   * @param e click event
    */
   @FXML
   public void logoutBtn() {
     primaryController.setPane(App.login);
+  }
+
+  /**
+   * Set the currentUser Text to the user of current user
+   */
+  @FXML
+  public static void currentUserLabel() {
+
   }
 
   /** ---------- FXML ---------- */
@@ -37,6 +46,7 @@ public class SchemaController implements Initializable, ControllerInterface {
    * Allow javafx to initalise the controller with the view
    */
   public void initialize(URL url, ResourceBundle rb) {
+
   }
 
   /**
@@ -51,11 +61,12 @@ public class SchemaController implements Initializable, ControllerInterface {
   /**
    * Set the data
    * 
-   * @param data the data to set
+   * @param toSet the data to set
    */
-  public void setData(Map<String, String[]> data) {
-    this.data = data;
+  public void setData(Map<String, String[]> toSet) {
+    this.data = toSet;
   }
+
   /** ---------- Inherited / Implemented ---------- */
 
 }

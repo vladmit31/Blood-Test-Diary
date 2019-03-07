@@ -70,9 +70,10 @@ public class LoginController implements Initializable, ControllerInterface {
      * 
      * @param data the data to set
      */
-    public void setData(Map<String, String[]> data) {
-        this.data = data;
+    public void setData(Map<String, String[]> toSet) {
+        this.data = toSet;
     }
+
     /** ---------- Inherited / Implemented ---------- */
 
 }

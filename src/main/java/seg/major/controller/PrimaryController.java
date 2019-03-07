@@ -96,31 +96,4 @@ public class PrimaryController extends StackPane {
     }
   }
 
-  /**
-   * Adds a pane to the controller
-   * 
-   * @param name name of the pane to set
-   * @return was the operation successful?
-   */
-  public boolean setPane(String name, HashMap<String, String[]> toInject) {
-    VBox n = (VBox) panes.get(name);
-    if (n != null) {
-      injectData(toInject, (ControllerInterface) n);
-      if (!getChildren().isEmpty()) {
-        getChildren().remove(0);
-        getChildren().add(0, n);
-      } else {
-        getChildren().add(n);
-      }
-      setMinSize(n.prefWidth(-1), n.prefHeight(-1));
-      return true;
-    } else {
-      System.out.println("screen hasn't been loaded!!! \n");
-      return false;
-    }
-  }
-
-  private void injectData(Map<String, String[]> toInject, ControllerInterface target) {
-    target.setData(toInject);
-  }
 }

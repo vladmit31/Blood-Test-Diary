@@ -18,7 +18,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.SchemaController">
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.SchemaController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -191,8 +191,8 @@
                             <right>
                                 <FlowPane hgap="4.0" prefWidth="224.0" BorderPane.alignment="CENTER">
                                     <children>
-                                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="You logged in as Sarah" />
-                                        <Button fx:id="logoutButton" onMouseClicked="#logoutBtn" mnemonicParsing="false" text="Logout"  />
+                                        <Label fx:id="currentUserLabel" prefHeight="17.0" prefWidth="138.0" text="Logged In As:" />
+                                        <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutBtn" prefHeight="25.0" prefWidth="54.0" text="Logout" />
                                     </children>
                                 </FlowPane>
                             </right>
