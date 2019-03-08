@@ -56,9 +56,9 @@ public class AddPatientController implements Initializable, ViewsController {
     {
         if(checkUserInput()) {
             Patient newPatient = model.createPatient(forenameField.getText(), surnameField.getText(),
-                    dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
+                    dobField.getValue(), hospitalField.getText(), clinicField.getText());
 
-            DatabaseConnection.insertPatient(newPatient);
+            DatabaseConnection.insertPatient(newPatient, nextAppField.getValue());
         }
         else{
             JOptionPane.showMessageDialog(null,
@@ -76,7 +76,7 @@ public class AddPatientController implements Initializable, ViewsController {
 
     private boolean checkUserInput() {
         return !forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue()!=null &&
-                !hospitalField.getText().equals("") && !clinicField.getText().equals("") &&  nextAppField.getValue()!=null;
+                !hospitalField.getText().equals("") && !clinicField.getText().equals("") && nextAppField.getValue()!=null;
     }
 
   /** ---------- Inherited / Implemented ---------- */
