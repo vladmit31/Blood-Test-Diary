@@ -44,6 +44,9 @@ public class AddPatientController implements Initializable, ControllerInterface 
   private TextField clinicField;
 
   @FXML
+  private TextField refreshRateField;
+
+  @FXML
   private Button cancelButton;
 
   @FXML
@@ -57,7 +60,8 @@ public class AddPatientController implements Initializable, ControllerInterface 
   public void submit() {
     if (checkUserInput()) {
       Patient newPatient = model.createPatient(forenameField.getText(), surnameField.getText(), dobField.getValue(),
-          hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
+          hospitalField.getText(), clinicField.getText(), nextAppField.getValue(),
+          Double.parseDouble(refreshRateField.getText()));
 
       System.out.println(newPatient);
 
