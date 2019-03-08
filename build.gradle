@@ -49,6 +49,9 @@ dependencies {
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    // JavaFX Testing
+    testCompile 'org.testfx:testfx-junit:4.0+'
 }
 
 // Define the main class for the application
