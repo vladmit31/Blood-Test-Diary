@@ -8,7 +8,9 @@ import org.testfx.framework.junit.ApplicationTest;
 
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.stage.Stage;
 import seg.major.controller.PrimaryController;
+import seg.major.model.util.Props;
 
 import static org.junit.Assert.*;
 
