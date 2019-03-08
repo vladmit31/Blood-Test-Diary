@@ -40,10 +40,10 @@
                                             <children>
                                                 <TableView fx:id="carriedOverTable" prefHeight="401.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="74.20001220703125" text="Name" />
-                                                        <TableColumn prefWidth="75.0" text="#Hospital" />
-                                                        <TableColumn prefWidth="75.0" text="Complete" />
-                                                        <TableColumn prefWidth="75.0" text="Due date" />
+                                                        <TableColumn fx:id="carriedOverName" prefWidth="74.20001220703125" text="Name" />
+                                                        <TableColumn fx:id="carriedOverHospital" prefWidth="75.0" text="#Hospital" />
+                                                        <TableColumn fx:id="carriedOverComplete" prefWidth="75.0" text="Complete" />
+                                                        <TableColumn fx:id="carriedOverDueDate" prefWidth="75.0" text="Due date" />
                                                     </columns>
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -59,10 +59,10 @@
                                             <children>
                                                 <TableView fx:id="thisWeekTable" prefHeight="401.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="74.20001220703125" text="Name" />
-                                                        <TableColumn prefWidth="75.0" text="#Hospital" />
-                                                        <TableColumn prefWidth="75.0" text="Complete" />
-                                                        <TableColumn prefWidth="75.0" text="Due date" />
+                                                        <TableColumn fx:id="thisWeekName" prefWidth="74.20001220703125" text="Name" />
+                                                        <TableColumn fx:id="thisWeekHospital" prefWidth="75.0" text="#Hospital" />
+                                                        <TableColumn fx:id="thisWeekComplete" prefWidth="75.0" text="Complete" />
+                                                        <TableColumn fx:id="thisWeekDueDate" prefWidth="75.0" text="Due date" />
                                                     </columns>
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -78,10 +78,10 @@
                                             <children>
                                                 <TableView fx:id="mondayTable" prefHeight="401.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="74.20001220703125" text="Name" />
-                                                        <TableColumn prefWidth="75.0" text="#Hospital" />
-                                                        <TableColumn prefWidth="75.0" text="Complete" />
-                                                        <TableColumn prefWidth="75.0" text="Due date" />
+                                                        <TableColumn fx:id="mondayName" prefWidth="74.20001220703125" text="Name" />
+                                                        <TableColumn fx:id="mondayHospital" prefWidth="75.0" text="#Hospital" />
+                                                        <TableColumn fx:id="mondayComplete" prefWidth="75.0" text="Complete" />
+                                                        <TableColumn fx:id="mondayDueDate" prefWidth="75.0" text="Due date" />
                                                     </columns>
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -97,10 +97,10 @@
                                             <children>
                                                 <TableView fx:id="tuesdayTable" prefHeight="401.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="74.20001220703125" text="Name" />
-                                                        <TableColumn prefWidth="75.0" text="#Hospital" />
-                                                        <TableColumn prefWidth="75.0" text="Complete" />
-                                                        <TableColumn prefWidth="75.0" text="Due date" />
+                                                        <TableColumn fx:id="tuesdayName" prefWidth="74.20001220703125" text="Name" />
+                                                        <TableColumn fx:id="tuesdayHospital" prefWidth="75.0" text="#Hospital" />
+                                                        <TableColumn fx:id="tuesdayComplete" prefWidth="75.0" text="Complete" />
+                                                        <TableColumn fx:id="tuesdayDueDate" prefWidth="75.0" text="Due date" />
                                                     </columns>
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -116,10 +116,10 @@
                                             <children>
                                                 <TableView fx:id="wednesdayTable" prefHeight="401.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="74.20001220703125" text="Name" />
-                                                        <TableColumn prefWidth="75.0" text="#Hospital" />
-                                                        <TableColumn prefWidth="75.0" text="Complete" />
-                                                        <TableColumn prefWidth="75.0" text="Due date" />
+                                                        <TableColumn fx:id="wednesdayName" prefWidth="74.20001220703125" text="Name" />
+                                                        <TableColumn fx:id="wednesdayHospital" prefWidth="75.0" text="#Hospital" />
+                                                        <TableColumn fx:id="wednesdayComplete" prefWidth="75.0" text="Complete" />
+                                                        <TableColumn fx:id="wednesdayDueDate" prefWidth="75.0" text="Due date" />
                                                     </columns>
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -135,10 +135,10 @@
                                             <children>
                                                 <TableView fx:id="thursdayTable" prefHeight="401.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="74.20001220703125" text="Name" />
-                                                        <TableColumn prefWidth="75.0" text="#Hospital" />
-                                                        <TableColumn prefWidth="75.0" text="Complete" />
-                                                        <TableColumn prefWidth="75.0" text="Due date" />
+                                                        <TableColumn fx:id="thursdayName" prefWidth="74.20001220703125" text="Name" />
+                                                        <TableColumn fx:id="thursdayHospital" prefWidth="75.0" text="#Hospital" />
+                                                        <TableColumn fx:id="thursdayComplete" prefWidth="75.0" text="Complete" />
+                                                        <TableColumn fx:id="thursdayDueDate" prefWidth="75.0" text="Due date" />
                                                     </columns>
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -154,10 +154,10 @@
                                             <children>
                                                 <TableView fx:id="fridayTable" prefHeight="401.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                                     <columns>
-                                                        <TableColumn prefWidth="74.20001220703125" text="Name" />
-                                                        <TableColumn prefWidth="75.0" text="#Hospital" />
-                                                        <TableColumn prefWidth="75.0" text="Complete" />
-                                                        <TableColumn prefWidth="75.0" text="Due date" />
+                                                        <TableColumn fx:id="fridayName" prefWidth="74.20001220703125" text="Name" />
+                                                        <TableColumn fx:id="fridayHospital" prefWidth="75.0" text="#Hospital" />
+                                                        <TableColumn fx:id="fridayComplete" prefWidth="75.0" text="Complete" />
+                                                        <TableColumn fx:id="fridayDueDate" prefWidth="75.0" text="Due date" />
                                                     </columns>
                                                     <columnResizePolicy>
                                                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
@@ -178,8 +178,8 @@
                             <left>
                                 <FlowPane BorderPane.alignment="CENTER">
                                     <children>
-                                        <Button fx:id="prevWeekBtn" mnemonicParsing="false" text="Previous Week" />
-                                        <Button fx:id="nextWeekBtn" mnemonicParsing="false" text="Next Week" />
+                                        <Button fx:id="prevWeekBtn" mnemonicParsing="false" onAction="#previousWeekButtonClicked" text="Previous Week" />
+                                        <Button fx:id="nextWeekBtn" mnemonicParsing="false" onAction="#nextWeekButtonClicked" text="Next Week" />
                                         <Text fx:id="weekText" strokeType="OUTSIDE" strokeWidth="0.0" text="4 Feb - 11 Feb 2019">
                                             <FlowPane.margin>
                                                 <Insets left="10.0" />
