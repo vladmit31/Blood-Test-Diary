@@ -69,7 +69,6 @@ public class AddPatientController implements Initializable, ControllerInterface 
 
   @FXML
   public void cancel() {
-    // TODO: Link back to the patient panel
     Stage stage = (Stage) cancelButton.getScene().getWindow();
 
     stage.close();
