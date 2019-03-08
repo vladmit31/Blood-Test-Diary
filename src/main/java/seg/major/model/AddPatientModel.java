@@ -8,9 +8,9 @@ public class AddPatientModel {
 
     public AddPatientModel(){}
 
-    public Patient createPatient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment)
+    public Patient createPatient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic)
     {
-        return new Patient(forename, surname, dob, hospitalNumber, localClinic, nextAppointment);
+        return new Patient(forename, surname, dob, hospitalNumber, localClinic);
     }
 
 }
