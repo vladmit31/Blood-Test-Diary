@@ -2,8 +2,11 @@ package seg.major.model;
 
 import seg.major.database.DatabaseConnection;
 import seg.major.structure.Appointment;
+import seg.major.structure.AppointmentEntry;
 import seg.major.structure.Patient;
 
+import java.net.SocketTimeoutException;
+import java.sql.SQLOutput;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -17,21 +20,26 @@ public class SchemaModel {
     private List<Patient> patientListUnder12;
     private List<Patient> patientListOver12;
 
-    boolean under12;
+    private Week currentWeek;
 
     public SchemaModel() {
-        this.appointmentList = DatabaseConnection.getAppointments();
 
+        this.currentWeek = new Week(LocalDate.now());
 
-        this.patientListOver12 = DatabaseConnection.getPatients().stream()
+        updateData();
+
+    }
+
+    public void updateData() {
+        this.appointmentList = DatabaseConnection.getAppointmentsForTheWeek(currentWeek.getMondayDate(),
+                currentWeek.getFridayDate());
+
+        this.patientListUnder12 = DatabaseConnection.getPatients().stream()
                 .filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now()) ||  p.getDob().plusYears(12).isEqual(LocalDate.now())).collect(Collectors.toList());
 
 
-        this.patientListUnder12 = DatabaseConnection.getPatients().stream()
+        this.patientListOver12 = DatabaseConnection.getPatients().stream()
                 .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())).collect(Collectors.toList());
-
-
-        under12 = true;
     }
 
     private List<Appointment> getAppointmentsForDate(DayOfWeek day){
@@ -44,15 +52,19 @@ public class SchemaModel {
         return toReturn;
     }
 
-    public Map<Appointment, Patient> getAppointmentsAndPatientsForDayUnder12(DayOfWeek day){
-        Map<Appointment, Patient> toReturn = new HashMap<>();
+    public List<AppointmentEntry> getAppointmentsAndPatientsForDayUnder12(DayOfWeek day){
+        List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
         List<Appointment> appointments = getAppointmentsForDate(day);
 
         for(var appointment : appointments){
             for(var patient : patientListUnder12){
                 if(appointment.getPatientId() == patient.getId()){
-                    toReturn.put(appointment, patient);
+                    String name = patient.getForename() + " " + patient.getSurname();
+                    AppointmentEntry entry = new AppointmentEntry(patient.getId(), appointment.getAppId(),
+                                                                    name, patient.getHospitalNumber(), appointment.getStatus(), appointment.getDueDate());
+                    toReturn.add(entry);
+                    System.out.println(entry);
                     //A patient can have only one appointment per day, so it's not necessary to search the whole list
                     break;
                 }
@@ -63,15 +75,19 @@ public class SchemaModel {
     }
 
 
-    public Map<Appointment, Patient> getAppointmentsAndPatientsForDayOver12(DayOfWeek day){
-        Map<Appointment, Patient> toReturn = new HashMap<>();
+    public List<AppointmentEntry> getAppointmentsAndPatientsForDayOver12(DayOfWeek day){
+        List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
         List<Appointment> appointments = getAppointmentsForDate(day);
 
         for(var appointment : appointments){
             for(var patient : patientListOver12){
                 if(appointment.getPatientId() == patient.getId()){
-                    toReturn.put(appointment, patient);
+                    String name = patient.getForename() + " " + patient.getSurname();
+                    AppointmentEntry entry = new AppointmentEntry(patient.getId(), appointment.getAppId(),
+                            name, patient.getHospitalNumber(), appointment.getStatus(), appointment.getDueDate());
+                    toReturn.add(entry);
+                    System.out.println(entry);
                     //A patient can have only one appointment per day, so it's not necessary to search the whole list
                     break;
                 }
@@ -81,6 +97,17 @@ public class SchemaModel {
         return toReturn;
     }
 
+    public String getWeek(){
+        return this.currentWeek.toString();
+    }
 
+    public void incrementWeek(){
+        this.currentWeek.increment();
+        updateData();
+    }
 
+    public void decrementWeek(){
+        this.currentWeek.decrement();
+        updateData();
+    }
 }
