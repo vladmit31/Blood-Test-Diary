@@ -63,13 +63,13 @@ public class UpdatePatientController implements Initializable, ViewsController {
     {
         if(checkUserInput()) {
             Patient newPatient = model.updatePatient(forenameField.getText(), surnameField.getText(),
-                    dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
+                    dobField.getValue(), hospitalField.getText(), clinicField.getText());
 
 
 
             newPatient.setId(((Patient) data).getId());
 
-            DatabaseConnection.updatePatientData(newPatient);
+            DatabaseConnection.updatePatientData(newPatient, nextAppField.getValue());
         }
         else{
             JOptionPane.showMessageDialog(null,
@@ -112,7 +112,6 @@ public class UpdatePatientController implements Initializable, ViewsController {
         dobField.setValue(p.getDob());
         hospitalField.setText(p.getHospitalNumber());
         clinicField.setText(p.getLocalClinic());
-        nextAppField.setValue(p.getNextAppointment());
     }
 
     /**
