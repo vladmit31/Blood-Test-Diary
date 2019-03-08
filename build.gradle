@@ -52,6 +52,11 @@ dependencies {
 
     // JavaFX Testing
     testCompile 'org.testfx:testfx-junit:4.0+'
+    
+    // Email package...
+    // https://mvnrepository.com/artifact/javax.mail/javax.mail-api
+    compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.1'
+
 }
 
 // Define the main class for the application
