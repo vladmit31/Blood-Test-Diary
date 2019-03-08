@@ -35,7 +35,7 @@ public class PatientsModel {
         return filtered;
     }
 
-    public List<Patient> over12(){
+    public List<Patient> under12(){
         fetchData();
         List<Patient> filtered = new ArrayList<>();
         patientList.stream()
@@ -45,7 +45,7 @@ public class PatientsModel {
         return filtered;
     }
 
-    public List<Patient> under12(){
+    public List<Patient> over12(){
         fetchData();
         List<Patient> filtered = new ArrayList<Patient>();
         patientList.stream()
