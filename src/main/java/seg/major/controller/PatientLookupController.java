@@ -25,7 +25,6 @@ public class PatientLookupController {
 
     public void initialize() {
         this.patientModel = new PatientLookupModel();
-        patientModel.fetchData();
         setupTable();
         setupButtons();
     }
@@ -94,21 +93,8 @@ public class PatientLookupController {
         }
     }
 
-    private void search(String searchString){
-        if (searchString.matches(".*\\d+.*")) {
-            searchNumber(searchString);
-        }
-        else{
-            searchName(searchString);
-        }
-    }
-
-    private void searchNumber(String number) {
-        fillTable(patientModel.searchByNumber(number));
-    }
-
-    private void searchName(String name){
-        fillTable(patientModel.searchByName(name));
+    private void search(String searchString) {
+        fillTable(patientModel.search(searchString));
     }
 
     public void refresh(){

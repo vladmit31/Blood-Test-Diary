@@ -11,6 +11,13 @@ public class PatientLookupModel {
 
     private List<Patient> patientList;
 
+    public PatientLookupModel() {
+    }
+
+    public PatientLookupModel(List<Patient> patientList) {
+        this.patientList = patientList;
+    }
+
     public List<Patient> getPatientList() {
         return patientList;
     }
@@ -19,7 +26,16 @@ public class PatientLookupModel {
         patientList = DatabaseConnection.getPatients();
     }
 
-    public List<Patient> searchByName(String name){
+    public List<Patient> search(String searchString) {
+        if (searchString.matches(".*\\d+.*")) {
+            return searchByNumber(searchString);
+        }
+        else {
+            return searchByName(searchString);
+        }
+    }
+
+    private List<Patient> searchByName(String name){
         List<Patient> filtered = new ArrayList<>();
         patientList.stream()
                 .filter(p -> (p.getForename() + " " + p.getSurname()).toLowerCase().contains(name.toLowerCase()))
@@ -27,7 +43,7 @@ public class PatientLookupModel {
         return filtered;
     }
 
-    public List<Patient> searchByNumber(String number){
+    private List<Patient> searchByNumber(String number){
         List<Patient> filtered = new ArrayList<>();
         patientList.stream()
                 .filter(p -> p.getHospitalNumber().toLowerCase().contains(number.toLowerCase()))
@@ -35,21 +51,21 @@ public class PatientLookupModel {
         return filtered;
     }
 
-    public List<Patient> over12(){
+    public List<Patient> under12(){
         fetchData();
         List<Patient> filtered = new ArrayList<>();
         patientList.stream()
-                .filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now()) ||  p.getDob().plusYears(12).isEqual(LocalDate.now()))
+                .filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now()))
                 .forEach(p -> filtered.add(p));
         patientList = filtered;
         return filtered;
     }
 
-    public List<Patient> under12(){
+    public List<Patient> over12(){
         fetchData();
         List<Patient> filtered = new ArrayList<Patient>();
         patientList.stream()
-                .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now()))
+                .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now()) ||  p.getDob().plusYears(12).isEqual(LocalDate.now()))
                 .forEach(p -> filtered.add(p));
         patientList = filtered;
         return filtered;
