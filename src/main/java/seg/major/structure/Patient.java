@@ -11,17 +11,15 @@ public class Patient {
     private LocalDate dob;
     private String hospitalNumber;
     private String localClinic;
-    private LocalDate nextAppointment;
 
     public static final double DEFAULT_REFRESH_RATE = 1.0;
 
-    public Patient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment){
+    public Patient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic){
         this.forename = forename;
         this.surname = surname;
         this.dob = dob;
         this.hospitalNumber = hospitalNumber;
         this.localClinic = localClinic;
-        this.nextAppointment = nextAppointment;
     }
 
     public int getId() {
@@ -70,13 +68,5 @@ public class Patient {
 
     public void setLocalClinic(String localClinic) {
         this.localClinic = localClinic;
-    }
-
-    public LocalDate getNextAppointment() {
-        return nextAppointment;
-    }
-
-    public void setNextAppointment(LocalDate nextAppointment) {
-        this.nextAppointment = nextAppointment;
     }
 }
