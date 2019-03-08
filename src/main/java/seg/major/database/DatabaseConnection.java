@@ -31,24 +31,24 @@ public class DatabaseConnection {
 
     private static Connection con;
 
-    public static void insertPatient(Patient patient) {
-        String command = "INSERT INTO patient(vnumber, fname, sname, dob, local_clinic, next_appointment, refresh_rate) " +
+    public static void insertPatient(Patient patient, LocalDate appDate) {
+        String command = "INSERT INTO patient(vnumber, fname, sname, dob, local_clinic, refresh_rate) " +
                          "VALUES(\'" + patient.getHospitalNumber() + "\', \'" + patient.getForename() + "\', \'" + patient.getSurname() + "\', \'" + patient.getDob() + "\', \'" + patient.getLocalClinic() +
-                         "\', \'" + patient.getNextAppointment() + "\', \'" + Patient.DEFAULT_REFRESH_RATE + "\');";
+                         "\', \'" + Patient.DEFAULT_REFRESH_RATE + "\');";
 
 
         execute(command);
 
         int patientID = getLastInsertedPatientID();
         
-        addAppointment(patientID, patient.getNextAppointment());
+        addAppointment(patientID, appDate);
         
 
     }
 
-    private static void addAppointment(int patientID, LocalDate next_appointment) {
+    private static void addAppointment(int patientID, LocalDate appDate) {
         String command = "INSERT INTO appointment(due_date, patient_id) " +
-                         "VALUES(\'" + next_appointment + "\', \'" + patientID + "\');";
+                         "VALUES(\'" + appDate + "\', \'" + patientID + "\');";
 
         execute(command);
     }
@@ -136,10 +136,9 @@ public class DatabaseConnection {
                 String sname = resultSet.getString("sname");
                 Date dob = resultSet.getDate("dob");
                 String local_clinic = resultSet.getString("local_clinic");
-                Date next_appointment = resultSet.getDate("next_appointment");
                 Double refresh_rate = resultSet.getDouble("refresh_rate");
 
-                Patient newPatient = new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic,((java.sql.Date) next_appointment).toLocalDate());
+                Patient newPatient = new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic);
 
                 newPatient.setId(id);
 
@@ -266,18 +265,25 @@ public class DatabaseConnection {
             e.printStackTrace();
         }
     }
-    public static void updatePatientData(Patient toBeUpdated){
+    public static void updatePatientData(Patient toBeUpdated, LocalDate appDate){
         String command = null;
 
             command = "UPDATE patient SET vnumber=\'"+toBeUpdated.getHospitalNumber()+"\' ,"+
                                               "fname=\'"+toBeUpdated.getForename()+"\' ,"+
                                                 "sname=\'"+toBeUpdated.getSurname()+"\' ,"+
                                                  "dob=\'"+toBeUpdated.getDob()+"\' ,"+
-                                                    "local_clinic=\'"+toBeUpdated.getLocalClinic()+"\' ,"+
-                                                    "next_appointment=\'"+toBeUpdated.getNextAppointment()+"\'"+"WHERE id=" + toBeUpdated.getId();
-            System.out.println(command);
+                                                    "local_clinic=\'"+toBeUpdated.getLocalClinic() +"\' WHERE id=" + toBeUpdated.getId();
+
+
+
 
             execute(command);
+
+            String updateAppCommand = null;
+
+            updateAppCommand = "UPDATE appointment SET due_date=\'" + appDate + "\' WHERE patient_id=" + toBeUpdated.getId();
+
+            execute(updateAppCommand);
     }
 
     public static List<Appointment> getAppointments() {
@@ -295,6 +301,55 @@ public class DatabaseConnection {
             stt = con.createStatement();
             stt.execute("USE db");
             resultSet = stt.executeQuery("SELECT * FROM appointment");
+
+            while (resultSet.next()) {
+
+                int appId = resultSet.getInt("app_id");
+                int status = resultSet.getInt("status");
+                Date dueDate = resultSet.getDate("due_date");
+                int patientId = resultSet.getInt("patient_id");
+
+                LocalDate date = ((java.sql.Date) dueDate).toLocalDate();
+
+                Appointment a = new Appointment(status,date,patientId);
+                a.setAppId(appId);
+
+                resList.add(a);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                stt.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return resList;
+    }
+
+    public static List<Appointment> getAppointmentsForTheWeek(String mondayDate, String fridayDate) {
+        try {
+            con = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        List<Appointment> resList = new ArrayList<Appointment>();
+        Statement stt = null;
+        ResultSet resultSet = null;
+
+        try {
+            stt = con.createStatement();
+            stt.execute("USE db");
+
+            String sqlQuery = "SELECT * FROM appointment WHERE due_date between \'" + mondayDate +
+                                            "\' and \'" + fridayDate + "\';";
+
+            resultSet = stt.executeQuery(sqlQuery);
 
             while (resultSet.next()) {
 
