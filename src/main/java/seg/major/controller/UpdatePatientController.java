@@ -49,6 +49,9 @@ public class UpdatePatientController implements Initializable, ViewsController {
     private TextField clinicField;
 
     @FXML
+    private TextField diagnosisField;
+
+    @FXML
     private Button cancelButton;
 
     @FXML
@@ -63,7 +66,7 @@ public class UpdatePatientController implements Initializable, ViewsController {
     {
         if(checkUserInput()) {
             Patient newPatient = model.updatePatient(forenameField.getText(), surnameField.getText(),
-                    dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
+                    dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue(), diagnosisField.getText());
 
 
 
@@ -113,6 +116,7 @@ public class UpdatePatientController implements Initializable, ViewsController {
         hospitalField.setText(p.getHospitalNumber());
         clinicField.setText(p.getLocalClinic());
         nextAppField.setValue(p.getNextAppointment());
+        diagnosisField.setText((p.getDiagnosis()));
     }
 
     /**

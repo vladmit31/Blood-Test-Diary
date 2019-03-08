@@ -32,9 +32,9 @@ public class DatabaseConnection {
     private static Connection con;
 
     public static void insertPatient(Patient patient) {
-        String command = "INSERT INTO patient(vnumber, fname, sname, dob, local_clinic, next_appointment, refresh_rate) " +
+        String command = "INSERT INTO patient(vnumber, fname, sname, dob, local_clinic, next_appointment, refresh_rate, diagnosis) " +
                          "VALUES(\'" + patient.getHospitalNumber() + "\', \'" + patient.getForename() + "\', \'" + patient.getSurname() + "\', \'" + patient.getDob() + "\', \'" + patient.getLocalClinic() +
-                         "\', \'" + patient.getNextAppointment() + "\', \'" + Patient.DEFAULT_REFRESH_RATE + "\');";
+                         "\', \'" + patient.getNextAppointment() + "\', \'" + Patient.DEFAULT_REFRESH_RATE + "\');" + patient.getDiagnosis() + "\');";
 
 
         execute(command);
@@ -138,8 +138,9 @@ public class DatabaseConnection {
                 String local_clinic = resultSet.getString("local_clinic");
                 Date next_appointment = resultSet.getDate("next_appointment");
                 Double refresh_rate = resultSet.getDouble("refresh_rate");
+                String diagnosis = resultSet.getString("diagnosis");
 
-                Patient newPatient = new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic,((java.sql.Date) next_appointment).toLocalDate());
+                Patient newPatient = new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic,((java.sql.Date) next_appointment).toLocalDate(), diagnosis);
 
                 newPatient.setId(id);
 
@@ -274,7 +275,9 @@ public class DatabaseConnection {
                                                 "sname=\'"+toBeUpdated.getSurname()+"\' ,"+
                                                  "dob=\'"+toBeUpdated.getDob()+"\' ,"+
                                                     "local_clinic=\'"+toBeUpdated.getLocalClinic()+"\' ,"+
-                                                    "next_appointment=\'"+toBeUpdated.getNextAppointment()+"\'"+"WHERE id=" + toBeUpdated.getId();
+                                                    "next_appointment=\'"+toBeUpdated.getNextAppointment()+"\'"+
+                                                      "diagnosis=\'"+toBeUpdated.getDiagnosis()+"WHERE id=" + toBeUpdated.getId();
+
             System.out.println(command);
 
             execute(command);

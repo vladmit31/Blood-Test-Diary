@@ -12,16 +12,18 @@ public class Patient {
     private String hospitalNumber;
     private String localClinic;
     private LocalDate nextAppointment;
+    private String diagnosis;
 
     public static final double DEFAULT_REFRESH_RATE = 1.0;
 
-    public Patient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment){
+    public Patient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment, String diagnosis){
         this.forename = forename;
         this.surname = surname;
         this.dob = dob;
         this.hospitalNumber = hospitalNumber;
         this.localClinic = localClinic;
         this.nextAppointment = nextAppointment;
+        this.diagnosis = diagnosis;
     }
 
     public int getId() {
@@ -78,5 +80,13 @@ public class Patient {
 
     public void setNextAppointment(LocalDate nextAppointment) {
         this.nextAppointment = nextAppointment;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
     }
 }

@@ -8,9 +8,9 @@ public class UpdatePatientModel {
 
     public UpdatePatientModel(){}
 
-    public Patient updatePatient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment)
+    public Patient updatePatient(String forename, String surname, LocalDate dob, String hospitalNumber, String localClinic, LocalDate nextAppointment, String diagnosis)
     {
-        return new Patient(forename, surname, dob, hospitalNumber, localClinic, nextAppointment);
+        return new Patient(forename, surname, dob, hospitalNumber, localClinic, nextAppointment, diagnosis);
     }
 
 }

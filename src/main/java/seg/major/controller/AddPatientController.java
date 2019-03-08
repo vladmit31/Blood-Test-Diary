@@ -8,6 +8,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import org.w3c.dom.Text;
 import seg.major.database.DatabaseConnection;
 import seg.major.model.AddPatientModel;
 import seg.major.structure.Patient;
@@ -42,6 +43,9 @@ public class AddPatientController implements Initializable, ViewsController {
     private TextField clinicField;
 
     @FXML
+    private TextField diagnosisField;
+
+    @FXML
     private Button cancelButton;
 
     @FXML
@@ -56,7 +60,7 @@ public class AddPatientController implements Initializable, ViewsController {
     {
         if(checkUserInput()) {
             Patient newPatient = model.createPatient(forenameField.getText(), surnameField.getText(),
-                    dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue());
+                    dobField.getValue(), hospitalField.getText(), clinicField.getText(), nextAppField.getValue(), diagnosisField.getText());
 
             DatabaseConnection.insertPatient(newPatient);
         }

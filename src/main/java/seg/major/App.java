@@ -27,7 +27,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         PrimaryController primaryController = new PrimaryController();
         primaryController.addViews(new String[] { login, addPatient, patients, schema, updatePatient });
-        primaryController.setPane(App.login);
+        primaryController.setPane(App.updatePatient);
 
         Group root = new Group();
         root.getChildren().addAll(primaryController);
