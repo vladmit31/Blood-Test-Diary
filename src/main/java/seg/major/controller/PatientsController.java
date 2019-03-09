@@ -8,9 +8,14 @@ import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.util.Pair;
 import seg.major.App;
 import seg.major.model.PatientsModel;
+import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
+import seg.major.structure.PatientEntry;
+
+import javax.xml.validation.Schema;
 
 /**
  * PatientsController acts as the controller for the patients.fxml file
@@ -18,6 +23,7 @@ import seg.major.structure.Patient;
 public class PatientsController implements Initializable, ViewsController {
 
 
+  public MenuItem switchToDiary;
   private PrimaryController primaryController;
 
   private PatientsModel patientModel;
@@ -33,6 +39,8 @@ public class PatientsController implements Initializable, ViewsController {
   public TableColumn nextAppointment;
   public Button under12Button;
   public Button over12Button;
+
+  boolean isUnder12 = true;
 
 
   /** ---------- FXML ---------- */
@@ -72,14 +80,14 @@ public class PatientsController implements Initializable, ViewsController {
 
   private void setupRows() {
     patientTable.setRowFactory(t -> {
-      TableRow<Patient> row = new TableRow<>();
+      TableRow<PatientEntry> row = new TableRow<>();
       row.setOnMouseClicked(click -> {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
-          Patient patient = row.getItem();
-          viewPatient(patient);
+          PatientEntry patientEntry = row.getItem();
+          viewPatient(patientEntry);
 
           UpdatePatientController upc = (UpdatePatientController) primaryController.getControllerByName(App.updatePatient);
-          upc.setData(patient);
+          upc.setData(new Pair<Integer,Integer>(patientEntry.getPatientId(),patientEntry.getAppointmentId()));
           primaryController.setPane(App.updatePatient);
           upc.setUp();
         }
@@ -88,8 +96,8 @@ public class PatientsController implements Initializable, ViewsController {
     });
   }
 
-  private void viewPatient(Patient patient){
-    System.out.println(patient.getId() + " " + patient.getForename() + " " + patient.getSurname());
+  private void viewPatient(PatientEntry patientEntry){
+    System.out.println(patientEntry.getPatientId() + " " + patientEntry.getForename() + " " + patientEntry.getSurname());
   }
 
   private void setupColumns(){
@@ -105,11 +113,19 @@ public class PatientsController implements Initializable, ViewsController {
       under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       over12Button.setStyle(null);
       fillTable(patientModel.under12());
+      isUnder12 = true;
     });
     over12Button.setOnAction(e -> {
       over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       under12Button.setStyle(null);
       fillTable(patientModel.over12());
+      isUnder12 = false;
+    });
+    switchToDiary.setOnAction(e -> {
+      SchemaController sc = (SchemaController) primaryController.getControllerByName(App.schema);
+      sc.refresh();
+      primaryController.setPane(App.schema);
+      sc.refresh();
     });
     searchButton.setOnAction(e -> {
       search(searchField.getText());
@@ -127,7 +143,12 @@ public class PatientsController implements Initializable, ViewsController {
   private void fillTable(List<Patient> patients){
     patientTable.getItems().clear();
     for (Patient patient : patients) {
-      patientTable.getItems().add(patient);
+      for (Appointment appointment : patientModel.getAppointmentList()) {
+          if(appointment.getPatientId() == patient.getId()) {
+            patientTable.getItems().add(new PatientEntry(patient.getId(),appointment.getAppId(),
+                    patient.getForename(),patient.getSurname(),patient.getHospitalNumber(),patient.getLocalClinic(),appointment.getDueDate()));
+          }
+      }
     }
   }
 
@@ -150,7 +171,11 @@ public class PatientsController implements Initializable, ViewsController {
 
   public void refresh(){
     patientModel.fetchData();
-    fillTable();
+    if(isUnder12) {
+      fillTable(patientModel.under12());
+    }else {
+      fillTable(patientModel.over12());
+    }
   }
 
 }
