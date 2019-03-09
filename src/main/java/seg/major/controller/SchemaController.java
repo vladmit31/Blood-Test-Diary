@@ -265,6 +265,7 @@ public class SchemaController implements Initializable, ViewsController {
     }
 
     public void refresh() {
+      schemaModel.updateData();
       // TODO: check for which button is selected for update.
       if(isUnder12) {
           fillTablesForUnder12();
