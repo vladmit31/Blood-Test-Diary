@@ -379,4 +379,93 @@ public class DatabaseConnection {
         }
         return resList;
     }
+
+    public static Patient getPatientById(int id) {
+        try {
+            con = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Statement stt = null;
+        ResultSet resultSet = null;
+
+        try {
+            stt = con.createStatement();
+            stt.execute("USE db");
+            resultSet = stt.executeQuery("SELECT * FROM patient WHERE id LIKE" + "'" + id + "'");
+
+            while (resultSet.next()) {
+
+                int patientId = resultSet.getInt("id");
+                String vnumber = resultSet.getString("vnumber");
+                String fname = resultSet.getString("fname");
+                String sname = resultSet.getString("sname");
+                Date dob = resultSet.getDate("dob");
+                String local_clinic = resultSet.getString("local_clinic");
+                Double refresh_rate = resultSet.getDouble("refresh_rate");
+
+                Patient patient = new Patient(fname,sname,((java.sql.Date) dob).toLocalDate(),vnumber,local_clinic);
+
+                patient.setId(id);
+
+                return patient;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                stt.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public static Appointment getAppointmentById(int id) {
+        try {
+            con = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Statement stt = null;
+        ResultSet resultSet = null;
+
+        try {
+            stt = con.createStatement();
+            stt.execute("USE db");
+            resultSet = stt.executeQuery("SELECT * FROM appointment WHERE app_id LIKE" + "'" + id + "'");
+
+            while (resultSet.next()) {
+
+                int app_id = resultSet.getInt("app_id");
+                int status = resultSet.getInt("status");
+                Date dueDate = resultSet.getDate("due_date");
+                int patient_id = resultSet.getInt("patient_id");
+
+                Appointment appointment = new Appointment(status,((java.sql.Date) dueDate).toLocalDate(),patient_id);
+
+                appointment.setAppId(app_id);
+
+                return appointment;
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                stt.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return null;
+    }
 }
