@@ -198,6 +198,44 @@ public class PatientDAO implements DAOInterface<Patient> {
 
     /** ---------- Inherited / Implemented ---------- */
 
+    private static int getLastInsertedPatientID() {
+
+        String query = "SELECT MAX(id) FROM patient";
+
+        Patient toReturn = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        Connection conn = null;
+
+        try {
+            conn = DAOConnection.getConnection();
+            ps = conn.prepareStatement(query);
+            ps.execute("USE db");
+            rs = ps.executeQuery(query);
+
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                rs.close();
+            } catch (Exception e) {
+            }
+            try {
+                ps.close();
+            } catch (Exception e) {
+            }
+            try {
+                conn.close();
+            } catch (Exception e) {
+            }
+        }
+        return -1;
+    }
+
     /**
      * Get the patient the ResultSet pointer currently points to
      * 
