@@ -9,8 +9,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import seg.major.model.database.DatabaseConnection;
 import seg.major.model.AddPatientModel;
+import seg.major.model.AppointmentDAO;
 import seg.major.structure.Patient;
 
 import javax.swing.*;
@@ -59,14 +59,13 @@ public class AddPatientController implements Initializable, ControllerInterface 
   @FXML
   public void submit() {
     if (checkUserInput()) {
-      Patient newPatient = model.createPatient(forenameField.getText(), surnameField.getText(), dobField.getValue(),
+
+      AddPatientModel.createPatient(forenameField.getText(), surnameField.getText(), dobField.getValue(),
           hospitalField.getText(), clinicField.getText(), nextAppField.getValue(),
           Double.parseDouble(refreshRateField.getText()));
+    } else
 
-      System.out.println(newPatient);
-
-      DatabaseConnection.insertPatient(newPatient);
-    } else {
+    {
       JOptionPane.showMessageDialog(null, "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
     }
   }
@@ -111,7 +110,7 @@ public class AddPatientController implements Initializable, ControllerInterface 
 
   /** ---------- Inherited / Implemented ---------- */
 
-  public void addData(String fxID, String toAdd) {
+  public void addData(String fxID, String toAddKey, String toAddVal) {
 
   }
 
