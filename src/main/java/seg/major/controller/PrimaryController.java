@@ -101,12 +101,16 @@ public class PrimaryController extends StackPane {
   }
 
   /**
+   * Send data to another pane controller
    * 
+   * @param toRecieve the receiver pane
+   * @param toSetKey  the key of the data to set
+   * @param toSetVal  the value of the data to get
    */
   public void sendTo(String toReceive, String toSetKey, String toSetVal) {
     ControllerInterface ci = data.get(toReceive);
     if (ci != null) {
-      ci.addData("username", toSetKey, toSetVal);
+      ci.addData(toSetKey, toSetVal);
     }
   }
 

@@ -75,11 +75,22 @@ public class LoginController implements Initializable, ControllerInterface {
         this.data = toSet;
     }
 
-    @Override
-    public void addData(String fxID, String toAddKey, String toAddVal) {
-
+    /**
+     * Add data to the given fx-item and update the scene
+     * 
+     * @param tpAddKey the key of the data
+     * @param toAddVal the value of the data
+     */
+    public void addData(String toAddKey, String toAddVal) {
+        data.put(toAddKey, toAddVal);
+        update();
     }
 
+    /**
+     * Update the scene with changes from the data HashMap
+     */
+    public void update() {
+    }
     /** ---------- Inherited / Implemented ---------- */
 
 }
