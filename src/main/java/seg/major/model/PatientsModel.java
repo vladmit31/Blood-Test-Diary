@@ -1,22 +1,29 @@
 package seg.major.model;
 
 import seg.major.database.DatabaseConnection;
+import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.DataFormatException;
 
 public class PatientsModel {
 
     private List<Patient> patientList;
 
+    private List<Appointment> appointmentList;
+
     public List<Patient> getPatientList() {
         return patientList;
     }
 
+    public List<Appointment> getAppointmentList() {return appointmentList;}
+
     public void fetchData() {
         patientList = DatabaseConnection.getPatients();
+        appointmentList = DatabaseConnection.getAppointments();
     }
 
     public List<Patient> searchByName(String name){
