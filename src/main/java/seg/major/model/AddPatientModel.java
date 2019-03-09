@@ -8,7 +8,7 @@ public class AddPatientModel {
   public AddPatientModel() {
   }
 
-  public Patient createPatient(String forename, String surname, LocalDate dob, String hospitalNumber,
+  public static Patient createPatient(String forename, String surname, LocalDate dob, String hospitalNumber,
       String localClinic, LocalDate nextAppointment, Double refreshRate) {
     return new Patient(forename, surname, dob, hospitalNumber, localClinic, nextAppointment, refreshRate);
 
