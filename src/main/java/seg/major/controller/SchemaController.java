@@ -69,8 +69,8 @@ public class SchemaController implements Initializable, ControllerInterface {
     this.data = toSet;
   }
 
-  public void addData(String fxID, String toAdd) {
-    data.put(fxID, toAdd);
+  public void addData(String fxID, String toAddKey, String toAddVal) {
+    data.put(toAddKey, toAddVal);
     update();
   }
 

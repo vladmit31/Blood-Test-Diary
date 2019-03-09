@@ -103,10 +103,10 @@ public class PrimaryController extends StackPane {
   /**
    * 
    */
-  public void sendTo(String toReceive, String toSet) {
+  public void sendTo(String toReceive, String toSetKey, String toSetVal) {
     ControllerInterface ci = data.get(toReceive);
     if (ci != null) {
-      ci.addData("username", toSet);
+      ci.addData("username", toSetKey, toSetVal);
     }
   }
 

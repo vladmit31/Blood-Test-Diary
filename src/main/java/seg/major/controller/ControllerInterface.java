@@ -10,6 +10,6 @@ public interface ControllerInterface {
 
   public void setData(Map<String, String> toInject);
 
-  public void addData(String fxID, String toAdd);
+  public void addData(String fxID, String toAddKey, String toAddVal);
 
 }

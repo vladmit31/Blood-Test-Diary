@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -11,7 +12,7 @@ import javafx.fxml.Initializable;
 public class PatientsController implements Initializable, ControllerInterface {
 
   private PrimaryController primaryController;
-  private Map<String, String> data;
+  private Map<String, String> data = new HashMap<>();
 
   /** ---------- FXML ---------- */
 
@@ -44,8 +45,8 @@ public class PatientsController implements Initializable, ControllerInterface {
 
   /** ---------- Inherited / Implemented ---------- */
 
-  public void addData(String fxID, String toAdd) {
-
+  public void addData(String fxID, String toAddKey, String toAddVal) {
+    data.put(toAddKey, toAddVal);
   }
 
 }
