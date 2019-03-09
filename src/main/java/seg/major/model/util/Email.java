@@ -1,4 +1,4 @@
-package seg.major.model;
+package seg.major.model.util;
 
 import java.util.Properties;
 
