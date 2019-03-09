@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import seg.major.structure.User;
@@ -183,6 +185,44 @@ public class UserDAO implements DAOInterface<User> {
    */
   public User get(Map<String, String> toGet) {
     return null;
+  }
+
+  /**
+   * Get all the current Users
+   * 
+   * @return a User array that contains every user in the table
+   */
+  public User[] getAll() {
+    String query = "SELECT * FROM user;";
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    User[] toReturn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToUserArray(rs);
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
+    }
+
+    return toReturn;
   }
 
   /** ---------- Inherited / Implemented ---------- */
