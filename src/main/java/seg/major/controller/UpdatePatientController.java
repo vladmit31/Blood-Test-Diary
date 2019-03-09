@@ -7,12 +7,15 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
+import javafx.util.Pair;
 import seg.major.App;
 import seg.major.database.DatabaseConnection;
 import seg.major.model.UpdatePatientModel;
+import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 
 import javax.swing.*;
+import javax.xml.crypto.Data;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -66,10 +69,15 @@ public class UpdatePatientController implements Initializable, ViewsController {
                     dobField.getValue(), hospitalField.getText(), clinicField.getText());
 
 
+            Patient patient = DatabaseConnection.getPatientById(((Pair<Integer,Integer>) data).getKey());
 
-            newPatient.setId(((Patient) data).getId());
+            newPatient.setId(patient.getId());
 
             DatabaseConnection.updatePatientData(newPatient, nextAppField.getValue());
+
+            PatientsController pc = ((PatientsController)primaryController.getControllerByName(App.patients));
+            pc.refresh();
+            primaryController.setPane(App.patients);
         }
         else{
             JOptionPane.showMessageDialog(null,
@@ -98,12 +106,18 @@ public class UpdatePatientController implements Initializable, ViewsController {
     }
 
     public void setUp() {
-        Patient p = (Patient) data;
+        Pair<Integer,Integer> p = (Pair<Integer, Integer>) data;
         if(data == null) {
             return;
         }
-        TitleText.setText("Update patient data: " + p.getForename() + " " + p.getSurname());
-        passPatient(p);
+        Patient patient = DatabaseConnection.getPatientById(p.getKey());
+        Appointment appointment = DatabaseConnection.getAppointmentById(p.getValue());
+        if(patient == null || appointment == null) {
+            return;
+        }
+        TitleText.setText("Update patient data: " + patient.getForename() + " " + patient.getSurname());
+        passPatient(patient);
+        nextAppField.setValue(appointment.getDueDate());
     }
 
     public void passPatient(Patient p) {
