@@ -4,8 +4,6 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 
 import seg.major.structure.User;
@@ -184,7 +182,73 @@ public class UserDAO implements DAOInterface<User> {
    * @return the matched user
    */
   public User get(Map<String, String> toGet) {
-    return null;
+
+    String query = mapToSQLQuery(toGet);
+    User toReturn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToUser(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
+    }
+
+    return toReturn;
+  }
+
+  /**
+   * @param toGet Map of atttributes and the values to match to a record
+   * @return the matched user
+   */
+  public User[] getAll(Map<String, String> toGet) {
+
+    String query = mapToSQLQuery(toGet);
+    User[] toReturn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToUserArray(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
+    }
+
+    return toReturn;
   }
 
   /**
@@ -301,6 +365,33 @@ public class UserDAO implements DAOInterface<User> {
     }
 
     return toReturn;
+  }
+
+  /**
+   * Build a statment of the form: "SELECT * FROM user WHERE (col1 = val1 AND col2
+   * = val2 AND ... colN = valN);"
+   * 
+   * from the provided map.
+   * 
+   * @param toQuery the map to convery to a query
+   * @return the constructed statement
+   */
+  private String mapToSQLQuery(Map<String, String> toQuery) {
+
+    // build the statement
+    StringBuilder sb = new StringBuilder();
+    sb.append("SELECT * FROM user WHERE ( ");
+    for (Map.Entry<String, String> entry : toQuery.entrySet()) {
+      sb.append(entry.getKey());
+      sb.append("='");
+      sb.append(entry.getValue());
+      sb.append("' AND ");
+    }
+    // remove the last AND then close the brackets
+    sb.delete(sb.length() - 4, sb.length());
+    sb.append(");");
+
+    return sb.toString();
   }
 
 }
