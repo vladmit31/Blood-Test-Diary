@@ -13,7 +13,6 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-
 <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.PatientsController">
    <children>
       <MenuBar>
@@ -68,9 +67,9 @@
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy>
       </TableView>
-      <BorderPane>
+      <BorderPane fx:id="infoFieldBorder">
          <right>
-            <FlowPane prefHeight="22.0" prefWidth="128.0" BorderPane.alignment="CENTER">
+            <FlowPane fx:id="infoBar" prefHeight="22.0" prefWidth="128.0" BorderPane.alignment="CENTER">
                <children>
                   <Button fx:id="under12Button" mnemonicParsing="false" prefHeight="22.0" prefWidth="70.0" text="Under 12" />
                   <Button fx:id="over12Button" mnemonicParsing="false" text="Over 12" />
@@ -80,7 +79,7 @@
          <left>
             <BorderPane BorderPane.alignment="CENTER">
                <left>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to datasource" BorderPane.alignment="CENTER">
+                  <Text fx:id="infoText" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to datasource" BorderPane.alignment="CENTER">
                      <BorderPane.margin>
                         <Insets left="6.0" />
                      </BorderPane.margin>
