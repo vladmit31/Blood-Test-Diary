@@ -5,6 +5,7 @@ import com.ja.security.PasswordHash;
 import javafx.scene.control.DatePicker;
 import seg.major.App;
 import seg.major.structure.Appointment;
+import seg.major.structure.Contact;
 import seg.major.structure.Patient;
 import seg.major.structure.User;
 
@@ -467,5 +468,67 @@ public class DatabaseConnection {
             }
         }
         return null;
+    }
+
+    public static List<Contact> getContactsByPatientId(int patientID){
+        List<Contact> toReturn = new ArrayList<>();
+        try {
+            con = DriverManager.getConnection(url, user, password);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        Statement stt = null;
+        ResultSet resultSet = null;
+
+        try {
+            stt = con.createStatement();
+            stt.execute("USE db");
+            resultSet = stt.executeQuery("SELECT * FROM contact WHERE patient_id LIKE"
+                                                    + "'" + patientID + "'");
+
+            while (resultSet.next()) {
+
+                int contact_id = resultSet.getInt("id");
+                String forname = resultSet.getString("forename");
+                String surname = resultSet.getString("surname");
+                String relationship = resultSet.getString("relationship");
+                String phone = resultSet.getString("phone");
+                String email = resultSet.getString("email");
+
+                Contact newContact = new Contact(patientID, forname, surname, relationship, phone, email);
+
+                newContact.setID(contact_id);
+
+                toReturn.add(newContact);
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+
+                stt.close();
+                con.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+        return toReturn;
+    }
+
+    public static void addContactToPatient(int patient_id, Contact newContact) {
+        String command = "INSERT INTO contact(forename, surname, relationship, phone, email, patient_id)" +
+                         "VALUES(\'" + newContact.getForename() + "\', \'" + newContact.getSurname() +
+                         "\', \'" + newContact.getRelationship() + "\', \'" + newContact.getPhone() +
+                         "\', \'" + newContact.getEmail() + "\', \'" + patient_id + "\');";
+
+        execute(command);
+    }
+
+    public static void deleteContact(int id, Contact toDelete) {
+        String command = "DELETE FROM contact WHERE id=" + toDelete.getID();
+
+        execute(command);
     }
 }
