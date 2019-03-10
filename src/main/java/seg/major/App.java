@@ -15,6 +15,7 @@ public class App extends Application {
     public static String addPatient = "add_patient";
     public static String updatePatient = "update_patient";
     public static String updateAppointment = "update_appointment";
+    public static String contacts = "contacts";
     public static String patients = "patients";
     public static String schema = "schema";
 
@@ -27,7 +28,7 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         PrimaryController primaryController = new PrimaryController();
-        primaryController.addViews(new String[] { login, addPatient, patients, schema, updatePatient, updateAppointment });
+        primaryController.addViews(new String[] { login, addPatient, patients, schema, contacts, updatePatient, updateAppointment });
         primaryController.setPane(App.login);
 
         Group root = new Group();
