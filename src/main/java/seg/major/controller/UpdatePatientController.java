@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -23,6 +24,8 @@ import java.util.ResourceBundle;
  * AddPatientController acts as the controller for the add_patient.fxml file
  */
 public class UpdatePatientController implements Initializable, ViewsController {
+
+
 
     private PrimaryController primaryController;
 
@@ -52,6 +55,12 @@ public class UpdatePatientController implements Initializable, ViewsController {
     private TextField clinicField;
 
     @FXML
+    public Button editBtn;
+
+    @FXML
+    public Button contactsBtn;
+
+    @FXML
     private Button cancelButton;
 
     @FXML
@@ -77,6 +86,7 @@ public class UpdatePatientController implements Initializable, ViewsController {
 
             PatientsController pc = ((PatientsController)primaryController.getControllerByName(App.patients));
             pc.refresh();
+            pc.setInfoText("Updated patient: " + newPatient.getForename()+ " " +newPatient.getSurname());
             primaryController.setPane(App.patients);
         }
         else{
@@ -88,6 +98,7 @@ public class UpdatePatientController implements Initializable, ViewsController {
     @FXML
     public void cancel(){
         // TODO: Link back to the patient panel
+        disableTextFields();
         primaryController.setPane(App.patients);
     }
 
@@ -102,7 +113,24 @@ public class UpdatePatientController implements Initializable, ViewsController {
      */
     public void initialize(URL url, ResourceBundle rb) {
         model = new UpdatePatientModel();
+        disableTextFields();
+    }
 
+    private void enableTextFields() {
+        setTextFieldsAvailability(false);
+    }
+
+    private void disableTextFields() {
+        setTextFieldsAvailability(true);
+    }
+
+    private void setTextFieldsAvailability(boolean value) {
+        forenameField.setEditable(!value);
+        surnameField.setEditable(!value);
+        dobField.setDisable(value);
+        clinicField.setEditable(!value);
+        hospitalField.setEditable(!value);
+        nextAppField.setDisable(value);
     }
 
     public void setUp() {
@@ -140,5 +168,29 @@ public class UpdatePatientController implements Initializable, ViewsController {
 
     public void setData(Object newData) {
         data = newData;
+    }
+
+    public void contactsButtonClicked(ActionEvent event) {
+        Pair<Integer,Integer> p = (Pair<Integer, Integer>) data;
+
+        if(data == null) {
+            return;
+        }
+
+        Patient patient = DatabaseConnection.getPatientById(p.getKey());
+
+        if(patient == null) {
+            return;
+        }
+
+        //System.out.println("!!!!" + patient.getForename() + " " + patient.getSurname());
+
+        ((ContactsController)primaryController.getControllerByName(App.contacts)).setData(patient);
+
+        primaryController.setPane(App.contacts);
+    }
+
+    public void editButtonClicked(ActionEvent event) {
+        enableTextFields();
     }
 }
