@@ -3,11 +3,16 @@ package seg.major.controller;
 import java.util.List;
 import java.util.ResourceBundle;
 import java.net.URL;
+import java.util.concurrent.ThreadPoolExecutor;
+
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
+import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.FlowPane;
+import javafx.scene.text.Text;
 import javafx.util.Pair;
 import seg.major.App;
 import seg.major.model.PatientsModel;
@@ -24,6 +29,9 @@ public class PatientsController implements Initializable, ViewsController {
 
 
   public MenuItem switchToDiary;
+  public Text infoText;
+  public FlowPane infoBar;
+  public BorderPane infoFieldBorder;
   private PrimaryController primaryController;
 
   private PatientsModel patientModel;
@@ -55,6 +63,7 @@ public class PatientsController implements Initializable, ViewsController {
    */
   public void initialize(URL url, ResourceBundle rb) {
     this.patientModel = new PatientsModel();
+    infoText.setText("");
     patientModel.fetchData();
     setupTable();
     setupButtons();
@@ -176,6 +185,10 @@ public class PatientsController implements Initializable, ViewsController {
     }else {
       fillTable(patientModel.over12());
     }
+  }
+
+  public void setInfoText(String text) {
+    infoText.setText(text);
   }
 
 }
