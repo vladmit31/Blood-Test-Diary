@@ -8,9 +8,9 @@ import java.util.Map;
 public interface ControllerInterface {
   public void setScreenParent(PrimaryController primaryController);
 
-  public void setData(Map<String, String> toInject);
+  public void setData(Map<String, Object> toInject);
 
-  public void addData(String toAddKey, String toAddVal);
+  public void addData(String toAddKey, Object toAddVal);
 
   public void update();
 

@@ -15,7 +15,7 @@ public class LoginModel {
      * 
      * @return true if the user was correctly logged in
      */
-    public static boolean validateLogin(String username, String password) {
+    public boolean validateLogin(String username, String password) {
 
         PasswordHash ph = new PasswordHash();
 
@@ -34,6 +34,10 @@ public class LoginModel {
         }
 
         return false;
+    }
+
+    public User getUserByUsername(String toGet) {
+        return UserDAO.getByUsername(toGet);
     }
 
 }

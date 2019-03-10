@@ -24,11 +24,11 @@
     </MenuBar>
     <AnchorPane prefHeight="184.0" prefWidth="268.0" VBox.vgrow="ALWAYS">
       <children>
-            <TextField fx:id="username" layoutX="146.0" layoutY="28.0" />
+            <TextField fx:id="username" text="test" layoutX="146.0" layoutY="28.0" />
             <Label layoutX="62.0" layoutY="32.0" text="Username" />
             <Label layoutX="64.0" layoutY="85.0" text="Password" />
             <Button fx:id="loginButton" layoutX="220.0" layoutY="131.0" mnemonicParsing="false" onMouseClicked="#loginBtn" prefHeight="25.0" prefWidth="75.0" text="Login" />
-            <PasswordField fx:id="password" layoutX="146.0" layoutY="81.0" />
+            <PasswordField fx:id="password" text="test" layoutX="146.0" layoutY="81.0" />
       </children>
     </AnchorPane>
   </children>

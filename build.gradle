@@ -30,6 +30,22 @@ sourceSets.main {
     }
 }
 
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = "11.0.1"
+}
+
+    sourceSets.main {
+    java {
+        srcDir 'src/main/java' //assume that your source codes are inside this path
+    }
+    resources {
+        srcDirs = ['src/main/java', 'src/main/resources']
+        exclude "**/*.java"
+    }
+}
+
+
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.

@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -10,8 +11,6 @@ import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import seg.major.model.AddPatientModel;
-import seg.major.model.AppointmentDAO;
-import seg.major.structure.Patient;
 
 import javax.swing.*;
 
@@ -21,7 +20,7 @@ import javax.swing.*;
 public class AddPatientController implements Initializable, ControllerInterface {
 
   private PrimaryController primaryController;
-  private Map<String, String> data;
+  private Map<String, Object> data = new HashMap<>();
 
   /** ---------- FXML ---------- */
 
@@ -73,8 +72,6 @@ public class AddPatientController implements Initializable, ControllerInterface 
   @FXML
   public void cancel() {
     Stage stage = (Stage) cancelButton.getScene().getWindow();
-
-    stage.close();
   }
 
   private boolean checkUserInput() {
@@ -104,7 +101,7 @@ public class AddPatientController implements Initializable, ControllerInterface 
    * 
    * @param data the data to set
    */
-  public void setData(Map<String, String> data) {
+  public void setData(Map<String, Object> data) {
     this.data = data;
   }
 
@@ -114,7 +111,7 @@ public class AddPatientController implements Initializable, ControllerInterface 
    * @param tpAddKey the key of the data
    * @param toAddVal the value of the data
    */
-  public void addData(String toAddKey, String toAddVal) {
+  public void addData(String toAddKey, Object toAddVal) {
     data.put(toAddKey, toAddVal);
     update();
   }

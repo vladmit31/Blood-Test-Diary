@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 import seg.major.structure.User;
@@ -356,15 +358,13 @@ public class UserDAO implements DAOInterface<User> {
    * @param toConvert the ResultSet to be read
    * @return the users
    */
-  private User[] resultSetToUserArray(ResultSet toConvert) throws SQLException {
-    User[] toReturn = new User[toConvert.getFetchSize()];
-    int i = 0;
+  private static User[] resultSetToUserArray(ResultSet toConvert) throws SQLException {
+    List<User> toReturn = new ArrayList<User>();
     while (toConvert.next()) {
-      toReturn[i] = resultSetToUser(toConvert);
-      i++;
+      toReturn.add(resultSetToUser(toConvert));
     }
 
-    return toReturn;
+    return toReturn.toArray(new User[toReturn.size()]);
   }
 
   /**

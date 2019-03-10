@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 import java.net.URL;
@@ -11,13 +12,13 @@ import javafx.scene.control.TextField;
 import seg.major.App;
 import seg.major.model.LoginModel;
 import seg.major.controller.PrimaryController;
-
 import javax.swing.*;
 
 public class LoginController implements Initializable, ControllerInterface {
 
     private PrimaryController primaryController;
-    private Map<String, String> data;
+    private Map<String, Object> data = new HashMap<>();
+    private static LoginModel loginModel = new LoginModel();
 
     /** ---------- FXML ---------- */
     @FXML
@@ -35,9 +36,9 @@ public class LoginController implements Initializable, ControllerInterface {
     @FXML
     public void loginBtn() {
         if (!username.getText().equals("") && !password.getText().equals("")) {
-            if (LoginModel.validateLogin(username.getText(), password.getText())) {
+            if (loginModel.validateLogin(username.getText(), password.getText())) {
                 primaryController.setPane(App.schema);
-                primaryController.sendTo(App.schema, "username", username.getText());
+                primaryController.sendTo(App.schema, "username", loginModel.getUserByUsername(username.getText()));
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid credentials", "Wrong username/password",
                         JOptionPane.NO_OPTION);
@@ -71,7 +72,7 @@ public class LoginController implements Initializable, ControllerInterface {
      * 
      * @param data the data to set
      */
-    public void setData(Map<String, String> toSet) {
+    public void setData(Map<String, Object> toSet) {
         this.data = toSet;
     }
 
@@ -81,7 +82,7 @@ public class LoginController implements Initializable, ControllerInterface {
      * @param tpAddKey the key of the data
      * @param toAddVal the value of the data
      */
-    public void addData(String toAddKey, String toAddVal) {
+    public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
         update();
     }
@@ -91,6 +92,7 @@ public class LoginController implements Initializable, ControllerInterface {
      */
     public void update() {
     }
+
     /** ---------- Inherited / Implemented ---------- */
 
 }

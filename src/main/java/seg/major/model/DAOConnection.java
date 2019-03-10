@@ -15,4 +15,21 @@ public class DAOConnection {
     public static Connection getConnection() throws SQLException {
         return DriverManager.getConnection(URL, USER, PASSWORD);
     }
+
+    private static UserDAO userDAO = new UserDAO();
+    private static PatientDAO patientDAO = new PatientDAO();
+    private static AppointmentDAO appointmentDAO = new AppointmentDAO();
+
+    public UserDAO getUserDAO() {
+        return userDAO;
+    }
+
+    public PatientDAO getPatientDAO() {
+        return patientDAO;
+    }
+
+    public AppointmentDAO getAppointmentDAO() {
+        return appointmentDAO;
+    }
+
 }

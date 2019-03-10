@@ -26,6 +26,19 @@ public class Patient {
 
     }
 
+    public Patient(int id, String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
+            LocalDate next_appointment, Double refresh_rate) {
+        this.id = id;
+        this.forename = forename;
+        this.surname = surname;
+        this.dob = dob;
+        this.hospital_number = hospital_number;
+        this.local_clinic = local_clinic;
+        this.next_appointment = next_appointment;
+        this.refresh_rate = refresh_rate;
+
+    }
+
     public int getID() {
         return id;
     }

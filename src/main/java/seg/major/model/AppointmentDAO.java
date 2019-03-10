@@ -5,6 +5,9 @@ import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Map;
 import java.time.LocalDate;
 
@@ -16,7 +19,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
   private static final String ID = "id";
   private static final String STATUS = "status";
   private static final String DUE_DATE = "due_date";
-  private static final String PATIENT_ID = "appointment_id";
+  private static final String PATIENT_ID = "patient_id";
 
   public AppointmentDAO() {
   }
@@ -66,7 +69,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toCreate the appointment to create as a record
    */
   public void create(Appointment toCreate) {
-    String query = "INSERT INTO appointment (id, status, due_date, patient_id) VALUES (?, ?, ?,?)";
+    String query = "INSERT INTO appointment (status, due_date, patient_id) VALUES (?, ?, ?)";
     PreparedStatement ps = null;
     Connection conn = null;
     try {
@@ -109,7 +112,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
       ps.setInt(1, toGet);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToUser(rs);
+      toReturn = resultSetToAppointment(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -134,7 +137,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toUpdate the appointment to update
    */
   public void update(Appointment toUpdate) {
-    String query = "UPDATE appointment SET ? status = ? due_date = ? patient_id = ? WHERE id = ?";
+    String query = "UPDATE appointment SET( status = ? due_date = ? patient_id = ? ) WHERE id = ?";
 
     Appointment toReturn = null;
     PreparedStatement ps = null;
@@ -149,7 +152,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
       ps.setInt(4, toUpdate.getID());
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToUser(rs);
+      toReturn = resultSetToAppointment(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -177,11 +180,115 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
   }
 
   /**
-   * @param toGet Map of atttributes and the values to match to a record
+   * @param toGet Map of attributes and the values to match to a record
    * @return the matched appointment
    */
   public Appointment get(Map<String, String> toGet) {
-    return null;
+
+    String query = mapToSQLQuery(toGet);
+    Appointment toReturn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToAppointment(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
+    }
+
+    return toReturn;
+  }
+
+  /**
+   * @param toGet Map of attributes and the values to match to a record
+   * @return the matched appointment
+   */
+  public static Appointment[] getAll(Map<String, String> toGet) {
+
+    String query = mapToSQLQuery(toGet);
+    Appointment[] toReturn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToAppointmentArray(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
+    }
+
+    return toReturn;
+  }
+
+  /**
+   * Get all the current Appointments
+   * 
+   * @return a Appointment array that contains every appointment in the table
+   */
+  public static Appointment[] getAll() {
+    String query = "SELECT * FROM appointment;";
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    Appointment[] toReturn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToAppointmentArray(rs);
+
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
+    }
+
+    return toReturn;
   }
 
   /** ---------- Inherited / Implemented ---------- */
@@ -230,7 +337,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toConvert the ResultSet to be read
    * @return the appointment
    */
-  private static Appointment resultSetToUser(ResultSet toConvert) throws SQLException {
+  private static Appointment resultSetToAppointment(ResultSet toConvert) throws SQLException {
     if (toConvert.next()) {
       int id = toConvert.getInt(ID);
       int status = toConvert.getInt(STATUS);
@@ -249,15 +356,88 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toConvert the ResultSet to be read
    * @return the users
    */
-  private Appointment[] resultSetToUserArray(ResultSet toConvert) throws SQLException {
-    Appointment[] toReturn = new Appointment[toConvert.getFetchSize()];
-    int i = 0;
+  private static Appointment[] resultSetToAppointmentArray(ResultSet toConvert) throws SQLException {
+    List<Appointment> toReturn = new ArrayList<Appointment>();
     while (toConvert.next()) {
-      toReturn[i] = resultSetToUser(toConvert);
-      i++;
+      toReturn.add(resultSetToAppointment(toConvert));
+    }
+    return toReturn.toArray(new Appointment[toReturn.size()]);
+  }
+
+  /**
+   * Build a statment of the form: "SELECT * FROM appointment WHERE (col1 = val1
+   * AND col2 = val2 AND ... colN = valN);"
+   * 
+   * from the provided map.
+   * 
+   * @param toQuery the map to convery to a query
+   * @return the constructed statement
+   */
+  private static String mapToSQLQuery(Map<String, String> toQuery) {
+
+    // build the statement
+    StringBuilder sb = new StringBuilder();
+    sb.append("SELECT * FROM appointment WHERE ( ");
+    for (Map.Entry<String, String> entry : toQuery.entrySet()) {
+      sb.append(entry.getKey());
+      sb.append("='");
+      sb.append(entry.getValue());
+      sb.append("' AND ");
+    }
+    // remove the last AND then close the brackets
+    sb.delete(sb.length() - 4, sb.length());
+    sb.append(");");
+
+    return sb.toString();
+  }
+
+  /**
+   * Get the appointments for this week only
+   * 
+   * @param weekStart the start of the week
+   * @return the current week's appointments
+   */
+  public static Appointment[] getCurrentWeek() {
+
+    Week curWeek = new Week(LocalDate.now());
+    String query = buildWeekQuery(curWeek);
+    Appointment[] toReturn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToAppointmentArray(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
     }
 
     return toReturn;
   }
 
+  private static String buildWeekQuery(Week curWeek) {
+    StringBuilder sb = new StringBuilder();
+    sb.append("SELECT * FROM appointment WHERE due_date BETWEEN '");
+    sb.append(curWeek.getMondayDate());
+    sb.append("' AND '");
+    sb.append(curWeek.getFridayDate());
+    sb.append("';");
+    return sb.toString();
+  }
 }

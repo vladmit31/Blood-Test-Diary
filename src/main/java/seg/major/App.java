@@ -15,6 +15,8 @@ public class App extends Application {
     // Name of the view that is shown on first loading the application
     public static String login = "login";
     public static String addPatient = "add_patient";
+    public static String updatePatient = "update_patient";
+    public static String updateAppointment = "update_appointment";
     public static String patients = "patients";
     public static String schema = "schema";
     public static String propertiesLocation = "props.properties";
@@ -34,8 +36,8 @@ public class App extends Application {
         PrimaryController primaryController = new PrimaryController();
         Group root = new Group();
         Scene scene = new Scene(root);
-
-        primaryController.addViews(new String[] { login, addPatient, patients, schema });
+        primaryController
+                .addViews(new String[] { login, addPatient, patients, schema, updatePatient, updateAppointment });
         primaryController.setPane(App.login);
         root.getChildren().addAll(primaryController);
         primaryStage.setScene(scene);

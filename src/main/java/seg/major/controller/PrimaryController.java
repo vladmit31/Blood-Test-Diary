@@ -49,7 +49,7 @@ public class PrimaryController extends StackPane {
   /**
    * Loads a view from the views resource folder
    * 
-   * @param toAdd array of names of views to add
+   * @param toLoad array of names of views to add
    * @return the loadedNode
    */
   private Node loadView(String toLoad) {
@@ -85,7 +85,9 @@ public class PrimaryController extends StackPane {
    */
   public boolean setPane(String name) {
     VBox n = (VBox) panes.get(name);
-    if (n != null) {
+    ControllerInterface ci = data.get(name);
+    if (n != null && ci != null) {
+      ci.update();
       if (!getChildren().isEmpty()) {
         getChildren().remove(0);
         getChildren().add(0, n);
@@ -107,7 +109,7 @@ public class PrimaryController extends StackPane {
    * @param toSetKey  the key of the data to set
    * @param toSetVal  the value of the data to get
    */
-  public void sendTo(String toReceive, String toSetKey, String toSetVal) {
+  public void sendTo(String toReceive, String toSetKey, Object toSetVal) {
     ControllerInterface ci = data.get(toReceive);
     if (ci != null) {
       ci.addData(toSetKey, toSetVal);
