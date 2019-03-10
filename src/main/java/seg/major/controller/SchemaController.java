@@ -248,6 +248,7 @@ public class SchemaController implements Initializable, ViewsController {
 
     public void switchToPatients(ActionEvent event) {
       primaryController.setPane(App.patients);
+        ((PatientsController) primaryController.getControllerByName(App.patients)).setInfoText("");
     }
 
     public void previousWeekButtonClicked(ActionEvent event) {
