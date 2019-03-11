@@ -1,7 +1,7 @@
 package seg.major.structure;
 
 public class Contact {
-    private int ID;
+    private int id;
     private final int patientID;
     private String forename;
     private String surname;
@@ -9,9 +9,19 @@ public class Contact {
     private String phone;
     private String email;
 
-    public Contact(int patientID, String forename, String surname, String relationship, String phone, String email){
+    public Contact(int patientID, String forename, String surname, String relationship, String phone, String email) {
         this.patientID = patientID;
+        this.forename = forename;
+        this.surname = surname;
+        this.relationship = relationship;
+        this.phone = phone;
+        this.email = email;
+    }
 
+    public Contact(int patientID, int id, String forename, String surname, String relationship, String phone,
+            String email) {
+        this.patientID = patientID;
+        this.id = id;
         this.forename = forename;
         this.surname = surname;
         this.relationship = relationship;
@@ -28,15 +38,15 @@ public class Contact {
     }
 
     public int getID() {
-        return ID;
+        return id;
     }
 
     public int getPatientID() {
         return patientID;
     }
 
-    public void setID(int ID) {
-        this.ID = ID;
+    public void setID(int id) {
+        this.id = id;
     }
 
     public String getSurname() {

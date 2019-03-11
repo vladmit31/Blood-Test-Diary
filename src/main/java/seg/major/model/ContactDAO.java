@@ -346,11 +346,13 @@ public class ContactDAO implements DAOInterface<Contact> {
   private static Contact resultSetToContact(ResultSet toConvert) throws SQLException {
     if (toConvert.next()) {
       int id = toConvert.getInt(ID);
-      String contactname = toConvert.getString(USERNAME);
-      String password = toConvert.getString(PASSWORD);
+      String forename = toConvert.getString(FORENAME);
+      String surname = toConvert.getString(SURNAME);
+      String relationship = toConvert.getString(RELATIONSHIP);
+      String phone = toConvert.getString(PHONE);
       String email = toConvert.getString(EMAIL);
-      int isAdmin = toConvert.getInt(IS_ADMIN);
-      return new Contact(id, contactname, email, password, isAdmin);
+      int patientID = toConvert.getInt(PATIENT_ID);
+      return new Contact(patientID, id, forename, surname, relationship, phone, email);
 
     } else {
       return null;
@@ -373,8 +375,8 @@ public class ContactDAO implements DAOInterface<Contact> {
   }
 
   /**
-   * Build a statment of the form: "SELECT * FROM contact WHERE (col1 = val1 AND col2
-   * = val2 AND ... colN = valN);"
+   * Build a statment of the form: "SELECT * FROM contact WHERE (col1 = val1 AND
+   * col2 = val2 AND ... colN = valN);"
    * 
    * from the provided map.
    * 
