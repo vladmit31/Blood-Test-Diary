@@ -314,30 +314,37 @@ public class SchemaController implements Initializable, ControllerInterface {
     userInfo.setText("You logged in as " + ((User) data.get("user")).getUsername());
   }
 
-  @FXML
-  public void logoutBtn(ActionEvent event) {
-    primaryController.setPane(App.login);
-  }
+    public void logout(ActionEvent event) {
+      primaryController.setPane(App.login);
+    }
 
-  @FXML
-  public void switchToPatients(ActionEvent event) {
-    primaryController.setPane(App.patients);
-  }
+    public void switchToPatients(ActionEvent event) {
+      primaryController.setPane(App.patients);
+      
+        // ((PatientsController) primaryController.getControllerByName(App.patients)).setInfoText("");
+    }
 
-  @FXML
-  public void previousWeekButtonClicked(ActionEvent event) {
-    this.schemaModel.decrementWeek();
-    this.weekText.setText(schemaModel.getWeek());
-    setUpTable();
-    update();
-  }
+    public void previousWeekButtonClicked(ActionEvent event) {
+      this.schemaModel.decrementWeek();
 
-  @FXML
-  public void nextWeekButtonClicked(ActionEvent event) {
-    this.schemaModel.incrementWeek();
-    this.weekText.setText(schemaModel.getWeek());
-    setUpTable();
-    update();
-  }
+      this.weekText.setText(schemaModel.getWeek());
+      refresh();
+    }
 
+    public void nextWeekButtonClicked(ActionEvent event) {
+      this.schemaModel.incrementWeek();
+
+      this.weekText.setText(schemaModel.getWeek());
+      refresh();
+    }
+
+    public void refresh() {
+      schemaModel.updateData();
+      // TODO: check for which button is selected for update.
+      if(isUnder12) {
+          fillTablesForUnder12();
+      }else {
+          fillTablesForOver12();
+      }
+    }
 }

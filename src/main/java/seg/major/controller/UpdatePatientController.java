@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -19,6 +20,8 @@ import java.util.ResourceBundle;
  * AddPatientController acts as the controller for the add_patient.fxml file
  */
 public class UpdatePatientController implements Initializable, ControllerInterface {
+
+
 
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
@@ -45,6 +48,12 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
 
     @FXML
     private TextField clinicField;
+
+    @FXML
+    public Button editBtn;
+
+    @FXML
+    public Button contactsBtn;
 
     @FXML
     private Button cancelButton;
@@ -78,6 +87,7 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     @FXML
     public void cancel() {
         // TODO: Link back to the patient panel
+        disableTextFields();
         primaryController.setPane(App.patients);
     }
 
@@ -93,7 +103,24 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
      */
     public void initialize(URL url, ResourceBundle rb) {
         model = new UpdatePatientModel();
+        disableTextFields();
+    }
 
+    private void enableTextFields() {
+        setTextFieldsAvailability(false);
+    }
+
+    private void disableTextFields() {
+        setTextFieldsAvailability(true);
+    }
+
+    private void setTextFieldsAvailability(boolean value) {
+        forenameField.setEditable(!value);
+        surnameField.setEditable(!value);
+        dobField.setDisable(value);
+        clinicField.setEditable(!value);
+        hospitalField.setEditable(!value);
+        nextAppField.setDisable(value);
     }
 
     public void setUp() {
@@ -143,4 +170,28 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     }
 
     /** ---------- Inherited / Implemented ---------- */
+    public void contactsButtonClicked(ActionEvent event) {
+        // Pair<Integer,Integer> p = (Pair<Integer, Integer>) data;
+
+        if(data == null) {
+            return;
+        }
+
+        // TODO: database connection
+        // Patient patient = DatabaseConnection.getPatientById(p.getKey());
+
+        // if(patient == null) {
+        //     return;
+        // }
+
+        //System.out.println("!!!!" + patient.getForename() + " " + patient.getSurname());
+
+        // ((ContactsController)primaryController.getControllerByName(App.contacts)).setData(patient);
+
+        primaryController.setPane(App.contacts);
+    }
+
+    public void editButtonClicked(ActionEvent event) {
+        enableTextFields();
+    }
 }

@@ -1,13 +1,16 @@
 package seg.major.structure;
 
 public class Contact {
+    private int ID;
+    private final int patientID;
     private String forename;
     private String surname;
     private String relationship;
     private String phone;
     private String email;
 
-    public Contact(String forename, String surname, String relationship, String phone, String email){
+    public Contact(int patientID, String forename, String surname, String relationship, String phone, String email){
+        this.patientID = patientID;
 
         this.forename = forename;
         this.surname = surname;
@@ -22,6 +25,18 @@ public class Contact {
 
     public void setForename(String forename) {
         this.forename = forename;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public int getPatientID() {
+        return patientID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public String getSurname() {
