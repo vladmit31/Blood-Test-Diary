@@ -19,9 +19,6 @@ import java.util.ResourceBundle;
 
 public class ContactsController implements Initializable, ControllerInterface {
 
-
-    private Object data;
-
     private Contact toBeDeleted = null;
 
     @FXML
@@ -49,26 +46,26 @@ public class ContactsController implements Initializable, ControllerInterface {
     public Button backButton;
 
     @FXML
-    public TableView contactsTable;
+    public TableView<Contact> contactsTable;
 
     @FXML
-    private TableColumn forenameColumn;
+    private TableColumn<Contact, String> forenameColumn;
 
     @FXML
-    private TableColumn surnameColumn;
+    private TableColumn<Contact, String> surnameColumn;
 
     @FXML
-    private TableColumn relationshipColumn;
+    private TableColumn<Contact, String> relationshipColumn;
 
     @FXML
-    private TableColumn phoneColumn;
+    private TableColumn<Contact, String> phoneColumn;
 
     @FXML
-    private TableColumn emailColumn;
+    private TableColumn<Contact, String> emailColumn;
 
-    private ContactsModel contactsModel;
+    private ContactsModel contactsModel = new ContactsModel();
     private PrimaryController primaryController;
-    // private Map<String, Object> data = new HashMap<>();
+    private Map<String, Object> data = new HashMap<>();
 
     /** ---------- Inherited / Implemented ---------- */
     /**
@@ -81,20 +78,21 @@ public class ContactsController implements Initializable, ControllerInterface {
     private void setupTable() {
         setupColumns();
         setUpRows();
+        System.out.println("!!!!" + ((Patient) data.get("patient")).getID());
         fillTable(contactsModel.getContactList());
     }
 
     private void setupColumns() {
-        forenameColumn.setCellValueFactory(new PropertyValueFactory("forename"));
-        surnameColumn.setCellValueFactory(new PropertyValueFactory("surname"));
-        relationshipColumn.setCellValueFactory(new PropertyValueFactory("relationship"));
-        phoneColumn.setCellValueFactory(new PropertyValueFactory("phone"));
-        emailColumn.setCellValueFactory(new PropertyValueFactory("email"));
+        forenameColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("forename"));
+        surnameColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("surname"));
+        relationshipColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("relationship"));
+        phoneColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("phone"));
+        emailColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("email"));
     }
 
-    private void setUpRows(){
+    private void setUpRows() {
         contactsTable.setRowFactory(t -> {
-            TableRow<Contact> row = new TableRow<>();
+            TableRow<Contact> row = new TableRow<Contact>();
             row.setOnMouseClicked(click -> {
                 if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY) {
                     toBeDeleted = row.getItem();
@@ -104,9 +102,9 @@ public class ContactsController implements Initializable, ControllerInterface {
         });
     }
 
-    private void fillTable(List<Contact> contactList){
+    private void fillTable(List<Contact> contactList) {
         contactsTable.getItems().clear();
-        for(Contact contact : contactList){
+        for (Contact contact : contactList) {
             contactsTable.getItems().add(contact);
         }
     }
@@ -145,20 +143,10 @@ public class ContactsController implements Initializable, ControllerInterface {
      */
     public void update() {
     }
+
     /** ---------- Inherited / Implemented ---------- */
 
-    public void setData(Object o) {
-        data = o;
-        Patient patient = (Patient) data;
-        System.out.println("!!!!" + patient.getForename() + " " + patient.getSurname());
-        contactsModel = new ContactsModel(patient);
-
-        setupTable();
-
-        fillTable(contactsModel.getContactList());
-    }
-
-    private void emptyAddFields(){
+    private void emptyAddFields() {
         this.forenameField.setText("");
         this.surnameField.setText("");
         this.relationshipField.setText("");
@@ -166,30 +154,37 @@ public class ContactsController implements Initializable, ControllerInterface {
         this.emailField.setText("");
     }
 
+    @FXML
     public void addButtonClicked(ActionEvent event) {
-        if(checkUserInput()){
-            Patient patient = (Patient) data;
-            contactsModel.addContact(new Contact(patient.getId(),forenameField.getText(),
-                    surnameField.getText(), relationshipField.getText(), phoneField.getText(),
-                    emailField.getText()));
+        if (checkUserInput()) {
+            Patient patient = (Patient) data.get("patient");
+
+            {
+                System.out.println("!!" + patient.getID());
+
+            }
+            contactsModel.addContact(patient.getID(), forenameField.getText(), surnameField.getText(),
+                    relationshipField.getText(), phoneField.getText(), emailField.getText());
             fillTable(this.contactsModel.getContactList());
             emptyAddFields();
         }
     }
 
     private boolean checkUserInput() {
-        return !(forenameField.getText().equals("") || surnameField.getText().equals("") ||
-                relationshipField.getText().equals("") || phoneField.getText().equals("") ||
-                emailField.getText().equals(""));
+        return !(forenameField.getText().equals("") || surnameField.getText().equals("")
+                || relationshipField.getText().equals("") || phoneField.getText().equals("")
+                || emailField.getText().equals(""));
     }
 
+    @FXML
     public void deleteButtonClicked(ActionEvent event) {
-        if(toBeDeleted != null){
+        if (toBeDeleted != null) {
             contactsModel.deleteContact(toBeDeleted);
             fillTable(contactsModel.getContactList());
         }
     }
 
+    @FXML
     public void backButtonClicked(ActionEvent event) {
         primaryController.setPane(App.updatePatient);
     }
