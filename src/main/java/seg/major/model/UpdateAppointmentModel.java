@@ -6,6 +6,6 @@ public class UpdateAppointmentModel {
 
   public static Appointment[] getAppointmentsForTheWeek() {
 
-    return AppointmentDAO.getCurrentWeek();
+    return AppointmentDAO.getAll();
   }
 }

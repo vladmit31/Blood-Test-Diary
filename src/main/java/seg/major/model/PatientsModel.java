@@ -28,9 +28,9 @@ public class PatientsModel {
         return appointmentList;
     }
 
-    public static void fetchData() {
-        patientList = Arrays.asList(patientDAO.getAll());
-        appointmentList = Arrays.asList(appointmentDAO.getAll());
+    public void fetchData() {
+        patientList = Arrays.asList(PatientDAO.getAll());
+        appointmentList = Arrays.asList(AppointmentDAO.getAll());
     }
 
     public List<Patient> searchByName(String name) {

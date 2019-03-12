@@ -30,7 +30,6 @@ public class SchemaModel {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
         List<Appointment> appointments = appointmentList;
-        System.out.print("Size of Appointments arraylsit is: " + appointments.size());
         for (var appointment : appointments) {
             for (var patient : patientsList) {
                 if (appointment.getPatientID() == patient.getID()) {
@@ -49,7 +48,7 @@ public class SchemaModel {
     }
 
     public void updateData() {
-        this.appointmentList = Arrays.asList(AppointmentDAO.getCurrentWeek());
+        this.appointmentList = Arrays.asList(AppointmentDAO.getCurrentWeek(currentWeek));
 
         this.patientsList = Arrays.asList(PatientDAO.getAll());
 
@@ -74,7 +73,6 @@ public class SchemaModel {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
         List<Appointment> appointments = getAppointmentsForDate(day);
-        System.out.print("Size of Appointments arraylsit is: " + appointments.size());
         for (var appointment : appointments) {
             for (var patient : patientListUnder12) {
                 if (appointment.getPatientID() == patient.getID()) {
@@ -96,7 +94,6 @@ public class SchemaModel {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
         List<Appointment> appointments = getAppointmentsForDate(day);
-        System.out.print("Size of Appointments arraylsit is: " + appointments.size());
 
         for (var appointment : appointments) {
             for (var patient : patientListOver12) {

@@ -21,8 +21,6 @@ import java.util.ResourceBundle;
  */
 public class UpdatePatientController implements Initializable, ControllerInterface {
 
-
-
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
 
@@ -173,21 +171,10 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     public void contactsButtonClicked(ActionEvent event) {
         // Pair<Integer,Integer> p = (Pair<Integer, Integer>) data;
 
-        if(data == null) {
+        if (data == null) {
             return;
         }
-
-        // TODO: database connection
-        // Patient patient = DatabaseConnection.getPatientById(p.getKey());
-
-        // if(patient == null) {
-        //     return;
-        // }
-
-        //System.out.println("!!!!" + patient.getForename() + " " + patient.getSurname());
-
-        // ((ContactsController)primaryController.getControllerByName(App.contacts)).setData(patient);
-
+        primaryController.sendTo(App.contacts, "patient", data.get("patient"));
         primaryController.setPane(App.contacts);
     }
 

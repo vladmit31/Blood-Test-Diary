@@ -396,9 +396,8 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param weekStart the start of the week
    * @return the current week's appointments
    */
-  public static Appointment[] getCurrentWeek() {
+  public static Appointment[] getCurrentWeek(Week curWeek) {
 
-    Week curWeek = new Week(LocalDate.now());
     String query = buildWeekQuery(curWeek);
     Appointment[] toReturn = null;
     PreparedStatement ps = null;
@@ -426,6 +425,8 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
       } catch (Exception e) {
       }
     }
+    System.out.println(query);
+    System.out.print("Size of Appointments arraylsit is: " + toReturn.length);
 
     return toReturn;
   }

@@ -168,13 +168,11 @@ public class SchemaController implements Initializable, ControllerInterface {
       under12Btn.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       over12Btn.setStyle(null);
       isUnder12 = true;
-      update();
     });
     over12Btn.setOnAction(e -> {
       over12Btn.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       under12Btn.setStyle(null);
       isUnder12 = false;
-      update();
     });
   }
 
@@ -305,7 +303,7 @@ public class SchemaController implements Initializable, ControllerInterface {
    * Update the scene with changes from the data HashMap
    */
   public void update() {
-
+    setAuthenticatedUser();
   }
 
   /** ---------- Inherited / Implemented ---------- */
@@ -314,37 +312,38 @@ public class SchemaController implements Initializable, ControllerInterface {
     userInfo.setText("You logged in as " + ((User) data.get("user")).getUsername());
   }
 
-    public void logout(ActionEvent event) {
-      primaryController.setPane(App.login);
+  public void logoutBtn(ActionEvent event) {
+    primaryController.setPane(App.login);
+  }
+
+  public void switchToPatients(ActionEvent event) {
+    primaryController.setPane(App.patients);
+
+    // ((PatientsController)
+    // primaryController.getControllerByName(App.patients)).setInfoText("");
+  }
+
+  public void previousWeekButtonClicked(ActionEvent event) {
+    this.schemaModel.decrementWeek();
+
+    this.weekText.setText(schemaModel.getWeek());
+    refresh();
+  }
+
+  public void nextWeekButtonClicked(ActionEvent event) {
+    this.schemaModel.incrementWeek();
+
+    this.weekText.setText(schemaModel.getWeek());
+    refresh();
+  }
+
+  public void refresh() {
+    schemaModel.updateData();
+    // TODO: check for which button is selected for update.
+    if (isUnder12) {
+      fillTablesForUnder12();
+    } else {
+      fillTablesForOver12();
     }
-
-    public void switchToPatients(ActionEvent event) {
-      primaryController.setPane(App.patients);
-      
-        // ((PatientsController) primaryController.getControllerByName(App.patients)).setInfoText("");
-    }
-
-    public void previousWeekButtonClicked(ActionEvent event) {
-      this.schemaModel.decrementWeek();
-
-      this.weekText.setText(schemaModel.getWeek());
-      refresh();
-    }
-
-    public void nextWeekButtonClicked(ActionEvent event) {
-      this.schemaModel.incrementWeek();
-
-      this.weekText.setText(schemaModel.getWeek());
-      refresh();
-    }
-
-    public void refresh() {
-      schemaModel.updateData();
-      // TODO: check for which button is selected for update.
-      if(isUnder12) {
-          fillTablesForUnder12();
-      }else {
-          fillTablesForOver12();
-      }
-    }
+  }
 }

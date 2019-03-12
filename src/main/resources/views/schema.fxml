@@ -193,7 +193,7 @@
                                 <FlowPane hgap="4.0" prefHeight="25.0" prefWidth="181.0" BorderPane.alignment="CENTER">
                                     <children>
                                         <Button fx:id="logoutButton" mnemonicParsing="false" onMouseClicked="#logoutBtn" prefHeight="25.0" prefWidth="54.0" text="Logout" />
-                              <Label fx:id="userInfo" text="Label" />
+                              <Label fx:id="userInfo" text="" />
                                     </children>
                                 </FlowPane>
                             </right>
