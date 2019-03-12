@@ -217,7 +217,7 @@ public class ContactDAO implements DAOInterface<Contact> {
       } catch (Exception e) {
       }
     }
-
+    System.out.println(query);
     return toReturn;
   }
 
@@ -254,7 +254,7 @@ public class ContactDAO implements DAOInterface<Contact> {
       } catch (Exception e) {
       }
     }
-
+    System.out.println(query);
     return toReturn;
   }
 
