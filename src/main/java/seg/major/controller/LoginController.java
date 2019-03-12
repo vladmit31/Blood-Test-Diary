@@ -37,8 +37,8 @@ public class LoginController implements Initializable, ControllerInterface {
     public void loginBtn() {
         if (!username.getText().equals("") && !password.getText().equals("")) {
             if (loginModel.validateLogin(username.getText(), password.getText())) {
+                primaryController.sendTo(App.schema, "user", loginModel.getUserByUsername(username.getText()));
                 primaryController.setPane(App.schema);
-                primaryController.sendTo(App.schema, "username", loginModel.getUserByUsername(username.getText()));
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid credentials", "Wrong username/password",
                         JOptionPane.NO_OPTION);
