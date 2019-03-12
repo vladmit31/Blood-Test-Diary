@@ -6,18 +6,13 @@ import java.util.List;
 import java.util.ResourceBundle;
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.concurrent.ThreadPoolExecutor;
-
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
-import javafx.util.Pair;
 import seg.major.App;
 import seg.major.model.PatientsModel;
 
@@ -59,7 +54,7 @@ public class PatientsController implements Initializable, ControllerInterface {
    * Allow javafx to initalise the controller with the view
    */
   public void initialize(URL url, ResourceBundle rb) {
-    this.patientModel = new PatientsModel();
+    patientModel = new PatientsModel();
     infoText.setText("");
     patientModel.fetchData();
     setupTable();
@@ -194,11 +189,11 @@ public class PatientsController implements Initializable, ControllerInterface {
     fillTable(patientModel.searchByName(name));
   }
 
-  public void refresh(){
+  public void refresh() {
     patientModel.fetchData();
-    if(isUnder12) {
+    if (isUnder12) {
       fillTable(patientModel.under12());
-    }else {
+    } else {
       fillTable(patientModel.over12());
     }
   }
