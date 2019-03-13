@@ -1,7 +1,6 @@
 package seg.major.model;
 
 import seg.major.structure.Contact;
-import seg.major.structure.Patient;
 
 import java.util.List;
 import java.util.Map;
@@ -36,7 +35,9 @@ public class ContactsModel {
 
     }
 
-    public List<Contact> getContactList() {
-        return Arrays.asList(contactDAO.getAll());
+    public List<Contact> getContactList(int id) {
+        HashMap<String, String> param = new HashMap<>();
+        param.put("patient_id", id + "");
+        return Arrays.asList(contactDAO.getAll(param));
     }
 }

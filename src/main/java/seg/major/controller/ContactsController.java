@@ -66,6 +66,7 @@ public class ContactsController implements Initializable, ControllerInterface {
     private ContactsModel contactsModel = new ContactsModel();
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
+    private Patient curPatient;
 
     /** ---------- Inherited / Implemented ---------- */
     /**
@@ -79,10 +80,15 @@ public class ContactsController implements Initializable, ControllerInterface {
         setupColumns();
         setUpRows();
         System.out.println("!!!!" + ((Patient) data.get("patient")).getID());
-        fillTable(contactsModel.getContactList());
+        Patient p = (Patient) data.get("patient");
+        if (p != null) {
+            fillTable(contactsModel.getContactList(p.getID()));
+            this.curPatient = p;
+        }
     }
 
     private void setupColumns() {
+        contactsTable.getItems().clear();
         forenameColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("forename"));
         surnameColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("surname"));
         relationshipColumn.setCellValueFactory(new PropertyValueFactory<Contact, String>("relationship"));
@@ -142,6 +148,7 @@ public class ContactsController implements Initializable, ControllerInterface {
      * Update the scene with changes from the data HashMap
      */
     public void update() {
+        setupTable();
     }
 
     /** ---------- Inherited / Implemented ---------- */
@@ -157,16 +164,12 @@ public class ContactsController implements Initializable, ControllerInterface {
     @FXML
     public void addButtonClicked(ActionEvent event) {
         if (checkUserInput()) {
-            Patient patient = (Patient) data.get("patient");
 
-            {
-                System.out.println("!!" + patient.getID());
-
-            }
-            contactsModel.addContact(patient.getID(), forenameField.getText(), surnameField.getText(),
+            contactsModel.addContact(curPatient.getID(), forenameField.getText(), surnameField.getText(),
                     relationshipField.getText(), phoneField.getText(), emailField.getText());
-            fillTable(this.contactsModel.getContactList());
+            fillTable(this.contactsModel.getContactList(curPatient.getID()));
             emptyAddFields();
+
         }
     }
 
@@ -180,7 +183,7 @@ public class ContactsController implements Initializable, ControllerInterface {
     public void deleteButtonClicked(ActionEvent event) {
         if (toBeDeleted != null) {
             contactsModel.deleteContact(toBeDeleted);
-            fillTable(contactsModel.getContactList());
+            fillTable(contactsModel.getContactList(curPatient.getID()));
         }
     }
 
