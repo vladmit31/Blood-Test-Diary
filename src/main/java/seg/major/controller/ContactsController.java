@@ -109,9 +109,11 @@ public class ContactsController implements Initializable, ControllerInterface {
     }
 
     private void fillTable(List<Contact> contactList) {
+        System.out.println(contactList.size() + "adsddsadsa");
         contactsTable.getItems().clear();
         for (Contact contact : contactList) {
             contactsTable.getItems().add(contact);
+            // System.out.println(contact.toString());
         }
     }
 

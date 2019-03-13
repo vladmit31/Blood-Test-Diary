@@ -31,13 +31,15 @@ public class ContactsModel {
     private void update(int toUpdate) {
         Map<String, String> params = new HashMap<>();
         params.put("patient_id", "" + toUpdate);
-        contactList = Arrays.asList(contactDAO.getAll(params));
+        contactList = contactDAO.getAll(params);
 
     }
 
     public List<Contact> getContactList(int id) {
         HashMap<String, String> param = new HashMap<>();
         param.put("patient_id", id + "");
-        return Arrays.asList(contactDAO.getAll(param));
+        List<Contact> toReturn = contactDAO.getAll(param);
+        System.out.println("Size of contact list in ContactsModel.java:" + toReturn.size());
+        return toReturn;
     }
 }
