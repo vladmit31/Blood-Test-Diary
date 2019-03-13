@@ -337,16 +337,13 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @return the appointment
    */
   private static Appointment resultSetToAppointment(ResultSet toConvert) throws SQLException {
-    if (toConvert.next()) {
-      int id = toConvert.getInt(ID);
-      int status = toConvert.getInt(STATUS);
-      LocalDate dueDate = toConvert.getDate(DUE_DATE).toLocalDate();
-      int patientID = toConvert.getInt(PATIENT_ID);
-      return new Appointment(id, status, dueDate, patientID);
 
-    } else {
-      return null;
-    }
+    int id = toConvert.getInt(ID);
+    int status = toConvert.getInt(STATUS);
+    LocalDate dueDate = toConvert.getDate(DUE_DATE).toLocalDate();
+    int patientID = toConvert.getInt(PATIENT_ID);
+    return new Appointment(id, status, dueDate, patientID);
+
   }
 
   /**

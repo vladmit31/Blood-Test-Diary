@@ -350,20 +350,17 @@ public class PatientDAO implements DAOInterface<Patient> {
      * @return the patient
      */
     private static Patient resultSetToPatient(ResultSet toConvert) throws SQLException {
-        if (toConvert.next()) {
-            int id = toConvert.getInt(ID);
-            String hospitalNumber = toConvert.getString(V_NUMBER);
-            String forename = toConvert.getString(FORENAME);
-            String surname = toConvert.getString(SURNAME);
-            LocalDate dob = toConvert.getDate(DOB).toLocalDate();
-            String localClinic = toConvert.getString(LOCAL_CLINIC);
-            LocalDate nextAppointment = toConvert.getDate(NEXT_APPOINTMENT).toLocalDate();
-            Double refreshRate = toConvert.getDouble(REFRESH_RATE);
-            return new Patient(id, forename, surname, dob, hospitalNumber, localClinic, nextAppointment, refreshRate);
 
-        } else {
-            return null;
-        }
+        int id = toConvert.getInt(ID);
+        String hospitalNumber = toConvert.getString(V_NUMBER);
+        String forename = toConvert.getString(FORENAME);
+        String surname = toConvert.getString(SURNAME);
+        LocalDate dob = toConvert.getDate(DOB).toLocalDate();
+        String localClinic = toConvert.getString(LOCAL_CLINIC);
+        LocalDate nextAppointment = toConvert.getDate(NEXT_APPOINTMENT).toLocalDate();
+        Double refreshRate = toConvert.getDouble(REFRESH_RATE);
+        return new Patient(id, forename, surname, dob, hospitalNumber, localClinic, nextAppointment, refreshRate);
+
     }
 
     /**

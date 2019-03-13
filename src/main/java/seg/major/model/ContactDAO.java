@@ -225,10 +225,10 @@ public class ContactDAO implements DAOInterface<Contact> {
    * @param toGet Map of atttributes and the values to match to a record
    * @return the matched contact
    */
-  public Contact[] getAll(Map<String, String> toGet) {
+  public List<Contact> getAll(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
-    Contact[] toReturn = null;
+    List<Contact> toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -254,6 +254,7 @@ public class ContactDAO implements DAOInterface<Contact> {
       } catch (Exception e) {
       }
     }
+    System.out.println("Size of contact array in ContactDAO.java:" + toReturn.size());
     System.out.println(query);
     return toReturn;
   }
@@ -263,12 +264,12 @@ public class ContactDAO implements DAOInterface<Contact> {
    * 
    * @return a Contact array that contains every contact in the table
    */
-  public Contact[] getAll() {
+  public List<Contact> getAll() {
     String query = "SELECT * FROM contact;";
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
-    Contact[] toReturn = null;
+    List<Contact> toReturn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
@@ -344,19 +345,18 @@ public class ContactDAO implements DAOInterface<Contact> {
    * @return the contact
    */
   private static Contact resultSetToContact(ResultSet toConvert) throws SQLException {
-    if (toConvert.next()) {
-      int id = toConvert.getInt(ID);
-      String forename = toConvert.getString(FORENAME);
-      String surname = toConvert.getString(SURNAME);
-      String relationship = toConvert.getString(RELATIONSHIP);
-      String phone = toConvert.getString(PHONE);
-      String email = toConvert.getString(EMAIL);
-      int patientID = toConvert.getInt(PATIENT_ID);
-      return new Contact(patientID, id, forename, surname, relationship, phone, email);
 
-    } else {
-      return null;
-    }
+    int id = toConvert.getInt(ID);
+    String forename = toConvert.getString(FORENAME);
+    String surname = toConvert.getString(SURNAME);
+    String relationship = toConvert.getString(RELATIONSHIP);
+    String phone = toConvert.getString(PHONE);
+    String email = toConvert.getString(EMAIL);
+    int patientID = toConvert.getInt(PATIENT_ID);
+    Contact c = new Contact(patientID, id, forename, surname, relationship, phone, email);
+    System.out.println(c.toString());
+    return c;
+
   }
 
   /**
@@ -365,13 +365,15 @@ public class ContactDAO implements DAOInterface<Contact> {
    * @param toConvert the ResultSet to be read
    * @return the contacts
    */
-  private static Contact[] resultSetToContactArray(ResultSet toConvert) throws SQLException {
+  private static List<Contact> resultSetToContactArray(ResultSet toConvert) throws SQLException {
     List<Contact> toReturn = new ArrayList<Contact>();
+    toConvert.first();
     while (toConvert.next()) {
       toReturn.add(resultSetToContact(toConvert));
     }
 
-    return toReturn.toArray(new Contact[toReturn.size()]);
+    System.out.println("Size of contact array in returnlist ContactDAO.java:" + toReturn.size());
+    return toReturn;
   }
 
   /**
@@ -395,7 +397,7 @@ public class ContactDAO implements DAOInterface<Contact> {
       sb.append("' AND ");
     }
     // remove the last AND then close the brackets
-    sb.delete(sb.length() - 4, sb.length());
+    sb.delete(sb.length() - 5, sb.length());
     sb.append(");");
 
     return sb.toString();
