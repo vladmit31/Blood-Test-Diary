@@ -303,6 +303,7 @@ public class SchemaController implements Initializable, ControllerInterface {
    */
   public void update() {
     setAuthenticatedUser();
+    refresh();
   }
 
   /** ---------- Inherited / Implemented ---------- */
