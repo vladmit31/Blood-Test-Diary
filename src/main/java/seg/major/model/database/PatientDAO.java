@@ -19,8 +19,7 @@ public class PatientDAO {
     private static final String FORENAME = "fname";
     private static final String SURNAME = "sname";
     private static final String DOB = "dob";
-    private static final String HOSPITAL_NUMBER = "local_clinic";
-    private static final String LOCAL_CLINIC = "next_appointment";
+    private static final String LOCAL_CLINIC = "local_clinic";
     private static final String NEXT_APPOINTMENT = "next_appointment";
     private static final String REFRESH_RATE = "refresh_rate";
     private static final String V_NUMBER = "vnumber";
