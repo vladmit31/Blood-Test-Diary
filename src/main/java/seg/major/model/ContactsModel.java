@@ -36,7 +36,7 @@ public class ContactsModel {
         HashMap<String, String> param = new HashMap<>();
         param.put("patient_id", id + "");
         List<Contact> toReturn = ContactDAO.getAll(param);
-        System.out.println("Size of contact list in ContactsModel.java:" + toReturn.size());
+
         return toReturn;
     }
 }

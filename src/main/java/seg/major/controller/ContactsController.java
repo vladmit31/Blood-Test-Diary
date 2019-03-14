@@ -78,7 +78,6 @@ public class ContactsController implements Initializable, ControllerInterface {
     private void setupTable() {
         setupColumns();
         setUpRows();
-        System.out.println("!!!!" + ((Patient) data.get("patient")).getID());
         Patient p = (Patient) data.get("patient");
         if (p != null) {
             fillTable(ContactsModel.getContactList(p.getID()));
@@ -108,11 +107,9 @@ public class ContactsController implements Initializable, ControllerInterface {
     }
 
     private void fillTable(List<Contact> contactList) {
-        System.out.println(contactList.size() + "adsddsadsa");
         contactsTable.getItems().clear();
         for (Contact contact : contactList) {
             contactsTable.getItems().add(contact);
-            // System.out.println(contact.toString());
         }
     }
 

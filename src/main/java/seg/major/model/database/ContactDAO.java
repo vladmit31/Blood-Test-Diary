@@ -217,7 +217,6 @@ public class ContactDAO {
       } catch (Exception e) {
       }
     }
-    System.out.println(query);
     return toReturn;
   }
 
@@ -254,8 +253,7 @@ public class ContactDAO {
       } catch (Exception e) {
       }
     }
-    System.out.println("Size of contact array in ContactDAO.java:" + toReturn.size());
-    System.out.println(query);
+
     return toReturn;
   }
 
@@ -354,7 +352,6 @@ public class ContactDAO {
     String email = toConvert.getString(EMAIL);
     int patientID = toConvert.getInt(PATIENT_ID);
     Contact c = new Contact(patientID, id, forename, surname, relationship, phone, email);
-    System.out.println(c.toString());
     return c;
 
   }
@@ -372,7 +369,6 @@ public class ContactDAO {
       toReturn.add(resultSetToContact(toConvert));
     }
 
-    System.out.println("Size of contact array in returnlist ContactDAO.java:" + toReturn.size());
     return toReturn;
   }
 

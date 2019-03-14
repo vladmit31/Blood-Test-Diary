@@ -23,7 +23,6 @@ public class SchemaModel {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
         List<Appointment> appointments = AppointmentDAO.getCurrentWeek(currentWeek);
         List<Patient> patientsList = PatientDAO.getAll();
-        System.out.println("Size of schema:" + appointments.size());
         for (var appointment : appointments) {
             for (var patient : patientsList) {
                 if (appointment.getPatientID() == patient.getID()) {
@@ -67,11 +66,10 @@ public class SchemaModel {
                     toReturn.add(entry);
                     // A patient can have only one appointment per day, so it's not necessary to
                     // search the whole list
-                    break;
+                    // break;
                 }
             }
         }
-
         return toReturn;
     }
 
