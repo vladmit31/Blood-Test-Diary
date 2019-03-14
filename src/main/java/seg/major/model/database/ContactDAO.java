@@ -1,26 +1,27 @@
-package seg.major.model;
+package seg.major.model.database;
 
 import java.sql.Connection;
-import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.time.LocalDate;
 
-import seg.major.structure.Appointment;
+import seg.major.structure.Contact;
 
-public class AppointmentDAO {
+public class ContactDAO {
 
-  private static final String TABLE_NAME = "appointment";
+  private static final String TABLE_NAME = "contact";
   private static final String ID = "id";
-  private static final String STATUS = "status";
-  private static final String DUE_DATE = "due_date";
+  private static final String FORENAME = "forename";
+  private static final String SURNAME = "surname";
+  private static final String RELATIONSHIP = "relationship";
+  private static final String PHONE = "phone";
+  private static final String EMAIL = "email";
   private static final String PATIENT_ID = "patient_id";
 
-  public AppointmentDAO() {
+  public ContactDAO() {
   }
 
   /** ---------- Inherited / Implemented ---------- */
@@ -29,9 +30,9 @@ public class AppointmentDAO {
    * Lookup a record by ID
    * 
    * @param toGet the ID of the record
-   * @return the appointment corresponding to the record
+   * @return the contact corresponding to the record
    */
-  public static Appointment getById(int toGet) {
+  public static Contact getById(int toGet) {
     return get(toGet);
   }
 
@@ -41,7 +42,7 @@ public class AppointmentDAO {
    * @param toRemove the ID to remove
    */
   public static void removeById(int toRemove) {
-    String query = "DELETE FROM appointment WHERE id = ? LIMIT 1;";
+    String query = "DELETE FROM contact WHERE id = ? LIMIT 1;";
     PreparedStatement ps = null;
     Connection conn = null;
     try {
@@ -65,18 +66,21 @@ public class AppointmentDAO {
   }
 
   /**
-   * @param toCreate the appointment to create as a record
+   * @param toCreate the contact to create as a record
    */
-  public static void create(Appointment toCreate) {
-    String query = "INSERT INTO appointment (status, due_date, patient_id) VALUES (?, ?, ?)";
+  public static void create(Contact toCreate) {
+    String query = "INSERT INTO contact (forename, surname, relationship, phone, email, patient_id) VALUES (?, ?, ?, ?, ?, ?)";
     PreparedStatement ps = null;
     Connection conn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
-      ps.setInt(1, toCreate.getStatus());
-      ps.setDate(2, Date.valueOf(toCreate.getDueDate()));
-      ps.setInt(3, toCreate.getPatientID());
+      ps.setString(1, toCreate.getForename());
+      ps.setString(2, toCreate.getSurname());
+      ps.setString(3, toCreate.getRelationship());
+      ps.setString(4, toCreate.getPhone());
+      ps.setString(5, toCreate.getEmail());
+      ps.setInt(6, toCreate.getPatientID());
       ps.execute("USE db");
       ps.executeUpdate();
     } catch (SQLException e) {
@@ -97,11 +101,11 @@ public class AppointmentDAO {
 
   /**
    * @param toGet the ID of the record
-   * @return the appointment corresponding to the record
+   * @return the contact corresponding to the record
    */
-  public static Appointment get(int toGet) {
-    String query = "SELECT * FROM appointment WHERE id = ? LIMIT 1;";
-    Appointment toReturn = null;
+  public static Contact get(int toGet) {
+    String query = "SELECT * FROM contact WHERE id = ? LIMIT 1;";
+    Contact toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -111,7 +115,7 @@ public class AppointmentDAO {
       ps.setInt(1, toGet);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToAppointment(rs);
+      toReturn = resultSetToContact(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -133,25 +137,27 @@ public class AppointmentDAO {
   }
 
   /**
-   * @param toUpdate the appointment to update
+   * @param toUpdate the contact to update
    */
-  public static void update(Appointment toUpdate) {
-    String query = "UPDATE appointment SET( status = ? due_date = ? patient_id = ? ) WHERE id = ?";
-
-    Appointment toReturn = null;
+  public static void update(Contact toUpdate) {
+    String query = "UPDATE contact SET forename = ?, surname = ?, relationship = ?, phone = ?, email = ?, patient_id = ?   WHERE id = ?";
+    Contact toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
-      ps.setInt(1, toUpdate.getStatus());
-      ps.setDate(2, Date.valueOf(toUpdate.getDueDate()));
-      ps.setInt(3, toUpdate.getPatientID());
-      ps.setInt(4, toUpdate.getID());
+      ps.setString(1, toUpdate.getForename());
+      ps.setString(2, toUpdate.getSurname());
+      ps.setString(3, toUpdate.getRelationship());
+      ps.setString(4, toUpdate.getPhone());
+      ps.setString(5, toUpdate.getEmail());
+      ps.setInt(6, toUpdate.getPatientID());
+      ps.setInt(7, toUpdate.getID());
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToAppointment(rs);
+      toReturn = resultSetToContact(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -172,20 +178,20 @@ public class AppointmentDAO {
   }
 
   /**
-   * @param toRemove the appointment to remove
+   * @param toRemove the contact to remove
    */
-  public static void remove(Appointment toRemove) {
+  public static void remove(Contact toRemove) {
     removeById(toRemove.getID());
   }
 
   /**
-   * @param toGet Map of attributes and the values to match to a record
-   * @return the matched appointment
+   * @param toGet Map of atttributes and the values to match to a record
+   * @return the matched contact
    */
-  public static Appointment get(Map<String, String> toGet) {
+  public static Contact get(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
-    Appointment toReturn = null;
+    Contact toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -194,7 +200,7 @@ public class AppointmentDAO {
       ps = conn.prepareStatement(query);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToAppointment(rs);
+      toReturn = resultSetToContact(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -211,18 +217,18 @@ public class AppointmentDAO {
       } catch (Exception e) {
       }
     }
-
+    System.out.println(query);
     return toReturn;
   }
 
   /**
-   * @param toGet Map of attributes and the values to match to a record
-   * @return the matched appointment
+   * @param toGet Map of atttributes and the values to match to a record
+   * @return the matched contact
    */
-  public static List<Appointment> getAll(Map<String, String> toGet) {
+  public static List<Contact> getAll(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
-    List<Appointment> toReturn = null;
+    List<Contact> toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -231,7 +237,7 @@ public class AppointmentDAO {
       ps = conn.prepareStatement(query);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToAppointmentArray(rs);
+      toReturn = resultSetToContactArray(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -248,27 +254,28 @@ public class AppointmentDAO {
       } catch (Exception e) {
       }
     }
-
+    System.out.println("Size of contact array in ContactDAO.java:" + toReturn.size());
+    System.out.println(query);
     return toReturn;
   }
 
   /**
-   * Get all the current Appointments
+   * Get all the current Contacts
    * 
-   * @return a Appointment array that contains every appointment in the table
+   * @return a Contact array that contains every contact in the table
    */
-  public static List<Appointment> getAll() {
-    String query = "SELECT * FROM appointment;";
+  public static List<Contact> getAll() {
+    String query = "SELECT * FROM contact;";
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
-    List<Appointment> toReturn = null;
+    List<Contact> toReturn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToAppointmentArray(rs);
+      toReturn = resultSetToContactArray(rs);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -292,25 +299,25 @@ public class AppointmentDAO {
 
   /** ---------- Inherited / Implemented ---------- */
 
-  private static int getLastInsertedAppointmentID() {
-
-    String query = "SELECT MAX(id) FROM appointment";
-
-    Appointment toReturn = null;
+  /**
+   * Lookup a record by contactname
+   * 
+   * @param toGet the contactname to lookup and fetch the record for
+   * @return the contact that was found
+   */
+  public static Contact getByContactname(String toGet) {
+    String query = "SELECT * FROM contact WHERE contactname = ? LIMIT 1;";
+    Contact toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
-
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
+      ps.setString(1, toGet);
       ps.execute("USE db");
-      rs = ps.executeQuery(query);
-
-      if (rs.next()) {
-        return rs.getInt(1);
-      }
-
+      rs = ps.executeQuery();
+      toReturn = resultSetToContact(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -327,22 +334,28 @@ public class AppointmentDAO {
       } catch (Exception e) {
       }
     }
-    return -1;
+
+    return toReturn;
   }
 
   /**
-   * Get the appointment the ResultSet pointer currently points to
+   * Get the contact the ResultSet pointer currently points to
    * 
    * @param toConvert the ResultSet to be read
-   * @return the appointment
+   * @return the contact
    */
-  private static Appointment resultSetToAppointment(ResultSet toConvert) throws SQLException {
+  private static Contact resultSetToContact(ResultSet toConvert) throws SQLException {
 
     int id = toConvert.getInt(ID);
-    int status = toConvert.getInt(STATUS);
-    LocalDate dueDate = toConvert.getDate(DUE_DATE).toLocalDate();
+    String forename = toConvert.getString(FORENAME);
+    String surname = toConvert.getString(SURNAME);
+    String relationship = toConvert.getString(RELATIONSHIP);
+    String phone = toConvert.getString(PHONE);
+    String email = toConvert.getString(EMAIL);
     int patientID = toConvert.getInt(PATIENT_ID);
-    return new Appointment(id, status, dueDate, patientID);
+    Contact c = new Contact(patientID, id, forename, surname, relationship, phone, email);
+    System.out.println(c.toString());
+    return c;
 
   }
 
@@ -350,19 +363,22 @@ public class AppointmentDAO {
    * Convert a ResultSet to an array containing all records contained
    * 
    * @param toConvert the ResultSet to be read
-   * @return the users
+   * @return the contacts
    */
-  private static List<Appointment> resultSetToAppointmentArray(ResultSet toConvert) throws SQLException {
-    List<Appointment> toReturn = new ArrayList<Appointment>();
+  private static List<Contact> resultSetToContactArray(ResultSet toConvert) throws SQLException {
+    List<Contact> toReturn = new ArrayList<Contact>();
+    toConvert.first();
     while (toConvert.next()) {
-      toReturn.add(resultSetToAppointment(toConvert));
+      toReturn.add(resultSetToContact(toConvert));
     }
+
+    System.out.println("Size of contact array in returnlist ContactDAO.java:" + toReturn.size());
     return toReturn;
   }
 
   /**
-   * Build a statment of the form: "SELECT * FROM appointment WHERE (col1 = val1
-   * AND col2 = val2 AND ... colN = valN);"
+   * Build a statment of the form: "SELECT * FROM contact WHERE (col1 = val1 AND
+   * col2 = val2 AND ... colN = valN);"
    * 
    * from the provided map.
    * 
@@ -373,7 +389,7 @@ public class AppointmentDAO {
 
     // build the statement
     StringBuilder sb = new StringBuilder();
-    sb.append("SELECT * FROM appointment WHERE ( ");
+    sb.append("SELECT * FROM contact WHERE ( ");
     for (Map.Entry<String, String> entry : toQuery.entrySet()) {
       sb.append(entry.getKey());
       sb.append("='");
@@ -381,58 +397,10 @@ public class AppointmentDAO {
       sb.append("' AND ");
     }
     // remove the last AND then close the brackets
-    sb.delete(sb.length() - 4, sb.length());
+    sb.delete(sb.length() - 5, sb.length());
     sb.append(");");
 
     return sb.toString();
   }
 
-  /**
-   * Get the appointments for this week only
-   * 
-   * @param weekStart the start of the week
-   * @return the current week's appointments
-   */
-  public static List<Appointment> getCurrentWeek(Week curWeek) {
-
-    String query = buildWeekQuery(curWeek);
-    List<Appointment> toReturn = null;
-    PreparedStatement ps = null;
-    ResultSet rs = null;
-    Connection conn = null;
-    try {
-      conn = DAOConnection.getConnection();
-      ps = conn.prepareStatement(query);
-      ps.execute("USE db");
-      rs = ps.executeQuery();
-      toReturn = resultSetToAppointmentArray(rs);
-    } catch (SQLException e) {
-      e.printStackTrace();
-    } finally {
-      try {
-        rs.close();
-      } catch (Exception e) {
-      }
-      try {
-        ps.close();
-      } catch (Exception e) {
-      }
-      try {
-        conn.close();
-      } catch (Exception e) {
-      }
-    }
-
-    return toReturn;
-  }
-
-  private static String buildWeekQuery(Week curWeek) {
-    StringBuilder sb = new StringBuilder();
-    sb.append("SELECT * FROM appointment WHERE due_date BETWEEN '");
-    sb.append(curWeek.getMondayDate());
-    sb.append("' AND '");
-    sb.append(curWeek.getFridayDate());
-    sb.append("';");
-    return sb.toString();
-  }
 }

@@ -1,8 +1,8 @@
 package seg.major.model;
 
 import java.time.LocalDate;
-
 import seg.major.structure.Patient;
+import seg.major.model.database.PatientDAO;
 
 public class AddPatientModel {
 

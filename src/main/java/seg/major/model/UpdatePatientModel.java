@@ -1,7 +1,7 @@
 package seg.major.model;
 
 import seg.major.structure.Patient;
-
+import seg.major.model.database.PatientDAO;
 import java.time.LocalDate;
 
 public class UpdatePatientModel {

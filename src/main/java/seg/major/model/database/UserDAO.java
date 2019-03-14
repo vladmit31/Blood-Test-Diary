@@ -1,4 +1,4 @@
-package seg.major.model;
+package seg.major.model.database;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -8,20 +8,18 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import seg.major.structure.Contact;
+import seg.major.structure.User;
 
-public class ContactDAO {
+public class UserDAO {
 
-  private static final String TABLE_NAME = "contact";
+  private static final String TABLE_NAME = "user";
   private static final String ID = "id";
-  private static final String FORENAME = "forename";
-  private static final String SURNAME = "surname";
-  private static final String RELATIONSHIP = "relationship";
-  private static final String PHONE = "phone";
+  private static final String USERNAME = "username";
   private static final String EMAIL = "email";
-  private static final String PATIENT_ID = "patient_id";
+  private static final String PASSWORD = "password";
+  private static final String IS_ADMIN = "is_admin";
 
-  public ContactDAO() {
+  public UserDAO() {
   }
 
   /** ---------- Inherited / Implemented ---------- */
@@ -30,9 +28,9 @@ public class ContactDAO {
    * Lookup a record by ID
    * 
    * @param toGet the ID of the record
-   * @return the contact corresponding to the record
+   * @return the user corresponding to the record
    */
-  public static Contact getById(int toGet) {
+  public static User getById(int toGet) {
     return get(toGet);
   }
 
@@ -42,7 +40,7 @@ public class ContactDAO {
    * @param toRemove the ID to remove
    */
   public static void removeById(int toRemove) {
-    String query = "DELETE FROM contact WHERE id = ? LIMIT 1;";
+    String query = "DELETE FROM user WHERE id = ? LIMIT 1;";
     PreparedStatement ps = null;
     Connection conn = null;
     try {
@@ -66,21 +64,19 @@ public class ContactDAO {
   }
 
   /**
-   * @param toCreate the contact to create as a record
+   * @param toCreate the user to create as a record
    */
-  public static void create(Contact toCreate) {
-    String query = "INSERT INTO contact (forename, surname, relationship, phone, email, patient_id) VALUES (?, ?, ?, ?, ?, ?)";
+  public static void create(User toCreate) {
+    String query = "INSERT INTO user (username, email, password, is_admin) VALUES (?, ?, ?, ?)";
     PreparedStatement ps = null;
     Connection conn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
-      ps.setString(1, toCreate.getForename());
-      ps.setString(2, toCreate.getSurname());
-      ps.setString(3, toCreate.getRelationship());
-      ps.setString(4, toCreate.getPhone());
-      ps.setString(5, toCreate.getEmail());
-      ps.setInt(6, toCreate.getPatientID());
+      ps.setString(1, toCreate.getUsername());
+      ps.setString(2, toCreate.getEmail());
+      ps.setString(3, toCreate.getPassword());
+      ps.setInt(4, toCreate.getIsAdmin());
       ps.execute("USE db");
       ps.executeUpdate();
     } catch (SQLException e) {
@@ -101,11 +97,11 @@ public class ContactDAO {
 
   /**
    * @param toGet the ID of the record
-   * @return the contact corresponding to the record
+   * @return the user corresponding to the record
    */
-  public static Contact get(int toGet) {
-    String query = "SELECT * FROM contact WHERE id = ? LIMIT 1;";
-    Contact toReturn = null;
+  public static User get(int toGet) {
+    String query = "SELECT * FROM user WHERE id = ? LIMIT 1;";
+    User toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -115,7 +111,7 @@ public class ContactDAO {
       ps.setInt(1, toGet);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToContact(rs);
+      toReturn = resultSetToUser(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -137,27 +133,26 @@ public class ContactDAO {
   }
 
   /**
-   * @param toUpdate the contact to update
+   * @param toUpdate the user to update
    */
-  public static void update(Contact toUpdate) {
-    String query = "UPDATE contact SET forename = ?, surname = ?, relationship = ?, phone = ?, email = ?, patient_id = ?   WHERE id = ?";
-    Contact toReturn = null;
+  public static void update(User toUpdate) {
+    String query = "UPDATE user SET username = ?, email = ?, password = ?, is_admin ?  WHERE id = ? AND email = ?";
+    User toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
-      ps.setString(1, toUpdate.getForename());
-      ps.setString(2, toUpdate.getSurname());
-      ps.setString(3, toUpdate.getRelationship());
-      ps.setString(4, toUpdate.getPhone());
-      ps.setString(5, toUpdate.getEmail());
-      ps.setInt(6, toUpdate.getPatientID());
-      ps.setInt(7, toUpdate.getID());
+      ps.setString(1, toUpdate.getUsername());
+      ps.setString(2, toUpdate.getEmail());
+      ps.setString(3, toUpdate.getPassword());
+      ps.setInt(4, toUpdate.getIsAdmin());
+      ps.setInt(5, toUpdate.getID());
+      ps.setString(6, toUpdate.getEmail());
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToContact(rs);
+      toReturn = resultSetToUser(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -178,20 +173,20 @@ public class ContactDAO {
   }
 
   /**
-   * @param toRemove the contact to remove
+   * @param toRemove the user to remove
    */
-  public static void remove(Contact toRemove) {
+  public static void remove(User toRemove) {
     removeById(toRemove.getID());
   }
 
   /**
    * @param toGet Map of atttributes and the values to match to a record
-   * @return the matched contact
+   * @return the matched user
    */
-  public static Contact get(Map<String, String> toGet) {
+  public static User get(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
-    Contact toReturn = null;
+    User toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -200,7 +195,7 @@ public class ContactDAO {
       ps = conn.prepareStatement(query);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToContact(rs);
+      toReturn = resultSetToUser(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -217,18 +212,18 @@ public class ContactDAO {
       } catch (Exception e) {
       }
     }
-    System.out.println(query);
+
     return toReturn;
   }
 
   /**
    * @param toGet Map of atttributes and the values to match to a record
-   * @return the matched contact
+   * @return the matched user
    */
-  public static List<Contact> getAll(Map<String, String> toGet) {
+  public static List<User> getAll(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
-    List<Contact> toReturn = null;
+    List<User> toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -237,7 +232,7 @@ public class ContactDAO {
       ps = conn.prepareStatement(query);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToContactArray(rs);
+      toReturn = resultSetToUserArray(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -254,28 +249,27 @@ public class ContactDAO {
       } catch (Exception e) {
       }
     }
-    System.out.println("Size of contact array in ContactDAO.java:" + toReturn.size());
-    System.out.println(query);
+
     return toReturn;
   }
 
   /**
-   * Get all the current Contacts
+   * Get all the current Users
    * 
-   * @return a Contact array that contains every contact in the table
+   * @return a User array that contains every user in the table
    */
-  public static List<Contact> getAll() {
-    String query = "SELECT * FROM contact;";
+  public static List<User> getAll() {
+    String query = "SELECT * FROM user;";
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
-    List<Contact> toReturn = null;
+    List<User> toReturn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToContactArray(rs);
+      toReturn = resultSetToUserArray(rs);
 
     } catch (SQLException e) {
       e.printStackTrace();
@@ -300,14 +294,14 @@ public class ContactDAO {
   /** ---------- Inherited / Implemented ---------- */
 
   /**
-   * Lookup a record by contactname
+   * Lookup a record by username
    * 
-   * @param toGet the contactname to lookup and fetch the record for
-   * @return the contact that was found
+   * @param toGet the username to lookup and fetch the record for
+   * @return the user that was found
    */
-  public static Contact getByContactname(String toGet) {
-    String query = "SELECT * FROM contact WHERE contactname = ? LIMIT 1;";
-    Contact toReturn = null;
+  public static User getByUsername(String toGet) {
+    String query = "SELECT * FROM user WHERE username = ? LIMIT 1;";
+    User toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -317,7 +311,7 @@ public class ContactDAO {
       ps.setString(1, toGet);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToContact(rs);
+      toReturn = resultSetToUser(rs);
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -339,46 +333,43 @@ public class ContactDAO {
   }
 
   /**
-   * Get the contact the ResultSet pointer currently points to
+   * Get the user the ResultSet pointer currently points to
    * 
    * @param toConvert the ResultSet to be read
-   * @return the contact
+   * @return the user
    */
-  private static Contact resultSetToContact(ResultSet toConvert) throws SQLException {
+  private static User resultSetToUser(ResultSet toConvert) throws SQLException {
+    if (toConvert.next()) {
+      int id = toConvert.getInt(ID);
+      String username = toConvert.getString(USERNAME);
+      String password = toConvert.getString(PASSWORD);
+      String email = toConvert.getString(EMAIL);
+      int isAdmin = toConvert.getInt(IS_ADMIN);
+      return new User(id, username, email, password, isAdmin);
 
-    int id = toConvert.getInt(ID);
-    String forename = toConvert.getString(FORENAME);
-    String surname = toConvert.getString(SURNAME);
-    String relationship = toConvert.getString(RELATIONSHIP);
-    String phone = toConvert.getString(PHONE);
-    String email = toConvert.getString(EMAIL);
-    int patientID = toConvert.getInt(PATIENT_ID);
-    Contact c = new Contact(patientID, id, forename, surname, relationship, phone, email);
-    System.out.println(c.toString());
-    return c;
-
+    } else {
+      return null;
+    }
   }
 
   /**
    * Convert a ResultSet to an array containing all records contained
    * 
    * @param toConvert the ResultSet to be read
-   * @return the contacts
+   * @return the users
    */
-  private static List<Contact> resultSetToContactArray(ResultSet toConvert) throws SQLException {
-    List<Contact> toReturn = new ArrayList<Contact>();
-    toConvert.first();
+  private static List<User> resultSetToUserArray(ResultSet toConvert) throws SQLException {
+    List<User> toReturn = new ArrayList<User>();
     while (toConvert.next()) {
-      toReturn.add(resultSetToContact(toConvert));
+      toReturn.add(resultSetToUser(toConvert));
     }
 
-    System.out.println("Size of contact array in returnlist ContactDAO.java:" + toReturn.size());
     return toReturn;
   }
 
   /**
-   * Build a statment of the form: "SELECT * FROM contact WHERE (col1 = val1 AND
-   * col2 = val2 AND ... colN = valN);"
+   * Build a statment of the form: "SELECT * FROM user WHERE (col1 = val1 AND col2
+   * = val2 AND ... colN = valN);"
    * 
    * from the provided map.
    * 
@@ -389,7 +380,7 @@ public class ContactDAO {
 
     // build the statement
     StringBuilder sb = new StringBuilder();
-    sb.append("SELECT * FROM contact WHERE ( ");
+    sb.append("SELECT * FROM user WHERE ( ");
     for (Map.Entry<String, String> entry : toQuery.entrySet()) {
       sb.append(entry.getKey());
       sb.append("='");
@@ -397,7 +388,7 @@ public class ContactDAO {
       sb.append("' AND ");
     }
     // remove the last AND then close the brackets
-    sb.delete(sb.length() - 5, sb.length());
+    sb.delete(sb.length() - 4, sb.length());
     sb.append(");");
 
     return sb.toString();

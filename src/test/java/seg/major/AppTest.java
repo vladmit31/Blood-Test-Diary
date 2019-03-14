@@ -23,7 +23,7 @@ public class AppTest extends ApplicationTest {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        PrimaryController primaryController = new PrimaryController();
+        PrimaryController primaryController = new PrimaryController(primaryStage);
         Group root = new Group();
         Scene scene = new Scene(root);
 

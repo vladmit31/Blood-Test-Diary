@@ -5,6 +5,8 @@ import seg.major.structure.Patient;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import seg.major.model.database.PatientDAO;
+import seg.major.model.database.AppointmentDAO;
 
 public class PatientModel {
 

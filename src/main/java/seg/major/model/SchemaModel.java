@@ -8,6 +8,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import seg.major.model.database.PatientDAO;
+import seg.major.model.database.AppointmentDAO;
 
 public class SchemaModel {
 

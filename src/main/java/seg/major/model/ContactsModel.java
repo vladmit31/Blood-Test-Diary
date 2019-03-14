@@ -1,7 +1,7 @@
 package seg.major.model;
 
 import seg.major.structure.Contact;
-
+import seg.major.model.database.ContactDAO;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;

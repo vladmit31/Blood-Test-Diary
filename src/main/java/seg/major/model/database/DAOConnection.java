@@ -1,4 +1,4 @@
-package seg.major.model;
+package seg.major.model.database;
 
 import java.sql.*;
 

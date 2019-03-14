@@ -4,6 +4,7 @@ import com.ja.security.PasswordHash;
 import seg.major.structure.User;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
+import seg.major.model.database.UserDAO;
 
 public class LoginModel {
 
