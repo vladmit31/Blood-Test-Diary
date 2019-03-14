@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="480.0" prefWidth="640.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.SchemaController">
+<VBox prefHeight="480.0" prefWidth="640.0" VBox.vgrow="ALWAYS" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.SchemaController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -31,7 +31,7 @@
         </MenuBar>
         <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
             <children>
-                <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <BorderPane prefHeight="455.0" prefWidth="640.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <center>
                         <TabPane blendMode="ADD" prefHeight="455.0" prefWidth="640.0" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                             <tabs>
@@ -200,7 +200,7 @@
                         </BorderPane>
                     </top>
                     <bottom>
-                        <BorderPane BorderPane.alignment="CENTER">
+                        <BorderPane BorderPane.alignment="CENTER" >
                             <right>
                                 <FlowPane prefWidth="124.0" BorderPane.alignment="CENTER">
                                     <children>
@@ -211,13 +211,9 @@
                             </right>
                             <left>
                                 <BorderPane BorderPane.alignment="CENTER">
-                                    <left>
-                                        <Text fx:id="bottomInfo" strokeType="OUTSIDE" strokeWidth="0.0" text="Connected to datasource" BorderPane.alignment="CENTER">
-                                            <BorderPane.margin>
-                                                <Insets left="6.0" />
-                                            </BorderPane.margin>
-                                        </Text>
-                                    </left>
+                           <left>
+                              <Label fx:id="bottomInfo" text="Connected to datasource" BorderPane.alignment="CENTER" />
+                           </left>
                                 </BorderPane>
                             </left>
                         </BorderPane>
@@ -225,6 +221,5 @@
                 </BorderPane>
             </children>
         </AnchorPane>
-        <AnchorPane />
     </children>
 </VBox>

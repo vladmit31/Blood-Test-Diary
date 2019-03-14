@@ -93,9 +93,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   public Button over12Btn;
   public boolean isUnder12 = true;
   @FXML
-  public Text bottomInfo;
-  // @FXML
-  // private SchemaModel SchemaModel;
+  public Label bottomInfo;
   @FXML
   public Tab carriedOverTab;
   @FXML
@@ -159,7 +157,6 @@ public class SchemaController implements Initializable, ControllerInterface {
    */
   private void setCurrentDate() {
     LocalDate localDate = LocalDate.now();
-    // TODO: get the current date and compute the week that we are in
   }
 
   private void setUpButtons() {
@@ -318,9 +315,6 @@ public class SchemaController implements Initializable, ControllerInterface {
 
   public void switchToPatients(ActionEvent event) {
     primaryController.setPane(App.patients);
-
-    // ((PatientsController)
-    // primaryController.getControllerByName(App.patients)).setInfoText("");
   }
 
   public void previousWeekButtonClicked(ActionEvent event) {
@@ -338,7 +332,6 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void refresh() {
-    // TODO: check for which button is selected for update.
     if (isUnder12) {
       fillTablesForUnder12();
     } else {

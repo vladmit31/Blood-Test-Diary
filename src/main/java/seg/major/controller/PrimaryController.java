@@ -5,6 +5,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.stage.Stage;
 
 import java.util.Map;
 import java.util.HashMap;
@@ -20,9 +21,11 @@ public class PrimaryController extends StackPane {
 
   private Map<String, Node> panes = new HashMap<>();
   private Map<String, ControllerInterface> data = new HashMap<>();
+  private Stage stage;
 
-  public PrimaryController() {
+  public PrimaryController(Stage stage) {
     super();
+    this.stage = stage;
   }
 
   /**
@@ -94,7 +97,7 @@ public class PrimaryController extends StackPane {
       } else {
         getChildren().add(n);
       }
-      setMinSize(n.prefWidth(-1), n.prefHeight(-1));
+      stage.sizeToScene();
       return true;
     } else {
       System.out.println("screen hasn't been loaded!!! \n");
