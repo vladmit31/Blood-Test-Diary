@@ -137,14 +137,17 @@ public class PatientsController implements Initializable, ControllerInterface {
     under12Button.setOnAction(e -> {
       under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       over12Button.setStyle(null);
-      fillTable(PatientModel.under12());
       isUnder12 = true;
+      fillTable(PatientModel.under12());
+      update();
     });
     over12Button.setOnAction(e -> {
       over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       under12Button.setStyle(null);
-      fillTable(PatientModel.over12());
+
       isUnder12 = false;
+      fillTable(PatientModel.over12());
+      update();
     });
     switchToDiary.setOnAction(e -> {
       primaryController.setPane(App.schema);

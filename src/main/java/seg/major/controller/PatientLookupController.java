@@ -50,7 +50,7 @@ public class PatientLookupController implements Initializable, ControllerInterfa
 
     /**
      * Set the data
-     * 
+     *
      * @param data the data to set
      */
     public void setData(Map<String, Object> data) {
@@ -59,7 +59,7 @@ public class PatientLookupController implements Initializable, ControllerInterfa
 
     /**
      * Add data to the given fx-item and update the scene
-     * 
+     *
      * @param tpAddKey the key of the data
      * @param toAddVal the value of the data
      */
@@ -72,6 +72,7 @@ public class PatientLookupController implements Initializable, ControllerInterfa
      * Update the scene with changes from the data HashMap
      */
     public void update() {
+        setupTable();
     }
 
     /** ---------- Inherited / Implemented ---------- */
@@ -80,7 +81,7 @@ public class PatientLookupController implements Initializable, ControllerInterfa
         setupColumns();
         setupRows();
         fillTable(PatientModel.under12());
-        under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+        under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill:white");
         patientTable.setPlaceholder(new Label("No patients found"));
     }
 
@@ -106,12 +107,12 @@ public class PatientLookupController implements Initializable, ControllerInterfa
 
     private void setupButtons() {
         under12Button.setOnAction(e -> {
-            under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+            under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill:white");
             over12Button.setStyle(null);
             fillTable(PatientModel.under12());
         });
         over12Button.setOnAction(e -> {
-            over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+            over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill:white");
             under12Button.setStyle(null);
             fillTable(PatientModel.over12());
         });

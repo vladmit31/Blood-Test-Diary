@@ -61,7 +61,7 @@
           <TableColumn fx:id="surname" prefWidth="75.0" text="Surname" />
             <TableColumn fx:id="hospitalNumber" prefWidth="75.0" text="Hospital Number" />
             <TableColumn fx:id="localClinic" prefWidth="75.0" text="Local" />
-            <TableColumn fx:id="nextAppointment" prefWidth="75.0" text="Next appointment" />
+            <TableColumn fx:id="nextAppointment" prefWidth="75.0" text="DoB" />
         </columns>
          <columnResizePolicy>
             <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />

@@ -164,11 +164,13 @@ public class SchemaController implements Initializable, ControllerInterface {
       under12Btn.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       over12Btn.setStyle(null);
       isUnder12 = true;
+      update();
     });
     over12Btn.setOnAction(e -> {
       over12Btn.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       under12Btn.setStyle(null);
       isUnder12 = false;
+      update();
     });
   }
 
@@ -186,7 +188,6 @@ public class SchemaController implements Initializable, ControllerInterface {
       row.setOnMouseClicked(click -> {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
           AppointmentEntry appointment = row.getItem();
-          // viewPatient(patient);
 
           primaryController.sendTo(App.updateAppointment, "appointmentID", appointment);
           primaryController.setPane(App.updateAppointment);
@@ -300,7 +301,11 @@ public class SchemaController implements Initializable, ControllerInterface {
    */
   public void update() {
     setAuthenticatedUser();
-    refresh();
+    if (isUnder12) {
+      fillTablesForUnder12();
+    } else {
+      fillTablesForOver12();
+    }
   }
 
   /** ---------- Inherited / Implemented ---------- */
@@ -319,23 +324,14 @@ public class SchemaController implements Initializable, ControllerInterface {
 
   public void previousWeekButtonClicked(ActionEvent event) {
     SchemaModel.decrementWeek();
-
     this.weekText.setText(SchemaModel.getWeek());
-    refresh();
+    update();
   }
 
   public void nextWeekButtonClicked(ActionEvent event) {
     SchemaModel.incrementWeek();
-
     this.weekText.setText(SchemaModel.getWeek());
-    refresh();
+    update();
   }
 
-  public void refresh() {
-    if (isUnder12) {
-      fillTablesForUnder12();
-    } else {
-      fillTablesForOver12();
-    }
-  }
 }
