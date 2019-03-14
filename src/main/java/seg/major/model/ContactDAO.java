@@ -10,7 +10,7 @@ import java.util.Map;
 
 import seg.major.structure.Contact;
 
-public class ContactDAO implements DAOInterface<Contact> {
+public class ContactDAO {
 
   private static final String TABLE_NAME = "contact";
   private static final String ID = "id";
@@ -32,7 +32,7 @@ public class ContactDAO implements DAOInterface<Contact> {
    * @param toGet the ID of the record
    * @return the contact corresponding to the record
    */
-  public Contact getById(int toGet) {
+  public static Contact getById(int toGet) {
     return get(toGet);
   }
 
@@ -41,7 +41,7 @@ public class ContactDAO implements DAOInterface<Contact> {
    * 
    * @param toRemove the ID to remove
    */
-  public void removeById(int toRemove) {
+  public static void removeById(int toRemove) {
     String query = "DELETE FROM contact WHERE id = ? LIMIT 1;";
     PreparedStatement ps = null;
     Connection conn = null;
@@ -68,7 +68,7 @@ public class ContactDAO implements DAOInterface<Contact> {
   /**
    * @param toCreate the contact to create as a record
    */
-  public void create(Contact toCreate) {
+  public static void create(Contact toCreate) {
     String query = "INSERT INTO contact (forename, surname, relationship, phone, email, patient_id) VALUES (?, ?, ?, ?, ?, ?)";
     PreparedStatement ps = null;
     Connection conn = null;
@@ -103,7 +103,7 @@ public class ContactDAO implements DAOInterface<Contact> {
    * @param toGet the ID of the record
    * @return the contact corresponding to the record
    */
-  public Contact get(int toGet) {
+  public static Contact get(int toGet) {
     String query = "SELECT * FROM contact WHERE id = ? LIMIT 1;";
     Contact toReturn = null;
     PreparedStatement ps = null;
@@ -139,7 +139,7 @@ public class ContactDAO implements DAOInterface<Contact> {
   /**
    * @param toUpdate the contact to update
    */
-  public void update(Contact toUpdate) {
+  public static void update(Contact toUpdate) {
     String query = "UPDATE contact SET forename = ?, surname = ?, relationship = ?, phone = ?, email = ?, patient_id = ?   WHERE id = ?";
     Contact toReturn = null;
     PreparedStatement ps = null;
@@ -180,7 +180,7 @@ public class ContactDAO implements DAOInterface<Contact> {
   /**
    * @param toRemove the contact to remove
    */
-  public void remove(Contact toRemove) {
+  public static void remove(Contact toRemove) {
     removeById(toRemove.getID());
   }
 
@@ -188,7 +188,7 @@ public class ContactDAO implements DAOInterface<Contact> {
    * @param toGet Map of atttributes and the values to match to a record
    * @return the matched contact
    */
-  public Contact get(Map<String, String> toGet) {
+  public static Contact get(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
     Contact toReturn = null;
@@ -225,7 +225,7 @@ public class ContactDAO implements DAOInterface<Contact> {
    * @param toGet Map of atttributes and the values to match to a record
    * @return the matched contact
    */
-  public List<Contact> getAll(Map<String, String> toGet) {
+  public static List<Contact> getAll(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
     List<Contact> toReturn = null;
@@ -264,7 +264,7 @@ public class ContactDAO implements DAOInterface<Contact> {
    * 
    * @return a Contact array that contains every contact in the table
    */
-  public List<Contact> getAll() {
+  public static List<Contact> getAll() {
     String query = "SELECT * FROM contact;";
     PreparedStatement ps = null;
     ResultSet rs = null;
@@ -385,7 +385,7 @@ public class ContactDAO implements DAOInterface<Contact> {
    * @param toQuery the map to convery to a query
    * @return the constructed statement
    */
-  private String mapToSQLQuery(Map<String, String> toQuery) {
+  private static String mapToSQLQuery(Map<String, String> toQuery) {
 
     // build the statement
     StringBuilder sb = new StringBuilder();

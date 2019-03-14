@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 import seg.major.structure.Patient;
 
-public class PatientDAO implements DAOInterface<Patient> {
+public class PatientDAO {
 
     private static final String TABLE_NAME = "patient";
     private static final String ID = "id";
@@ -36,8 +36,8 @@ public class PatientDAO implements DAOInterface<Patient> {
      * @param toGet the ID of the record
      * @return the patient corresponding to the record
      */
-    public Patient getByID(int toGet) {
-        return new PatientDAO().get(toGet);
+    public static Patient getByID(int toGet) {
+        return get(toGet);
     }
 
     /**
@@ -45,7 +45,7 @@ public class PatientDAO implements DAOInterface<Patient> {
      * 
      * @param toRemove the ID to remove
      */
-    public void removeByID(int toRemove) {
+    public static void removeByID(int toRemove) {
         String query = "DELETE FROM patient WHERE id = ? LIMIT 1;";
         PreparedStatement ps = null;
         Connection conn = null;
@@ -72,7 +72,7 @@ public class PatientDAO implements DAOInterface<Patient> {
     /**
      * @param toCreate the patient to create as a record
      */
-    public void create(Patient toCreate) {
+    public static void create(Patient toCreate) {
         String query = "INSERT INTO patient (vnumber, fname, sname, dob, local_clinic, next_appointment, refresh_rate) VALUES (?, ?, ?,?, ?,?,?)";
         PreparedStatement ps = null;
         Connection conn = null;
@@ -108,7 +108,7 @@ public class PatientDAO implements DAOInterface<Patient> {
      * @param toGet the ID of the record
      * @return the patient corresponding to the record
      */
-    public Patient get(int toGet) {
+    public static Patient get(int toGet) {
         String query = "SELECT * FROM patient WHERE id = ? LIMIT 1;";
         Patient toReturn = null;
         PreparedStatement ps = null;
@@ -144,7 +144,7 @@ public class PatientDAO implements DAOInterface<Patient> {
     /**
      * @param toUpdate the patient to update
      */
-    public void update(Patient toUpdate) {
+    public static void update(Patient toUpdate) {
         String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, next_appointment = ?, refresh_rate = ? WHERE id = ?";
 
         Patient toReturn = null;
@@ -187,7 +187,7 @@ public class PatientDAO implements DAOInterface<Patient> {
     /**
      * @param toRemove the patient to remove
      */
-    public void remove(Patient toRemove) {
+    public static void remove(Patient toRemove) {
         removeByID(toRemove.getID());
     }
 
@@ -195,7 +195,7 @@ public class PatientDAO implements DAOInterface<Patient> {
      * @param toGet Map of attributes and the values to match to a record
      * @return the matched patient
      */
-    public Patient get(Map<String, String> toGet) {
+    public static Patient get(Map<String, String> toGet) {
 
         String query = mapToSQLQuery(toGet);
         Patient toReturn = null;
@@ -232,10 +232,10 @@ public class PatientDAO implements DAOInterface<Patient> {
      * @param toGet Map of attributes and the values to match to a record
      * @return the matched patient
      */
-    public Patient[] getAll(Map<String, String> toGet) {
+    public static List<Patient> getAll(Map<String, String> toGet) {
 
         String query = mapToSQLQuery(toGet);
-        Patient[] toReturn = null;
+        List<Patient> toReturn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -270,12 +270,12 @@ public class PatientDAO implements DAOInterface<Patient> {
      * 
      * @return a Patient array that contains every patient in the table
      */
-    public static Patient[] getAll() {
+    public static List<Patient> getAll() {
         String query = "SELECT * FROM patient";
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection conn = null;
-        Patient[] toReturn = null;
+        List<Patient> toReturn = null;
         try {
             conn = DAOConnection.getConnection();
             ps = conn.prepareStatement(query);
@@ -369,13 +369,13 @@ public class PatientDAO implements DAOInterface<Patient> {
      * @param toConvert the ResultSet to be read
      * @return the patients
      */
-    private static Patient[] resultSetToPatientArray(ResultSet toConvert) throws SQLException {
+    private static List<Patient> resultSetToPatientArray(ResultSet toConvert) throws SQLException {
         List<Patient> toReturn = new ArrayList<Patient>();
         while (toConvert.next()) {
             toReturn.add(resultSetToPatient(toConvert));
         }
 
-        return toReturn.toArray(new Patient[toReturn.size()]);
+        return toReturn;
     }
 
     /**
@@ -387,7 +387,7 @@ public class PatientDAO implements DAOInterface<Patient> {
      * @param toQuery the map to convery to a query
      * @return the constructed statement
      */
-    private String mapToSQLQuery(Map<String, String> toQuery) {
+    private static String mapToSQLQuery(Map<String, String> toQuery) {
 
         // build the statement
         StringBuilder sb = new StringBuilder();

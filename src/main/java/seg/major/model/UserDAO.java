@@ -10,7 +10,7 @@ import java.util.Map;
 
 import seg.major.structure.User;
 
-public class UserDAO implements DAOInterface<User> {
+public class UserDAO {
 
   private static final String TABLE_NAME = "user";
   private static final String ID = "id";
@@ -30,7 +30,7 @@ public class UserDAO implements DAOInterface<User> {
    * @param toGet the ID of the record
    * @return the user corresponding to the record
    */
-  public User getById(int toGet) {
+  public static User getById(int toGet) {
     return get(toGet);
   }
 
@@ -39,7 +39,7 @@ public class UserDAO implements DAOInterface<User> {
    * 
    * @param toRemove the ID to remove
    */
-  public void removeById(int toRemove) {
+  public static void removeById(int toRemove) {
     String query = "DELETE FROM user WHERE id = ? LIMIT 1;";
     PreparedStatement ps = null;
     Connection conn = null;
@@ -66,7 +66,7 @@ public class UserDAO implements DAOInterface<User> {
   /**
    * @param toCreate the user to create as a record
    */
-  public void create(User toCreate) {
+  public static void create(User toCreate) {
     String query = "INSERT INTO user (username, email, password, is_admin) VALUES (?, ?, ?, ?)";
     PreparedStatement ps = null;
     Connection conn = null;
@@ -99,7 +99,7 @@ public class UserDAO implements DAOInterface<User> {
    * @param toGet the ID of the record
    * @return the user corresponding to the record
    */
-  public User get(int toGet) {
+  public static User get(int toGet) {
     String query = "SELECT * FROM user WHERE id = ? LIMIT 1;";
     User toReturn = null;
     PreparedStatement ps = null;
@@ -135,7 +135,7 @@ public class UserDAO implements DAOInterface<User> {
   /**
    * @param toUpdate the user to update
    */
-  public void update(User toUpdate) {
+  public static void update(User toUpdate) {
     String query = "UPDATE user SET username = ?, email = ?, password = ?, is_admin ?  WHERE id = ? AND email = ?";
     User toReturn = null;
     PreparedStatement ps = null;
@@ -175,7 +175,7 @@ public class UserDAO implements DAOInterface<User> {
   /**
    * @param toRemove the user to remove
    */
-  public void remove(User toRemove) {
+  public static void remove(User toRemove) {
     removeById(toRemove.getID());
   }
 
@@ -183,7 +183,7 @@ public class UserDAO implements DAOInterface<User> {
    * @param toGet Map of atttributes and the values to match to a record
    * @return the matched user
    */
-  public User get(Map<String, String> toGet) {
+  public static User get(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
     User toReturn = null;
@@ -220,10 +220,10 @@ public class UserDAO implements DAOInterface<User> {
    * @param toGet Map of atttributes and the values to match to a record
    * @return the matched user
    */
-  public User[] getAll(Map<String, String> toGet) {
+  public static List<User> getAll(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
-    User[] toReturn = null;
+    List<User> toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -258,12 +258,12 @@ public class UserDAO implements DAOInterface<User> {
    * 
    * @return a User array that contains every user in the table
    */
-  public User[] getAll() {
+  public static List<User> getAll() {
     String query = "SELECT * FROM user;";
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
-    User[] toReturn = null;
+    List<User> toReturn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
@@ -358,13 +358,13 @@ public class UserDAO implements DAOInterface<User> {
    * @param toConvert the ResultSet to be read
    * @return the users
    */
-  private static User[] resultSetToUserArray(ResultSet toConvert) throws SQLException {
+  private static List<User> resultSetToUserArray(ResultSet toConvert) throws SQLException {
     List<User> toReturn = new ArrayList<User>();
     while (toConvert.next()) {
       toReturn.add(resultSetToUser(toConvert));
     }
 
-    return toReturn.toArray(new User[toReturn.size()]);
+    return toReturn;
   }
 
   /**
@@ -376,7 +376,7 @@ public class UserDAO implements DAOInterface<User> {
    * @param toQuery the map to convery to a query
    * @return the constructed statement
    */
-  private String mapToSQLQuery(Map<String, String> toQuery) {
+  private static String mapToSQLQuery(Map<String, String> toQuery) {
 
     // build the statement
     StringBuilder sb = new StringBuilder();

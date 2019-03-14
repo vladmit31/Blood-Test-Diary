@@ -12,7 +12,7 @@ import java.time.LocalDate;
 
 import seg.major.structure.Appointment;
 
-public class AppointmentDAO implements DAOInterface<Appointment> {
+public class AppointmentDAO {
 
   private static final String TABLE_NAME = "appointment";
   private static final String ID = "id";
@@ -31,7 +31,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toGet the ID of the record
    * @return the appointment corresponding to the record
    */
-  public Appointment getById(int toGet) {
+  public static Appointment getById(int toGet) {
     return get(toGet);
   }
 
@@ -40,7 +40,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * 
    * @param toRemove the ID to remove
    */
-  public void removeById(int toRemove) {
+  public static void removeById(int toRemove) {
     String query = "DELETE FROM appointment WHERE id = ? LIMIT 1;";
     PreparedStatement ps = null;
     Connection conn = null;
@@ -67,7 +67,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
   /**
    * @param toCreate the appointment to create as a record
    */
-  public void create(Appointment toCreate) {
+  public static void create(Appointment toCreate) {
     String query = "INSERT INTO appointment (status, due_date, patient_id) VALUES (?, ?, ?)";
     PreparedStatement ps = null;
     Connection conn = null;
@@ -99,7 +99,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toGet the ID of the record
    * @return the appointment corresponding to the record
    */
-  public Appointment get(int toGet) {
+  public static Appointment get(int toGet) {
     String query = "SELECT * FROM appointment WHERE id = ? LIMIT 1;";
     Appointment toReturn = null;
     PreparedStatement ps = null;
@@ -135,7 +135,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
   /**
    * @param toUpdate the appointment to update
    */
-  public void update(Appointment toUpdate) {
+  public static void update(Appointment toUpdate) {
     String query = "UPDATE appointment SET( status = ? due_date = ? patient_id = ? ) WHERE id = ?";
 
     Appointment toReturn = null;
@@ -174,7 +174,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
   /**
    * @param toRemove the appointment to remove
    */
-  public void remove(Appointment toRemove) {
+  public static void remove(Appointment toRemove) {
     removeById(toRemove.getID());
   }
 
@@ -182,7 +182,7 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toGet Map of attributes and the values to match to a record
    * @return the matched appointment
    */
-  public Appointment get(Map<String, String> toGet) {
+  public static Appointment get(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
     Appointment toReturn = null;
@@ -219,10 +219,10 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toGet Map of attributes and the values to match to a record
    * @return the matched appointment
    */
-  public static Appointment[] getAll(Map<String, String> toGet) {
+  public static List<Appointment> getAll(Map<String, String> toGet) {
 
     String query = mapToSQLQuery(toGet);
-    Appointment[] toReturn = null;
+    List<Appointment> toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -257,12 +257,12 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * 
    * @return a Appointment array that contains every appointment in the table
    */
-  public static Appointment[] getAll() {
+  public static List<Appointment> getAll() {
     String query = "SELECT * FROM appointment;";
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
-    Appointment[] toReturn = null;
+    List<Appointment> toReturn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
@@ -352,12 +352,12 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param toConvert the ResultSet to be read
    * @return the users
    */
-  private static Appointment[] resultSetToAppointmentArray(ResultSet toConvert) throws SQLException {
+  private static List<Appointment> resultSetToAppointmentArray(ResultSet toConvert) throws SQLException {
     List<Appointment> toReturn = new ArrayList<Appointment>();
     while (toConvert.next()) {
       toReturn.add(resultSetToAppointment(toConvert));
     }
-    return toReturn.toArray(new Appointment[toReturn.size()]);
+    return toReturn;
   }
 
   /**
@@ -393,10 +393,10 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
    * @param weekStart the start of the week
    * @return the current week's appointments
    */
-  public static Appointment[] getCurrentWeek(Week curWeek) {
+  public static List<Appointment> getCurrentWeek(Week curWeek) {
 
     String query = buildWeekQuery(curWeek);
-    Appointment[] toReturn = null;
+    List<Appointment> toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -422,8 +422,6 @@ public class AppointmentDAO implements DAOInterface<Appointment> {
       } catch (Exception e) {
       }
     }
-    System.out.println(query);
-    System.out.print("Size of Appointments arraylsit is: " + toReturn.length);
 
     return toReturn;
   }
