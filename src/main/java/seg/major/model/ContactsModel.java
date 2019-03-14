@@ -4,41 +4,38 @@ import seg.major.structure.Contact;
 
 import java.util.List;
 import java.util.Map;
-import java.util.Arrays;
 import java.util.HashMap;
 
 public class ContactsModel {
 
-    private List<Contact> contactList;
-    private static ContactDAO contactDAO;
+    private static List<Contact> contactList;
 
     public ContactsModel() {
-        contactDAO = new ContactDAO();
 
     }
 
-    public void addContact(int patientID, String forename, String surname, String relationship, String phone,
+    public static void addContact(int patientID, String forename, String surname, String relationship, String phone,
             String email) {
-        contactDAO.create(new Contact(patientID, forename, surname, relationship, phone, email));
+        ContactDAO.create(new Contact(patientID, forename, surname, relationship, phone, email));
         update(patientID);
     }
 
-    public void deleteContact(Contact delete) {
-        contactDAO.remove(delete);
+    public static void deleteContact(Contact delete) {
+        ContactDAO.remove(delete);
         update(delete.getPatientID());
     }
 
-    private void update(int toUpdate) {
+    private static void update(int toUpdate) {
         Map<String, String> params = new HashMap<>();
         params.put("patient_id", "" + toUpdate);
-        contactList = contactDAO.getAll(params);
+        contactList = ContactDAO.getAll(params);
 
     }
 
-    public List<Contact> getContactList(int id) {
+    public static List<Contact> getContactList(int id) {
         HashMap<String, String> param = new HashMap<>();
         param.put("patient_id", id + "");
-        List<Contact> toReturn = contactDAO.getAll(param);
+        List<Contact> toReturn = ContactDAO.getAll(param);
         System.out.println("Size of contact list in ContactsModel.java:" + toReturn.size());
         return toReturn;
     }

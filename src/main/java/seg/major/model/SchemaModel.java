@@ -6,30 +6,22 @@ import seg.major.structure.Patient;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SchemaModel {
-    private List<Appointment> appointmentList;
-    private List<Patient> patientListUnder12;
-    private List<Patient> patientListOver12;
-    private List<Patient> patientsList;
 
-    private Week currentWeek;
+    private static Week currentWeek = new Week(LocalDate.now());
 
     public SchemaModel() {
 
-        this.currentWeek = new Week(LocalDate.now());
-
-        updateData();
-
     }
 
-    public List<AppointmentEntry> getAll() {
+    public static List<AppointmentEntry> getAll() {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
-
-        List<Appointment> appointments = appointmentList;
+        List<Appointment> appointments = AppointmentDAO.getCurrentWeek(currentWeek);
+        List<Patient> patientsList = PatientDAO.getAll();
+        System.out.println("Size of schema:" + appointments.size());
         for (var appointment : appointments) {
             for (var patient : patientsList) {
                 if (appointment.getPatientID() == patient.getID()) {
@@ -47,32 +39,33 @@ public class SchemaModel {
         return toReturn;
     }
 
-    public void updateData() {
-        this.appointmentList = Arrays.asList(AppointmentDAO.getCurrentWeek(currentWeek));
+    public static void updateData() {
+        // appointmentList = );
 
-        this.patientsList = Arrays.asList(PatientDAO.getAll());
+        // patintsList = ;
 
-        this.patientListUnder12 = Arrays.asList(PatientDAO.getAll()).stream()
-                .filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now())
-                        || p.getDob().plusYears(12).isEqual(LocalDate.now()))
-                .collect(Collectors.toList());
+        // patientListUnder12 =
 
-        this.patientListOver12 = Arrays.asList(PatientDAO.getAll()).stream()
-                .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())).collect(Collectors.toList());
+        // patientListOver12 =
     }
 
-    private List<Appointment> getAppointmentsForDate(DayOfWeek day) {
+    private static List<Appointment> getAppointmentsForDate(DayOfWeek day) {
         List<Appointment> toReturn = new ArrayList<>();
 
-        appointmentList.stream().filter(a -> a.getDueDate().getDayOfWeek().equals(day)).forEach(a -> toReturn.add(a));
+        AppointmentDAO.getAll().stream().filter(a -> a.getDueDate().getDayOfWeek().equals(day))
+                .forEach(a -> toReturn.add(a));
 
         return toReturn;
     }
 
-    public List<AppointmentEntry> getAppointmentsAndPatientsForDayUnder12(DayOfWeek day) {
+    public static List<AppointmentEntry> getAppointmentsAndPatientsForDayUnder12(DayOfWeek day) {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
         List<Appointment> appointments = getAppointmentsForDate(day);
+        List<Patient> patientListUnder12 = PatientDAO.getAll().stream()
+                .filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now())
+                        || p.getDob().plusYears(12).isEqual(LocalDate.now()))
+                .collect(Collectors.toList());
         for (var appointment : appointments) {
             for (var patient : patientListUnder12) {
                 if (appointment.getPatientID() == patient.getID()) {
@@ -90,10 +83,12 @@ public class SchemaModel {
         return toReturn;
     }
 
-    public List<AppointmentEntry> getAppointmentsAndPatientsForDayOver12(DayOfWeek day) {
+    public static List<AppointmentEntry> getAppointmentsAndPatientsForDayOver12(DayOfWeek day) {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
         List<Appointment> appointments = getAppointmentsForDate(day);
+        List<Patient> patientListOver12 = PatientDAO.getAll().stream()
+                .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())).collect(Collectors.toList());
 
         for (var appointment : appointments) {
             for (var patient : patientListOver12) {
@@ -112,17 +107,17 @@ public class SchemaModel {
         return toReturn;
     }
 
-    public String getWeek() {
-        return this.currentWeek.toString();
+    public static String getWeek() {
+        return currentWeek.toString();
     }
 
-    public void incrementWeek() {
-        this.currentWeek.increment();
+    public static void incrementWeek() {
+        currentWeek.increment();
         updateData();
     }
 
-    public void decrementWeek() {
-        this.currentWeek.decrement();
+    public static void decrementWeek() {
+        currentWeek.decrement();
         updateData();
     }
 }
