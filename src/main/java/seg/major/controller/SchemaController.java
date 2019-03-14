@@ -337,7 +337,6 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void refresh() {
-    SchemaModel.updateData();
     // TODO: check for which button is selected for update.
     if (isUnder12) {
       fillTablesForUnder12();

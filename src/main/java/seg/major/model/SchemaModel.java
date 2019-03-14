@@ -39,16 +39,6 @@ public class SchemaModel {
         return toReturn;
     }
 
-    public static void updateData() {
-        // appointmentList = );
-
-        // patintsList = ;
-
-        // patientListUnder12 =
-
-        // patientListOver12 =
-    }
-
     private static List<Appointment> getAppointmentsForDate(DayOfWeek day) {
         List<Appointment> toReturn = new ArrayList<>();
 
@@ -113,11 +103,11 @@ public class SchemaModel {
 
     public static void incrementWeek() {
         currentWeek.increment();
-        updateData();
+
     }
 
     public static void decrementWeek() {
         currentWeek.decrement();
-        updateData();
+
     }
 }
