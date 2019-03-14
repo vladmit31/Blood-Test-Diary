@@ -59,8 +59,6 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     @FXML
     private Button updateButton;
 
-    private static UpdatePatientModel model;
-
     /** ---------- FXML ---------- */
 
     @FXML
@@ -100,7 +98,6 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
      * Allow javafx to initalise the controller with the view
      */
     public void initialize(URL url, ResourceBundle rb) {
-        model = new UpdatePatientModel();
         disableTextFields();
     }
 

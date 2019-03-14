@@ -14,7 +14,7 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import seg.major.App;
-import seg.major.model.PatientsModel;
+import seg.major.model.PatientModel;
 
 import seg.major.structure.Patient;
 
@@ -30,7 +30,6 @@ public class PatientsController implements Initializable, ControllerInterface {
   private PrimaryController primaryController;
   private Map<String, Object> data = new HashMap<>();
 
-  private static PatientsModel patientModel = new PatientsModel();
   public TextField searchField;
   public Button searchButton;
   public Button filterButton;
@@ -54,9 +53,8 @@ public class PatientsController implements Initializable, ControllerInterface {
    * Allow javafx to initalise the controller with the view
    */
   public void initialize(URL url, ResourceBundle rb) {
-    patientModel = new PatientsModel();
     infoText.setText("");
-    patientModel.fetchData();
+    PatientModel.fetchData();
     setupTable();
     setupButtons();
   }
@@ -95,9 +93,9 @@ public class PatientsController implements Initializable, ControllerInterface {
    */
   public void update() {
     if (isUnder12) {
-      fillTable(patientModel.getUnder12());
+      fillTable(PatientModel.getUnder12());
     } else {
-      fillTable(patientModel.getOver12());
+      fillTable(PatientModel.getOver12());
     }
   }
 
@@ -106,7 +104,7 @@ public class PatientsController implements Initializable, ControllerInterface {
   private void setupTable() {
     setupColumns();
     setupRows();
-    fillTable(patientModel.getUnder12());
+    fillTable(PatientModel.getUnder12());
     under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
     patientTable.setPlaceholder(new Label("No patients found"));
   }
@@ -139,13 +137,13 @@ public class PatientsController implements Initializable, ControllerInterface {
     under12Button.setOnAction(e -> {
       under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       over12Button.setStyle(null);
-      fillTable(patientModel.under12());
+      fillTable(PatientModel.under12());
       isUnder12 = true;
     });
     over12Button.setOnAction(e -> {
       over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       under12Button.setStyle(null);
-      fillTable(patientModel.over12());
+      fillTable(PatientModel.over12());
       isUnder12 = false;
     });
     switchToDiary.setOnAction(e -> {
@@ -159,7 +157,7 @@ public class PatientsController implements Initializable, ControllerInterface {
 
   private void fillTable() {
     patientTable.getItems().clear();
-    for (Patient patient : patientModel.getPatientList()) {
+    for (Patient patient : PatientModel.getPatientList()) {
       patientTable.getItems().add(patient);
     }
   }
@@ -182,19 +180,19 @@ public class PatientsController implements Initializable, ControllerInterface {
   }
 
   private void searchNumber(String number) {
-    fillTable(patientModel.searchByNumber(number));
+    fillTable(PatientModel.searchByNumber(number));
   }
 
   private void searchName(String name) {
-    fillTable(patientModel.searchByName(name));
+    fillTable(PatientModel.searchByName(name));
   }
 
   public void refresh() {
-    patientModel.fetchData();
+    PatientModel.fetchData();
     if (isUnder12) {
-      fillTable(patientModel.under12());
+      fillTable(PatientModel.under12());
     } else {
-      fillTable(patientModel.over12());
+      fillTable(PatientModel.over12());
     }
   }
 

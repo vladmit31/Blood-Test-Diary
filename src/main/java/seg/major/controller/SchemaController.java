@@ -94,8 +94,8 @@ public class SchemaController implements Initializable, ControllerInterface {
   public boolean isUnder12 = true;
   @FXML
   public Text bottomInfo;
-  @FXML
-  private SchemaModel schemaModel;
+  // @FXML
+  // private SchemaModel SchemaModel;
   @FXML
   public Tab carriedOverTab;
   @FXML
@@ -148,11 +148,10 @@ public class SchemaController implements Initializable, ControllerInterface {
    * Allow javafx to initalise the controller with the view
    */
   public void initialize(URL url, ResourceBundle rb) {
-    this.schemaModel = new SchemaModel();
     setUpTable();
     setUpButtons();
     setCurrentDate();
-    this.weekText.setText(this.schemaModel.getWeek());
+    this.weekText.setText(SchemaModel.getWeek());
   }
 
   /**
@@ -214,23 +213,23 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void fillTablesForUnder12() {
-    fillTable(carriedOverTable, schemaModel.getAll());
-    fillTable(thisWeekTable, schemaModel.getAll());
-    fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.MONDAY));
-    fillTable(tuesdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.TUESDAY));
-    fillTable(wednesdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.WEDNESDAY));
-    fillTable(thursdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.THURSDAY));
-    fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.FRIDAY));
+    fillTable(carriedOverTable, SchemaModel.getAll());
+    fillTable(thisWeekTable, SchemaModel.getAll());
+    fillTable(mondayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.MONDAY));
+    fillTable(tuesdayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.TUESDAY));
+    fillTable(wednesdayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.WEDNESDAY));
+    fillTable(thursdayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.THURSDAY));
+    fillTable(fridayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.FRIDAY));
   }
 
   public void fillTablesForOver12() {
-    fillTable(carriedOverTable, schemaModel.getAll());
-    fillTable(thisWeekTable, schemaModel.getAll());
-    fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.MONDAY));
-    fillTable(tuesdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.TUESDAY));
-    fillTable(wednesdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.WEDNESDAY));
-    fillTable(thursdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.THURSDAY));
-    fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.FRIDAY));
+    fillTable(carriedOverTable, SchemaModel.getAll());
+    fillTable(thisWeekTable, SchemaModel.getAll());
+    fillTable(mondayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.MONDAY));
+    fillTable(tuesdayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.TUESDAY));
+    fillTable(wednesdayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.WEDNESDAY));
+    fillTable(thursdayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.THURSDAY));
+    fillTable(fridayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.FRIDAY));
   }
 
   private void setUpColumns() {
@@ -324,21 +323,21 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void previousWeekButtonClicked(ActionEvent event) {
-    this.schemaModel.decrementWeek();
+    SchemaModel.decrementWeek();
 
-    this.weekText.setText(schemaModel.getWeek());
+    this.weekText.setText(SchemaModel.getWeek());
     refresh();
   }
 
   public void nextWeekButtonClicked(ActionEvent event) {
-    this.schemaModel.incrementWeek();
+    SchemaModel.incrementWeek();
 
-    this.weekText.setText(schemaModel.getWeek());
+    this.weekText.setText(SchemaModel.getWeek());
     refresh();
   }
 
   public void refresh() {
-    schemaModel.updateData();
+    SchemaModel.updateData();
     // TODO: check for which button is selected for update.
     if (isUnder12) {
       fillTablesForUnder12();

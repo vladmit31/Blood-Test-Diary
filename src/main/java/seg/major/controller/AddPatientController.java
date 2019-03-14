@@ -51,8 +51,6 @@ public class AddPatientController implements Initializable, ControllerInterface 
   @FXML
   private Button submitButton;
 
-  private AddPatientModel model;
-
   /** ---------- FXML ---------- */
 
   @FXML
@@ -84,7 +82,6 @@ public class AddPatientController implements Initializable, ControllerInterface 
    * Allow javafx to initalise the controller with the view
    */
   public void initialize(URL url, ResourceBundle rb) {
-    model = new AddPatientModel();
   }
 
   /**

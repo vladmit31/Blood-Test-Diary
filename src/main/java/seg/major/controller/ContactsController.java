@@ -63,7 +63,6 @@ public class ContactsController implements Initializable, ControllerInterface {
     @FXML
     private TableColumn<Contact, String> emailColumn;
 
-    private ContactsModel contactsModel = new ContactsModel();
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
     private Patient curPatient;
@@ -82,7 +81,7 @@ public class ContactsController implements Initializable, ControllerInterface {
         System.out.println("!!!!" + ((Patient) data.get("patient")).getID());
         Patient p = (Patient) data.get("patient");
         if (p != null) {
-            fillTable(contactsModel.getContactList(p.getID()));
+            fillTable(ContactsModel.getContactList(p.getID()));
             this.curPatient = p;
         }
     }
@@ -167,9 +166,9 @@ public class ContactsController implements Initializable, ControllerInterface {
     public void addButtonClicked(ActionEvent event) {
         if (checkUserInput()) {
 
-            contactsModel.addContact(curPatient.getID(), forenameField.getText(), surnameField.getText(),
+            ContactsModel.addContact(curPatient.getID(), forenameField.getText(), surnameField.getText(),
                     relationshipField.getText(), phoneField.getText(), emailField.getText());
-            fillTable(this.contactsModel.getContactList(curPatient.getID()));
+            fillTable(ContactsModel.getContactList(curPatient.getID()));
             emptyAddFields();
 
         }
@@ -184,8 +183,8 @@ public class ContactsController implements Initializable, ControllerInterface {
     @FXML
     public void deleteButtonClicked(ActionEvent event) {
         if (toBeDeleted != null) {
-            contactsModel.deleteContact(toBeDeleted);
-            fillTable(contactsModel.getContactList(curPatient.getID()));
+            ContactsModel.deleteContact(toBeDeleted);
+            fillTable(ContactsModel.getContactList(curPatient.getID()));
         }
     }
 

@@ -18,7 +18,6 @@ public class LoginController implements Initializable, ControllerInterface {
 
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
-    private static LoginModel loginModel = new LoginModel();
 
     /** ---------- FXML ---------- */
     @FXML
@@ -36,8 +35,8 @@ public class LoginController implements Initializable, ControllerInterface {
     @FXML
     public void loginBtn() {
         if (!username.getText().equals("") && !password.getText().equals("")) {
-            if (loginModel.validateLogin(username.getText(), password.getText())) {
-                primaryController.sendTo(App.schema, "user", loginModel.getUserByUsername(username.getText()));
+            if (LoginModel.validateLogin(username.getText(), password.getText())) {
+                primaryController.sendTo(App.schema, "user", LoginModel.getUserByUsername(username.getText()));
                 primaryController.setPane(App.schema);
             } else {
                 JOptionPane.showMessageDialog(null, "Invalid credentials", "Wrong username/password",

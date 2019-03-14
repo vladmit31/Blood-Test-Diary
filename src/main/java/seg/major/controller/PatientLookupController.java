@@ -4,8 +4,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
-import seg.major.model.PatientLookupModel;
-
+import seg.major.model.PatientModel;
 import seg.major.structure.Patient;
 
 import java.net.URL;
@@ -15,7 +14,6 @@ import java.util.ResourceBundle;
 import java.util.List;
 
 public class PatientLookupController implements Initializable, ControllerInterface {
-    private PatientLookupModel patientModel;
     public TextField searchField;
     public Button searchButton;
     public Button filterButton;
@@ -36,8 +34,7 @@ public class PatientLookupController implements Initializable, ControllerInterfa
      * Allow javafx to initalise the controller with the view
      */
     public void initialize(URL url, ResourceBundle rb) {
-        this.patientModel = new PatientLookupModel();
-        patientModel.fetchData();
+        PatientModel.fetchData();
         setupTable();
         setupButtons();
     }
@@ -82,7 +79,7 @@ public class PatientLookupController implements Initializable, ControllerInterfa
     private void setupTable() {
         setupColumns();
         setupRows();
-        fillTable(patientModel.under12());
+        fillTable(PatientModel.under12());
         under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
         patientTable.setPlaceholder(new Label("No patients found"));
     }
@@ -111,12 +108,12 @@ public class PatientLookupController implements Initializable, ControllerInterfa
         under12Button.setOnAction(e -> {
             under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
             over12Button.setStyle(null);
-            fillTable(patientModel.under12());
+            fillTable(PatientModel.under12());
         });
         over12Button.setOnAction(e -> {
             over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
             under12Button.setStyle(null);
-            fillTable(patientModel.over12());
+            fillTable(PatientModel.over12());
         });
         searchButton.setOnAction(e -> {
             search(searchField.getText());
@@ -126,7 +123,7 @@ public class PatientLookupController implements Initializable, ControllerInterfa
 
     private void fillTable() {
         patientTable.getItems().clear();
-        for (Patient patient : patientModel.getPatientList()) {
+        for (Patient patient : PatientModel.getPatientList()) {
             patientTable.getItems().add(patient);
         }
     }
@@ -147,15 +144,15 @@ public class PatientLookupController implements Initializable, ControllerInterfa
     }
 
     private void searchNumber(String number) {
-        fillTable(patientModel.searchByNumber(number));
+        fillTable(PatientModel.searchByNumber(number));
     }
 
     private void searchName(String name) {
-        fillTable(patientModel.searchByName(name));
+        fillTable(PatientModel.searchByName(name));
     }
 
     public void refresh() {
-        patientModel.fetchData();
+        PatientModel.fetchData();
         fillTable();
     }
 }
