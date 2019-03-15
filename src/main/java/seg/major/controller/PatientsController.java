@@ -16,7 +16,11 @@ import javafx.scene.text.Text;
 import seg.major.App;
 import seg.major.model.PatientModel;
 
+import seg.major.model.database.AppointmentDAO;
+import seg.major.model.database.PatientDAO;
+import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
+import seg.major.structure.PatientEntry;
 
 /**
  * PatientsController acts as the controller for the patients.fxml file
@@ -33,16 +37,19 @@ public class PatientsController implements Initializable, ControllerInterface {
   public TextField searchField;
   public Button searchButton;
   public Button filterButton;
-  public TableView<Patient> patientTable;
-  public TableColumn<Patient, String> forename;
-  public TableColumn<Patient, String> surname;
-  public TableColumn<Patient, String> hospitalNumber;
-  public TableColumn<Patient, String> localClinic;
-  public TableColumn<Patient, LocalDate> nextAppointment;
+  public TableView<PatientEntry> patientTable;
+  public TableColumn<PatientEntry, String> forename;
+  public TableColumn<PatientEntry, String> surname;
+  public TableColumn<PatientEntry, String> hospitalNumber;
+  public TableColumn<PatientEntry, String> localClinic;
+  public TableColumn<PatientEntry, LocalDate> nextAppointment;
   public Button under12Button;
   public Button over12Button;
 
   boolean isUnder12 = true;
+
+
+  private PatientModel patientModel;
 
   /** ---------- FXML ---------- */
 
@@ -53,8 +60,9 @@ public class PatientsController implements Initializable, ControllerInterface {
    * Allow javafx to initalise the controller with the view
    */
   public void initialize(URL url, ResourceBundle rb) {
+    this.patientModel = new PatientModel();
     infoText.setText("");
-    PatientModel.fetchData();
+    patientModel.fetchData();
     setupTable();
     setupButtons();
   }
@@ -80,7 +88,7 @@ public class PatientsController implements Initializable, ControllerInterface {
   /**
    * Add data to the given fx-item and update the scene
    * 
-   * @param tpAddKey the key of the data
+   * @param toAddKey the key of the data
    * @param toAddVal the value of the data
    */
   public void addData(String toAddKey, Object toAddVal) {
@@ -93,9 +101,9 @@ public class PatientsController implements Initializable, ControllerInterface {
    */
   public void update() {
     if (isUnder12) {
-      fillTable(PatientModel.getUnder12());
+      fillTable(patientModel.under12());
     } else {
-      fillTable(PatientModel.getOver12());
+      fillTable(patientModel.over12());
     }
   }
 
@@ -104,25 +112,31 @@ public class PatientsController implements Initializable, ControllerInterface {
   private void setupTable() {
     setupColumns();
     setupRows();
-    fillTable(PatientModel.getUnder12());
+    fillTable(patientModel.under12());
     under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
     patientTable.setPlaceholder(new Label("No patients found"));
   }
 
   private void setupRows() {
     patientTable.setRowFactory(t -> {
-      TableRow<Patient> row = new TableRow<>();
-      // listen for click events on rows and open the update patients pane if an entry
-      // is double clicked
+      TableRow<PatientEntry> row = new TableRow<>();
       row.setOnMouseClicked(click -> {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
-          Patient patientEntry = row.getItem();
-          primaryController.sendTo(App.updatePatient, "patient", patientEntry);
+          PatientEntry patientEntry = row.getItem();
+          viewPatient(patientEntry);
+
+          primaryController.sendTo(App.updatePatient,"patient", PatientDAO.getByID(patientEntry.getPatientID()));
+          primaryController.sendTo(App.updatePatient, "appointment", AppointmentDAO.getById(patientEntry.getAppointmentID()));
           primaryController.setPane(App.updatePatient);
+
         }
       });
       return row;
     });
+  }
+
+  private void viewPatient(PatientEntry patientEntry){
+    System.out.println(patientEntry.getPatientID() + " " + patientEntry.getForename() + " " + patientEntry.getSurname());
   }
 
   private void setupColumns() {
@@ -138,15 +152,14 @@ public class PatientsController implements Initializable, ControllerInterface {
       under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       over12Button.setStyle(null);
       isUnder12 = true;
-      fillTable(PatientModel.under12());
+      fillTable(patientModel.under12());
       update();
     });
     over12Button.setOnAction(e -> {
       over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
       under12Button.setStyle(null);
-
       isUnder12 = false;
-      fillTable(PatientModel.over12());
+      fillTable(patientModel.over12());
       update();
     });
     switchToDiary.setOnAction(e -> {
@@ -158,19 +171,22 @@ public class PatientsController implements Initializable, ControllerInterface {
     // TODO filter button
   }
 
-  private void fillTable() {
+/*  private void fillTable() {
     patientTable.getItems().clear();
-    for (Patient patient : PatientModel.getPatientList()) {
+    for (Patient patient : patientModel.getPatientList()) {
       patientTable.getItems().add(patient);
     }
-  }
+  }*/
 
   private void fillTable(List<Patient> patients) {
     patientTable.getItems().clear();
     for (Patient patient : patients) {
-
-      patientTable.getItems().add(patient);
-
+      for (Appointment appointment : patientModel.getAppointmentList()) {
+        if(appointment.getPatientID() == patient.getID()) {
+          patientTable.getItems().add(new PatientEntry(patient.getID(),appointment.getID(),patient.getForename(),
+                  patient.getSurname(),patient.getHospitalNumber(),patient.getLocalClinic(),appointment.getDueDate()));
+        }
+      }
     }
   }
 
@@ -183,19 +199,19 @@ public class PatientsController implements Initializable, ControllerInterface {
   }
 
   private void searchNumber(String number) {
-    fillTable(PatientModel.searchByNumber(number));
+    fillTable(patientModel.searchByNumber(number));
   }
 
   private void searchName(String name) {
-    fillTable(PatientModel.searchByName(name));
+    fillTable(patientModel.searchByName(name));
   }
 
   public void refresh() {
-    PatientModel.fetchData();
+    patientModel.fetchData();
     if (isUnder12) {
-      fillTable(PatientModel.under12());
+      fillTable(patientModel.under12());
     } else {
-      fillTable(PatientModel.over12());
+      fillTable(patientModel.over12());
     }
   }
 
