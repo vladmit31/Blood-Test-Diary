@@ -15,6 +15,12 @@ public class Appointment {
     this.patient_id = patient_id;
   }
 
+  public Appointment(int status, LocalDate due_date, int patient_id) {
+    this.status = status;
+    this.due_date = due_date;
+    this.patient_id = patient_id;
+  }
+
   public int getID() {
     return this.id;
   }
