@@ -58,8 +58,8 @@ public class AddPatientController implements Initializable, ControllerInterface 
     if (checkUserInput()) {
 
       AddPatientModel.createPatient(forenameField.getText(), surnameField.getText(), dobField.getValue(),
-          hospitalField.getText(), clinicField.getText(), nextAppField.getValue(),
-          Double.parseDouble(refreshRateField.getText()));
+          hospitalField.getText(), clinicField.getText(), /*nextAppField.getValue(),*/
+          /*Double.parseDouble(refreshRateField.getText())*/ 2.0,nextAppField.getValue());
     } else
 
     {
