@@ -54,7 +54,7 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
     /**
      * Add data to the given fx-item and update the scene
      * 
-     * @param tpAddKey the key of the data
+     * @param toAddKey the key of the data
      * @param toAddVal the value of the data
      */
     public void addData(String toAddKey, Object toAddVal) {
