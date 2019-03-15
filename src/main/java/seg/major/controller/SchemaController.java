@@ -89,8 +89,12 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, LocalDate> fridayDueDate;
 
+  @FXML
   public Button under12Btn;
+
+  @FXML
   public Button over12Btn;
+  @FXML
   public boolean isUnder12 = true;
   @FXML
   public Label bottomInfo;
@@ -124,6 +128,8 @@ public class SchemaController implements Initializable, ControllerInterface {
   public TableView<AppointmentEntry> fridayTable;
 
   /** ---------- FXML ---------- */
+
+  private SchemaModel schemaModel;
   @FXML
   public Button prevWeekBtn;
   @FXML
@@ -146,10 +152,12 @@ public class SchemaController implements Initializable, ControllerInterface {
    * Allow javafx to initalise the controller with the view
    */
   public void initialize(URL url, ResourceBundle rb) {
+    this.schemaModel = new SchemaModel();
+    //this.userInfo.setText(this.data.get("User"));
     setUpTable();
     setUpButtons();
     setCurrentDate();
-    this.weekText.setText(SchemaModel.getWeek());
+    this.weekText.setText(schemaModel.getWeek());
   }
 
   /**
@@ -211,23 +219,23 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void fillTablesForUnder12() {
-    fillTable(carriedOverTable, SchemaModel.getAll());
-    fillTable(thisWeekTable, SchemaModel.getAll());
-    fillTable(mondayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.MONDAY));
-    fillTable(tuesdayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.TUESDAY));
-    fillTable(wednesdayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.WEDNESDAY));
-    fillTable(thursdayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.THURSDAY));
-    fillTable(fridayTable, SchemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.FRIDAY));
+    fillTable(carriedOverTable, schemaModel.getAll());
+    fillTable(thisWeekTable, schemaModel.getAll());
+    fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.MONDAY));
+    fillTable(tuesdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.TUESDAY));
+    fillTable(wednesdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.WEDNESDAY));
+    fillTable(thursdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.THURSDAY));
+    fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.FRIDAY));
   }
 
   public void fillTablesForOver12() {
-    fillTable(carriedOverTable, SchemaModel.getAll());
-    fillTable(thisWeekTable, SchemaModel.getAll());
-    fillTable(mondayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.MONDAY));
-    fillTable(tuesdayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.TUESDAY));
-    fillTable(wednesdayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.WEDNESDAY));
-    fillTable(thursdayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.THURSDAY));
-    fillTable(fridayTable, SchemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.FRIDAY));
+    fillTable(carriedOverTable, schemaModel.getAll());
+    fillTable(thisWeekTable, schemaModel.getAll());
+    fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.MONDAY));
+    fillTable(tuesdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.TUESDAY));
+    fillTable(wednesdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.WEDNESDAY));
+    fillTable(thursdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.THURSDAY));
+    fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.FRIDAY));
   }
 
   private void setUpColumns() {
@@ -288,7 +296,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   /**
    * Add data to the given fx-item and update the scene
    * 
-   * @param tpAddKey the key of the data
+   * @param toAddKey the key of the data
    * @param toAddVal the value of the data
    */
   public void addData(String toAddKey, Object toAddVal) {
@@ -301,6 +309,7 @@ public class SchemaController implements Initializable, ControllerInterface {
    */
   public void update() {
     setAuthenticatedUser();
+    schemaModel.updateData();
     if (isUnder12) {
       fillTablesForUnder12();
     } else {
@@ -311,7 +320,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   /** ---------- Inherited / Implemented ---------- */
 
   public void setAuthenticatedUser() {
-    userInfo.setText("You logged in as " + ((User) data.get("user")).getUsername());
+    // userInfo.setText("You logged in as " + ((User) data.get("user")).getUsername());
   }
 
   public void logoutBtn(ActionEvent event) {
@@ -323,14 +332,14 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void previousWeekButtonClicked(ActionEvent event) {
-    SchemaModel.decrementWeek();
-    this.weekText.setText(SchemaModel.getWeek());
+    schemaModel.decrementWeek();
+    this.weekText.setText(schemaModel.getWeek());
     update();
   }
 
   public void nextWeekButtonClicked(ActionEvent event) {
-    SchemaModel.incrementWeek();
-    this.weekText.setText(SchemaModel.getWeek());
+    schemaModel.incrementWeek();
+    this.weekText.setText(schemaModel.getWeek());
     update();
   }
 
