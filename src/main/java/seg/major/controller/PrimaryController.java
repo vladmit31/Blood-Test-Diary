@@ -119,4 +119,11 @@ public class PrimaryController extends StackPane {
     }
   }
 
+/*  public void triggerUpdate(String toReceive) {
+    ControllerInterface ci = data.get(toReceive);
+    if(ci != null) {
+      ci.update();
+    }
+  }*/
+
 }
