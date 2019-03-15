@@ -69,15 +69,14 @@ public class AppointmentDAO {
    * @param toCreate the appointment to create as a record
    */
   public static void create(Appointment toCreate) {
-    String query = "INSERT INTO appointment (status, due_date, patient_id) VALUES (?, ?, ?)";
+    String query = "INSERT INTO appointment (due_date, patient_id) VALUES (?, ?)";
     PreparedStatement ps = null;
     Connection conn = null;
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
-      ps.setInt(1, toCreate.getStatus());
-      ps.setDate(2, Date.valueOf(toCreate.getDueDate()));
-      ps.setInt(3, toCreate.getPatientID());
+      ps.setDate(1, Date.valueOf(toCreate.getDueDate()));
+      ps.setInt(2, toCreate.getPatientID());
       ps.execute("USE db");
       ps.executeUpdate();
     } catch (SQLException e) {
@@ -112,7 +111,10 @@ public class AppointmentDAO {
       ps.setInt(1, toGet);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToAppointment(rs);
+      if(rs.next()){
+        toReturn = resultSetToAppointment(rs);
+      }
+
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
@@ -137,9 +139,8 @@ public class AppointmentDAO {
    * @param toUpdate the appointment to update
    */
   public static void update(Appointment toUpdate) {
-    String query = "UPDATE appointment SET( status = ? due_date = ? patient_id = ? ) WHERE id = ?";
+    String query = "UPDATE appointment SET status = ?, due_date = ?, patient_id = ? WHERE id = ?";
 
-    Appointment toReturn = null;
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -151,8 +152,7 @@ public class AppointmentDAO {
       ps.setInt(3, toUpdate.getPatientID());
       ps.setInt(4, toUpdate.getID());
       ps.execute("USE db");
-      rs = ps.executeQuery();
-      toReturn = resultSetToAppointment(rs);
+      ps.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
