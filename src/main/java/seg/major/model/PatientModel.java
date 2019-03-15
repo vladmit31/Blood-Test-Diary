@@ -10,27 +10,27 @@ import seg.major.model.database.AppointmentDAO;
 
 public class PatientModel {
 
-    private static List<Patient> patientList;
+    private List<Patient> patientList;
 
-    private static List<Appointment> appointmentList;
+    private List<Appointment> appointmentList;
 
     public PatientModel() {
     }
 
-    public static List<Patient> getPatientList() {
+    public List<Patient> getPatientList() {
         return patientList;
     }
 
-    public static List<Appointment> getAppointmentList() {
+    public List<Appointment> getAppointmentList() {
         return appointmentList;
     }
 
-    public static void fetchData() {
+    public void fetchData() {
         patientList = PatientDAO.getAll();
         appointmentList = AppointmentDAO.getAll();
     }
 
-    public static List<Patient> searchByName(String name) {
+    public List<Patient> searchByName(String name) {
         List<Patient> filtered = new ArrayList<>();
         patientList.stream()
                 .filter(p -> (p.getForename() + " " + p.getSurname()).toLowerCase().contains(name.toLowerCase()))
@@ -38,14 +38,14 @@ public class PatientModel {
         return filtered;
     }
 
-    public static List<Patient> searchByNumber(String number) {
+    public List<Patient> searchByNumber(String number) {
         List<Patient> filtered = new ArrayList<>();
         patientList.stream().filter(p -> p.getHospitalNumber().toLowerCase().contains(number.toLowerCase()))
                 .forEach(p -> filtered.add(p));
         return filtered;
     }
 
-    public static List<Patient> under12() {
+    public List<Patient> under12() {
         fetchData();
         List<Patient> filtered = new ArrayList<>();
         patientList.stream().filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now())
@@ -54,15 +54,15 @@ public class PatientModel {
         return filtered;
     }
 
-    public static List<Patient> getUnder12() {
+    public List<Patient> getUnder12() {
         return PatientDAO.getAll();
     }
 
-    public static List<Patient> getOver12() {
+    public List<Patient> getOver12() {
         return PatientDAO.getAll();
     }
 
-    public static List<Patient> over12() {
+    public List<Patient> over12() {
         fetchData();
         List<Patient> filtered = new ArrayList<Patient>();
         patientList.stream().filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now()))
