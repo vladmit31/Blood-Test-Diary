@@ -20,7 +20,7 @@ public class PatientDAO {
     private static final String SURNAME = "sname";
     private static final String DOB = "dob";
     private static final String LOCAL_CLINIC = "local_clinic";
-    private static final String NEXT_APPOINTMENT = "next_appointment";
+    // private static final String NEXT_APPOINTMENT = "next_appointment";
     private static final String REFRESH_RATE = "refresh_rate";
     private static final String V_NUMBER = "vnumber";
 
@@ -71,8 +71,8 @@ public class PatientDAO {
     /**
      * @param toCreate the patient to create as a record
      */
-    public static void create(Patient toCreate) {
-        String query = "INSERT INTO patient (vnumber, fname, sname, dob, local_clinic, next_appointment, refresh_rate) VALUES (?, ?, ?,?, ?,?,?)";
+    public static int create(Patient toCreate) {
+        String query = "INSERT INTO patient (vnumber, fname, sname, dob, local_clinic, refresh_rate) VALUES (?, ?, ?,?, ?,?)";
         PreparedStatement ps = null;
         Connection conn = null;
         try {
@@ -81,10 +81,9 @@ public class PatientDAO {
             ps.setString(1, toCreate.getHospitalNumber());
             ps.setString(2, toCreate.getForename());
             ps.setString(3, toCreate.getSurname());
-            ps.setString(4, toCreate.getLocalClinic());
-            ps.setDate(5, Date.valueOf(toCreate.getDob()));
-            ps.setDate(6, Date.valueOf(toCreate.getDob()));
-            ps.setDouble(7, toCreate.getRefreshRate());
+            ps.setDate(4, Date.valueOf(toCreate.getDob()));
+            ps.setString(5, toCreate.getLocalClinic());
+            ps.setDouble(6, toCreate.getRefreshRate());
             ps.execute("USE db");
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -100,7 +99,7 @@ public class PatientDAO {
             } catch (Exception e) {
             }
         }
-
+        return getLastInsertedPatientID();
     }
 
     /**
@@ -108,7 +107,7 @@ public class PatientDAO {
      * @return the patient corresponding to the record
      */
     public static Patient get(int toGet) {
-        String query = "SELECT * FROM patient WHERE id = ? LIMIT 1;";
+        String query = "SELECT * FROM patient WHERE id = " + toGet + ";";
         Patient toReturn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -116,10 +115,12 @@ public class PatientDAO {
         try {
             conn = DAOConnection.getConnection();
             ps = conn.prepareStatement(query);
-            ps.setInt(1, toGet);
             ps.execute("USE db");
             rs = ps.executeQuery();
-            toReturn = resultSetToPatient(rs);
+            if(rs.next()){
+                toReturn = resultSetToPatient(rs);
+            }
+
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -144,9 +145,8 @@ public class PatientDAO {
      * @param toUpdate the patient to update
      */
     public static void update(Patient toUpdate) {
-        String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, next_appointment = ?, refresh_rate = ? WHERE id = ?";
+        String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ? WHERE id = ?";
 
-        Patient toReturn = null;
         PreparedStatement ps = null;
         ResultSet rs = null;
         Connection conn = null;
@@ -156,14 +156,11 @@ public class PatientDAO {
             ps.setString(1, toUpdate.getHospitalNumber());
             ps.setString(2, toUpdate.getForename());
             ps.setString(3, toUpdate.getSurname());
-            ps.setString(4, toUpdate.getLocalClinic());
-            ps.setDate(5, Date.valueOf(toUpdate.getDob()));
-            ps.setDate(6, Date.valueOf(toUpdate.getDob()));
-            ps.setDouble(7, toUpdate.getRefreshRate());
-            ps.setInt(8, toUpdate.getID());
+            ps.setDate(4, Date.valueOf(toUpdate.getDob()));
+            ps.setString(5, toUpdate.getLocalClinic());
+            ps.setInt(6, toUpdate.getID());
             ps.execute("USE db");
-            rs = ps.executeQuery();
-            toReturn = resultSetToPatient(rs);
+            ps.executeUpdate();
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -356,9 +353,14 @@ public class PatientDAO {
         String surname = toConvert.getString(SURNAME);
         LocalDate dob = toConvert.getDate(DOB).toLocalDate();
         String localClinic = toConvert.getString(LOCAL_CLINIC);
-        LocalDate nextAppointment = toConvert.getDate(NEXT_APPOINTMENT).toLocalDate();
         Double refreshRate = toConvert.getDouble(REFRESH_RATE);
-        return new Patient(id, forename, surname, dob, hospitalNumber, localClinic, nextAppointment, refreshRate);
+
+        Patient toReturn = new Patient(id, forename, surname, dob,
+                hospitalNumber, localClinic, refreshRate);
+
+        System.out.println(toReturn.toString());
+
+        return toReturn;
 
     }
 
