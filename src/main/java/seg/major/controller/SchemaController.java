@@ -29,6 +29,7 @@ import seg.major.structure.User;
  */
 public class SchemaController implements Initializable, ControllerInterface {
 
+  public Button logoutButton;
   private PrimaryController primaryController;
   private Map<String, Object> data = new HashMap<>();
 
@@ -153,7 +154,7 @@ public class SchemaController implements Initializable, ControllerInterface {
    */
   public void initialize(URL url, ResourceBundle rb) {
     this.schemaModel = new SchemaModel();
-    //this.userInfo.setText(this.data.get("User"));
+    // this.userInfo.setText(this.data.get("User"));
     setUpTable();
     setUpButtons();
     setCurrentDate();
@@ -190,20 +191,31 @@ public class SchemaController implements Initializable, ControllerInterface {
     over12Btn.setStyle(null);
   }
 
-  private void setUpRows() {
-    mondayTable.setRowFactory(t -> {
+  private void setUpRowsForTable(TableView<AppointmentEntry> tbv){
+    tbv.setRowFactory(t -> {
       TableRow<AppointmentEntry> row = new TableRow<>();
       row.setOnMouseClicked(click -> {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
-          AppointmentEntry appointment = row.getItem();
+          AppointmentEntry appointmentEntry = row.getItem();
+          System.out.println("Am intrat!");
 
-          primaryController.sendTo(App.updateAppointment, "appointmentID", appointment);
+          primaryController.sendTo(App.updateAppointment, "appointmentEntry", appointmentEntry);
           primaryController.setPane(App.updateAppointment);
 
         }
       });
       return row;
     });
+  }
+
+  private void setUpRows() {
+    setUpRowsForTable(carriedOverTable);
+    setUpRowsForTable(thisWeekTable);
+    setUpRowsForTable(mondayTable);
+    setUpRowsForTable(tuesdayTable);
+    setUpRowsForTable(wednesdayTable);
+    setUpRowsForTable(thursdayTable);
+    setUpRowsForTable(fridayTable);
   }
 
   /*
@@ -320,11 +332,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   /** ---------- Inherited / Implemented ---------- */
 
   public void setAuthenticatedUser() {
-    // userInfo.setText("You logged in as " + ((User) data.get("user")).getUsername());
-  }
-
-  public void logoutBtn(ActionEvent event) {
-    primaryController.setPane(App.login);
+     userInfo.setText("User: " + ((User) data.get("user")).getUsername());
   }
 
   public void switchToPatients(ActionEvent event) {
@@ -343,4 +351,7 @@ public class SchemaController implements Initializable, ControllerInterface {
     update();
   }
 
+  public void logoutButtonClicked(ActionEvent event) {
+    primaryController.setPane(App.login);
+  }
 }
