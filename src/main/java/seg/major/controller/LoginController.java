@@ -6,6 +6,7 @@ import java.util.ResourceBundle;
 import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -39,11 +40,20 @@ public class LoginController implements Initializable, ControllerInterface {
                 primaryController.sendTo(App.schema, "user", LoginModel.getUserByUsername(username.getText()));
                 primaryController.setPane(App.schema);
             } else {
-                JOptionPane.showMessageDialog(null, "Invalid credentials", "Wrong username/password",
-                        JOptionPane.NO_OPTION);
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Invalid Credentials");
+                alert.setHeaderText(null);
+                alert.setContentText("Wrong authentication details");
+
+                alert.showAndWait();
             }
         } else {
-            JOptionPane.showMessageDialog(null, "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Complete all fields!");
+            alert.setHeaderText(null);
+            alert.setContentText("You must complete all fields provided!");
+
+            alert.showAndWait();
         }
     }
 

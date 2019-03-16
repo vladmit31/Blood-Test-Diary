@@ -12,10 +12,7 @@ import seg.major.structure.Contact;
 import seg.major.structure.Patient;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ContactsController implements Initializable, ControllerInterface {
 
@@ -180,8 +177,20 @@ public class ContactsController implements Initializable, ControllerInterface {
     @FXML
     public void deleteButtonClicked(ActionEvent event) {
         if (toBeDeleted != null) {
-            ContactsModel.deleteContact(toBeDeleted);
-            fillTable(ContactsModel.getContactList(curPatient.getID()));
+
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Delete contact confirmation");
+            alert.setHeaderText(null);
+            alert.setContentText("Are you sure you want to delete contact: " + toBeDeleted.getForename() + " " + toBeDeleted.getSurname());
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK){
+                ContactsModel.deleteContact(toBeDeleted);
+                fillTable(ContactsModel.getContactList(curPatient.getID()));
+            } else {
+                alert.close();
+            }
+
         }
     }
 
