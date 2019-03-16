@@ -3,6 +3,7 @@ package seg.major.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
@@ -61,6 +62,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     @FXML
     private Button updateButton;
 
+    @FXML
+    private TextField diagnosisField;
+
     /** ---------- FXML ---------- */
 
     @FXML
@@ -73,6 +77,7 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
             patient.setDob(dobField.getValue());
             patient.setHospitalNumber(hospitalField.getText());
             patient.setLocalClinic(clinicField.getText());
+            patient.setDiagnosis(diagnosisField.getText());
 
             Appointment appointment = (Appointment) data.get("appointment");
             appointment.setDueDate(nextAppField.getValue());
@@ -90,7 +95,11 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
 
             primaryController.setPane(App.patients);
         } else {
-            JOptionPane.showMessageDialog(null, "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Information needed!");
+            alert.setHeaderText(null);
+            alert.setContentText("You need to complete all fields before updating a patient.");
+            alert.showAndWait();
         }
     }
 
@@ -104,7 +113,7 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     private boolean checkUserInput() {
         return !forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue() != null
                 && !hospitalField.getText().equals("") && !clinicField.getText().equals("")
-                && nextAppField.getValue() != null;
+                && nextAppField.getValue() != null && !diagnosisField.getText().equals("");
     }
 
     /** ---------- Inherited / Implemented ---------- */
@@ -129,6 +138,7 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         dobField.setDisable(value);
         clinicField.setEditable(!value);
         hospitalField.setEditable(!value);
+        diagnosisField.setEditable(!value);
         nextAppField.setDisable(value);
     }
 
@@ -141,6 +151,7 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         surnameField.setText(p.getSurname());
         dobField.setValue(p.getDob());
         hospitalField.setText(p.getHospitalNumber());
+        diagnosisField.setText(p.getDiagnosis());
         clinicField.setText(p.getLocalClinic());
     }
 
@@ -165,7 +176,7 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     /**
      * Add data to the given fx-item and update the scene
      * 
-     * @param tpAddKey the key of the data
+     * @param toAddKey the key of the data
      * @param toAddVal the value of the data
      */
     public void addData(String toAddKey, Object toAddVal) {
