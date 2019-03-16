@@ -42,6 +42,7 @@ public class PatientsController implements Initializable, ControllerInterface {
   public TableColumn<PatientEntry, String> surname;
   public TableColumn<PatientEntry, String> hospitalNumber;
   public TableColumn<PatientEntry, String> localClinic;
+  public TableColumn<PatientEntry, String > diagnosis;
   public TableColumn<PatientEntry, LocalDate> nextAppointment;
   public Button under12Button;
   public Button over12Button;
@@ -137,13 +138,14 @@ public class PatientsController implements Initializable, ControllerInterface {
   }
 
   private void viewPatient(PatientEntry patientEntry){
-    System.out.println(patientEntry.getPatientID() + " " + patientEntry.getForename() + " " + patientEntry.getSurname());
+    System.out.println(patientEntry.getPatientID() + " " + patientEntry.getForename() + " " + patientEntry.getSurname() + " | " + patientEntry.getDiagnosis());
   }
 
   private void setupColumns() {
     forename.setCellValueFactory(new PropertyValueFactory<>("forename"));
     surname.setCellValueFactory(new PropertyValueFactory<>("surname"));
     hospitalNumber.setCellValueFactory(new PropertyValueFactory<>("hospitalNumber"));
+    diagnosis.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
     localClinic.setCellValueFactory(new PropertyValueFactory<>("localClinic"));
     nextAppointment.setCellValueFactory(new PropertyValueFactory<>("nextAppointment"));
   }
@@ -184,8 +186,9 @@ public class PatientsController implements Initializable, ControllerInterface {
     for (Patient patient : patients) {
       for (Appointment appointment : patientModel.getAppointmentList()) {
         if(appointment.getPatientID() == patient.getID()) {
-          patientTable.getItems().add(new PatientEntry(patient.getID(),appointment.getID(),patient.getForename(),
-                  patient.getSurname(),patient.getHospitalNumber(),patient.getLocalClinic(),appointment.getDueDate()));
+          patientTable.getItems().add(new PatientEntry(patient.getID(),appointment.getID(),
+                  patient.getForename(),patient.getSurname(),patient.getHospitalNumber(),
+                  patient.getLocalClinic(),appointment.getDueDate(),patient.getDiagnosis()));
         }
       }
     }
