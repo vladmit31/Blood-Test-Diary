@@ -20,7 +20,7 @@ public class PatientDAO {
     private static final String SURNAME = "sname";
     private static final String DOB = "dob";
     private static final String LOCAL_CLINIC = "local_clinic";
-    // private static final String NEXT_APPOINTMENT = "next_appointment";
+    private static final String DIAGNOSIS = "diagnosis";
     private static final String REFRESH_RATE = "refresh_rate";
     private static final String V_NUMBER = "vnumber";
 
@@ -72,7 +72,7 @@ public class PatientDAO {
      * @param toCreate the patient to create as a record
      */
     public static int create(Patient toCreate) {
-        String query = "INSERT INTO patient (vnumber, fname, sname, dob, local_clinic, refresh_rate) VALUES (?, ?, ?,?, ?,?)";
+        String query = "INSERT INTO patient (vnumber, fname, sname, dob, local_clinic, refresh_rate, diagnosis) VALUES (?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
         Connection conn = null;
         try {
@@ -84,6 +84,7 @@ public class PatientDAO {
             ps.setDate(4, Date.valueOf(toCreate.getDob()));
             ps.setString(5, toCreate.getLocalClinic());
             ps.setDouble(6, toCreate.getRefreshRate());
+            ps.setString(7, toCreate.getDiagnosis());
             ps.execute("USE db");
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -145,7 +146,7 @@ public class PatientDAO {
      * @param toUpdate the patient to update
      */
     public static void update(Patient toUpdate) {
-        String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ? WHERE id = ?";
+        String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, diagnosis = ? WHERE id = ?";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -158,7 +159,8 @@ public class PatientDAO {
             ps.setString(3, toUpdate.getSurname());
             ps.setDate(4, Date.valueOf(toUpdate.getDob()));
             ps.setString(5, toUpdate.getLocalClinic());
-            ps.setInt(6, toUpdate.getID());
+            ps.setString(6,toUpdate.getDiagnosis());
+            ps.setInt(7, toUpdate.getID());
             ps.execute("USE db");
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -354,9 +356,10 @@ public class PatientDAO {
         LocalDate dob = toConvert.getDate(DOB).toLocalDate();
         String localClinic = toConvert.getString(LOCAL_CLINIC);
         Double refreshRate = toConvert.getDouble(REFRESH_RATE);
+        String diagnosis = toConvert.getString(DIAGNOSIS);
 
         Patient toReturn = new Patient(id, forename, surname, dob,
-                hospitalNumber, localClinic, refreshRate);
+                hospitalNumber, localClinic, diagnosis,refreshRate);
 
         System.out.println(toReturn.toString());
 
