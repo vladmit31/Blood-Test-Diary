@@ -11,10 +11,11 @@ public class PatientEntry {
     private String surname;
     private String hospitalNumber;
     private String localClinic;
+    private String diagnosis;
     private LocalDate nextAppointment;
 
     public PatientEntry(int patientID, int appointmentID, String forename, String surname, String hospitalNumber,
-            String localClinic, LocalDate nextAppointment) {
+            String localClinic, LocalDate nextAppointment, String diagnosis) {
         this.patientID = patientID;
         this.appointmentID = appointmentID;
         this.forename = forename;
@@ -22,6 +23,15 @@ public class PatientEntry {
         this.hospitalNumber = hospitalNumber;
         this.localClinic = localClinic;
         this.nextAppointment = nextAppointment;
+        this.diagnosis = diagnosis;
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
     }
 
     public int getPatientID() {

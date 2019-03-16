@@ -9,34 +9,42 @@ public class Patient {
     private LocalDate dob;
     private String hospital_number;
     private String local_clinic;
-    //private LocalDate next_appointment;
+    private String diagnosis;
     private Double refresh_rate;
 
     public static final double DEFAULT_REFRESH_RATE = 1.0;
 
     public Patient(String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
-            /*LocalDate next_appointment,*/ Double refresh_rate) {
+            String diagnosis, Double refresh_rate) {
         this.forename = forename;
         this.surname = surname;
         this.dob = dob;
         this.hospital_number = hospital_number;
         this.local_clinic = local_clinic;
-        // this.next_appointment = next_appointment;
+        this.diagnosis = diagnosis;
         this.refresh_rate = refresh_rate;
 
     }
 
     public Patient(int id, String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
-            /*LocalDate next_appointment,*/ Double refresh_rate) {
+            String diagnosis, Double refresh_rate) {
         this.id = id;
         this.forename = forename;
         this.surname = surname;
         this.dob = dob;
         this.hospital_number = hospital_number;
         this.local_clinic = local_clinic;
-        // this.next_appointment = next_appointment;
+        this.diagnosis = diagnosis;
         this.refresh_rate = refresh_rate;
 
+    }
+
+    public String getDiagnosis() {
+        return diagnosis;
+    }
+
+    public void setDiagnosis(String diagnosis) {
+        this.diagnosis = diagnosis;
     }
 
     public int getID() {
