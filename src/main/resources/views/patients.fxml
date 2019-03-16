@@ -13,13 +13,13 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox  prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.PatientsController">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.PatientsController">
    <children>
       <MenuBar>
         <menus>
           <Menu mnemonicParsing="false" text="Menu">
             <items>
-              <MenuItem mnemonicParsing="false" text="Add new patient" />
+              <MenuItem fx:id="addNewPatientMenuItem" mnemonicParsing="false" onAction="#addNewPatientMenuItemClicked" text="Add new patient" />
                   <MenuItem fx:id="switchToDiary" mnemonicParsing="false" text="Switch to appointment info" />
                   <MenuItem mnemonicParsing="false" text="Logout" />
             </items>

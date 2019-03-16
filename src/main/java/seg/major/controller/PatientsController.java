@@ -45,6 +45,7 @@ public class PatientsController implements Initializable, ControllerInterface {
   public TableColumn<PatientEntry, LocalDate> nextAppointment;
   public Button under12Button;
   public Button over12Button;
+  public MenuItem addNewPatientMenuItem;
 
   boolean isUnder12 = true;
 
@@ -204,6 +205,10 @@ public class PatientsController implements Initializable, ControllerInterface {
 
   private void searchName(String name) {
     fillTable(patientModel.searchByName(name));
+  }
+
+  public void addNewPatientMenuItemClicked() {
+    primaryController.setPane(App.addPatient);
   }
 
   public void refresh() {

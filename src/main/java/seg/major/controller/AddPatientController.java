@@ -6,10 +6,12 @@ import java.util.ResourceBundle;
 import java.net.URL;
 import javafx.fxml.Initializable;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import seg.major.App;
 import seg.major.model.AddPatientModel;
 
 import javax.swing.*;
@@ -60,16 +62,20 @@ public class AddPatientController implements Initializable, ControllerInterface 
       AddPatientModel.createPatient(forenameField.getText(), surnameField.getText(), dobField.getValue(),
           hospitalField.getText(), clinicField.getText(), /*nextAppField.getValue(),*/
           /*Double.parseDouble(refreshRateField.getText())*/ 2.0,nextAppField.getValue());
-    } else
+      primaryController.setPane(App.patients);
+    } else {
+      Alert alert = new Alert(Alert.AlertType.WARNING);
+      alert.setTitle("Information needed!");
+      alert.setHeaderText(null);
+      alert.setContentText("You need to complete all fields before submitting a new patient.");
 
-    {
-      JOptionPane.showMessageDialog(null, "Complete all fields", "Error", JOptionPane.ERROR_MESSAGE);
+      alert.showAndWait();
     }
   }
 
   @FXML
   public void cancel() {
-    Stage stage = (Stage) cancelButton.getScene().getWindow();
+    primaryController.setPane(App.patients);
   }
 
   private boolean checkUserInput() {
