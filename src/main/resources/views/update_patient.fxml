@@ -26,6 +26,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -40,12 +41,12 @@
                                 <Font name="Consolas" size="14.0" />
                             </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Local Clinic" wrappingWidth="91.4039306640625" GridPane.rowIndex="4">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Local Clinic" wrappingWidth="91.4039306640625" GridPane.rowIndex="5">
                             <font>
                                 <Font size="14.0" />
                             </font>
                         </Text>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next Appointment" GridPane.rowIndex="5">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Next Appointment" GridPane.rowIndex="6">
                             <font>
                                 <Font size="14.0" />
                             </font>
@@ -60,6 +61,11 @@
                                 <Font name="Consolas" size="14.0" />
                             </font>
                         </Text>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Diagnosis" GridPane.rowIndex="4">
+                     <font>
+                        <Font name="Consolas" size="14.0" />
+                     </font>
+                  </Text>
                     </children>
                     <padding>
                         <Insets left="20.0" top="20.0" />
@@ -67,7 +73,7 @@
                 </GridPane>
             </left>
             <center>
-                <GridPane prefHeight="200.0" prefWidth="147.0" BorderPane.alignment="CENTER">
+                <GridPane prefHeight="271.0" prefWidth="557.0" BorderPane.alignment="CENTER">
                     <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -77,6 +83,7 @@
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                     </rowConstraints>
@@ -87,9 +94,10 @@
                         <TextField fx:id="forenameField" prefHeight="25.0" prefWidth="395.0" />
                         <TextField fx:id="surnameField" GridPane.rowIndex="1" />
                         <DatePicker fx:id="dobField" GridPane.rowIndex="2" />
-                        <DatePicker fx:id="nextAppField" GridPane.rowIndex="5" />
+                        <DatePicker fx:id="nextAppField" GridPane.rowIndex="6" />
                         <TextField fx:id="hospitalField" GridPane.rowIndex="3" />
-                        <TextField fx:id="clinicField" GridPane.rowIndex="4" />
+                        <TextField fx:id="clinicField" GridPane.rowIndex="5" />
+                  <TextField fx:id="diagnosisField" GridPane.rowIndex="4" />
                     </children>
                 </GridPane>
             </center>

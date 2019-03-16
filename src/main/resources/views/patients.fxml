@@ -60,6 +60,7 @@
           <TableColumn fx:id="forename" prefWidth="75.0" text="Forename" />
           <TableColumn fx:id="surname" prefWidth="75.0" text="Surname" />
             <TableColumn fx:id="hospitalNumber" prefWidth="75.0" text="Hospital Number" />
+            <TableColumn fx:id="diagnosis" prefWidth="75.0" text="Diagnosis" />
             <TableColumn fx:id="localClinic" prefWidth="75.0" text="Local" />
             <TableColumn fx:id="nextAppointment" prefWidth="75.0" text="Next appointment" />
         </columns>
