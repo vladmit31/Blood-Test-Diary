@@ -10,4 +10,8 @@ public class UpdateAppointmentModel {
 
     return AppointmentDAO.getAll();
   }
+
+  public static void updateAppointment(Appointment appointment) {
+    AppointmentDAO.update(appointment);
+  }
 }

@@ -1,10 +1,15 @@
 package seg.major.controller;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.text.Text;
+import seg.major.App;
+import seg.major.model.UpdateAppointmentModel;
+import seg.major.structure.Appointment;
+import seg.major.structure.AppointmentEntry;
 
 import java.net.URL;
 import java.util.HashMap;
@@ -45,7 +50,7 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
     /**
      * Set the data
      * 
-     * @param data the data to set
+     * @param toSet the data to set
      */
     public void setData(Map<String, Object> toSet) {
         this.data = toSet;
@@ -66,6 +71,51 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
      * Update the scene with changes from the data HashMap
      */
     public void update() {
+        setChosenAppointmentEntry();
+    }
+
+    private void setChosenAppointmentEntry() {
+        AppointmentEntry appointmentEntry =(AppointmentEntry)this.data.get("appointmentEntry");
+
+        textInfo.setText(appointmentEntry.getName());
+        appDueDate.setValue(appointmentEntry.getDueDate());
+
+        if(appointmentEntry.getComplete() == 0) {
+            completed.setSelected(false);
+        }else {
+            completed.setSelected(true);
+        }
+    }
+
+    public void completedCheckboxClicked(ActionEvent event) {
+
+    }
+
+    public void updateButtonClicked(ActionEvent event) {
+        AppointmentEntry appointmentEntry =(AppointmentEntry)this.data.get("appointmentEntry");
+
+        int newStatus = 0;
+
+        if(completed.isSelected()) {
+            newStatus = 1;
+        }
+
+        Appointment appointment = new Appointment(appointmentEntry.getAppointmentId(), newStatus, appDueDate.getValue(),appointmentEntry.getPatientId());
+
+        data.remove("appointmentEntry");
+
+        appointmentEntry.setComplete(newStatus);
+        appointmentEntry.setDueDate(appDueDate.getValue());
+
+        UpdateAppointmentModel.updateAppointment(appointment);
+
+        primaryController.sendTo(App.schema, "appointmentEntry", appointmentEntry);
+        primaryController.setPane(App.schema);
+    }
+
+    public void cancelButtonClicked(ActionEvent event) {
+        data.remove("appointmentEntry");
+        primaryController.setPane(App.schema);
     }
 
     /** ---------- Inherited / Implemented ---------- */
