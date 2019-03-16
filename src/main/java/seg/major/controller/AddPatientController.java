@@ -53,6 +53,9 @@ public class AddPatientController implements Initializable, ControllerInterface 
   @FXML
   private Button submitButton;
 
+  @FXML
+  private TextField diagnosisField;
+
   /** ---------- FXML ---------- */
 
   @FXML
@@ -61,7 +64,7 @@ public class AddPatientController implements Initializable, ControllerInterface 
 
       AddPatientModel.createPatient(forenameField.getText(), surnameField.getText(), dobField.getValue(),
           hospitalField.getText(), clinicField.getText(), /*nextAppField.getValue(),*/
-          /*Double.parseDouble(refreshRateField.getText())*/ 2.0,nextAppField.getValue());
+          diagnosisField.getText(), 2.0, nextAppField.getValue());
       primaryController.setPane(App.patients);
     } else {
       Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -80,7 +83,8 @@ public class AddPatientController implements Initializable, ControllerInterface 
 
   private boolean checkUserInput() {
     return !forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue() != null
-        && !hospitalField.getText().equals("") && !clinicField.getText().equals("") && nextAppField.getValue() != null;
+        && !hospitalField.getText().equals("") && !clinicField.getText().equals("") && nextAppField.getValue() != null
+        && !diagnosisField.getText().equals("");
   }
 
   /** ---------- Inherited / Implemented ---------- */
@@ -111,7 +115,7 @@ public class AddPatientController implements Initializable, ControllerInterface 
   /**
    * Add data to the given fx-item and update the scene
    * 
-   * @param tpAddKey the key of the data
+   * @param toAddKey the key of the data
    * @param toAddVal the value of the data
    */
   public void addData(String toAddKey, Object toAddVal) {
