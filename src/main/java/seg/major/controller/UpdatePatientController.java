@@ -103,15 +103,15 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
             alert.setContentText("You need to complete all fields before updating a patient.");
             alert.showAndWait();
         }
+
+        initialState();
     }
 
     @FXML
     public void cancel() {
-        // TODO: Link back to the patient panel
-        disableTextFields();
-        editBtn.setText("Edit");
-        setupDefaultEditButton();
         primaryController.setPane(App.patients);
+
+        initialState();
     }
 
     private boolean checkUserInput() {
@@ -126,10 +126,15 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
      */
 
     public void initialize(URL url, ResourceBundle rb) {
+        initialState();
+    }
+
+    private void initialState() {
+        editBtn.setText("Edit");
         disableTextFields();
         setupDefaultEditButton();
-
     }
+
     private ImageView setImageProperties(ImageView img){
         img.smoothProperty();
         img.setFitWidth(15);
@@ -232,9 +237,14 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         if (data == null) {
             return;
         }
+        editBtn.setText("Edit");
+        setupDefaultEditButton();
         primaryController.sendTo(App.contacts, "patient", data.get("patient"));
         primaryController.setPane(App.contacts);
+
+        initialState();
     }
+
 
     public void editButtonClicked(ActionEvent event) {
         if(isEditable){
