@@ -63,6 +63,10 @@ dependencies {
     // DB
     compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
 
+    // E-mail sending
+    compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.1'
+    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.5.1'
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
 
