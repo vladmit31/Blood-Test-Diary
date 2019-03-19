@@ -48,8 +48,7 @@ public class PatientModel {
     public List<Patient> under12() {
         fetchData();
         List<Patient> filtered = new ArrayList<>();
-        patientList.stream().filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now())
-                || p.getDob().plusYears(12).isEqual(LocalDate.now())).forEach(p -> filtered.add(p));
+        patientList.stream().filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now())).forEach(p -> filtered.add(p));
         patientList = filtered;
         return filtered;
     }
@@ -65,7 +64,8 @@ public class PatientModel {
     public List<Patient> over12() {
         fetchData();
         List<Patient> filtered = new ArrayList<Patient>();
-        patientList.stream().filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now()))
+        patientList.stream().filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())
+                || p.getDob().plusYears(12).isEqual(LocalDate.now()))
                 .forEach(p -> filtered.add(p));
         patientList = filtered;
         return filtered;

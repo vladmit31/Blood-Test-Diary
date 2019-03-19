@@ -44,8 +44,12 @@ public class SchemaModel {
             for (var patient : patientsList) {
                 if (appointment.getPatientID() == patient.getID()) {
                     String name = patient.getForename() + " " + patient.getSurname();
+                    String status = "Incomplete";
+                    if(appointment.getStatus() == 1) {
+                        status = "Complete";
+                    }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
-                            patient.getHospitalNumber(), appointment.getStatus(), appointment.getDueDate());
+                            patient.getHospitalNumber(), status, appointment.getDueDate());
                     toReturn.add(entry);
                     // A patient can have only one appointment per day, so it's not necessary to
                     // search the whole list
@@ -79,10 +83,14 @@ public class SchemaModel {
             for(var patient : patientListUnder12){
                 if(appointment.getPatientID() == patient.getID()){
                     String name = patient.getForename() + " " + patient.getSurname();
+                    String status = "Incomplete";
+                    if(appointment.getStatus() == 1) {
+                        status = "Complete";
+                    }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(),
-                            name, patient.getHospitalNumber(), appointment.getStatus(), appointment.getDueDate());
+                            name, patient.getHospitalNumber(), status, appointment.getDueDate());
                     toReturn.add(entry);
-                    System.out.println(entry);
+                    //System.out.println(entry);
                     //A patient can have only one appointment per day, so it's not necessary to search the whole list
                     break;
                 }
@@ -102,11 +110,14 @@ public class SchemaModel {
         for(var appointment : appointments){
             for(var patient : patientListOver12){
                 if(appointment.getPatientID() == patient.getID()){
-                    String name = patient.getForename() + " " + patient.getSurname();
+                    String name = patient.getForename() + " " + patient.getSurname();String status = "Incomplete";
+                    if(appointment.getStatus() == 1) {
+                        status = "Complete";
+                    }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(),
-                            name, patient.getHospitalNumber(), appointment.getStatus(), appointment.getDueDate());
+                            name, patient.getHospitalNumber(), status, appointment.getDueDate());
                     toReturn.add(entry);
-                    System.out.println(entry);
+                    //System.out.println(entry);
                     //A patient can have only one appointment per day, so it's not necessary to search the whole list
                     break;
                 }
