@@ -2,44 +2,37 @@
 
 <?import javafx.scene.Group?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Menu?>
-<?import javafx.scene.control.MenuBar?>
-<?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.PageChoosingController">
+
+<VBox xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.PageChoosingController">
    <children>
-      <MenuBar layoutY="-2.0">
-        <menus>
-          <Menu mnemonicParsing="false" text="Help">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Find my login details" />
-                  <MenuItem mnemonicParsing="false" text="Quit" />
-            </items>
-          </Menu>
-        </menus>
-      </MenuBar>
-      <Group layoutX="95.0" layoutY="80.0">
+      <AnchorPane prefHeight="400.0" prefWidth="600.0">
          <children>
-            <ImageView fitHeight="174.0" fitWidth="148.0" pickOnBounds="true" smooth="false">
-               <image>
-                  <Image url="@../../../../../../Desktop/diary.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="SchemaButton" layoutY="174.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="148.0" text="Diary" />
+            <Group layoutX="95.0" layoutY="80.0">
+               <children>
+                  <ImageView fitHeight="174.0" fitWidth="148.0" pickOnBounds="true" smooth="false">
+                     <image>
+                        <Image url="@../img/diary.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="SchemaButton" layoutY="174.0" mnemonicParsing="false" onAction="#handleSchemaButton" prefHeight="30.0" prefWidth="148.0" text="Diary" />
+               </children>
+            </Group>
+            <Group layoutX="338.0" layoutY="80.0">
+               <children>
+                  <ImageView fitHeight="174.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../img/patient.png" />
+                     </image>
+                  </ImageView>
+                  <Button fx:id="PatientButton" layoutX="15.0" layoutY="174.0" mnemonicParsing="false" onAction="#handlePatientButton" prefHeight="30.0" prefWidth="148.0" text="Patient" />
+               </children>
+            </Group>
          </children>
-      </Group>
-      <Group layoutX="338.0" layoutY="80.0">
-         <children>
-            <ImageView fitHeight="174.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../../../../Desktop/patient.png" />
-               </image>
-            </ImageView>
-            <Button fx:id="PatientButton" layoutX="15.0" layoutY="174.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="148.0" text="Patient" />
-         </children>
-      </Group>
+      </AnchorPane>
    </children>
-</AnchorPane>
+</VBox>
