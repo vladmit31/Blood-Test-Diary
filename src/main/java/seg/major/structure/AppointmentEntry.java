@@ -12,16 +12,16 @@ public class AppointmentEntry {
 
     private SimpleStringProperty name;
     private SimpleStringProperty vnumber;
-    private SimpleIntegerProperty complete;
+    private SimpleStringProperty complete;
     private LocalDate dueDate;
 
     private SimpleStringProperty dateString;
 
-    public AppointmentEntry(int patientId, int appointmentId, String name, String vnumber, int complete,
+    public AppointmentEntry(int patientId, int appointmentId, String name, String vnumber, String complete,
             LocalDate dueDate) {
         this.name = new SimpleStringProperty(name);
         this.vnumber = new SimpleStringProperty(vnumber);
-        this.complete = new SimpleIntegerProperty(complete);
+        this.complete = new SimpleStringProperty(complete);
         this.dueDate = dueDate;
         this.patientId = new SimpleIntegerProperty(patientId);
         this.appointmentId = new SimpleIntegerProperty(appointmentId);
@@ -36,7 +36,7 @@ public class AppointmentEntry {
         vnumber.set(toSet);
     }
 
-    public void setComplete(int toSet) {
+    public void setComplete(String toSet) {
         complete.set(toSet);
     }
 
@@ -52,7 +52,7 @@ public class AppointmentEntry {
         return vnumber.get();
     }
 
-    public int getComplete() {
+    public String getComplete() {
         return complete.get();
     }
 

@@ -20,7 +20,9 @@ public class App extends Application {
     public static String contacts = "contacts";
     public static String patients = "patients";
     public static String schema = "schema";
+    public static String notifyList = "notifyList";
     public static String propertiesLocation = "props.properties";
+    public static String customEmail = "custom_email";
     public static Props props;
 
     public static void main(String[] args) {
@@ -36,7 +38,7 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         PrimaryController primaryController = new PrimaryController(primaryStage);
         primaryController.addViews(
-                new String[] { login, addPatient, patients, schema, contacts, updatePatient, updateAppointment });
+                new String[] { login, notifyList, addPatient, customEmail, patients, schema, contacts, updatePatient, updateAppointment });
         primaryController.setPane(App.login);
 
         Group root = new Group();
