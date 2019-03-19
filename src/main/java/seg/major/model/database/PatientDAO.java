@@ -361,7 +361,7 @@ public class PatientDAO {
         Patient toReturn = new Patient(id, forename, surname, dob,
                 hospitalNumber, localClinic, diagnosis,refreshRate);
 
-        System.out.println(toReturn.toString());
+        //System.out.println(toReturn.toString());
 
         return toReturn;
 
