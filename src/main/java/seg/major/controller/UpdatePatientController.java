@@ -7,13 +7,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import seg.major.App;
 import seg.major.model.UpdatePatientModel;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
-import javax.swing.*;
+
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -26,9 +28,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
 
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
+    private Boolean isEditable;
 
     /** ---------- FXML ---------- */
-
     @FXML
     private Text TitleText;
 
@@ -101,13 +103,15 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
             alert.setContentText("You need to complete all fields before updating a patient.");
             alert.showAndWait();
         }
+
+        initialState();
     }
 
     @FXML
     public void cancel() {
-        // TODO: Link back to the patient panel
-        disableTextFields();
         primaryController.setPane(App.patients);
+
+        initialState();
     }
 
     private boolean checkUserInput() {
@@ -120,16 +124,48 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     /**
      * Allow javafx to initalise the controller with the view
      */
+
     public void initialize(URL url, ResourceBundle rb) {
+        initialState();
+    }
+
+    private void initialState() {
+        editBtn.setText("Edit");
         disableTextFields();
+        setupDefaultEditButton();
+    }
+
+    private ImageView setImageProperties(ImageView img){
+        img.smoothProperty();
+        img.setFitWidth(15);
+        img.setFitHeight(13);
+        return img;
+    }
+
+    private void setupDefaultEditButton(){
+        ImageView lockImage;
+        lockImage = new ImageView((new Image(getClass().getResourceAsStream("/images/lockDefault.png"))));
+        editBtn.setGraphic(setImageProperties(setImageProperties(lockImage)));
+        editBtn.setText("Edit");
+    }
+    private void setupLockButton(){
+        ImageView lockImage;
+        if(isEditable)
+        lockImage = new ImageView((new Image(getClass().getResourceAsStream("/images/lockGreen.png"))));
+        else{
+            lockImage = new ImageView((new Image(getClass().getResourceAsStream("/images/lockRed.png"))));
+        }
+        editBtn.setGraphic(setImageProperties(setImageProperties(lockImage)));
     }
 
     private void enableTextFields() {
         setTextFieldsAvailability(false);
+        isEditable = true;
     }
 
     private void disableTextFields() {
         setTextFieldsAvailability(true);
+        isEditable = false;
     }
 
     private void setTextFieldsAvailability(boolean value) {
@@ -201,11 +237,25 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         if (data == null) {
             return;
         }
+        editBtn.setText("Edit");
+        setupDefaultEditButton();
         primaryController.sendTo(App.contacts, "patient", data.get("patient"));
         primaryController.setPane(App.contacts);
+
+        initialState();
     }
 
+
     public void editButtonClicked(ActionEvent event) {
-        enableTextFields();
+        if(isEditable){
+            disableTextFields();
+            setupLockButton();
+            editBtn.setText("Locked");
+        }
+        else{
+            enableTextFields();
+            setupLockButton();
+            editBtn.setText("Unlocked");
+        }
     }
 }
