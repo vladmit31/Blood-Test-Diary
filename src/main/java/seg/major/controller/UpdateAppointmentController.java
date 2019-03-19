@@ -80,7 +80,7 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
         textInfo.setText(appointmentEntry.getName());
         appDueDate.setValue(appointmentEntry.getDueDate());
 
-        if(appointmentEntry.getComplete() == 0) {
+        if(appointmentEntry.getComplete().equals("Incomplete")) {
             completed.setSelected(false);
         }else {
             completed.setSelected(true);
@@ -94,13 +94,15 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
     public void updateButtonClicked(ActionEvent event) {
         AppointmentEntry appointmentEntry =(AppointmentEntry)this.data.get("appointmentEntry");
 
-        int newStatus = 0;
+        String newStatus = "Incomplete";
+        int newStatusInt = 0;
 
         if(completed.isSelected()) {
-            newStatus = 1;
+            newStatus = "Complete";
+            newStatusInt = 1;
         }
 
-        Appointment appointment = new Appointment(appointmentEntry.getAppointmentId(), newStatus, appDueDate.getValue(),appointmentEntry.getPatientId());
+        Appointment appointment = new Appointment(appointmentEntry.getAppointmentId(), newStatusInt, appDueDate.getValue(),appointmentEntry.getPatientId());
 
         data.remove("appointmentEntry");
 

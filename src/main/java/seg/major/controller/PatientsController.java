@@ -126,11 +126,6 @@ public class PatientsController implements Initializable, ControllerInterface {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
           PatientEntry patientEntry = row.getItem();
           viewPatient(patientEntry);
-
-          primaryController.sendTo(App.updatePatient,"patient", PatientDAO.getByID(patientEntry.getPatientID()));
-          primaryController.sendTo(App.updatePatient, "appointment", AppointmentDAO.getById(patientEntry.getAppointmentID()));
-          primaryController.setPane(App.updatePatient);
-
         }
       });
       return row;
@@ -138,7 +133,9 @@ public class PatientsController implements Initializable, ControllerInterface {
   }
 
   private void viewPatient(PatientEntry patientEntry){
-    System.out.println(patientEntry.getPatientID() + " " + patientEntry.getForename() + " " + patientEntry.getSurname() + " | " + patientEntry.getDiagnosis());
+    primaryController.sendTo(App.updatePatient,"patient", PatientDAO.getByID(patientEntry.getPatientID()));
+    primaryController.sendTo(App.updatePatient, "appointment", AppointmentDAO.getById(patientEntry.getAppointmentID()));
+    primaryController.setPane(App.updatePatient);
   }
 
   private void setupColumns() {
