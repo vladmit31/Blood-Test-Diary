@@ -11,11 +11,14 @@ public class Patient {
     private String local_clinic;
     private String diagnosis;
     private Double refresh_rate;
+    private String labName;
+    private String labContact;
+    private String nhsNumber;
 
     public static final double DEFAULT_REFRESH_RATE = 1.0;
 
     public Patient(String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
-            String diagnosis, Double refresh_rate) {
+            String diagnosis, Double refresh_rate, String labName, String labContact, String nhsNumber) {
         this.forename = forename;
         this.surname = surname;
         this.dob = dob;
@@ -23,11 +26,14 @@ public class Patient {
         this.local_clinic = local_clinic;
         this.diagnosis = diagnosis;
         this.refresh_rate = refresh_rate;
+        this.labName = labName;
+        this.labContact = labContact;
+        this.nhsNumber = nhsNumber;
 
     }
 
     public Patient(int id, String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
-            String diagnosis, Double refresh_rate) {
+            String diagnosis, Double refresh_rate, String labName, String labContact, String nhsNumber) {
         this.id = id;
         this.forename = forename;
         this.surname = surname;
@@ -36,7 +42,34 @@ public class Patient {
         this.local_clinic = local_clinic;
         this.diagnosis = diagnosis;
         this.refresh_rate = refresh_rate;
+        this.labName = labName;
+        this.labContact = labContact;
+        this.nhsNumber = nhsNumber;
 
+    }
+
+    public String getLabName() {
+        return labName;
+    }
+
+    public void setLabName(String labName) {
+        this.labName = labName;
+    }
+
+    public String getLabContact() {
+        return labContact;
+    }
+
+    public void setLabContact(String labContact) {
+        this.labContact = labContact;
+    }
+
+    public String getNhsNumber() {
+        return nhsNumber;
+    }
+
+    public void setNhsNumber(String nhsNumber) {
+        this.nhsNumber = nhsNumber;
     }
 
     public String getDiagnosis() {
