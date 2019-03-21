@@ -23,6 +23,9 @@ public class PatientDAO {
     private static final String DIAGNOSIS = "diagnosis";
     private static final String REFRESH_RATE = "refresh_rate";
     private static final String V_NUMBER = "vnumber";
+    private static final String LAB_CONTACT = "lab_contact";
+    private static final String LAB_NAME = "lab_name";
+    private static final String NHS_NUMBER = "nhs_number";
 
     public PatientDAO() {
     }
@@ -72,7 +75,7 @@ public class PatientDAO {
      * @param toCreate the patient to create as a record
      */
     public static int create(Patient toCreate) {
-        String query = "INSERT INTO patient (vnumber, fname, sname, dob, local_clinic, refresh_rate, diagnosis) VALUES (?, ?, ?, ?, ?, ?, ?)";
+        String query = "INSERT INTO patient (vnumber, fname, sname, dob, local_clinic, refresh_rate, diagnosis,lab_name, lab_contact, nhs_number) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         PreparedStatement ps = null;
         Connection conn = null;
         try {
@@ -85,6 +88,9 @@ public class PatientDAO {
             ps.setString(5, toCreate.getLocalClinic());
             ps.setDouble(6, toCreate.getRefreshRate());
             ps.setString(7, toCreate.getDiagnosis());
+            ps.setString(8, toCreate.getLabName());
+            ps.setString(9, toCreate.getLabContact());
+            ps.setString(10, toCreate.getNhsNumber());
             ps.execute("USE db");
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -146,7 +152,7 @@ public class PatientDAO {
      * @param toUpdate the patient to update
      */
     public static void update(Patient toUpdate) {
-        String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, diagnosis = ? WHERE id = ?";
+        String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, diagnosis = ? , lab_name = ?, lab_contact = ?, nhs_number = ? WHERE id = ?";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -160,7 +166,10 @@ public class PatientDAO {
             ps.setDate(4, Date.valueOf(toUpdate.getDob()));
             ps.setString(5, toUpdate.getLocalClinic());
             ps.setString(6,toUpdate.getDiagnosis());
-            ps.setInt(7, toUpdate.getID());
+            ps.setString(7, toUpdate.getLabName());
+            ps.setString(8, toUpdate.getLabContact());
+            ps.setString(9, toUpdate.getNhsNumber());
+            ps.setInt(10, toUpdate.getID());
             ps.execute("USE db");
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -357,9 +366,12 @@ public class PatientDAO {
         String localClinic = toConvert.getString(LOCAL_CLINIC);
         Double refreshRate = toConvert.getDouble(REFRESH_RATE);
         String diagnosis = toConvert.getString(DIAGNOSIS);
+        String labName = toConvert.getString(LAB_NAME);
+        String labContact = toConvert.getString(LAB_CONTACT);
+        String nhsNumber = toConvert.getString(NHS_NUMBER);
 
         Patient toReturn = new Patient(id, forename, surname, dob,
-                hospitalNumber, localClinic, diagnosis,refreshRate);
+                hospitalNumber, localClinic, diagnosis,refreshRate, labName, labContact, nhsNumber);
 
         //System.out.println(toReturn.toString());
 
