@@ -1,10 +1,14 @@
 package seg.major.controller;
 
 import javafx.event.ActionEvent;
+import javafx.event.Event;
+import javafx.event.EventHandler;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.DatePicker;
+import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
 import seg.major.App;
 import seg.major.model.UpdateAppointmentModel;
@@ -12,30 +16,71 @@ import seg.major.structure.Appointment;
 import seg.major.structure.AppointmentEntry;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
 
 public class UpdateAppointmentController implements Initializable, ControllerInterface {
 
+
     private PrimaryController primaryController;
 
     private Map<String, Object> data = new HashMap<>();
-
-    public CheckBox completed;
-    public DatePicker appDueDate;
-    public Text textInfo;
-    public Button updateBtn;
-    public Button cancelBtn;
+    private boolean isInitialState;
 
     /** ---------- FXML ---------- */
-
+    @FXML
+    public CheckBox completed;
+    @FXML
+    public DatePicker appDueDate;
+    @FXML
+    public Text textInfo;
+    @FXML
+    public Button updateBtn;
+    @FXML
+    public Button cancelBtn;
+    @FXML
+    public RadioButton oneMonthRadioButton;
+    @FXML
+    public RadioButton threeMonthsRadioButton;
+    @FXML
+    public RadioButton twoWeeksRadioButton;
     /** ---------- Inherited / Implemented ---------- */
     /**
      * Allow javafx to initalise the controller with the view
      */
     public void initialize(URL url, ResourceBundle rb) {
-
+        isInitialState = true;
+        setExclusionProperty();
+    }
+    private void setExclusionProperty() {
+        appDueDate.setOnAction(new EventHandler() {
+            public void handle(Event t) {
+                LocalDate date = appDueDate.getValue();
+                isInitialState = false;
+                if(!date.equals(null)&&isInitialState==false) {
+                    oneMonthRadioButton.setDisable(true);
+                    twoWeeksRadioButton.setDisable(true);
+                    threeMonthsRadioButton.setDisable(true);
+                }
+            }
+        });
+        twoWeeksRadioButton.setOnAction(new EventHandler() {
+            public void handle(Event t) {
+                appDueDate.setDisable(true);
+                }
+        });
+        oneMonthRadioButton.setOnAction(new EventHandler() {
+            public void handle(Event t) {
+                appDueDate.setDisable(true);
+            }
+        });
+        threeMonthsRadioButton.setOnAction(new EventHandler() {
+            public void handle(Event t) {
+                appDueDate.setDisable(true);
+            }
+        });
     }
 
     /**
@@ -113,11 +158,30 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
 
         primaryController.sendTo(App.schema, "appointmentEntry", appointmentEntry);
         primaryController.setPane(App.schema);
+
+        resetView();
     }
 
     public void cancelButtonClicked(ActionEvent event) {
         data.remove("appointmentEntry");
         primaryController.setPane(App.schema);
+        resetView();
+    }
+
+    private void resetView(){
+        oneMonthRadioButton.setDisable(false);
+        oneMonthRadioButton.setSelected(false);
+        threeMonthsRadioButton.setDisable(false);
+        threeMonthsRadioButton.setSelected(false);
+        twoWeeksRadioButton.setDisable(false);
+        twoWeeksRadioButton.setSelected(false);
+        appDueDate.setDisable(false);
+        isInitialState = true;
+
+    }
+
+    public void ResetButtonClicked(ActionEvent actionEvent) {
+        resetView();
     }
 
     /** ---------- Inherited / Implemented ---------- */
