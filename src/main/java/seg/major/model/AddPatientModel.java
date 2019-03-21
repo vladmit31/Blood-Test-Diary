@@ -13,9 +13,9 @@ public class AddPatientModel {
   }
 
   public static void createPatient(String forename, String surname, LocalDate dob, String hospitalNumber,
-      String localClinic, String diagnosis, Double refreshRate, LocalDate nextAppointment) {
+      String localClinic, String diagnosis, Double refreshRate, LocalDate nextAppointment, String labName, String labContact, String nhsNumber) {
 
-    int id = PatientDAO.create(new Patient(forename, surname, dob, hospitalNumber, localClinic, diagnosis, refreshRate));
+    int id = PatientDAO.create(new Patient(forename, surname, dob, hospitalNumber, localClinic, diagnosis, refreshRate, labName, labContact, nhsNumber));
 
     createAppointment(nextAppointment,id);
 
