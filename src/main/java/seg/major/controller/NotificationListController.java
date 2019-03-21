@@ -6,6 +6,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import seg.major.App;
+import seg.major.controller.util.EmailSender;
 import seg.major.model.CustomEmailModel;
 import seg.major.model.EditNotificationEmailModel;
 import seg.major.model.NotificationListModel;
@@ -116,10 +117,13 @@ public class NotificationListController implements Initializable, ControllerInte
             PatientEntry patientEntry = (PatientEntry)p;
             System.out.println(patientEntry.getPatientID());
             List<Contact> patientContacts = ContactDAO.getByPatientId(patientEntry.getPatientID());
-            for (Contact contact : patientContacts) {
+            EmailSender emailSender = new EmailSender(patientContacts, EditNotificationEmailModel.getSubject(),
+                    EditNotificationEmailModel.getBodyAsString());
+            emailSender.start();
+            /*for (Contact contact : patientContacts) {
                 (new CustomEmailModel(contact, EditNotificationEmailModel.getSubject(), EditNotificationEmailModel.getBodyAsString()))
                         .start();
-            }
+            }*/
         }
     }
 
@@ -132,10 +136,13 @@ public class NotificationListController implements Initializable, ControllerInte
             PatientEntry patientEntry = (PatientEntry)p;
             System.out.println(patientEntry.getPatientID());
             List<Contact> patientContacts = ContactDAO.getByPatientId(patientEntry.getPatientID());
-            for (Contact contact : patientContacts) {
+            EmailSender emailSender = new EmailSender(patientContacts, EditNotificationEmailModel.getSubject(),
+                    EditNotificationEmailModel.getBodyAsString());
+            emailSender.start();
+            /*for (Contact contact : patientContacts) {
                 (new CustomEmailModel(contact, EditNotificationEmailModel.getSubject(), EditNotificationEmailModel.getBodyAsString()))
                         .start();
-            }
+            }*/
         }
     }
 
