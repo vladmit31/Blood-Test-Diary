@@ -44,7 +44,7 @@
               <center>
                   <TabPane depthTest="DISABLE" nodeOrientation="LEFT_TO_RIGHT" prefHeight="455.0" prefWidth="640.0" side="BOTTOM" tabClosingPolicy="UNAVAILABLE" BorderPane.alignment="CENTER">
                       <tabs>
-                          <Tab fx:id="carriedOverTab" style="-fx-padding: 10;" text="Carried Over">
+                          <Tab fx:id="carriedOverTab" text="Carried Over">
                               <content>
                                   <AnchorPane>
                                       <children>
@@ -63,7 +63,7 @@
                                   </AnchorPane>
                               </content>
                           </Tab>
-                          <Tab fx:id="thisWeekTab" style="-fx-padding: 10;" text="This week">
+                          <Tab fx:id="thisWeekTab" text="This week">
                               <content>
                                   <AnchorPane>
                                       <children>
@@ -82,7 +82,7 @@
                                   </AnchorPane>
                               </content>
                           </Tab>
-                          <Tab fx:id="mondayTab" style="-fx-padding: 10;" text="Monday">
+                          <Tab fx:id="mondayTab" text="Monday">
                               <content>
                                   <AnchorPane>
                                       <children>
@@ -101,7 +101,7 @@
                                   </AnchorPane>
                               </content>
                           </Tab>
-                          <Tab fx:id="tuesdayTab" style="-fx-padding: 10;" text="Tuesday">
+                          <Tab fx:id="tuesdayTab" text="Tuesday">
                               <content>
                                   <AnchorPane>
                                       <children>
@@ -120,7 +120,7 @@
                                   </AnchorPane>
                               </content>
                           </Tab>
-                          <Tab fx:id="wednesdayTab" style="-fx-padding: 10;" text="Wednesday">
+                          <Tab fx:id="wednesdayTab" text="Wednesday">
                               <content>
                                   <AnchorPane>
                                       <children>
@@ -139,7 +139,7 @@
                                   </AnchorPane>
                               </content>
                           </Tab>
-                          <Tab fx:id="thursdayTab" style="-fx-padding: 10;" text="Thursday">
+                          <Tab fx:id="thursdayTab" text="Thursday">
                               <content>
                                   <AnchorPane>
                                       <children>
@@ -158,7 +158,7 @@
                                   </AnchorPane>
                               </content>
                           </Tab>
-                          <Tab fx:id="fridayTab" style="-fx-padding: 10;" text="Friday">
+                          <Tab fx:id="fridayTab" text="Friday">
                               <content>
                                   <AnchorPane>
                                       <children>
