@@ -6,6 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seg.major.App;
+import seg.major.controller.util.EmailSender;
 import seg.major.model.CustomEmailModel;
 import seg.major.model.EditNotificationEmailModel;
 import seg.major.model.util.Email;
@@ -87,10 +88,8 @@ public class CustomEmailController implements Initializable, ControllerInterface
         String subject = this.subjectTextBox.getText();
         String content = this.emailBody.getText();
 
-        for(Contact contact : this.contacts){
-            (new CustomEmailModel(contact, subject, content))
-                    .start();
-        }
+        EmailSender emailSender = new EmailSender(this.contacts, subject, content);
+        emailSender.start();
         primaryController.setPane(App.notifyList);
     }
 }
