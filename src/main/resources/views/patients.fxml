@@ -13,7 +13,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.PatientsController">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.172-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.PatientsController">
    <children>
       <MenuBar>
         <menus>
@@ -45,7 +45,6 @@
                               <Insets right="10.0" />
                            </FlowPane.margin>
                         </Button>
-                        <Button fx:id="filterButton" mnemonicParsing="false" text="Filter" />
                      </children>
                      <BorderPane.margin>
                         <Insets bottom="2.0" top="2.0" />

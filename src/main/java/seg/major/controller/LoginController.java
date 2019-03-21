@@ -83,13 +83,13 @@ public class LoginController implements Initializable, ControllerInterface {
 
 
     private void setGlobalEventHandler(Node root) {
-        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-            if (ev.getCode() == KeyCode.ENTER) {
-                loginBtn();
-                ev.consume();
-            }
-        });
-    }
+            root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+                if (ev.getCode() == KeyCode.ENTER) {
+                    loginBtn();
+                    ev.consume();
+                }
+            });
+        }
     /**
      * Set the primaryController
      * 
