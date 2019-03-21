@@ -7,6 +7,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import seg.major.App;
+import seg.major.controller.util.EmailChecker;
+import seg.major.controller.util.PhoneChecker;
 import seg.major.model.ContactsModel;
 import seg.major.model.database.ContactDAO;
 import seg.major.structure.Contact;
@@ -167,13 +169,21 @@ public class ContactsController implements Initializable, ControllerInterface {
             fillTable(ContactsModel.getContactList(curPatient.getID()));
             emptyAddFields();
 
+        }else {
+            Alert alert = new Alert(Alert.AlertType.WARNING);
+            alert.setTitle("Invalid input");
+            alert.setHeaderText(null);
+            alert.setContentText("You need to complete input fields accordingly");
+
+            alert.showAndWait();
         }
     }
 
     private boolean checkUserInput() {
         return !(forenameField.getText().equals("") || surnameField.getText().equals("")
                 || relationshipField.getText().equals("") || phoneField.getText().equals("")
-                || emailField.getText().equals(""));
+                || emailField.getText().equals("") || !EmailChecker.isValid(emailField.getText())
+                || !PhoneChecker.isValid(phoneField.getText()));
     }
 
     @FXML
