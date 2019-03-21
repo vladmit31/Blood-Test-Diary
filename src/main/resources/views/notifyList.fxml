@@ -30,9 +30,9 @@
             </FlowPane>
          </left>
          <right>
-            <FlowPane prefHeight="50.0" prefWidth="169.0" BorderPane.alignment="CENTER">
+            <FlowPane prefHeight="25.0" prefWidth="224.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button mnemonicParsing="false" text="Button" />
+                  <Button fx:id="editDefaultEmail" mnemonicParsing="false" onAction="#editDefaultEmailButtonClicked" text="Edit default emial" />
                   <Button fx:id="notifyButton" mnemonicParsing="false" onAction="#notifyButtonClicked" text="Notify" />
                   <Button fx:id="notifyAllButton" mnemonicParsing="false" onAction="#notifyAllButtonClicked" text="Notify All" />
                </children>
