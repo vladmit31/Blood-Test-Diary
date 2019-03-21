@@ -87,7 +87,7 @@ public class PrimaryController extends StackPane {
    * @return was the operation successful?
    */
   public boolean setPane(String name) {
-    VBox n = (VBox) panes.get(name);
+    Node n = panes.get(name);
     ControllerInterface ci = data.get(name);
     if (n != null && ci != null) {
       ci.update();

@@ -1,11 +1,5 @@
 package seg.major.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.List;
-import java.util.ResourceBundle;
-import java.net.URL;
-import java.time.LocalDate;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,12 +9,18 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import seg.major.App;
 import seg.major.model.PatientModel;
-
 import seg.major.model.database.AppointmentDAO;
 import seg.major.model.database.PatientDAO;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
+
+import java.net.URL;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * PatientsController acts as the controller for the patients.fxml file
@@ -48,7 +48,7 @@ public class PatientsController implements Initializable, ControllerInterface {
   public Button over12Button;
   public MenuItem addNewPatientMenuItem;
 
-  boolean isUnder12 = true;
+  private boolean isUnder12 = true;
 
 
   private PatientModel patientModel;
@@ -67,8 +67,14 @@ public class PatientsController implements Initializable, ControllerInterface {
     patientModel.fetchData();
     setupTable();
     setupButtons();
+    setUpDynamicSearchField();
   }
 
+  private void setUpDynamicSearchField(){
+    searchField.textProperty().addListener((observable, oldValue, newValue) -> {
+      searchButton.fire();
+    });
+  }
   /**
    * Set the primaryController
    * 
@@ -168,7 +174,6 @@ public class PatientsController implements Initializable, ControllerInterface {
     searchButton.setOnAction(e -> {
       search(searchField.getText());
     });
-    // TODO filter button
   }
 
 /*  private void fillTable() {
