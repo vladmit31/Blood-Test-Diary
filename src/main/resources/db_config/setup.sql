@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Mar 16, 2019 at 01:18 PM
+-- Generation Time: Mar 21, 2019 at 10:42 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -54,18 +54,20 @@ INSERT INTO `appointment` (`id`, `status`, `due_date`, `patient_id`) VALUES
 (13, 0, '2019-03-21', 21),
 (14, 0, '2019-03-29', 22),
 (15, 0, '2019-03-30', 23),
-(16, 0, '2019-03-29', 24),
+(16, 0, '2019-03-19', 24),
 (17, 0, '2019-04-05', 25),
 (19, 0, '2019-03-30', 27),
 (20, 0, '2019-03-30', 28),
 (21, 0, '2019-03-30', 29),
 (25, 0, '2019-03-04', 14),
 (26, 0, '2019-03-14', 26),
-(27, 0, '2019-03-15', 1),
-(31, 0, '2019-03-19', 30),
+(27, 0, '2019-03-14', 1),
+(31, 0, '2019-03-20', 30),
 (32, 0, '2019-03-18', 31),
 (33, 0, '2019-03-18', 32),
-(34, 0, '2019-03-19', 33);
+(34, 0, '2019-03-18', 33),
+(35, 0, '2019-03-23', 34),
+(36, 0, '2019-03-26', 35);
 
 -- --------------------------------------------------------
 
@@ -88,14 +90,16 @@ CREATE TABLE `contact` (
 --
 
 INSERT INTO `contact` (`id`, `forename`, `surname`, `relationship`, `phone`, `email`, `patient_id`) VALUES
-(1, 'George', 'Huntington', 'Close realtionship: Father', '+447733974322', 'george.huntington@gmail.com', 26),
-(3, 'Bob', 'Andersen', 'Uncle', '+425423542', 'bob.anders@gmail.com', 26),
-(7, 'Joe', 'Midsummer', 'Uncle', '+4252352342', 'joe@yahoo.com', 24),
-(10, 'Gorun', 'Surpriza', 'Unchi', '+4182381', '1Q.sapro@gmail.com', 1),
-(15, 'dasd', 'adad', 'asdad', 'sadad', 'asda', 1),
-(16, 'dasdada', 'dsadsasd', 'adasd', 'asdasdasd', 'asdads', 1),
-(17, 'asdadsa', 'dasdasd', 'adsassda', 'sdasdasd', 'adada', 1),
-(18, 'Alicia', 'Buffer', 'Mother', '+448833982123', 'alicia.buffer@gmail.com', 26);
+(19, 'Erika', 'Berger', 'Work fellow', '+412314514', 'erika.berger098@millenium.com', 33),
+(21, 'Erika', 'Berger', 'Work fellow', '+4412847184', 'erika.berger@millenium.com', 33),
+(22, 'Lisbeth', 'Salander', 'Work fellow', '+1412481248', 'wasp@kcah.com', 33),
+(23, 'Mara', 'Zimbler', 'Mothetr', '+837198424', 'mararoxana10@gmail.com', 1),
+(25, 'Horia', 'Pavel', 'Uncle', '+1487148812', 'horiapavel@yahoo.com', 1),
+(26, 'Vlad', 'Mititelu', 'Uncle', '+184194', 'vladmititelu1@gmail.com', 1),
+(28, 'Tudor', 'Iures', 'Father', '+12897318', 'tudor.iures12@gmail.com', 26),
+(30, 'Horia', 'Pavel', 'Uncle', '+312948140', 'horiapavel@yahoo.com', 24),
+(33, 'Serban', 'Raicu', 'Uncle', '+1948123', 'raicu.serban@yahoo.com', 1),
+(34, 'fddaiddasida', 'dajhdad', 'aodijaiodj', '+192830912', 'gaijd@yahoo.com', 35);
 
 -- --------------------------------------------------------
 
@@ -111,46 +115,51 @@ CREATE TABLE `patient` (
   `dob` date NOT NULL,
   `diagnosis` varchar(50) DEFAULT 'N/A',
   `local_clinic` varchar(30) NOT NULL,
-  `refresh_rate` double NOT NULL
+  `refresh_rate` double NOT NULL,
+  `lab_name` varchar(30) NOT NULL DEFAULT 'N/A',
+  `lab_contact` varchar(30) NOT NULL DEFAULT 'N/A',
+  `nhs_number` varchar(30) NOT NULL DEFAULT 'N123'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `patient`
 --
 
-INSERT INTO `patient` (`id`, `vnumber`, `fname`, `sname`, `dob`, `diagnosis`, `local_clinic`, `refresh_rate`) VALUES
-(1, 'B444512', 'Yinuo', 'KCL', '2011-03-24', 'N/A', 'Lancaster Hospital', 2),
-(3, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(4, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(5, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(6, 'v1234', 'Horia', 'Pavelsdayd', '1998-01-01', 'N/A', 'cluj', 2),
-(7, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(8, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(9, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(10, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(11, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(12, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2),
-(13, 'v1234', 'Tudor', 'Iures', '1998-01-01', 'N/A', 'timisoara', 2),
-(14, 'v123', 'vlad', 'm', '1998-11-10', 'N/A', 'spit_buc', 1),
-(15, 'v123', 'vlad', 'm', '1998-11-10', 'N/A', 'spit_buc', 1),
-(16, 'dada', 'dada', 'dada', '2019-03-04', 'N/A', 'dada', 1),
-(17, 'dada', 'dada', 'dada', '2019-03-04', 'N/A', 'dada', 1),
-(18, 'dada', 'dada', 'dada', '2019-03-20', 'N/A', 'dada', 1),
-(19, 'dada', 'dada', 'dada', '2019-03-27', 'N/A', 'dada', 1),
-(20, 'dada', 'Vlaaaaaad', 'dada', '2019-03-27', 'N/A', 'dada', 1),
-(21, 'dada', 'dadafafafa', 'dada', '2019-03-14', 'N/A', 'dada', 1),
-(22, 'asdadd', 'dadasdad', 'asdadsasd', '2019-03-23', 'N/A', 'saaaaaaaaaaaaaaaaaaaaaaaaaa', 1),
-(23, 'adsda', 'fha', 'adhc', '2019-03-21', 'N/A', 'dadsa', 1),
-(24, '4123', 'Grigore', 'Ureche', '2008-03-12', 'N/A', 'Galati Hospital', 1),
-(25, 'v12843719', 'Thomas Filipo', 'Harris', '1995-03-29', 'N/A', 'London St Thomas', 1),
-(26, '552231', 'Clara', 'Fielsson', '2012-03-19', 'N/A', 'Gordbach Local Hospital Y', 1),
-(27, 'A444123', 'Yinuo', 'KCL', '2019-03-12', 'N/A', 'London, St Thomas', 1),
-(28, 'A444123', 'Yinuo', 'KCL', '2019-03-12', 'N/A', 'London, St Thomas', 1),
-(29, 'khg', 'Yinuo', 'KCL', '2019-03-19', 'N/A', 'lkj', 1),
-(30, 'A123456', 'Ion', 'Ionescu', '2004-03-23', 'N/A', 'Spitalul Municipal Galati', 1),
-(31, 'V123141', 'Birger', 'Vanger', '1939-03-16', 'N/A', 'Hedestad Local Hospital', 2),
-(32, 'H123456', 'Cecilla', 'Vanger', '1994-03-16', 'N/A', 'Hedestad Local Hospital', 2),
-(33, 'H999998', 'Michael', 'Blomkvist', '1994-03-24', 'Very Good Journalist', 'Hedestad Local Hospital', 2);
+INSERT INTO `patient` (`id`, `vnumber`, `fname`, `sname`, `dob`, `diagnosis`, `local_clinic`, `refresh_rate`, `lab_name`, `lab_contact`, `nhs_number`) VALUES
+(1, 'B444512', 'Yinuo', 'KCLldtthf', '2011-03-24', 'N/A', 'Lancaster Hospital', 2, 'N', '', ''),
+(3, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(4, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(5, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(6, 'v1234', 'Horia', 'Pavelsdayd', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(7, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(8, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(9, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(10, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(11, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(12, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
+(13, 'v1234', 'Tudor', 'Iures', '1998-01-01', 'N/A', 'timisoara', 2, 'N/A', 'N/A', 'N123'),
+(14, 'v123', 'vlad', 'm', '1998-11-10', 'N/A', 'spit_buc', 1, 'N/A', 'N/A', 'N123'),
+(15, 'v123', 'vlad', 'm', '1998-11-10', 'N/A', 'spit_buc', 1, 'N/A', 'N/A', 'N123'),
+(16, 'dada', 'dada', 'dada', '2019-03-04', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
+(17, 'dada', 'dada', 'dada', '2019-03-04', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
+(18, 'dada', 'dada', 'dada', '2019-03-20', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
+(19, 'dada', 'dada', 'dada', '2019-03-27', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
+(20, 'dada', 'Vlaaaaaad', 'dada', '2019-03-27', 'N/Adadadadad', 'dada', 1, 'N/A', 'N/A', 'N123'),
+(21, 'dada', 'dadafafafa', 'dada', '2019-03-14', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
+(22, 'asdadd', 'dadasdad', 'asdadsasd', '2019-03-23', 'N/A', 'saaaaaaaaaaaaaaaaaaaaaaaaaa', 1, 'N/A', 'N/A', 'N123'),
+(23, 'adsda', 'fha', 'adhc', '2019-03-21', 'N/A', 'dadsa', 1, 'N/A', 'N/A', 'N123'),
+(24, '4123', 'Grigore', 'Ureche', '2008-03-12', 'N/A', 'Galati Hospital', 1, 'N/A', 'N/A', 'N123'),
+(25, 'v12843719', 'Thomas Filipo', 'Harris', '1995-03-29', 'Flu', 'London St Thomas', 1, 'N/A', 'N/A', 'N123'),
+(26, '552231', 'Clara', 'Fielsson', '2012-03-19', 'N/A', 'Gordbach Local Hospital Y', 1, 'Gligan Laboratory', 'gligan.lab@gmail.com', 'N127361874'),
+(27, 'A444123', 'Yinuo', 'KCL', '2019-03-12', 'N/A', 'London, St Thomas', 1, 'N/A', 'N/A', 'N123'),
+(28, 'A444123', 'Yinuo', 'KCL', '2019-03-12', 'N/A', 'London, St Thomas', 1, 'N/A', 'N/A', 'N123'),
+(29, 'khg', 'Yinuo', 'KCL', '2019-03-19', 'N/A', 'lkj', 1, 'N/A', 'N/A', 'N123'),
+(30, 'A123456', 'Ion', 'Ionescu', '2004-03-23', 'N/A', 'Spitalul Municipal Galati', 1, 'N/A', 'N/A', 'N123'),
+(31, 'V123141', 'Birger', 'Vanger', '1939-03-16', 'N/A', 'Hedestad Local Hospital', 2, 'N/A', 'N/A', 'N123'),
+(32, 'H123456', 'Cecilla', 'Vanger', '1994-03-16', 'N/A', 'Hedestad Local Hospital', 2, 'N/A', 'N/A', 'N123'),
+(33, 'H999998', 'Michael', 'Blomkvist', '1994-03-24', 'Very Good Journalist', 'Hedestad Local Hospital', 2, 'N/A', 'N/A', 'N123'),
+(34, 'dasd', 'Ynput', 'Data', '2019-03-13', 'adasd', 'asda', 2, 'N/A', 'N/A', 'N123'),
+(35, '#812371', 'Giulio', 'Cezzare', '2003-03-20', 'Not Available', 'Hospital Of Truth', 2, 'Hostila', 'hostilar@gmail.com', 'N12783891');
 
 -- --------------------------------------------------------
 
@@ -213,19 +222,19 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
 
 --
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
 
 --
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=34;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
 
 --
 -- AUTO_INCREMENT for table `user`
