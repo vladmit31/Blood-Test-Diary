@@ -113,7 +113,7 @@
                <children>
                   <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="25.0" prefWidth="106.0" text="Update" GridPane.columnIndex="4" />
                   <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="25.0" prefWidth="106.0" text="Cancel" GridPane.columnIndex="2" />
-                  <Button fx:id="cancelBtn1" mnemonicParsing="false" onAction="#ResetButtonClicked" prefHeight="25.0" prefWidth="106.0" text="Reset" GridPane.columnIndex="3" />
+                  <Button fx:id="cancelBtn1" mnemonicParsing="false" onAction="#resetButtonClicked" prefHeight="25.0" prefWidth="106.0" text="Reset" GridPane.columnIndex="3" />
                </children>
             </GridPane>
          </bottom>

@@ -180,7 +180,7 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
 
     }
 
-    public void ResetButtonClicked(ActionEvent actionEvent) {
+    public void resetButtonClicked(ActionEvent actionEvent) {
         resetView();
     }
 
