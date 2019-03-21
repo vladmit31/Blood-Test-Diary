@@ -7,6 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seg.major.App;
 import seg.major.model.CustomEmailModel;
+import seg.major.model.EditNotificationEmailModel;
 import seg.major.model.util.Email;
 import seg.major.structure.Contact;
 
@@ -21,7 +22,6 @@ public class CustomEmailController implements Initializable, ControllerInterface
     public Button sendButton;
     public TextArea emailBody;
 
-    private CustomEmailModel customEmailModel;
     private PrimaryController primaryController;
 
 
@@ -33,8 +33,6 @@ public class CustomEmailController implements Initializable, ControllerInterface
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         this.contacts = new ArrayList<>();
-
-        this.customEmailModel = new CustomEmailModel();
         this.sendToTextBox.setEditable(false);
     }
 
@@ -86,13 +84,13 @@ public class CustomEmailController implements Initializable, ControllerInterface
     }
 
     public void sendButtonClicked(ActionEvent event) {
-        String sentTo = this.sendToTextBox.getText();
         String subject = this.subjectTextBox.getText();
         String content = this.emailBody.getText();
 
-
         for(Contact contact : this.contacts){
-            this.customEmailModel.sendEmail(contact, subject, content);
+            (new CustomEmailModel(contact, subject, content))
+                    .start();
         }
+        primaryController.setPane(App.notifyList);
     }
 }

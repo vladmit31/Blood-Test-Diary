@@ -6,6 +6,8 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import seg.major.App;
+import seg.major.model.CustomEmailModel;
+import seg.major.model.EditNotificationEmailModel;
 import seg.major.model.NotificationListModel;
 import seg.major.model.database.AppointmentDAO;
 import seg.major.model.database.ContactDAO;
@@ -33,6 +35,7 @@ public class NotificationListController implements Initializable, ControllerInte
     public Button backButton;
     public TableView notificationTable;
     public Button notifyAllButton;
+    public Button editDefaultEmail;
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
 
@@ -110,8 +113,13 @@ public class NotificationListController implements Initializable, ControllerInte
 
     public void notifyButtonClicked(ActionEvent event) {
         for(var p : notificationTable.getSelectionModel().getSelectedItems()) {
-            PatientEntry pat = (PatientEntry)p;
-            System.out.println(((PatientEntry) p).getHospitalNumber());
+            PatientEntry patientEntry = (PatientEntry)p;
+            System.out.println(patientEntry.getPatientID());
+            List<Contact> patientContacts = ContactDAO.getByPatientId(patientEntry.getPatientID());
+            for (Contact contact : patientContacts) {
+                (new CustomEmailModel(contact, EditNotificationEmailModel.getSubject(), EditNotificationEmailModel.getBodyAsString()))
+                        .start();
+            }
         }
     }
 
@@ -120,6 +128,18 @@ public class NotificationListController implements Initializable, ControllerInte
     }
 
     public void notifyAllButtonClicked(ActionEvent event) {
+        for (var p : notificationTable.getItems()){
+            PatientEntry patientEntry = (PatientEntry)p;
+            System.out.println(patientEntry.getPatientID());
+            List<Contact> patientContacts = ContactDAO.getByPatientId(patientEntry.getPatientID());
+            for (Contact contact : patientContacts) {
+                (new CustomEmailModel(contact, EditNotificationEmailModel.getSubject(), EditNotificationEmailModel.getBodyAsString()))
+                        .start();
+            }
+        }
+    }
 
+    public void editDefaultEmailButtonClicked(ActionEvent event) {
+        primaryController.setPane(App.editDefaultEmail);
     }
 }

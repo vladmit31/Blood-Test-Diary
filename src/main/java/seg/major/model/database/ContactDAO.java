@@ -364,7 +364,7 @@ public class ContactDAO {
    */
   private static List<Contact> resultSetToContactArray(ResultSet toConvert) throws SQLException {
     List<Contact> toReturn = new ArrayList<Contact>();
-    toConvert.first();
+    // toConvert.first();
     while (toConvert.next()) {
       toReturn.add(resultSetToContact(toConvert));
     }
@@ -397,6 +397,39 @@ public class ContactDAO {
     sb.append(");");
 
     return sb.toString();
+  }
+
+  public static List<Contact> getByPatientId(int patientId) {
+    String query = "SELECT * FROM contact WHERE patient_id = ?;";
+    List<Contact> toReturn = new ArrayList<>();
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.setInt(1, patientId);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToContactArray(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
+    }
+
+    return toReturn;
   }
 
 }

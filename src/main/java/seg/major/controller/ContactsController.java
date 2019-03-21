@@ -8,6 +8,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import seg.major.App;
 import seg.major.model.ContactsModel;
+import seg.major.model.database.ContactDAO;
 import seg.major.structure.Contact;
 import seg.major.structure.Patient;
 
@@ -77,7 +78,7 @@ public class ContactsController implements Initializable, ControllerInterface {
         setUpRows();
         Patient p = (Patient) data.get("patient");
         if (p != null) {
-            fillTable(ContactsModel.getContactList(p.getID()));
+            fillTable(ContactDAO.getByPatientId(p.getID()));
             this.curPatient = p;
         }
     }
@@ -106,6 +107,7 @@ public class ContactsController implements Initializable, ControllerInterface {
     private void fillTable(List<Contact> contactList) {
         contactsTable.getItems().clear();
         for (Contact contact : contactList) {
+            System.out.println(contact.getForename());
             contactsTable.getItems().add(contact);
         }
     }

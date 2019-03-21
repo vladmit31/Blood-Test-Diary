@@ -13,16 +13,17 @@ import seg.major.model.util.Props;
 public class App extends Application {
 
     // Name of the view that is shown on first loading the application
-    public static String login = "login";
-    public static String addPatient = "add_patient";
-    public static String updatePatient = "update_patient";
-    public static String updateAppointment = "update_appointment";
-    public static String contacts = "contacts";
-    public static String patients = "patients";
-    public static String schema = "schema";
-    public static String notifyList = "notifyList";
-    public static String propertiesLocation = "props.properties";
-    public static String customEmail = "custom_email";
+    public static final String login = "login";
+    public static final String addPatient = "add_patient";
+    public static final String updatePatient = "update_patient";
+    public static final String updateAppointment = "update_appointment";
+    public static final String contacts = "contacts";
+    public static final String patients = "patients";
+    public static final String schema = "schema";
+    public static final String notifyList = "notifyList";
+    public static final String propertiesLocation = "props.properties";
+    public static final String customEmail = "custom_email";
+    public static final String editDefaultEmail = "edit_default_email";
     public static Props props;
 
     public static void main(String[] args) {
@@ -38,7 +39,8 @@ public class App extends Application {
     public void start(Stage primaryStage) throws Exception {
         PrimaryController primaryController = new PrimaryController(primaryStage);
         primaryController.addViews(
-                new String[] { login, notifyList, addPatient, customEmail, patients, schema, contacts, updatePatient, updateAppointment });
+                new String[] { login, notifyList, addPatient, customEmail, patients, schema, contacts,
+                                            updatePatient, updateAppointment, editDefaultEmail });
         primaryController.setPane(App.login);
 
         Group root = new Group();
