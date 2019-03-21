@@ -233,7 +233,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void fillTablesForUnder12() {
-    fillTable(carriedOverTable, schemaModel.getAll());
+    fillTable(carriedOverTable, schemaModel.getCarriedOverAppointments());
     fillTable(thisWeekTable, schemaModel.getAll());
     fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.MONDAY));
     fillTable(tuesdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.TUESDAY));
