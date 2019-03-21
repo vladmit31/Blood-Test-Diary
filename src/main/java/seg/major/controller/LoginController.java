@@ -6,16 +6,22 @@ import java.util.ResourceBundle;
 import java.net.URL;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.VBox;
 import seg.major.App;
 import seg.major.model.LoginModel;
-import seg.major.controller.PrimaryController;
-import javax.swing.*;
+
 
 public class LoginController implements Initializable, ControllerInterface {
+
 
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
@@ -27,6 +33,12 @@ public class LoginController implements Initializable, ControllerInterface {
     public Button loginButton;
     @FXML
     public PasswordField password;
+    @FXML
+    public VBox parent;
+    @FXML
+    public ImageView keyImg;
+    @FXML
+    public ImageView humanImg;
 
     /**
      * The login button was clicked, so load the patient schema view
@@ -64,9 +76,20 @@ public class LoginController implements Initializable, ControllerInterface {
      * Allow javafx to initalise the controller with the view
      */
     public void initialize(URL url, ResourceBundle rb) {
-
+        setGlobalEventHandler(parent);
+        humanImg.setImage(new Image("images/humanIcon.png"));
+        keyImg.setImage(new Image("images/keyIcon.png"));
     }
 
+
+    private void setGlobalEventHandler(Node root) {
+        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+            if (ev.getCode() == KeyCode.ENTER) {
+                loginBtn();
+                ev.consume();
+            }
+        });
+    }
     /**
      * Set the primaryController
      * 
