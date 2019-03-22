@@ -1,10 +1,11 @@
 package seg.major.model;
 
+import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import seg.major.model.util.Email;
 import seg.major.structure.Contact;
 
-public class CustomEmailModel extends Thread{
+public class CustomEmailModel{
 
     private Contact sendTo;
     private String subject;
@@ -16,13 +17,9 @@ public class CustomEmailModel extends Thread{
         this.content = content;
     }
 
-    private void sendEmail(){
+    public void sendEmail(){
         Email email = new Email("smtp.gmail.com", "25", "iudortures@gmail.com", "horiapavel69", this.sendTo.getEmail(), this.subject, this.content);
         email.sendEmail();
     }
 
-    @Override
-    public void run() {
-        sendEmail();
-    }
 }

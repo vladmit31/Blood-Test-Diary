@@ -3,15 +3,13 @@ package seg.major.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.text.Text;
 import seg.major.App;
+import seg.major.controller.util.EmailChecker;
 import seg.major.model.UpdatePatientModel;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
@@ -19,12 +17,25 @@ import seg.major.structure.Patient;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
  * AddPatientController acts as the controller for the add_patient.fxml file
  */
 public class UpdatePatientController implements Initializable, ControllerInterface {
+
+    @FXML
+    public TextField nhsNumber;
+
+    @FXML
+    public TextField labName;
+
+    @FXML
+    public TextField labContact;
+
+    @FXML
+    public Button notifyLabButton;
 
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
@@ -80,6 +91,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
             patient.setHospitalNumber(hospitalField.getText());
             patient.setLocalClinic(clinicField.getText());
             patient.setDiagnosis(diagnosisField.getText());
+            patient.setLabName(labName.getText());
+            patient.setLabContact(labContact.getText());
+            patient.setNhsNumber(nhsNumber.getText());
 
             Appointment appointment = (Appointment) data.get("appointment");
             appointment.setDueDate(nextAppField.getValue());
@@ -117,7 +131,10 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     private boolean checkUserInput() {
         return !forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue() != null
                 && !hospitalField.getText().equals("") && !clinicField.getText().equals("")
-                && nextAppField.getValue() != null && !diagnosisField.getText().equals("");
+                && nextAppField.getValue() != null && !diagnosisField.getText().equals("")
+                && !labName.getText().equals("") && !labContact.getText().equals("")
+                && EmailChecker.isValid(labContact.getText())
+                && !nhsNumber.getText().equals("");
     }
 
     /** ---------- Inherited / Implemented ---------- */
@@ -176,6 +193,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         hospitalField.setEditable(!value);
         diagnosisField.setEditable(!value);
         nextAppField.setDisable(value);
+        labName.setDisable(value);
+        labContact.setDisable(value);
+        nhsNumber.setDisable(value);
     }
 
     public void setUp() {
@@ -189,6 +209,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         hospitalField.setText(p.getHospitalNumber());
         diagnosisField.setText(p.getDiagnosis());
         clinicField.setText(p.getLocalClinic());
+        labName.setText(p.getLabName());
+        labContact.setText(p.getLabContact());
+        nhsNumber.setText(p.getNhsNumber());
     }
 
     /**
@@ -257,5 +280,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
             setupLockButton();
             editBtn.setText("Unlocked");
         }
+    }
+
+    public void notifyLaboratoryButtonClicked(ActionEvent event) {
+
     }
 }

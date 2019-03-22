@@ -70,6 +70,21 @@ public class SchemaModel {
         return toReturn;
     }
 
+    public List<AppointmentEntry> getCarriedOverAppointments() {
+        List<AppointmentEntry> allAppointments = getAll();
+
+        List<AppointmentEntry> toReturn = new ArrayList<>();
+        for(AppointmentEntry appointmentEntry : allAppointments) {
+            if(appointmentEntry.getComplete().equals("Incomplete")
+                    && appointmentEntry.getDueDate().getDayOfWeek().compareTo(LocalDate.now().getDayOfWeek()) < 0) {
+                toReturn.add(appointmentEntry);
+            }
+        }
+
+        return toReturn;
+    }
+
+
     public List<AppointmentEntry> getAppointmentsAndPatientsForDayUnder12(DayOfWeek day) {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
