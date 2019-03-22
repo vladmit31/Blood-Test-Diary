@@ -2,8 +2,8 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Mar 21, 2019 at 10:42 PM
+-- Host: localhost
+-- Generation Time: Mar 22, 2019 at 05:59 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -40,34 +40,26 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`id`, `status`, `due_date`, `patient_id`) VALUES
-(1, 0, '2019-03-02', 9),
-(2, 0, '2019-03-02', 10),
-(3, 0, '2019-03-02', 11),
-(4, 0, '2019-03-02', 12),
-(5, 0, '2019-03-02', 13),
-(7, 0, '2019-11-10', 15),
-(8, 0, '2019-03-05', 16),
-(9, 0, '2019-03-05', 17),
-(10, 0, '2019-03-20', 18),
-(11, 0, '2019-03-20', 19),
-(12, 0, '2019-03-20', 20),
-(13, 0, '2019-03-21', 21),
-(14, 0, '2019-03-29', 22),
-(15, 0, '2019-03-30', 23),
-(16, 0, '2019-03-19', 24),
-(17, 0, '2019-04-05', 25),
-(19, 0, '2019-03-30', 27),
-(20, 0, '2019-03-30', 28),
-(21, 0, '2019-03-30', 29),
-(25, 0, '2019-03-04', 14),
-(26, 0, '2019-03-14', 26),
-(27, 0, '2019-03-14', 1),
-(31, 0, '2019-03-20', 30),
-(32, 0, '2019-03-18', 31),
-(33, 0, '2019-03-18', 32),
-(34, 0, '2019-03-18', 33),
-(35, 0, '2019-03-23', 34),
-(36, 0, '2019-03-26', 35);
+(38, 0, '2019-03-25', 36),
+(39, 0, '2019-04-04', 37),
+(40, 0, '2019-04-09', 38),
+(41, 0, '2019-04-17', 39),
+(42, 0, '2019-05-03', 40),
+(43, 0, '2019-04-24', 41),
+(44, 0, '2019-05-14', 42),
+(45, 0, '2019-04-25', 43),
+(46, 0, '2019-04-11', 44),
+(47, 0, '2019-04-16', 45),
+(48, 0, '2019-04-04', 46),
+(49, 0, '2019-05-15', 47),
+(50, 0, '2019-05-02', 48),
+(51, 0, '2019-04-12', 49),
+(52, 0, '2019-04-08', 50),
+(53, 0, '2019-05-14', 51),
+(54, 0, '2019-05-09', 52),
+(55, 0, '2019-05-14', 53),
+(56, 0, '2019-05-14', 54),
+(57, 0, '2019-04-23', 55);
 
 -- --------------------------------------------------------
 
@@ -84,22 +76,6 @@ CREATE TABLE `contact` (
   `email` varchar(40) NOT NULL,
   `patient_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
---
--- Dumping data for table `contact`
---
-
-INSERT INTO `contact` (`id`, `forename`, `surname`, `relationship`, `phone`, `email`, `patient_id`) VALUES
-(19, 'Erika', 'Berger', 'Work fellow', '+412314514', 'erika.berger098@millenium.com', 33),
-(21, 'Erika', 'Berger', 'Work fellow', '+4412847184', 'erika.berger@millenium.com', 33),
-(22, 'Lisbeth', 'Salander', 'Work fellow', '+1412481248', 'wasp@kcah.com', 33),
-(23, 'Mara', 'Zimbler', 'Mothetr', '+837198424', 'mararoxana10@gmail.com', 1),
-(25, 'Horia', 'Pavel', 'Uncle', '+1487148812', 'horiapavel@yahoo.com', 1),
-(26, 'Vlad', 'Mititelu', 'Uncle', '+184194', 'vladmititelu1@gmail.com', 1),
-(28, 'Tudor', 'Iures', 'Father', '+12897318', 'tudor.iures12@gmail.com', 26),
-(30, 'Horia', 'Pavel', 'Uncle', '+312948140', 'horiapavel@yahoo.com', 24),
-(33, 'Serban', 'Raicu', 'Uncle', '+1948123', 'raicu.serban@yahoo.com', 1),
-(34, 'fddaiddasida', 'dajhdad', 'aodijaiodj', '+192830912', 'gaijd@yahoo.com', 35);
 
 -- --------------------------------------------------------
 
@@ -126,40 +102,26 @@ CREATE TABLE `patient` (
 --
 
 INSERT INTO `patient` (`id`, `vnumber`, `fname`, `sname`, `dob`, `diagnosis`, `local_clinic`, `refresh_rate`, `lab_name`, `lab_contact`, `nhs_number`) VALUES
-(1, 'B444512', 'Yinuo', 'KCLldtthf', '2011-03-24', 'N/A', 'Lancaster Hospital', 2, 'N', '', ''),
-(3, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(4, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(5, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(6, 'v1234', 'Horia', 'Pavelsdayd', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(7, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(8, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(9, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(10, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(11, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(12, 'v1234', 'Horia', 'Pavel', '1998-01-01', 'N/A', 'cluj', 2, 'N/A', 'N/A', 'N123'),
-(13, 'v1234', 'Tudor', 'Iures', '1998-01-01', 'N/A', 'timisoara', 2, 'N/A', 'N/A', 'N123'),
-(14, 'v123', 'vlad', 'm', '1998-11-10', 'N/A', 'spit_buc', 1, 'N/A', 'N/A', 'N123'),
-(15, 'v123', 'vlad', 'm', '1998-11-10', 'N/A', 'spit_buc', 1, 'N/A', 'N/A', 'N123'),
-(16, 'dada', 'dada', 'dada', '2019-03-04', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
-(17, 'dada', 'dada', 'dada', '2019-03-04', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
-(18, 'dada', 'dada', 'dada', '2019-03-20', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
-(19, 'dada', 'dada', 'dada', '2019-03-27', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
-(20, 'dada', 'Vlaaaaaad', 'dada', '2019-03-27', 'N/Adadadadad', 'dada', 1, 'N/A', 'N/A', 'N123'),
-(21, 'dada', 'dadafafafa', 'dada', '2019-03-14', 'N/A', 'dada', 1, 'N/A', 'N/A', 'N123'),
-(22, 'asdadd', 'dadasdad', 'asdadsasd', '2019-03-23', 'N/A', 'saaaaaaaaaaaaaaaaaaaaaaaaaa', 1, 'N/A', 'N/A', 'N123'),
-(23, 'adsda', 'fha', 'adhc', '2019-03-21', 'N/A', 'dadsa', 1, 'N/A', 'N/A', 'N123'),
-(24, '4123', 'Grigore', 'Ureche', '2008-03-12', 'N/A', 'Galati Hospital', 1, 'N/A', 'N/A', 'N123'),
-(25, 'v12843719', 'Thomas Filipo', 'Harris', '1995-03-29', 'Flu', 'London St Thomas', 1, 'N/A', 'N/A', 'N123'),
-(26, '552231', 'Clara', 'Fielsson', '2012-03-19', 'N/A', 'Gordbach Local Hospital Y', 1, 'Gligan Laboratory', 'gligan.lab@gmail.com', 'N127361874'),
-(27, 'A444123', 'Yinuo', 'KCL', '2019-03-12', 'N/A', 'London, St Thomas', 1, 'N/A', 'N/A', 'N123'),
-(28, 'A444123', 'Yinuo', 'KCL', '2019-03-12', 'N/A', 'London, St Thomas', 1, 'N/A', 'N/A', 'N123'),
-(29, 'khg', 'Yinuo', 'KCL', '2019-03-19', 'N/A', 'lkj', 1, 'N/A', 'N/A', 'N123'),
-(30, 'A123456', 'Ion', 'Ionescu', '2004-03-23', 'N/A', 'Spitalul Municipal Galati', 1, 'N/A', 'N/A', 'N123'),
-(31, 'V123141', 'Birger', 'Vanger', '1939-03-16', 'N/A', 'Hedestad Local Hospital', 2, 'N/A', 'N/A', 'N123'),
-(32, 'H123456', 'Cecilla', 'Vanger', '1994-03-16', 'N/A', 'Hedestad Local Hospital', 2, 'N/A', 'N/A', 'N123'),
-(33, 'H999998', 'Michael', 'Blomkvist', '1994-03-24', 'Very Good Journalist', 'Hedestad Local Hospital', 2, 'N/A', 'N/A', 'N123'),
-(34, 'dasd', 'Ynput', 'Data', '2019-03-13', 'adasd', 'asda', 2, 'N/A', 'N/A', 'N123'),
-(35, '#812371', 'Giulio', 'Cezzare', '2003-03-20', 'Not Available', 'Hospital Of Truth', 2, 'Hostila', 'hostilar@gmail.com', 'N12783891');
+(36, 'Q853648', 'Mihai', 'Walker', '2000-03-15', 'Diabetes', 'The Lymphoedema', 2, 'Elizabeth Blackwell', 'elizabeth_lab@yahoo.com', '228 352 2641'),
+(37, 'Q543843', 'Dev', 'Macfarlane', '2006-03-15', 'Flu', 'Nuffield Health', 2, 'Carl Jung ', 'carl_lab@yahoo.com', '673 773 9059'),
+(38, 'Q853558', 'Alanah', 'Zuniga', '2010-03-18', 'N/A', 'Waterloo Health', 2, 'Louis Pasteur', 'louis_lab@yahoo.com', '131 817 2829'),
+(39, 'T563996', 'Raheem ', 'Bailey', '2009-03-12', 'Chickenpox ', 'Harley Street Healthcare', 2, 'Jean-Martin Charcot', 'jean_lab@yahoo.com', '383 912 7181'),
+(40, 'T563996', 'Leonard', 'Moore', '2005-06-15', 'Bronchitis', 'Medical Express ', 2, 'Edward Jenner', 'edward_lab@yahoo.com', '522 869 6008'),
+(41, 'H874561', 'Judah', 'Montes', '2010-08-11', 'Bronchiolitis', 'Fleet Street Heathcare', 2, 'Avicenna', 'avicenna_lab@yahoo.com', '246 092 8971'),
+(42, 'K953752', 'Jay', 'Avila', '2004-09-21', 'N/A', 'The Rebalance Clinic', 2, 'Andreas Vesalius', 'andreas_lab@yahoo.com', '141 116 9875'),
+(43, 'K683942', 'Taha', 'Mendez', '2003-10-11', 'Bronchitis', 'The Smart Clinics', 2, 'Sigmund Freud', 'sigmund_lab@yahoo.com', '175 006 5479'),
+(44, 'R845773', 'Delores', 'Ramos', '2009-04-23', 'Flu', 'Focus Clinic', 2, 'Sir Joseph Lister', 'joseph_lab@yahoo.com', '37 110 7948'),
+(45, 'Y943742', 'Lavinia', 'Mcknight', '2010-04-08', 'N/A', 'London Wellbeing ', 2, 'Ignaz Semmelweis', 'ignaz_lab@yahoo.com', '529 012 4578'),
+(46, 'W936454', 'Wallace', 'Adam', '2012-05-23', 'Flu', 'Brook Euston', 2, 'Sir William Osler', 'william_lab@yahoo.com', '769 938 2315'),
+(47, 'W227465', 'Oskar', 'Wicks', '2007-01-11', 'N/A', 'The Whiteley', 2, 'Mary Edwards Walker', 'walker_lab@yahoo.com', '649 037 2754'),
+(48, 'P925375', 'Elis', 'Alford', '2006-10-18', 'Diabetes', 'Margaret Pyke', 2, 'John Simpson Kirkpatrick', 'simpson_lab@yahoo.com', '928 869 1170'),
+(49, 'A836457', 'Misha', 'Dyer', '2013-10-16', 'N/A', 'Drury Lane ', 2, 'Rex Gregor', 'gregor_lab@yahoo.com', '630 088 5348'),
+(50, 'G923648', 'Misha', 'Dyer', '2009-01-29', 'Scarlet Fever', 'Wentworth', 2, 'Desmond Doss', 'desmond_lab@yahoo.com', '404 900 8866'),
+(51, 'T832754', 'Lorcan', 'Oakley', '2000-01-12', 'Fever', 'Medicspot', 2, 'John Bradley', 'bradley_lab@yahoo.com', '533 684 5418'),
+(52, 'Y385463', 'Willem', 'Morse', '2001-02-20', 'Flu', 'Marie Stopes', 2, 'Genevieve de Galard', 'genevieve_lab@yahoo.com', '880 072 1591'),
+(53, 'U837543', 'Faisal', 'Dorsey', '2010-06-11', 'Fever', 'BPAS', 2, 'Charles Kelly', 'kelly_lab@yahoo.com', '065 150 3760'),
+(54, 'I938543', 'Lola', 'Blevins', '2011-05-17', 'Chickenpox', 'CityDoc', 2, 'Thomas W. Bennett', 'thomas_lab@yahoo.com', '092 897 2577'),
+(55, 'O923754', 'Josie', 'Kirkland', '2004-03-19', 'Pinworms', 'Parsons Green', 2, 'Sally Clarke', 'clarke_lab@yahoo.com', '986 300 6343');
 
 -- --------------------------------------------------------
 
@@ -222,7 +184,7 @@ ALTER TABLE `user`
 -- AUTO_INCREMENT for table `appointment`
 --
 ALTER TABLE `appointment`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=37;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=58;
 
 --
 -- AUTO_INCREMENT for table `contact`
@@ -234,7 +196,7 @@ ALTER TABLE `contact`
 -- AUTO_INCREMENT for table `patient`
 --
 ALTER TABLE `patient`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 
 --
 -- AUTO_INCREMENT for table `user`
