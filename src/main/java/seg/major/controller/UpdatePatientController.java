@@ -3,10 +3,7 @@ package seg.major.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.DatePicker;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -20,6 +17,7 @@ import seg.major.structure.Patient;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -35,6 +33,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
 
     @FXML
     public TextField labContact;
+
+    @FXML
+    public Button notifyLabButton;
 
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
@@ -279,5 +280,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
             setupLockButton();
             editBtn.setText("Unlocked");
         }
+    }
+
+    public void notifyLaboratoryButtonClicked(ActionEvent event) {
+
     }
 }
