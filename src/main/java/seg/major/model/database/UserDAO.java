@@ -132,6 +132,39 @@ public class UserDAO {
     return toReturn;
   }
 
+  public static User getByEmail(String toGet) {
+    String query = "SELECT * FROM user WHERE email = ? LIMIT 1;";
+    User toReturn = null;
+    PreparedStatement ps = null;
+    ResultSet rs = null;
+    Connection conn = null;
+    try {
+      conn = DAOConnection.getConnection();
+      ps = conn.prepareStatement(query);
+      ps.setString(1, toGet);
+      ps.execute("USE db");
+      rs = ps.executeQuery();
+      toReturn = resultSetToUser(rs);
+    } catch (SQLException e) {
+      e.printStackTrace();
+    } finally {
+      try {
+        rs.close();
+      } catch (Exception e) {
+      }
+      try {
+        ps.close();
+      } catch (Exception e) {
+      }
+      try {
+        conn.close();
+      } catch (Exception e) {
+      }
+    }
+
+    return toReturn;
+  }
+
   /**
    * @param toUpdate the user to update
    */
