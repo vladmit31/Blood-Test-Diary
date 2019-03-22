@@ -24,6 +24,7 @@ public class App extends Application {
     public static final String propertiesLocation = "props.properties";
     public static final String customEmail = "custom_email";
     public static final String editDefaultEmail = "edit_default_email";
+    public static final String customLabNotification = "custom_lab_notification";
     public static Props props;
 
     public static void main(String[] args) {
@@ -40,7 +41,7 @@ public class App extends Application {
         PrimaryController primaryController = new PrimaryController(primaryStage);
         primaryController.addViews(
                 new String[] { login, notifyList, addPatient, customEmail, patients, schema, contacts,
-                                            updatePatient, updateAppointment, editDefaultEmail });
+                                            updatePatient, updateAppointment, editDefaultEmail, customLabNotification });
         primaryController.setPane(App.login);
 
         Group root = new Group();
