@@ -283,6 +283,8 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
     }
 
     public void notifyLaboratoryButtonClicked(ActionEvent event) {
-
+        primaryController.sendTo(App.customLabNotification, "patient", data.get("patient"));
+        primaryController.sendTo(App.customLabNotification, "appointment", data.get("appointment"));
+        primaryController.setPane(App.customLabNotification);
     }
 }
