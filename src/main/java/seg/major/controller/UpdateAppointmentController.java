@@ -130,6 +130,7 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
         }else {
             completed.setSelected(true);
         }
+        resetView();
     }
 
     public void completedCheckboxClicked(ActionEvent event) {
@@ -182,6 +183,7 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
 
     public void resetButtonClicked(ActionEvent actionEvent) {
         resetView();
+        setChosenAppointmentEntry();
     }
 
     /** ---------- Inherited / Implemented ---------- */
