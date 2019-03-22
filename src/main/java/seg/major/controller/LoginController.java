@@ -1,5 +1,6 @@
 package seg.major.controller;
 
+import com.ja.security.PasswordHash;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,12 +16,17 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
+import org.w3c.dom.UserDataHandler;
 import seg.major.App;
+import seg.major.controller.util.PasswordGenerator;
+import seg.major.controller.util.RecoveryEmailSender;
 import seg.major.model.LoginModel;
 import seg.major.model.database.UserDAO;
 import seg.major.structure.User;
 
 import java.net.URL;
+import java.security.NoSuchAlgorithmException;
+import java.security.spec.InvalidKeySpecException;
 import java.util.*;
 
 
@@ -150,13 +156,37 @@ public class LoginController implements Initializable, ControllerInterface {
         dialog.setContentText("Please enter your email address:");
 
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent() && UserDAO.getByEmail(result.get())!= null ){
+        User user = UserDAO.getByEmail(result.get());
+        if (result.isPresent() && user != null ){
             System.out.println("it work");
+            PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
+                    .useDigits(true)
+                    .useLower(true)
+                    .useUpper(true)
+                    .build();
+            String password = passwordGenerator.generate(8);
+            String email = "Hey there, \n Someone requested a new password for your Aeon account. \n New Password: "+ password;
+            RecoveryEmailSender sender = new RecoveryEmailSender(result.get(),"Password recovery", email);
+            sender.start();
+            PasswordHash hash = new PasswordHash();
+            String hashedPass= null;
+            try {
+                hashedPass = hash.createHash(password);
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (InvalidKeySpecException e) {
+                e.printStackTrace();
+            }
+            User updatedUser = user;
+            updatedUser.setPassword(hashedPass);
+            UserDAO.update(updatedUser);
         }
         else{
-            System.out.println("it no work");
+
         }
     }
+
+
 
 
 

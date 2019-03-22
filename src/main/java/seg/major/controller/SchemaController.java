@@ -360,4 +360,9 @@ public class SchemaController implements Initializable, ControllerInterface {
   public void logoutButtonClicked(ActionEvent event) {
     primaryController.setPane(App.login);
   }
+
+  public void changePassword(ActionEvent actionEvent) {
+    primaryController.sendTo(App.changePassword, "user", data.get("user"));
+    primaryController.setPane("change_password");
+  }
 }
