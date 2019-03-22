@@ -172,13 +172,13 @@ public class SchemaController implements Initializable, ControllerInterface {
 
   private void setUpButtons() {
     under12Btn.setOnAction(e -> {
-      under12Btn.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+      under12Btn.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
       over12Btn.setStyle(null);
       isUnder12 = true;
       update();
     });
     over12Btn.setOnAction(e -> {
-      over12Btn.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+      over12Btn.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
       under12Btn.setStyle(null);
       isUnder12 = false;
       update();
@@ -189,7 +189,7 @@ public class SchemaController implements Initializable, ControllerInterface {
     setUpColumns();
     setUpRows();
     fillTablesForUnder12();
-    under12Btn.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+    under12Btn.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
     over12Btn.setStyle(null);
   }
 
@@ -232,7 +232,7 @@ public class SchemaController implements Initializable, ControllerInterface {
     tb.setItems(toFill);
   }
 
-  public void fillTablesForUnder12() {
+  private void fillTablesForUnder12() {
     fillTable(carriedOverTable, schemaModel.getCarriedOverAppointments());
     fillTable(thisWeekTable, schemaModel.getAll());
     fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.MONDAY));
@@ -242,7 +242,7 @@ public class SchemaController implements Initializable, ControllerInterface {
     fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.FRIDAY));
   }
 
-  public void fillTablesForOver12() {
+  private void fillTablesForOver12() {
     fillTable(carriedOverTable, schemaModel.getAll());
     fillTable(thisWeekTable, schemaModel.getAll());
     fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.MONDAY));

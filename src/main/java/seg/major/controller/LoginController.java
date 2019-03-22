@@ -1,32 +1,39 @@
 package seg.major.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.net.URL;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Text;
 import seg.major.App;
 import seg.major.model.LoginModel;
+import seg.major.model.database.UserDAO;
+import seg.major.structure.User;
+
+import java.net.URL;
+import java.util.*;
 
 
 public class LoginController implements Initializable, ControllerInterface {
+
 
 
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
 
     /** ---------- FXML ---------- */
+    @FXML
+    public Text errorLabel;
     @FXML
     public TextField username;
     @FXML
@@ -51,21 +58,26 @@ public class LoginController implements Initializable, ControllerInterface {
             if (LoginModel.validateLogin(username.getText(), password.getText())) {
                 primaryController.sendTo(App.schema, "user", LoginModel.getUserByUsername(username.getText()));
                 primaryController.setPane(App.schema);
+                errorLabel.setText("");
             } else {
-                Alert alert = new Alert(Alert.AlertType.WARNING);
+                errorLabel.setText("Invalid credentials");
+                errorLabel.setFill(Color.RED);
+                /*Alert alert = new Alert(Alert.AlertType.WARNING);
                 alert.setTitle("Invalid Credentials");
                 alert.setHeaderText(null);
                 alert.setContentText("Wrong authentication details");
 
-                alert.showAndWait();
+                alert.showAndWait();*/
             }
         } else {
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            errorLabel.setText("Complete all the fields!");
+            errorLabel.setFill(Color.RED);
+            /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Complete all fields!");
             alert.setHeaderText(null);
             alert.setContentText("You must complete all fields provided!");
 
-            alert.showAndWait();
+            alert.showAndWait();*/
         }
     }
 
@@ -124,6 +136,29 @@ public class LoginController implements Initializable, ControllerInterface {
      */
     public void update() {
     }
+
+    public void exit(ActionEvent actionEvent) {
+        primaryController.closeStage();
+    }
+
+
+    public void recoverAccount(ActionEvent actionEvent) {
+        //TODO
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Recovery window");
+        dialog.setHeaderText("Forgot your login credentials?");
+        dialog.setContentText("Please enter your email address:");
+
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent() && UserDAO.getByEmail(result.get())!= null ){
+            System.out.println("it work");
+        }
+        else{
+            System.out.println("it no work");
+        }
+    }
+
+
 
     /** ---------- Inherited / Implemented ---------- */
 

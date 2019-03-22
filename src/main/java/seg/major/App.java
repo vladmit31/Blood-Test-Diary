@@ -3,6 +3,7 @@
  */
 package seg.major;
 
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -47,6 +48,9 @@ public class App extends Application {
         Scene scene = new Scene(root);
         root.getChildren().addAll(primaryController);
         primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image("images/logo.png"));
+
+        primaryStage.setTitle("Aeon: Blood Test Diary");
         primaryStage.setResizable(true);
         primaryStage.show();
 
