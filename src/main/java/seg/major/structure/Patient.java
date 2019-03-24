@@ -1,6 +1,7 @@
 package seg.major.structure;
 
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 public class Patient {
     private int id;
@@ -14,11 +15,12 @@ public class Patient {
     private String labName;
     private String labContact;
     private String nhsNumber;
+    private LocalDate lastTimeNotified;
 
     public static final double DEFAULT_REFRESH_RATE = 1.0;
 
     public Patient(String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
-            String diagnosis, Double refresh_rate, String labName, String labContact, String nhsNumber) {
+            String diagnosis, Double refresh_rate, String labName, String labContact, String nhsNumber, LocalDate lastTimeNotified) {
         this.forename = forename;
         this.surname = surname;
         this.dob = dob;
@@ -29,11 +31,11 @@ public class Patient {
         this.labName = labName;
         this.labContact = labContact;
         this.nhsNumber = nhsNumber;
-
+        this.lastTimeNotified = lastTimeNotified;
     }
 
     public Patient(int id, String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
-            String diagnosis, Double refresh_rate, String labName, String labContact, String nhsNumber) {
+            String diagnosis, Double refresh_rate, String labName, String labContact, String nhsNumber, LocalDate lastTimeNotified) {
         this.id = id;
         this.forename = forename;
         this.surname = surname;
@@ -45,7 +47,30 @@ public class Patient {
         this.labName = labName;
         this.labContact = labContact;
         this.nhsNumber = nhsNumber;
+        this.lastTimeNotified = lastTimeNotified;
+    }
 
+    public Patient(String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
+                   String diagnosis, Double refresh_rate, String labName, String labContact, String nhsNumber) {
+        this.id = id;
+        this.forename = forename;
+        this.surname = surname;
+        this.dob = dob;
+        this.hospital_number = hospital_number;
+        this.local_clinic = local_clinic;
+        this.diagnosis = diagnosis;
+        this.refresh_rate = refresh_rate;
+        this.labName = labName;
+        this.labContact = labContact;
+        this.nhsNumber = nhsNumber;
+    }
+
+    public LocalDate getLastTimeNotified() {
+        return lastTimeNotified;
+    }
+
+    public void setLastTimeNotified(LocalDate lastTimeNotified) {
+        this.lastTimeNotified = lastTimeNotified;
     }
 
     public String getLabName() {

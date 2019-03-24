@@ -6,10 +6,13 @@ import seg.major.model.CustomEmailModel;
 import seg.major.structure.Contact;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 public class EmailSender extends Thread {
     private final List<Contact> contacts;
+    private final Map<Contact, String> contactsWithContent;
     private final String subject;
     private final String content;
 
@@ -17,9 +20,19 @@ public class EmailSender extends Thread {
         this.contacts = contacts;
         this.subject = subject;
         this.content = content;
+        this.contactsWithContent = null;
     }
 
-    public void run(){
+    public EmailSender(Map<Contact, String> contactsWithContent, String subject){
+        this.contactsWithContent = contactsWithContent;
+        this.subject = subject;
+
+        this.contacts = null;
+        this.content = "";
+
+    }
+
+    private void sendEmails(){
         for(Contact contact : this.contacts){
             (new CustomEmailModel(contact, subject, content))
                     .sendEmail();
@@ -42,5 +55,48 @@ public class EmailSender extends Thread {
                 alert.showAndWait();
             }
         });
+    }
+
+    private void sendEmailsWithContent(){
+        Iterator it = contactsWithContent.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry pair = (Map.Entry)it.next();
+            Contact contact = (Contact)pair.getKey();
+            String generatedContent = (String)pair.getValue();
+            (new CustomEmailModel(contact, this.subject, generatedContent))
+                    .sendEmail();
+        }
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                StringBuilder sb = new StringBuilder();
+
+                sb.append("Your email has been sent to: \n");
+
+                Iterator it = contactsWithContent.entrySet().iterator();
+                while (it.hasNext()) {
+                    Map.Entry pair = (Map.Entry)it.next();
+                    Contact contact = (Contact)pair.getKey();
+                    String generatedContent = (String)pair.getValue();
+                    sb.append(contact.getForename() + " " + contact.getSurname() + "\n");
+
+                }
+
+                Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                alert.setTitle("Success!");
+                alert.setHeaderText(null);
+                alert.setContentText(sb.toString());
+                alert.showAndWait();
+            }
+        });
+    }
+
+
+    public void run(){
+        if(this.contacts != null){
+            sendEmails();
+        }else if(this.contactsWithContent != null){
+            sendEmailsWithContent();
+        }
     }
 }
