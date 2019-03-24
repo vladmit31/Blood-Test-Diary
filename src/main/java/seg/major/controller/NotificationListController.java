@@ -30,6 +30,7 @@ public class NotificationListController implements Initializable, ControllerInte
     public TableColumn<PatientEntry, String> diagnosisColumn;
     public TableColumn<PatientEntry, String> surnameColumn;
     public TableColumn<PatientEntry, String> dueDateColumn;
+    public TableColumn <PatientEntry, String> lastNotifiedColumn;
     public Button backButton;
     public TableView notificationTable;
     public Button notifyAllButton;
@@ -82,6 +83,8 @@ public class NotificationListController implements Initializable, ControllerInte
         hospitalNumberColumn.setCellValueFactory(new PropertyValueFactory<>("hospitalNumber"));
         diagnosisColumn.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
         dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("nextAppointment"));
+        lastNotifiedColumn.setCellValueFactory(new PropertyValueFactory<>("lastNotified"));
+
     }
 
     private void fillTable(List<PatientEntry> patientEntries) {

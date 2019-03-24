@@ -190,7 +190,7 @@ public class PatientsController implements Initializable, ControllerInterface {
         if(appointment.getPatientID() == patient.getID()) {
           patientTable.getItems().add(new PatientEntry(patient.getID(),appointment.getID(),
                   patient.getForename(),patient.getSurname(),patient.getHospitalNumber(),
-                  patient.getLocalClinic(),appointment.getDueDate(),patient.getDiagnosis()));
+                  patient.getLocalClinic(),appointment.getDueDate(),patient.getDiagnosis(), patient.getLastTimeNotified()));
         }
       }
     }

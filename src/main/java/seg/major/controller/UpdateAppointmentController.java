@@ -30,8 +30,13 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
     private boolean isInitialState;
 
     /** ---------- FXML ---------- */
+
     @FXML
     public CheckBox completed;
+    @FXML
+    public CheckBox notReceived;
+    @FXML
+    public CheckBox underReview;
     @FXML
     public DatePicker appDueDate;
     @FXML
@@ -79,6 +84,27 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
         threeMonthsRadioButton.setOnAction(new EventHandler() {
             public void handle(Event t) {
                 appDueDate.setDisable(true);
+            }
+        });
+        completed.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                underReview.setSelected(false);
+                notReceived.setSelected(false);
+            }
+        });
+        underReview.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                completed.setSelected(false);
+                notReceived.setSelected(false);
+            }
+        });
+        notReceived.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                underReview.setSelected(false);
+                completed.setSelected(false);
             }
         });
     }
@@ -147,6 +173,17 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
             newStatus = "Complete";
             newStatusInt = 1;
         }
+        else if(underReview.isSelected()) {
+            newStatus = "Under Review";
+            newStatusInt = 2;
+        }
+        else if(notReceived.isSelected()){
+            newStatus = "Not received yet";
+            newStatusInt = 3;
+        }
+        else {
+            //do nothing
+        }
 
         Appointment appointment = new Appointment(appointmentEntry.getAppointmentId(), newStatusInt, appDueDate.getValue(),appointmentEntry.getPatientId());
 
@@ -177,6 +214,9 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
         twoWeeksRadioButton.setDisable(false);
         twoWeeksRadioButton.setSelected(false);
         appDueDate.setDisable(false);
+        completed.setSelected(false);
+        underReview.setSelected(false);
+        notReceived.setSelected(false);
         isInitialState = true;
 
     }

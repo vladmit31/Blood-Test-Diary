@@ -48,6 +48,13 @@ public class SchemaModel {
                     if(appointment.getStatus() == 1) {
                         status = "Complete";
                     }
+                    if(appointment.getStatus()== 2)
+                    {
+                        status = "Under review";
+                    }
+                    if(appointment.getStatus() == 3) {
+                        status = "Not received yet";
+                    }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
                             patient.getHospitalNumber(), status, appointment.getDueDate());
                     toReturn.add(entry);
@@ -102,6 +109,13 @@ public class SchemaModel {
                     if(appointment.getStatus() == 1) {
                         status = "Complete";
                     }
+                    if(appointment.getStatus()== 2)
+                    {
+                        status = "Under review";
+                    }
+                    if(appointment.getStatus() == 3) {
+                        status = "Not received yet";
+                    }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(),
                             name, patient.getHospitalNumber(), status, appointment.getDueDate());
                     toReturn.add(entry);
@@ -125,9 +139,17 @@ public class SchemaModel {
         for(var appointment : appointments){
             for(var patient : patientListOver12){
                 if(appointment.getPatientID() == patient.getID()){
-                    String name = patient.getForename() + " " + patient.getSurname();String status = "Incomplete";
+                    String name = patient.getForename() + " " + patient.getSurname();
+                    String status = "Incomplete";
                     if(appointment.getStatus() == 1) {
                         status = "Complete";
+                    }
+                    if(appointment.getStatus()== 2)
+                    {
+                        status = "Under review";
+                    }
+                    if(appointment.getStatus() == 3) {
+                        status = "Not received yet";
                     }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(),
                             name, patient.getHospitalNumber(), status, appointment.getDueDate());

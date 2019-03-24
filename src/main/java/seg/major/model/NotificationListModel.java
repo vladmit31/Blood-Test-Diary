@@ -22,7 +22,7 @@ public class NotificationListModel {
                 if(appointment.getPatientID() == patient.getID() && isCarriedOver(appointment)) {
                     toReturn.add(new PatientEntry(patient.getID(),appointment.getID(),
                             patient.getForename(),patient.getSurname(),patient.getHospitalNumber(),
-                            patient.getLocalClinic(),appointment.getDueDate(),patient.getDiagnosis()));
+                            patient.getLocalClinic(),appointment.getDueDate(),patient.getDiagnosis(), patient.getLastTimeNotified()));
                 }
             }
         }

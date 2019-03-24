@@ -2,8 +2,8 @@
 -- version 4.8.5
 -- https://www.phpmyadmin.net/
 --
--- Host: localhost
--- Generation Time: Mar 22, 2019 at 05:59 PM
+-- Host: 127.0.0.1
+-- Generation Time: Mar 24, 2019 at 05:40 PM
 -- Server version: 10.1.38-MariaDB
 -- PHP Version: 7.3.2
 
@@ -40,25 +40,25 @@ CREATE TABLE `appointment` (
 --
 
 INSERT INTO `appointment` (`id`, `status`, `due_date`, `patient_id`) VALUES
-(38, 0, '2019-03-25', 36),
+(38, 0, '2019-03-26', 36),
 (39, 0, '2019-04-04', 37),
 (40, 0, '2019-04-09', 38),
-(41, 0, '2019-04-17', 39),
+(41, 0, '2019-03-01', 39),
 (42, 0, '2019-05-03', 40),
 (43, 0, '2019-04-24', 41),
 (44, 0, '2019-05-14', 42),
 (45, 0, '2019-04-25', 43),
 (46, 0, '2019-04-11', 44),
 (47, 0, '2019-04-16', 45),
-(48, 0, '2019-04-04', 46),
+(48, 0, '2019-03-26', 46),
 (49, 0, '2019-05-15', 47),
 (50, 0, '2019-05-02', 48),
 (51, 0, '2019-04-12', 49),
 (52, 0, '2019-04-08', 50),
 (53, 0, '2019-05-14', 51),
 (54, 0, '2019-05-09', 52),
-(55, 0, '2019-05-14', 53),
-(56, 0, '2019-05-14', 54),
+(55, 0, '2019-03-01', 53),
+(56, 0, '2019-03-01', 54),
 (57, 0, '2019-04-23', 55);
 
 -- --------------------------------------------------------
@@ -77,6 +77,17 @@ CREATE TABLE `contact` (
   `patient_id` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dumping data for table `contact`
+--
+
+INSERT INTO `contact` (`id`, `forename`, `surname`, `relationship`, `phone`, `email`, `patient_id`) VALUES
+(37, 'Frate', 'Cu', 'Per', '+19381294', 'test_mail987@yahoo.com', 54),
+(38, 'Boll', 'Chuckinson', 'Uncle', '+1897438912', 'test_mail987@yahoo.com', 53),
+(39, 'Horia', 'Pavel', 'Uncle', '+109840912', 'test_mail987@yahoo.com', 36),
+(40, 'Grigorios', 'Loukides', 'Father', '+1891892', 'test_mail987@yahoo.com', 46),
+(44, 'Hortensia', 'Pagadag', 'Bengescu', '+128937129', 'test_mail987@yahoo.com', 39);
+
 -- --------------------------------------------------------
 
 --
@@ -94,34 +105,35 @@ CREATE TABLE `patient` (
   `refresh_rate` double NOT NULL,
   `lab_name` varchar(30) NOT NULL DEFAULT 'N/A',
   `lab_contact` varchar(30) NOT NULL DEFAULT 'N/A',
-  `nhs_number` varchar(30) NOT NULL DEFAULT 'N123'
+  `nhs_number` varchar(30) NOT NULL DEFAULT 'N123',
+  `last_notification` date NOT NULL DEFAULT '2000-10-10'
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Dumping data for table `patient`
 --
 
-INSERT INTO `patient` (`id`, `vnumber`, `fname`, `sname`, `dob`, `diagnosis`, `local_clinic`, `refresh_rate`, `lab_name`, `lab_contact`, `nhs_number`) VALUES
-(36, 'Q853648', 'Mihai', 'Walker', '2000-03-15', 'Diabetes', 'The Lymphoedema', 2, 'Elizabeth Blackwell', 'elizabeth_lab@yahoo.com', '228 352 2641'),
-(37, 'Q543843', 'Dev', 'Macfarlane', '2006-03-15', 'Flu', 'Nuffield Health', 2, 'Carl Jung ', 'carl_lab@yahoo.com', '673 773 9059'),
-(38, 'Q853558', 'Alanah', 'Zuniga', '2010-03-18', 'N/A', 'Waterloo Health', 2, 'Louis Pasteur', 'louis_lab@yahoo.com', '131 817 2829'),
-(39, 'T563996', 'Raheem ', 'Bailey', '2009-03-12', 'Chickenpox ', 'Harley Street Healthcare', 2, 'Jean-Martin Charcot', 'jean_lab@yahoo.com', '383 912 7181'),
-(40, 'T563996', 'Leonard', 'Moore', '2005-06-15', 'Bronchitis', 'Medical Express ', 2, 'Edward Jenner', 'edward_lab@yahoo.com', '522 869 6008'),
-(41, 'H874561', 'Judah', 'Montes', '2010-08-11', 'Bronchiolitis', 'Fleet Street Heathcare', 2, 'Avicenna', 'avicenna_lab@yahoo.com', '246 092 8971'),
-(42, 'K953752', 'Jay', 'Avila', '2004-09-21', 'N/A', 'The Rebalance Clinic', 2, 'Andreas Vesalius', 'andreas_lab@yahoo.com', '141 116 9875'),
-(43, 'K683942', 'Taha', 'Mendez', '2003-10-11', 'Bronchitis', 'The Smart Clinics', 2, 'Sigmund Freud', 'sigmund_lab@yahoo.com', '175 006 5479'),
-(44, 'R845773', 'Delores', 'Ramos', '2009-04-23', 'Flu', 'Focus Clinic', 2, 'Sir Joseph Lister', 'joseph_lab@yahoo.com', '37 110 7948'),
-(45, 'Y943742', 'Lavinia', 'Mcknight', '2010-04-08', 'N/A', 'London Wellbeing ', 2, 'Ignaz Semmelweis', 'ignaz_lab@yahoo.com', '529 012 4578'),
-(46, 'W936454', 'Wallace', 'Adam', '2012-05-23', 'Flu', 'Brook Euston', 2, 'Sir William Osler', 'william_lab@yahoo.com', '769 938 2315'),
-(47, 'W227465', 'Oskar', 'Wicks', '2007-01-11', 'N/A', 'The Whiteley', 2, 'Mary Edwards Walker', 'walker_lab@yahoo.com', '649 037 2754'),
-(48, 'P925375', 'Elis', 'Alford', '2006-10-18', 'Diabetes', 'Margaret Pyke', 2, 'John Simpson Kirkpatrick', 'simpson_lab@yahoo.com', '928 869 1170'),
-(49, 'A836457', 'Misha', 'Dyer', '2013-10-16', 'N/A', 'Drury Lane ', 2, 'Rex Gregor', 'gregor_lab@yahoo.com', '630 088 5348'),
-(50, 'G923648', 'Misha', 'Dyer', '2009-01-29', 'Scarlet Fever', 'Wentworth', 2, 'Desmond Doss', 'desmond_lab@yahoo.com', '404 900 8866'),
-(51, 'T832754', 'Lorcan', 'Oakley', '2000-01-12', 'Fever', 'Medicspot', 2, 'John Bradley', 'bradley_lab@yahoo.com', '533 684 5418'),
-(52, 'Y385463', 'Willem', 'Morse', '2001-02-20', 'Flu', 'Marie Stopes', 2, 'Genevieve de Galard', 'genevieve_lab@yahoo.com', '880 072 1591'),
-(53, 'U837543', 'Faisal', 'Dorsey', '2010-06-11', 'Fever', 'BPAS', 2, 'Charles Kelly', 'kelly_lab@yahoo.com', '065 150 3760'),
-(54, 'I938543', 'Lola', 'Blevins', '2011-05-17', 'Chickenpox', 'CityDoc', 2, 'Thomas W. Bennett', 'thomas_lab@yahoo.com', '092 897 2577'),
-(55, 'O923754', 'Josie', 'Kirkland', '2004-03-19', 'Pinworms', 'Parsons Green', 2, 'Sally Clarke', 'clarke_lab@yahoo.com', '986 300 6343');
+INSERT INTO `patient` (`id`, `vnumber`, `fname`, `sname`, `dob`, `diagnosis`, `local_clinic`, `refresh_rate`, `lab_name`, `lab_contact`, `nhs_number`, `last_notification`) VALUES
+(36, 'Q853648', 'Mihai', 'Walker', '2000-03-15', 'Diabetes', 'The Lymphoedema', 2, 'Elizabeth Blackwell', 'elizabeth_lab@yahoo.com', '228 352 2641', '2019-03-24'),
+(37, 'Q543843', 'Dev', 'Macfarlane', '2006-03-15', 'Flu', 'Nuffield Health', 2, 'Carl Jung ', 'carl_lab@yahoo.com', '673 773 9059', '2000-10-10'),
+(38, 'Q853558', 'Alanah', 'Zuniga', '2010-03-18', 'N/A', 'Waterloo Health', 2, 'Louis Pasteur', 'louis_lab@yahoo.com', '131 817 2829', '2000-10-10'),
+(39, 'T563996', 'Raheem ', 'Bailey', '2009-03-12', 'Chickenpox ', 'Harley Street Healthcare', 2, 'Jean-Martin Charcot', 'jean_lab@yahoo.com', '383 912 7181', '2000-10-10'),
+(40, 'T563996', 'Leonard', 'Moore', '2005-06-15', 'Bronchitis', 'Medical Express ', 2, 'Edward Jenner', 'edward_lab@yahoo.com', '522 869 6008', '2000-10-10'),
+(41, 'H874561', 'Judah', 'Montes', '2010-08-11', 'Bronchiolitis', 'Fleet Street Heathcare', 2, 'Avicenna', 'avicenna_lab@yahoo.com', '246 092 8971', '2000-10-10'),
+(42, 'K953752', 'Jay', 'Avila', '2004-09-21', 'N/A', 'The Rebalance Clinic', 2, 'Andreas Vesalius', 'andreas_lab@yahoo.com', '141 116 9875', '2000-10-10'),
+(43, 'K683942', 'Taha', 'Mendez', '2003-10-11', 'Bronchitis', 'The Smart Clinics', 2, 'Sigmund Freud', 'sigmund_lab@yahoo.com', '175 006 5479', '2000-10-10'),
+(44, 'R845773', 'Delores', 'Ramos', '2009-04-23', 'Flu', 'Focus Clinic', 2, 'Sir Joseph Lister', 'joseph_lab@yahoo.com', '37 110 7948', '2000-10-10'),
+(45, 'Y943742', 'Lavinia', 'Mcknight', '2010-04-08', 'N/A', 'London Wellbeing ', 2, 'Ignaz Semmelweis', 'ignaz_lab@yahoo.com', '529 012 4578', '2000-10-10'),
+(46, 'W936454', 'Wallace', 'Adam', '2012-05-23', 'Flu', 'Brook Euston', 2, 'Sir William Osler', 'william_lab@yahoo.com', '769 938 2315', '2019-03-24'),
+(47, 'W227465', 'Oskar', 'Wicks', '2007-01-11', 'N/A', 'The Whiteley', 2, 'Mary Edwards Walker', 'walker_lab@yahoo.com', '649 037 2754', '2000-10-10'),
+(48, 'P925375', 'Elis', 'Alford', '2006-10-18', 'Diabetes', 'Margaret Pyke', 2, 'John Simpson Kirkpatrick', 'simpson_lab@yahoo.com', '928 869 1170', '2000-10-10'),
+(49, 'A836457', 'Misha', 'Dyer', '2013-10-16', 'N/A', 'Drury Lane ', 2, 'Rex Gregor', 'gregor_lab@yahoo.com', '630 088 5348', '2000-10-10'),
+(50, 'G923648', 'Misha', 'Dyer', '2009-01-29', 'Scarlet Fever', 'Wentworth', 2, 'Desmond Doss', 'desmond_lab@yahoo.com', '404 900 8866', '2000-10-10'),
+(51, 'T832754', 'Lorcan', 'Oakley', '2000-01-12', 'Fever', 'Medicspot', 2, 'John Bradley', 'bradley_lab@yahoo.com', '533 684 5418', '2000-10-10'),
+(52, 'Y385463', 'Willem', 'Morse', '2001-02-20', 'Flu', 'Marie Stopes', 2, 'Genevieve de Galard', 'genevieve_lab@yahoo.com', '880 072 1591', '2000-10-10'),
+(53, 'U837543', 'Faisal', 'Dorsey', '2010-06-11', 'Fever', 'BPAS', 2, 'Charles Kelly', 'kelly_lab@yahoo.com', '065 150 3760', '2000-10-10'),
+(54, 'I938543', 'Lola', 'Blevins', '2011-05-17', 'Chickenpox', 'CityDoc', 2, 'Thomas W. Bennett', 'test_mail987@yahoo.com', '092 897 2577', '2000-10-10'),
+(55, 'O923754', 'Josie', 'Kirkland', '2004-03-19', 'Pinworms', 'Parsons Green', 2, 'Sally Clarke', 'clarke_lab@yahoo.com', '986 300 6343', '2000-10-10');
 
 -- --------------------------------------------------------
 
@@ -190,7 +202,7 @@ ALTER TABLE `appointment`
 -- AUTO_INCREMENT for table `contact`
 --
 ALTER TABLE `contact`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=35;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=45;
 
 --
 -- AUTO_INCREMENT for table `patient`

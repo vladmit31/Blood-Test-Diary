@@ -13,9 +13,10 @@ public class PatientEntry {
     private String localClinic;
     private String diagnosis;
     private LocalDate nextAppointment;
+    private LocalDate lastNotified;
 
     public PatientEntry(int patientID, int appointmentID, String forename, String surname, String hospitalNumber,
-            String localClinic, LocalDate nextAppointment, String diagnosis) {
+            String localClinic, LocalDate nextAppointment, String diagnosis, LocalDate lastNotified) {
         this.patientID = patientID;
         this.appointmentID = appointmentID;
         this.forename = forename;
@@ -24,6 +25,15 @@ public class PatientEntry {
         this.localClinic = localClinic;
         this.nextAppointment = nextAppointment;
         this.diagnosis = diagnosis;
+        this.lastNotified = lastNotified;
+    }
+
+    public LocalDate getLastNotified() {
+        return lastNotified;
+    }
+
+    public void setLastNotified(LocalDate lastNotified) {
+        this.lastNotified = lastNotified;
     }
 
     public String getDiagnosis() {
