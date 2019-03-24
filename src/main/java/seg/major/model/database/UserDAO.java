@@ -169,8 +169,7 @@ public class UserDAO {
    * @param toUpdate the user to update
    */
   public static void update(User toUpdate) {
-    String query = "UPDATE user SET username = ?, email = ?, password = ?, is_admin ?  WHERE id = ? AND email = ?";
-    User toReturn = null;
+    String query = "UPDATE user SET username = ?, email = ?, password = ?, is_admin = ?  WHERE id = ? AND email = ?";
     PreparedStatement ps = null;
     ResultSet rs = null;
     Connection conn = null;
@@ -184,8 +183,7 @@ public class UserDAO {
       ps.setInt(5, toUpdate.getID());
       ps.setString(6, toUpdate.getEmail());
       ps.execute("USE db");
-      rs = ps.executeQuery();
-      toReturn = resultSetToUser(rs);
+      ps.executeUpdate();
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {

@@ -19,7 +19,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.text.Text?>
 
-<BorderPane prefHeight="600" prefWidth="800" fx:id="pane" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.SchemaController">
+<BorderPane fx:id="pane" prefHeight="600" prefWidth="800" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.SchemaController">
    <top>
         <MenuBar BorderPane.alignment="CENTER">
             <menus>
@@ -27,6 +27,7 @@
                     <items>
                   <MenuItem fx:id="notificationList" mnemonicParsing="false" onAction="#notificationListMenuItemClicked" text="Notification List" />
                         <MenuItem fx:id="menuPatientsInfo" mnemonicParsing="false" onAction="#switchToPatients" text="Switch to Patient Info" />
+                  <MenuItem mnemonicParsing="false" onAction="#changePassword" text="Change password" />
                         <MenuItem fx:id="menuExit" mnemonicParsing="false" text="Exit" />
                     </items>
             </Menu>

@@ -121,6 +121,9 @@ public class PrimaryController extends StackPane {
   public void closeStage(){
     stage.close();
   }
+  public Stage getStage(){
+    return stage;
+  }
 /*  public void triggerUpdate(String toReceive) {
     ControllerInterface ci = data.get(toReceive);
     if(ci != null) {
