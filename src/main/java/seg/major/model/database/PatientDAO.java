@@ -26,6 +26,7 @@ public class PatientDAO {
     private static final String LAB_CONTACT = "lab_contact";
     private static final String LAB_NAME = "lab_name";
     private static final String NHS_NUMBER = "nhs_number";
+    private static final String LAST_NOTIFICATION = "last_notification";
 
     public PatientDAO() {
     }
@@ -152,7 +153,7 @@ public class PatientDAO {
      * @param toUpdate the patient to update
      */
     public static void update(Patient toUpdate) {
-        String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, diagnosis = ? , lab_name = ?, lab_contact = ?, nhs_number = ? WHERE id = ?";
+        String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, diagnosis = ? , lab_name = ?, lab_contact = ?, nhs_number = ?, last_notification = ? WHERE id = ?";
 
         PreparedStatement ps = null;
         ResultSet rs = null;
@@ -169,7 +170,8 @@ public class PatientDAO {
             ps.setString(7, toUpdate.getLabName());
             ps.setString(8, toUpdate.getLabContact());
             ps.setString(9, toUpdate.getNhsNumber());
-            ps.setInt(10, toUpdate.getID());
+            ps.setDate(10, Date.valueOf(toUpdate.getLastTimeNotified()));
+            ps.setInt(11, toUpdate.getID());
             ps.execute("USE db");
             ps.executeUpdate();
         } catch (SQLException e) {
@@ -369,16 +371,16 @@ public class PatientDAO {
         String labName = toConvert.getString(LAB_NAME);
         String labContact = toConvert.getString(LAB_CONTACT);
         String nhsNumber = toConvert.getString(NHS_NUMBER);
+        LocalDate lastTimeNotified = toConvert.getDate(LAST_NOTIFICATION).toLocalDate();
 
         Patient toReturn = new Patient(id, forename, surname, dob,
-                hospitalNumber, localClinic, diagnosis,refreshRate, labName, labContact, nhsNumber);
+                hospitalNumber, localClinic, diagnosis,refreshRate, labName, labContact, nhsNumber, lastTimeNotified);
 
         //System.out.println(toReturn.toString());
 
         return toReturn;
 
     }
-
     /**
      * Convert a ResultSet to an array containing all records contained
      * 
