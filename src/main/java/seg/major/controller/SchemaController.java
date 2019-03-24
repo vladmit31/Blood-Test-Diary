@@ -242,7 +242,7 @@ public class SchemaController implements Initializable, ControllerInterface {
     fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.FRIDAY));
   }
 
-  private void fillTablesForOver12() {
+  public void fillTablesForOver12() {
     fillTable(carriedOverTable, schemaModel.getCarriedOverAppointments());
     fillTable(thisWeekTable, schemaModel.getAll());
     fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.MONDAY));
@@ -252,7 +252,7 @@ public class SchemaController implements Initializable, ControllerInterface {
     fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.FRIDAY));
   }
 
-  private void setUpColumns() {
+  public void setUpColumns() {
     carriedOverName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     carriedOverHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     carriedOverComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
