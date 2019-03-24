@@ -5,6 +5,7 @@ import seg.major.structure.AppointmentEntry;
 import seg.major.structure.Patient;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -57,6 +58,12 @@ public class SchemaModel {
                     }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
                             patient.getHospitalNumber(), status, appointment.getDueDate());
+
+
+                    String newDate = reverseDateFormat(entry.getDueDate());
+
+                    entry.setDateString(newDate);
+
                     toReturn.add(entry);
                     // A patient can have only one appointment per day, so it's not necessary to
                     // search the whole list
@@ -118,6 +125,12 @@ public class SchemaModel {
                     }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(),
                             name, patient.getHospitalNumber(), status, appointment.getDueDate());
+
+
+                    String newDate = reverseDateFormat(entry.getDueDate());
+
+                    entry.setDateString(newDate);
+
                     toReturn.add(entry);
                     //System.out.println(entry);
                     //A patient can have only one appointment per day, so it's not necessary to search the whole list
@@ -128,6 +141,15 @@ public class SchemaModel {
         return toReturn;
     }
 
+    String reverseDateFormat(LocalDate date) {
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        String newDate = date.format(formatters);
+        return newDate;
+
+    }
+
+
+
     public List<AppointmentEntry> getAppointmentsAndPatientsForDayOver12(DayOfWeek day) {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
@@ -135,6 +157,9 @@ public class SchemaModel {
 
         /*List<Patient> patientListOver12 = PatientDAO.getAll().stream()
                 .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())).collect(Collectors.toList());*/
+
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
 
         for(var appointment : appointments){
             for(var patient : patientListOver12){
@@ -153,6 +178,12 @@ public class SchemaModel {
                     }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(),
                             name, patient.getHospitalNumber(), status, appointment.getDueDate());
+
+
+                    String newDate = reverseDateFormat(entry.getDueDate());
+
+                    entry.setDateString(newDate);
+
                     toReturn.add(entry);
                     //System.out.println(entry);
                     //A patient can have only one appointment per day, so it's not necessary to search the whole list

@@ -40,7 +40,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> carriedOverComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> carriedOverDueDate;
+  public TableColumn<AppointmentEntry, String> carriedOverDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> thisWeekName;
   @FXML
@@ -48,7 +48,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> thisWeekComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> thisWeekDueDate;
+  public TableColumn<AppointmentEntry, String> thisWeekDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> mondayName;
   @FXML
@@ -56,7 +56,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> mondayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> mondayDueDate;
+  public TableColumn<AppointmentEntry, String> mondayDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> tuesdayName;
   @FXML
@@ -64,7 +64,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> tuesdayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> tuesdayDueDate;
+  public TableColumn<AppointmentEntry, String> tuesdayDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> wednesdayName;
   @FXML
@@ -72,7 +72,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> wednesdayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> wednesdayDueDate;
+  public TableColumn<AppointmentEntry, String> wednesdayDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> thursdayName;
   @FXML
@@ -80,7 +80,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> thursdayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> thursdayDueDate;
+  public TableColumn<AppointmentEntry, String> thursdayDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> fridayName;
   @FXML
@@ -88,7 +88,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> fridayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> fridayDueDate;
+  public TableColumn<AppointmentEntry, String> fridayDueDate;
 
   @FXML
   public Button under12Btn;
@@ -256,37 +256,37 @@ public class SchemaController implements Initializable, ControllerInterface {
     carriedOverName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     carriedOverHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     carriedOverComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    carriedOverDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    carriedOverDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     thisWeekName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     thisWeekHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     thisWeekComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    thisWeekDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    thisWeekDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     mondayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     mondayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     mondayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    mondayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    mondayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     tuesdayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     tuesdayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     tuesdayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    tuesdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    tuesdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     wednesdayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     wednesdayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     wednesdayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    wednesdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    wednesdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     thursdayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     thursdayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     thursdayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    thursdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    thursdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     fridayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     fridayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     fridayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    fridayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    fridayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
   }
 
   /**
