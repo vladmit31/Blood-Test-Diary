@@ -5,10 +5,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -16,7 +13,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import org.w3c.dom.UserDataHandler;
 import seg.major.App;
 import seg.major.controller.util.PasswordGenerator;
 import seg.major.controller.util.RecoveryEmailSender;
@@ -27,7 +23,10 @@ import seg.major.structure.User;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Optional;
+import java.util.ResourceBundle;
 
 
 public class LoginController implements Initializable, ControllerInterface {
@@ -182,6 +181,11 @@ public class LoginController implements Initializable, ControllerInterface {
             UserDAO.update(updatedUser);
         }
         else{
+            Dialog dialogFailure = new Dialog();
+            dialogFailure.setContentText("The email address you inserted isn't associated with an account.");
+            dialogFailure.setTitle("Failure");
+            dialogFailure.show();
+
 
         }
     }
