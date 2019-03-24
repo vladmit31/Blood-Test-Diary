@@ -19,10 +19,7 @@ import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
 
 import java.net.URL;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.ResourceBundle;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class NotificationListController implements Initializable, ControllerInterface {
@@ -113,18 +110,19 @@ public class NotificationListController implements Initializable, ControllerInte
     }
 
     public void notifyButtonClicked(ActionEvent event) {
+        List<Contact> patientContacts = new ArrayList<>();
         for(var p : notificationTable.getSelectionModel().getSelectedItems()) {
             PatientEntry patientEntry = (PatientEntry)p;
             System.out.println(patientEntry.getPatientID());
-            List<Contact> patientContacts = ContactDAO.getByPatientId(patientEntry.getPatientID());
-            EmailSender emailSender = new EmailSender(patientContacts, EditNotificationEmailModel.getSubject(),
-                    EditNotificationEmailModel.getBodyAsString());
-            emailSender.start();
+            patientContacts.addAll(ContactDAO.getByPatientId(patientEntry.getPatientID()));
             /*for (Contact contact : patientContacts) {
                 (new CustomEmailModel(contact, EditNotificationEmailModel.getSubject(), EditNotificationEmailModel.getBodyAsString()))
                         .start();
             }*/
         }
+        EmailSender emailSender = new EmailSender(patientContacts, EditNotificationEmailModel.getSubject(),
+                EditNotificationEmailModel.getBodyAsString());
+        emailSender.start();
     }
 
     public void backButtonClicked(ActionEvent event) {
@@ -132,18 +130,19 @@ public class NotificationListController implements Initializable, ControllerInte
     }
 
     public void notifyAllButtonClicked(ActionEvent event) {
+        List<Contact> patientContacts = new ArrayList<>();
         for (var p : notificationTable.getItems()){
             PatientEntry patientEntry = (PatientEntry)p;
             System.out.println(patientEntry.getPatientID());
-            List<Contact> patientContacts = ContactDAO.getByPatientId(patientEntry.getPatientID());
-            EmailSender emailSender = new EmailSender(patientContacts, EditNotificationEmailModel.getSubject(),
-                    EditNotificationEmailModel.getBodyAsString());
-            emailSender.start();
+            patientContacts.addAll(ContactDAO.getByPatientId(patientEntry.getPatientID()));
             /*for (Contact contact : patientContacts) {
                 (new CustomEmailModel(contact, EditNotificationEmailModel.getSubject(), EditNotificationEmailModel.getBodyAsString()))
                         .start();
             }*/
         }
+        EmailSender emailSender = new EmailSender(patientContacts, EditNotificationEmailModel.getSubject(),
+                EditNotificationEmailModel.getBodyAsString());
+        emailSender.start();
     }
 
     public void editDefaultEmailButtonClicked(ActionEvent event) {
