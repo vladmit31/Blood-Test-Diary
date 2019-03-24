@@ -11,6 +11,7 @@ import seg.major.App;
 import seg.major.model.PatientModel;
 import seg.major.model.database.AppointmentDAO;
 import seg.major.model.database.PatientDAO;
+import seg.major.model.util.DateReverser;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
@@ -190,7 +191,8 @@ public class PatientsController implements Initializable, ControllerInterface {
         if(appointment.getPatientID() == patient.getID()) {
           patientTable.getItems().add(new PatientEntry(patient.getID(),appointment.getID(),
                   patient.getForename(),patient.getSurname(),patient.getHospitalNumber(),
-                  patient.getLocalClinic(),appointment.getDueDate(),patient.getDiagnosis(), patient.getLastTimeNotified()));
+                  patient.getLocalClinic(), DateReverser.reverseDateFormat(appointment.getDueDate()),
+                  patient.getDiagnosis(), DateReverser.reverseDateFormat(patient.getLastTimeNotified())));
         }
       }
     }

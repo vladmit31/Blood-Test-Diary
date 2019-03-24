@@ -212,7 +212,7 @@
                                     <Insets left="2.0" />
                                  </GridPane.margin>
                               </Button>
-                                        <Text fx:id="weekText" strokeType="OUTSIDE" strokeWidth="0.0" text="4 Feb - 11 Feb 2019" wrappingWidth="272.89453125" GridPane.columnIndex="2">
+                                        <Text fx:id="weekText" strokeType="OUTSIDE" strokeWidth="0.0" text="4 Feb - 11 Feb 2019" wrappingWidth="357.89453125" GridPane.columnIndex="2">
                                  <GridPane.margin>
                                     <Insets left="10.0" />
                                  </GridPane.margin>
@@ -237,7 +237,7 @@
                               <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
                            </rowConstraints>
                            <children>
-                              <Label fx:id="userInfo" text="" />
+                              <Label fx:id="userInfo" />
                                         <Button fx:id="logoutButton" mnemonicParsing="false" onAction="#logoutButtonClicked" prefHeight="21.0" prefWidth="222.0" text="Logout" GridPane.columnIndex="1">
                                  <GridPane.margin>
                                     <Insets right="2.0" />
@@ -249,6 +249,9 @@
                            </children>
                         </GridPane>
                               </children>
+                     <padding>
+                        <Insets top="2.0" />
+                     </padding>
                           </FlowPane>
                       </right>
                   </BorderPane>

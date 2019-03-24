@@ -1,5 +1,6 @@
 package seg.major.model;
 
+import seg.major.model.util.DateReverser;
 import seg.major.structure.Appointment;
 import seg.major.structure.AppointmentEntry;
 import seg.major.structure.Patient;
@@ -7,6 +8,7 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import seg.major.model.database.PatientDAO;
@@ -60,7 +62,7 @@ public class SchemaModel {
                             patient.getHospitalNumber(), status, appointment.getDueDate());
 
 
-                    String newDate = reverseDateFormat(entry.getDueDate());
+                    String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
 
                     entry.setDateString(newDate);
 
@@ -127,7 +129,7 @@ public class SchemaModel {
                             name, patient.getHospitalNumber(), status, appointment.getDueDate());
 
 
-                    String newDate = reverseDateFormat(entry.getDueDate());
+                    String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
 
                     entry.setDateString(newDate);
 
@@ -140,15 +142,6 @@ public class SchemaModel {
         }
         return toReturn;
     }
-
-    String reverseDateFormat(LocalDate date) {
-        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
-        String newDate = date.format(formatters);
-        return newDate;
-
-    }
-
-
 
     public List<AppointmentEntry> getAppointmentsAndPatientsForDayOver12(DayOfWeek day) {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
@@ -180,7 +173,7 @@ public class SchemaModel {
                             name, patient.getHospitalNumber(), status, appointment.getDueDate());
 
 
-                    String newDate = reverseDateFormat(entry.getDueDate());
+                    String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
 
                     entry.setDateString(newDate);
 

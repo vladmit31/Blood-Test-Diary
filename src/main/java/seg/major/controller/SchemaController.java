@@ -206,9 +206,11 @@ public class SchemaController implements Initializable, ControllerInterface {
 
         }
       });
+
       return row;
     });
   }
+
 
   private void setUpRows() {
     setUpRowsForTable(carriedOverTable);
