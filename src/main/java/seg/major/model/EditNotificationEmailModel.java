@@ -1,13 +1,8 @@
 package seg.major.model;
 
-import seg.major.controller.EditNotificationEmailController;
-
 import java.io.*;
-import java.net.URI;
-
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 
 public class EditNotificationEmailModel {
 
@@ -15,27 +10,22 @@ public class EditNotificationEmailModel {
 
     private static List<String> lines = new ArrayList<>();
 
-    /*public static String getSubject() {
-        //read from file
-
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
-        File file = new File(classLoader.getResource(fileName).getFile());
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                return line;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "";
-    }*/
+    /*
+     * public static String getSubject() { //read from file
+     * 
+     * ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+     * 
+     * File file = new File(classLoader.getResource(fileName).getFile());
+     * 
+     * try (BufferedReader br = new BufferedReader(new FileReader(file))) { String
+     * line; while ((line = br.readLine()) != null) { return line; } } catch
+     * (IOException e) { e.printStackTrace(); }
+     * 
+     * return ""; }
+     */
 
     public static void setAll(String subject, List<String> content) {
-        //write to file
+        // write to file
 
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
@@ -44,7 +34,7 @@ public class EditNotificationEmailModel {
         try {
             PrintWriter outFile = new PrintWriter("src/main/resources/DefaultEmail/Email.txt");
             outFile.println(subject);
-            for(String line : content) {
+            for (String line : content) {
                 System.out.println(line);
                 outFile.println(line);
             }
@@ -81,12 +71,12 @@ public class EditNotificationEmailModel {
     }
 
     public static List<String> getBody() {
-        return lines.subList(1,lines.size());
+        return lines.subList(1, lines.size());
     }
 
     public static String getBodyAsString() {
         StringBuilder sb = new StringBuilder();
-        for (int i = 1 ; i < lines.size() ; ++i) {
+        for (int i = 1; i < lines.size(); ++i) {
             sb.append(lines.get(i));
             sb.append("\n");
         }

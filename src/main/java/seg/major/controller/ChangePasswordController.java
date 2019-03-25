@@ -1,6 +1,5 @@
 package seg.major.controller;
 
-import com.ja.security.PasswordHash;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
@@ -10,12 +9,9 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
-import seg.major.model.database.UserDAO;
+import seg.major.model.LoginModel;
 import seg.major.structure.User;
-
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -30,7 +26,7 @@ public class ChangePasswordController implements Initializable, ControllerInterf
     public Text errorText;
 
     private PrimaryController primaryController;
-    private Map<String, Object> data = new HashMap<>();     
+    private Map<String, Object> data = new HashMap<>();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -39,7 +35,7 @@ public class ChangePasswordController implements Initializable, ControllerInterf
 
     @Override
     public void setScreenParent(PrimaryController primaryController) {
-    this.primaryController = primaryController;
+        this.primaryController = primaryController;
     }
 
     @Override
@@ -59,30 +55,20 @@ public class ChangePasswordController implements Initializable, ControllerInterf
     }
 
     public void confirmBtn(MouseEvent mouseEvent) {
-        if(passField1.getText().equals(passField2.getText()))
-        {
-            PasswordHash hash = new PasswordHash();
+        if (passField1.getText().equals(passField2.getText())) {
             User user = (User) data.get("user");
-            try {
-                user.setPassword(hash.createHash(passField1.getText()));
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (InvalidKeySpecException e) {
-                e.printStackTrace();
-            }
-            UserDAO.update(user);
+            LoginModel.changePassword(passField1.getText(), user);
+
             primaryController.setPane("schema");
             errorText.setText("");
-
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Success");
             alert.setHeaderText(null);
             alert.setContentText("Password successfully changed");
             alert.initStyle(StageStyle.UTILITY);
-            alert.initOwner((Window)primaryController.getStage());
+            alert.initOwner((Window) primaryController.getStage());
             alert.showAndWait();
-        }
-        else{
+        } else {
             errorText.setText("Passwords must match up.");
             errorText.setFill(Color.RED);
         }

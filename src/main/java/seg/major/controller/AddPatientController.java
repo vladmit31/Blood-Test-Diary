@@ -10,12 +10,9 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
 import seg.major.App;
 import seg.major.controller.util.EmailChecker;
 import seg.major.model.AddPatientModel;
-
-import javax.swing.*;
 
 /**
  * AddPatientController acts as the controller for the add_patient.fxml file
@@ -73,9 +70,9 @@ public class AddPatientController implements Initializable, ControllerInterface 
     if (checkUserInput()) {
 
       AddPatientModel.createPatient(forenameField.getText(), surnameField.getText(), dobField.getValue(),
-          hospitalField.getText(), clinicField.getText(), /*nextAppField.getValue(),*/
-          diagnosisField.getText(), 2.0, nextAppField.getValue(), labName.getText(),
-              labContact.getText(), nhsNumber.getText());
+          hospitalField.getText(), clinicField.getText(), /* nextAppField.getValue(), */
+          diagnosisField.getText(), 2.0, nextAppField.getValue(), labName.getText(), labContact.getText(),
+          nhsNumber.getText());
       primaryController.setPane(App.patients);
     } else {
       Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -96,8 +93,7 @@ public class AddPatientController implements Initializable, ControllerInterface 
     return !forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue() != null
         && !hospitalField.getText().equals("") && !clinicField.getText().equals("") && nextAppField.getValue() != null
         && !diagnosisField.getText().equals("") && !labName.getText().equals("") && !labContact.getText().equals("")
-        && EmailChecker.isValid(labContact.getText())
-        && ! nhsNumber.getText().equals("");
+        && EmailChecker.isValid(labContact.getText()) && !nhsNumber.getText().equals("");
   }
 
   /** ---------- Inherited / Implemented ---------- */

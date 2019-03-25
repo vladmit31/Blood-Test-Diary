@@ -10,10 +10,8 @@ import seg.major.App;
 import seg.major.controller.util.EmailChecker;
 import seg.major.controller.util.PhoneChecker;
 import seg.major.model.ContactsModel;
-import seg.major.model.database.ContactDAO;
 import seg.major.structure.Contact;
 import seg.major.structure.Patient;
-
 import java.net.URL;
 import java.util.*;
 
@@ -80,7 +78,7 @@ public class ContactsController implements Initializable, ControllerInterface {
         setUpRows();
         Patient p = (Patient) data.get("patient");
         if (p != null) {
-            fillTable(ContactDAO.getByPatientId(p.getID()));
+            fillTable(ContactsModel.getContactList(p.getID()));
             this.curPatient = p;
         }
     }
@@ -169,7 +167,7 @@ public class ContactsController implements Initializable, ControllerInterface {
             fillTable(ContactsModel.getContactList(curPatient.getID()));
             emptyAddFields();
 
-        }else {
+        } else {
             Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Invalid input");
             alert.setHeaderText(null);
@@ -193,10 +191,11 @@ public class ContactsController implements Initializable, ControllerInterface {
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("Delete contact confirmation");
             alert.setHeaderText(null);
-            alert.setContentText("Are you sure you want to delete contact: " + toBeDeleted.getForename() + " " + toBeDeleted.getSurname());
+            alert.setContentText("Are you sure you want to delete contact: " + toBeDeleted.getForename() + " "
+                    + toBeDeleted.getSurname());
 
             Optional<ButtonType> result = alert.showAndWait();
-            if (result.get() == ButtonType.OK){
+            if (result.get() == ButtonType.OK) {
                 ContactsModel.deleteContact(toBeDeleted);
                 fillTable(ContactsModel.getContactList(curPatient.getID()));
             } else {

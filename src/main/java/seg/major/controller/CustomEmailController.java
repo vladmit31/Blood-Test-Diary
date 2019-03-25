@@ -7,11 +7,7 @@ import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seg.major.App;
 import seg.major.controller.util.EmailSender;
-import seg.major.model.CustomEmailModel;
-import seg.major.model.EditNotificationEmailModel;
-import seg.major.model.util.Email;
 import seg.major.structure.Contact;
-
 import java.net.URL;
 import java.util.*;
 
@@ -25,11 +21,9 @@ public class CustomEmailController implements Initializable, ControllerInterface
 
     private PrimaryController primaryController;
 
-
     private Map<String, Object> data = new HashMap<>();
 
     private List<Contact> contacts;
-
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -38,17 +32,16 @@ public class CustomEmailController implements Initializable, ControllerInterface
     }
 
     private void fillSendToTextBox() {
-        if(this.contacts.size() == 0){
+        if (this.contacts.size() == 0) {
             this.sendToTextBox.appendText("No contacts found");
-        }else if(this.contacts.size() == 1){
+        } else if (this.contacts.size() == 1) {
             this.sendToTextBox.appendText(this.contacts.get(0).getEmail());
-        }else{
-            for(int i = 0; i < this.contacts.size() - 1; i ++ ){
+        } else {
+            for (int i = 0; i < this.contacts.size() - 1; i++) {
                 this.sendToTextBox.appendText(this.contacts.get(i).getEmail() + ";  ");
             }
-            this.sendToTextBox.appendText(this.contacts.get(this.contacts.size()-1).getEmail());
+            this.sendToTextBox.appendText(this.contacts.get(this.contacts.size() - 1).getEmail());
         }
-
 
     }
 
@@ -65,7 +58,7 @@ public class CustomEmailController implements Initializable, ControllerInterface
     @Override
     public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
-        for(var value : (ArrayList<Contact>)toAddVal){
+        for (var value : (ArrayList<Contact>) toAddVal) {
             System.out.println(value.getEmail());
             this.contacts.add(value);
         }

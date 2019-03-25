@@ -9,13 +9,10 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.text.Text;
 import seg.major.App;
 import seg.major.model.PatientModel;
-import seg.major.model.database.AppointmentDAO;
-import seg.major.model.database.PatientDAO;
 import seg.major.model.util.DateReverser;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -43,14 +40,13 @@ public class PatientsController implements Initializable, ControllerInterface {
   public TableColumn<PatientEntry, String> surname;
   public TableColumn<PatientEntry, String> hospitalNumber;
   public TableColumn<PatientEntry, String> localClinic;
-  public TableColumn<PatientEntry, String > diagnosis;
+  public TableColumn<PatientEntry, String> diagnosis;
   public TableColumn<PatientEntry, LocalDate> nextAppointment;
   public Button under12Button;
   public Button over12Button;
   public MenuItem addNewPatientMenuItem;
 
   private boolean isUnder12 = true;
-
 
   private PatientModel patientModel;
 
@@ -71,11 +67,12 @@ public class PatientsController implements Initializable, ControllerInterface {
     setUpDynamicSearchField();
   }
 
-  private void setUpDynamicSearchField(){
+  private void setUpDynamicSearchField() {
     searchField.textProperty().addListener((observable, oldValue, newValue) -> {
       searchButton.fire();
     });
   }
+
   /**
    * Set the primaryController
    * 
@@ -139,9 +136,10 @@ public class PatientsController implements Initializable, ControllerInterface {
     });
   }
 
-  private void viewPatient(PatientEntry patientEntry){
-    primaryController.sendTo(App.updatePatient,"patient", PatientDAO.getByID(patientEntry.getPatientID()));
-    primaryController.sendTo(App.updatePatient, "appointment", AppointmentDAO.getById(patientEntry.getAppointmentID()));
+  private void viewPatient(PatientEntry patientEntry) {
+    primaryController.sendTo(App.updatePatient, "patient", PatientModel.getPatientByID(patientEntry.getPatientID()));
+    primaryController.sendTo(App.updatePatient, "appointment",
+        PatientModel.getAppointmentByID(patientEntry.getAppointmentID()));
     primaryController.setPane(App.updatePatient);
   }
 
@@ -177,22 +175,22 @@ public class PatientsController implements Initializable, ControllerInterface {
     });
   }
 
-/*  private void fillTable() {
-    patientTable.getItems().clear();
-    for (Patient patient : patientModel.getPatientList()) {
-      patientTable.getItems().add(patient);
-    }
-  }*/
+  /*
+   * private void fillTable() { patientTable.getItems().clear(); for (Patient
+   * patient : patientModel.getPatientList()) {
+   * patientTable.getItems().add(patient); } }
+   */
 
   private void fillTable(List<Patient> patients) {
     patientTable.getItems().clear();
     for (Patient patient : patients) {
       for (Appointment appointment : patientModel.getAppointmentList()) {
-        if(appointment.getPatientID() == patient.getID()) {
-          patientTable.getItems().add(new PatientEntry(patient.getID(),appointment.getID(),
-                  patient.getForename(),patient.getSurname(),patient.getHospitalNumber(),
-                  patient.getLocalClinic(), DateReverser.reverseDateFormat(appointment.getDueDate()),
-                  patient.getDiagnosis(), DateReverser.reverseDateFormat(patient.getLastTimeNotified())));
+        if (appointment.getPatientID() == patient.getID()) {
+          patientTable.getItems()
+              .add(new PatientEntry(patient.getID(), appointment.getID(), patient.getForename(), patient.getSurname(),
+                  patient.getHospitalNumber(), patient.getLocalClinic(),
+                  DateReverser.reverseDateFormat(appointment.getDueDate()), patient.getDiagnosis(),
+                  DateReverser.reverseDateFormat(patient.getLastTimeNotified())));
         }
       }
     }

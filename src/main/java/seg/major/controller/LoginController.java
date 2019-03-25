@@ -1,6 +1,5 @@
 package seg.major.controller;
 
-import com.ja.security.PasswordHash;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -14,24 +13,15 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seg.major.App;
-import seg.major.controller.util.PasswordGenerator;
-import seg.major.controller.util.RecoveryEmailSender;
 import seg.major.model.LoginModel;
-import seg.major.model.database.UserDAO;
 import seg.major.structure.User;
-
 import java.net.URL;
-import java.security.NoSuchAlgorithmException;
-import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
 public class LoginController implements Initializable, ControllerInterface {
-
-
 
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
@@ -67,22 +57,24 @@ public class LoginController implements Initializable, ControllerInterface {
             } else {
                 errorLabel.setText("Invalid credentials");
                 errorLabel.setFill(Color.RED);
-                /*Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Invalid Credentials");
-                alert.setHeaderText(null);
-                alert.setContentText("Wrong authentication details");
-
-                alert.showAndWait();*/
+                /*
+                 * Alert alert = new Alert(Alert.AlertType.WARNING);
+                 * alert.setTitle("Invalid Credentials"); alert.setHeaderText(null);
+                 * alert.setContentText("Wrong authentication details");
+                 * 
+                 * alert.showAndWait();
+                 */
             }
         } else {
             errorLabel.setText("Complete all the fields!");
             errorLabel.setFill(Color.RED);
-            /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Complete all fields!");
-            alert.setHeaderText(null);
-            alert.setContentText("You must complete all fields provided!");
-
-            alert.showAndWait();*/
+            /*
+             * Alert alert = new Alert(Alert.AlertType.INFORMATION);
+             * alert.setTitle("Complete all fields!"); alert.setHeaderText(null);
+             * alert.setContentText("You must complete all fields provided!");
+             * 
+             * alert.showAndWait();
+             */
         }
     }
 
@@ -98,15 +90,15 @@ public class LoginController implements Initializable, ControllerInterface {
         keyImg.setImage(new Image("images/keyIcon.png"));
     }
 
-
     private void setGlobalEventHandler(Node root) {
-            root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
-                if (ev.getCode() == KeyCode.ENTER) {
-                    loginBtn();
-                    ev.consume();
-                }
-            });
-        }
+        root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
+            if (ev.getCode() == KeyCode.ENTER) {
+                loginBtn();
+                ev.consume();
+            }
+        });
+    }
+
     /**
      * Set the primaryController
      * 
@@ -146,53 +138,26 @@ public class LoginController implements Initializable, ControllerInterface {
         primaryController.closeStage();
     }
 
-
     public void recoverAccount(ActionEvent actionEvent) {
-        //TODO
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Recovery window");
         dialog.setHeaderText("Forgot your login credentials?");
         dialog.setContentText("Please enter your email address:");
 
         Optional<String> result = dialog.showAndWait();
-        User user = UserDAO.getByEmail(result.get());
-        if (result.isPresent() && user != null ){
+        User user = LoginModel.getUserByEmail(result.get());
+        if (result.isPresent() && user != null) {
             System.out.println("it work");
-            PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
-                    .useDigits(true)
-                    .useLower(true)
-                    .useUpper(true)
-                    .build();
-            String password = passwordGenerator.generate(8);
-            String email = "Hey there, \n Someone requested a new password for your Aeon account. \n New Password: "+ password;
-            RecoveryEmailSender sender = new RecoveryEmailSender(result.get(),"Password recovery", email);
-            sender.start();
-            PasswordHash hash = new PasswordHash();
-            String hashedPass= null;
-            try {
-                hashedPass = hash.createHash(password);
-            } catch (NoSuchAlgorithmException e) {
-                e.printStackTrace();
-            } catch (InvalidKeySpecException e) {
-                e.printStackTrace();
-            }
-            User updatedUser = user;
-            updatedUser.setPassword(hashedPass);
-            UserDAO.update(updatedUser);
-        }
-        else{
+            LoginModel.recoverAccount(result.get(), user);
+
+        } else {
             Dialog dialogFailure = new Dialog();
             dialogFailure.setContentText("The email address you inserted isn't associated with an account.");
             dialogFailure.setTitle("Failure");
             dialogFailure.show();
 
-
         }
     }
-
-
-
-
 
     /** ---------- Inherited / Implemented ---------- */
 

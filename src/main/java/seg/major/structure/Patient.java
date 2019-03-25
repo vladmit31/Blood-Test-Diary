@@ -1,7 +1,6 @@
 package seg.major.structure;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class Patient {
     private int id;

@@ -7,10 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seg.major.App;
-import seg.major.controller.util.EmailSender;
 import seg.major.controller.util.LaboratoryEmailSender;
 import seg.major.structure.Patient;
-
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
@@ -59,7 +57,7 @@ public class LabNotificationController implements Initializable, ControllerInter
 
     @Override
     public void update() {
-        if(data.get("patient") != null) {
+        if (data.get("patient") != null) {
             Patient patient = (Patient) data.get("patient");
             this.sendToTextBox.setText(patient.getLabContact());
         }
@@ -96,7 +94,8 @@ public class LabNotificationController implements Initializable, ControllerInter
     }
 
     public void sendButtonClicked(ActionEvent event) {
-        LaboratoryEmailSender les = new LaboratoryEmailSender(sendToTextBox.getText(), subjectTextBox.getText(), emailBody.getText());
+        LaboratoryEmailSender les = new LaboratoryEmailSender(sendToTextBox.getText(), subjectTextBox.getText(),
+                emailBody.getText());
         les.start();
         primaryController.setPane(App.updatePatient);
     }

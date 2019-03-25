@@ -4,7 +4,6 @@ import seg.major.model.database.AppointmentDAO;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.model.database.PatientDAO;
-import java.time.LocalDate;
 
 public class UpdatePatientModel {
 

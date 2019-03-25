@@ -9,13 +9,9 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.Group;
 import seg.major.controller.PrimaryController;
+import seg.major.model.PatientModel;
 import seg.major.model.ReminderSender;
-import seg.major.model.database.PatientDAO;
 import seg.major.model.util.Props;
-import seg.major.structure.Patient;
-
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 public class App extends Application {
 
@@ -38,18 +34,8 @@ public class App extends Application {
     public static void main(String[] args) {
         System.out.println("App Started!");
         props = new Props(App.class.getClassLoader().getResource(propertiesLocation));
+        PatientModel.resetLastNotif();
         launch(args);
-    }
-
-    private void resetLastNotif(){
-        for(Patient patient : PatientDAO.getAll()){
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-            LocalDate date = LocalDate.parse("2000-10-10", formatter);
-
-            patient.setLastTimeNotified(date);
-
-            PatientDAO.update(patient);
-        }
     }
 
     /**
@@ -57,13 +43,12 @@ public class App extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //resetLastNotif();
+        // resetLastNotif();
         ReminderSender.sendRemainders();
 
         PrimaryController primaryController = new PrimaryController(primaryStage);
-        primaryController.addViews(
-                new String[] { login, notifyList, addPatient, customEmail, patients, schema, contacts,
-                                            updatePatient, updateAppointment, editDefaultEmail, customLabNotification, changePassword });
+        primaryController.addViews(new String[] { login, notifyList, addPatient, customEmail, patients, schema,
+                contacts, updatePatient, updateAppointment, editDefaultEmail, customLabNotification, changePassword });
         primaryController.setPane(App.login);
 
         Group root = new Group();

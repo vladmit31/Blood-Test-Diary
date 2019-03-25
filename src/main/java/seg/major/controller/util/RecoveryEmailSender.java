@@ -3,7 +3,6 @@ package seg.major.controller.util;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import seg.major.model.util.Email;
-import seg.major.structure.Contact;
 
 public class RecoveryEmailSender extends Thread {
 
@@ -17,12 +16,12 @@ public class RecoveryEmailSender extends Thread {
         this.body = body;
     }
 
-    public void sendEmail(){
+    public void sendEmail() {
         Email email = new Email("smtp.gmail.com", "25", "iudortures@gmail.com", "horiapavel69", sendTo, subject, body);
         email.sendEmail();
     }
 
-    public void run(){
+    public void run() {
         sendEmail();
         Platform.runLater(new Runnable() {
             @Override

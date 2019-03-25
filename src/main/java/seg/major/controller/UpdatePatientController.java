@@ -13,11 +13,9 @@ import seg.major.controller.util.EmailChecker;
 import seg.major.model.UpdatePatientModel;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
-
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -133,8 +131,7 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
                 && !hospitalField.getText().equals("") && !clinicField.getText().equals("")
                 && nextAppField.getValue() != null && !diagnosisField.getText().equals("")
                 && !labName.getText().equals("") && !labContact.getText().equals("")
-                && EmailChecker.isValid(labContact.getText())
-                && !nhsNumber.getText().equals("");
+                && EmailChecker.isValid(labContact.getText()) && !nhsNumber.getText().equals("");
     }
 
     /** ---------- Inherited / Implemented ---------- */
@@ -152,24 +149,25 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         setupDefaultEditButton();
     }
 
-    private ImageView setImageProperties(ImageView img){
+    private ImageView setImageProperties(ImageView img) {
         img.smoothProperty();
         img.setFitWidth(15);
         img.setFitHeight(13);
         return img;
     }
 
-    private void setupDefaultEditButton(){
+    private void setupDefaultEditButton() {
         ImageView lockImage;
         lockImage = new ImageView((new Image(getClass().getResourceAsStream("/images/lockDefault.png"))));
         editBtn.setGraphic(setImageProperties(setImageProperties(lockImage)));
         editBtn.setText("Edit");
     }
-    private void setupLockButton(){
+
+    private void setupLockButton() {
         ImageView lockImage;
-        if(isEditable)
-        lockImage = new ImageView((new Image(getClass().getResourceAsStream("/images/lockGreen.png"))));
-        else{
+        if (isEditable)
+            lockImage = new ImageView((new Image(getClass().getResourceAsStream("/images/lockGreen.png"))));
+        else {
             lockImage = new ImageView((new Image(getClass().getResourceAsStream("/images/lockRed.png"))));
         }
         editBtn.setGraphic(setImageProperties(setImageProperties(lockImage)));
@@ -268,14 +266,12 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         initialState();
     }
 
-
     public void editButtonClicked(ActionEvent event) {
-        if(isEditable){
+        if (isEditable) {
             disableTextFields();
             setupLockButton();
             editBtn.setText("Locked");
-        }
-        else{
+        } else {
             enableTextFields();
             setupLockButton();
             editBtn.setText("Unlocked");

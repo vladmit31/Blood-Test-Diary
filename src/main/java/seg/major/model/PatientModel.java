@@ -3,6 +3,7 @@ package seg.major.model;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import seg.major.model.database.PatientDAO;
@@ -48,7 +49,8 @@ public class PatientModel {
     public List<Patient> under12() {
         fetchData();
         List<Patient> filtered = new ArrayList<>();
-        patientList.stream().filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now())).forEach(p -> filtered.add(p));
+        patientList.stream().filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now()))
+                .forEach(p -> filtered.add(p));
         patientList = filtered;
         return filtered;
     }
@@ -61,12 +63,30 @@ public class PatientModel {
         return PatientDAO.getAll();
     }
 
+    public static void resetLastNotif() {
+        for (Patient patient : PatientDAO.getAll()) {
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+            LocalDate date = LocalDate.parse("2000-10-10", formatter);
+
+            patient.setLastTimeNotified(date);
+
+            PatientDAO.update(patient);
+        }
+    }
+
+    public static Patient getPatientByID(int toGet) {
+        return PatientDAO.get(toGet);
+    }
+
+    public static Appointment getAppointmentByID(int toGet) {
+        return AppointmentDAO.get(toGet);
+    }
+
     public List<Patient> over12() {
         fetchData();
         List<Patient> filtered = new ArrayList<Patient>();
         patientList.stream().filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())
-                || p.getDob().plusYears(12).isEqual(LocalDate.now()))
-                .forEach(p -> filtered.add(p));
+                || p.getDob().plusYears(12).isEqual(LocalDate.now())).forEach(p -> filtered.add(p));
         patientList = filtered;
         return filtered;
     }

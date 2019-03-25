@@ -1,7 +1,5 @@
 package seg.major.structure;
 
-import java.time.LocalDate;
-
 public class PatientEntry {
 
     private final int patientID;

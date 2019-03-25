@@ -4,9 +4,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
-
 import java.util.Map;
 import java.util.HashMap;
 
@@ -118,17 +116,17 @@ public class PrimaryController extends StackPane {
       ci.addData(toSetKey, toSetVal);
     }
   }
-  public void closeStage(){
+
+  public void closeStage() {
     stage.close();
   }
-  public Stage getStage(){
+
+  public Stage getStage() {
     return stage;
   }
-/*  public void triggerUpdate(String toReceive) {
-    ControllerInterface ci = data.get(toReceive);
-    if(ci != null) {
-      ci.update();
-    }
-  }*/
+  /*
+   * public void triggerUpdate(String toReceive) { ControllerInterface ci =
+   * data.get(toReceive); if(ci != null) { ci.update(); } }
+   */
 
 }
