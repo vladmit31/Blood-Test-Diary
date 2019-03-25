@@ -340,7 +340,7 @@ public class SchemaController implements Initializable, ControllerInterface {
      User loggedInUser = (User) data.get("user");
      userInfo.setText("User: " + loggedInUser.getUsername());
     if(loggedInUser.getIsAdmin() == 0) {
-      addNewUser.setDisable(true);
+      addNewUser.setVisible(false);
     }
   }
 
