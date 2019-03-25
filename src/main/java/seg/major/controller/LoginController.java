@@ -67,22 +67,10 @@ public class LoginController implements Initializable, ControllerInterface {
             } else {
                 errorLabel.setText("Invalid credentials");
                 errorLabel.setFill(Color.RED);
-                /*Alert alert = new Alert(Alert.AlertType.WARNING);
-                alert.setTitle("Invalid Credentials");
-                alert.setHeaderText(null);
-                alert.setContentText("Wrong authentication details");
-
-                alert.showAndWait();*/
             }
         } else {
             errorLabel.setText("Complete all the fields!");
             errorLabel.setFill(Color.RED);
-            /*Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setTitle("Complete all fields!");
-            alert.setHeaderText(null);
-            alert.setContentText("You must complete all fields provided!");
-
-            alert.showAndWait();*/
         }
     }
 
