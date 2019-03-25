@@ -199,7 +199,6 @@ public class SchemaController implements Initializable, ControllerInterface {
       row.setOnMouseClicked(click -> {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
           AppointmentEntry appointmentEntry = row.getItem();
-          //System.out.println("Am intrat!");
 
           primaryController.sendTo(App.updateAppointment, "appointmentEntry", appointmentEntry);
           primaryController.setPane(App.updateAppointment);

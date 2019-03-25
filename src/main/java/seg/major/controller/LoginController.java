@@ -185,8 +185,6 @@ public class LoginController implements Initializable, ControllerInterface {
             dialogFailure.setContentText("The email address you inserted isn't associated with an account.");
             dialogFailure.setTitle("Failure");
             dialogFailure.show();
-
-
         }
     }
 

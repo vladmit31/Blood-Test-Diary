@@ -122,7 +122,7 @@ public class PatientsController implements Initializable, ControllerInterface {
     setupColumns();
     setupRows();
     fillTable(patientModel.under12());
-    under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+    under12Button.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
     patientTable.setPlaceholder(new Label("No patients found"));
   }
 
@@ -156,14 +156,14 @@ public class PatientsController implements Initializable, ControllerInterface {
 
   private void setupButtons() {
     under12Button.setOnAction(e -> {
-      under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+      under12Button.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
       over12Button.setStyle(null);
       isUnder12 = true;
       fillTable(patientModel.under12());
       update();
     });
     over12Button.setOnAction(e -> {
-      over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+      over12Button.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
       under12Button.setStyle(null);
       isUnder12 = false;
       fillTable(patientModel.over12());
