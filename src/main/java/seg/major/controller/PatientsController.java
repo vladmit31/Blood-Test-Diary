@@ -197,19 +197,7 @@ public class PatientsController implements Initializable, ControllerInterface {
   }
 
   private void search(String searchString) {
-    if (searchString.matches(".*\\d+.*")) {
-      searchNumber(searchString);
-    } else {
-      searchName(searchString);
-    }
-  }
-
-  private void searchNumber(String number) {
-    fillTable(patientModel.searchByNumber(number));
-  }
-
-  private void searchName(String name) {
-    fillTable(patientModel.searchByName(name));
+    fillTable(patientModel.search(searchString));
   }
 
   public void addNewPatientMenuItemClicked() {
