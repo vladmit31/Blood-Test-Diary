@@ -84,6 +84,10 @@ public class EditNotificationEmailModel {
         return lines.subList(1,lines.size());
     }
 
+    public static void clearContents() {
+        lines.clear();
+    }
+
     public static String getBodyAsString() {
         StringBuilder sb = new StringBuilder();
         for (int i = 1 ; i < lines.size() ; ++i) {
