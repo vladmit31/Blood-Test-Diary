@@ -1,9 +1,10 @@
 Appointment reminder for blood test!
-Dear patient,
+
+Dear CONTACT_NAME,
 
 Please regard this email with care.
 
-Your appointment is due to the next week, on Wednesday the (27th of March (2019)).
+PATIENT_NAME has an appointment on APPOINTMENT_DATE.
 
 Please do attend it.
 
