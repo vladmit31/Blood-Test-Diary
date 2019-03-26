@@ -26,11 +26,11 @@
                 <Menu mnemonicParsing="false" text="Menu">
                     <items>
                   <MenuItem fx:id="addNewUser" mnemonicParsing="false" onAction="#addNewUserClicked" text="Add new user" />
+                  <MenuItem fx:id="editReminderEmail" mnemonicParsing="false" onAction="#editReminderEmailClicked" text="Edit Reminder Menu" />
                   <MenuItem fx:id="notificationList" mnemonicParsing="false" onAction="#notificationListMenuItemClicked" text="Notification List" />
                         <MenuItem fx:id="menuPatientsInfo" mnemonicParsing="false" onAction="#switchToPatients" text="Switch to Patient Info" />
                   <MenuItem mnemonicParsing="false" onAction="#changePassword" text="Change password" />
                         <MenuItem fx:id="menuExit" mnemonicParsing="false" text="Exit" />
-                  <MenuItem fx:id="editReminderEmail" mnemonicParsing="false" onAction="#editReminderEmailClicked" text="Edit Reminder Menu" />
                     </items>
             </Menu>
             </menus>

@@ -378,4 +378,8 @@ public class SchemaController implements Initializable, ControllerInterface {
       // primaryController.sendTo(App.editDefaultEmail, "type", EditNotificationEmailModel.EmailType.REMINDER);
       primaryController.setPane(App.customReminder);
   }
+
+    public void addNewUserClicked(ActionEvent event) {
+      primaryController.setPane(App.addUser);
+    }
 }
