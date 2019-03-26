@@ -25,6 +25,7 @@
             <menus>
                 <Menu mnemonicParsing="false" text="Menu">
                     <items>
+                  <MenuItem fx:id="addNewUser" mnemonicParsing="false" onAction="#addNewUserClicked" text="Add new user" />
                   <MenuItem fx:id="notificationList" mnemonicParsing="false" onAction="#notificationListMenuItemClicked" text="Notification List" />
                         <MenuItem fx:id="menuPatientsInfo" mnemonicParsing="false" onAction="#switchToPatients" text="Switch to Patient Info" />
                   <MenuItem mnemonicParsing="false" onAction="#changePassword" text="Change password" />

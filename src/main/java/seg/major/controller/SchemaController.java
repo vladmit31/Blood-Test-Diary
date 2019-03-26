@@ -33,6 +33,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   public Button logoutButton;
   public MenuItem editReminderEmail;
   private PrimaryController primaryController;
+  public MenuItem addNewUser;
   private Map<String, Object> data = new HashMap<>();
 
   @FXML
@@ -201,7 +202,6 @@ public class SchemaController implements Initializable, ControllerInterface {
       row.setOnMouseClicked(click -> {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
           AppointmentEntry appointmentEntry = row.getItem();
-          //System.out.println("Am intrat!");
 
           primaryController.sendTo(App.updateAppointment, "appointmentEntry", appointmentEntry);
           primaryController.setPane(App.updateAppointment);
@@ -338,7 +338,11 @@ public class SchemaController implements Initializable, ControllerInterface {
   /** ---------- Inherited / Implemented ---------- */
 
   public void setAuthenticatedUser() {
-     userInfo.setText("User: " + ((User) data.get("user")).getUsername());
+     User loggedInUser = (User) data.get("user");
+     userInfo.setText("User: " + loggedInUser.getUsername());
+    if(loggedInUser.getIsAdmin() == 0) {
+      addNewUser.setVisible(false);
+    }
   }
 
   public void switchToPatients(ActionEvent event) {

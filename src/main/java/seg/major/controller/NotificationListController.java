@@ -163,6 +163,7 @@ public class NotificationListController implements Initializable, ControllerInte
             sender.start();
         }
 
+
         update();
     }
 
@@ -181,6 +182,7 @@ public class NotificationListController implements Initializable, ControllerInte
             patient.setLastTimeNotified(LocalDate.now());
 
             PatientDAO.update(patient);
+
 
             Appointment app = AppointmentDAO.getById(patientEntry.getAppointmentID());
 
@@ -221,7 +223,6 @@ public class NotificationListController implements Initializable, ControllerInte
 
         update();
 
-        update();
     }
 
     public void editDefaultEmailButtonClicked(ActionEvent event) {
