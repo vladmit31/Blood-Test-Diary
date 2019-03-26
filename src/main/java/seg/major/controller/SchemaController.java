@@ -30,7 +30,8 @@ import seg.major.structure.User;
 public class SchemaController implements Initializable, ControllerInterface {
 
   public Button logoutButton;
-  private PrimaryController primaryController;
+  public MenuItem addNewUser;
+    private PrimaryController primaryController;
   private Map<String, Object> data = new HashMap<>();
 
   @FXML
@@ -335,7 +336,11 @@ public class SchemaController implements Initializable, ControllerInterface {
   /** ---------- Inherited / Implemented ---------- */
 
   public void setAuthenticatedUser() {
-     userInfo.setText("User: " + ((User) data.get("user")).getUsername());
+     User loggedInUser = (User) data.get("user");
+     userInfo.setText("User: " + loggedInUser.getUsername());
+    if(loggedInUser.getIsAdmin() == 0) {
+      addNewUser.setVisible(false);
+    }
   }
 
   public void switchToPatients(ActionEvent event) {
@@ -365,5 +370,9 @@ public class SchemaController implements Initializable, ControllerInterface {
   public void changePassword(ActionEvent actionEvent) {
     primaryController.sendTo(App.changePassword, "user", data.get("user"));
     primaryController.setPane("change_password");
+  }
+
+  public void addNewUserClicked(ActionEvent event) {
+    primaryController.setPane(App.addUser);
   }
 }
