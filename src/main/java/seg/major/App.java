@@ -33,6 +33,7 @@ public class App extends Application {
     public static final String editDefaultEmail = "edit_default_email";
     public static final String customLabNotification = "custom_lab_notification";
     public static final String changePassword = "change_password";
+    public static final String customReminder = "custom_reminder";
     public static Props props;
 
     public static void main(String[] args) {
@@ -57,13 +58,13 @@ public class App extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
-        //resetLastNotif();
+        resetLastNotif();
         ReminderSender.sendRemainders();
 
         PrimaryController primaryController = new PrimaryController(primaryStage);
         primaryController.addViews(
                 new String[] { login, notifyList, addPatient, customEmail, patients, schema, contacts,
-                                            updatePatient, updateAppointment, editDefaultEmail, customLabNotification, changePassword });
+                                            updatePatient, customReminder, updateAppointment, editDefaultEmail, customLabNotification, changePassword });
         primaryController.setPane(App.login);
 
         Group root = new Group();

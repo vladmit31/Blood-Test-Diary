@@ -1,0 +1,11 @@
+Appointment missed for blood test!
+
+Dear CONTACT_NAME,
+
+Please regard this email with care.
+
+PATIENT_NAME has missed the appointment for the following date: APPOINTMENT_DATE.
+
+We highly advise you to book an appointment for as soon as possible.
+
+NHS

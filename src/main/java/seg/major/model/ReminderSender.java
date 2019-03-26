@@ -17,17 +17,6 @@ import java.util.*;
 
 
 public class ReminderSender {
-    class ContactPatientAppointment{
-        public Contact contact;
-        public Patient patient;
-        public Appointment appointment;
-
-        public ContactPatientAppointment(Contact contact, Patient patient, Appointment appointment){
-            this.contact = contact;
-            this.patient = patient;
-            this.appointment = appointment;
-        }
-    }
 
     public static void sendRemainders(){
         List<Patient> patients = PatientDAO.getAll();
@@ -39,7 +28,7 @@ public class ReminderSender {
                         notNotifiedRecently(patient, appointment) && soonEnough(appointment)){
                     List<Contact> patientContacts = ContactDAO.getByPatientId(patient.getID());
                     for(Contact contact : patientContacts){
-                        toNotifiy.put(contact, EmailBuilder.generate(contact, patient, appointment));
+                        toNotifiy.put(contact, EmailBuilder.generate(contact, patient, appointment, EditNotificationEmailModel.EmailType.REMINDER));
                     }
                     patient.setLastTimeNotified(LocalDate.now());
                     PatientDAO.update(patient);
