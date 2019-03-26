@@ -16,6 +16,13 @@ public class User {
         this.is_admin = is_admin;
     }
 
+    public User(String username, String email, String password, int is_admin) {
+        this.username = username;
+        this.email = email;
+        this.password = password;
+        this.is_admin = is_admin;
+    }
+
     public int getID() {
         return id;
     }
