@@ -7,29 +7,33 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.PasswordField?>
 <?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Text?>
 
-<VBox prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<VBox fx:id="parent" nodeOrientation="LEFT_TO_RIGHT" prefHeight="250.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.LoginController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar>
       <menus>
         <Menu mnemonicParsing="false" text="Help">
           <items>
-                  <MenuItem mnemonicParsing="false" text="Find my login details" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+                  <MenuItem mnemonicParsing="false" onAction="#recoverAccount" text="Recover account" />
+            <MenuItem mnemonicParsing="false" onAction="#exit" text="Quit" />
           </items>
         </Menu>
       </menus>
     </MenuBar>
-    <AnchorPane maxHeight="-1.0" maxWidth="-1.0" prefHeight="184.0" prefWidth="268.0" VBox.vgrow="ALWAYS">
+    <AnchorPane prefHeight="184.0" prefWidth="268.0" VBox.vgrow="ALWAYS">
       <children>
-            <TextField layoutX="146.0" layoutY="28.0" />
             <Label layoutX="62.0" layoutY="32.0" text="Username" />
+            <TextField fx:id="username" layoutX="146.0" layoutY="28.0" text="sarah" />
             <Label layoutX="64.0" layoutY="85.0" text="Password" />
-            <Button layoutX="249.0" layoutY="131.0" mnemonicParsing="false" text="Login" />
-            <Button layoutX="75.0" layoutY="131.0" mnemonicParsing="false" text="Register new staff member" />
-            <PasswordField layoutX="146.0" layoutY="81.0" />
+            <PasswordField fx:id="password" layoutX="146.0" layoutY="81.0" text="sarah" />
+            <Button fx:id="loginButton" layoutX="183.0" layoutY="137.0" mnemonicParsing="false" onMouseClicked="#loginBtn" prefHeight="25.0" prefWidth="75.0" text="Login" />
+            <ImageView fx:id="keyImg" fitHeight="25.0" fitWidth="22.0" layoutX="303.0" layoutY="84.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fx:id="humanImg" fitHeight="25.0" fitWidth="22.0" layoutX="303.0" layoutY="28.0" />
+            <Text fx:id="errorLabel" layoutX="146.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="149.00000095367432" />
       </children>
     </AnchorPane>
   </children>

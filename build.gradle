@@ -12,20 +12,71 @@ plugins {
 
     // Apply the application plugin to add support for building an application
     id 'application'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
 }
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = "11.0.2"
+}
+
+sourceSets.main {
+    java {
+        srcDir 'src/main/java' //assume that your source codes are inside this path
+    }
+    resources {
+        srcDirs = ['src/main/java', 'src/main/resources']
+        exclude "**/*.java"
+    }
+}
+
+javafx {
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
+    version = "11.0.1"
+}
+
+    sourceSets.main {
+    java {
+        srcDir 'src/main/java' //assume that your source codes are inside this path
+    }
+    resources {
+        srcDirs = ['src/main/java', 'src/main/resources']
+        exclude "**/*.java"
+    }
+}
+
 
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
 dependencies {
     // This dependency is found on compile classpath of this component and consumers.
     implementation 'com.google.guava:guava:27.0.1-jre'
 
+    // JavaAdventures
+    implementation 'com.java-adventures.security:secure-password-hash:1.1.0'
+
+    // DB
+    compile group: 'mysql', name: 'mysql-connector-java', version: '5.1.6'
+
+    // E-mail sending
+    compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.1'
+    compile group: 'com.sun.mail', name: 'javax.mail', version: '1.5.1'
+
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'
+
+    // JavaFX Testing
+    testCompile 'org.testfx:testfx-junit:4.0+'
+    
+    // Email package...
+    // https://mvnrepository.com/artifact/javax.mail/javax.mail-api
+    compile group: 'javax.mail', name: 'javax.mail-api', version: '1.5.1'
+
 }
 
 // Define the main class for the application

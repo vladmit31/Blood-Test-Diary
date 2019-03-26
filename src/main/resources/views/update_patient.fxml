@@ -13,7 +13,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.AddPatientController">
+<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seg.major.controller.UpdatePatientController">
     <children>
         <BorderPane>
             <left>
@@ -128,7 +128,7 @@
             <top>
                 <FlowPane BorderPane.alignment="CENTER">
                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Input a new patient" textAlignment="CENTER">
+                        <Text fx:id="TitleText" strokeType="OUTSIDE" strokeWidth="0.0" text="Update patient data: &lt;name&gt;" textAlignment="CENTER">
                             <font>
                                 <Font name="Consolas" size="20.0" />
                             </font>
@@ -142,8 +142,9 @@
             <bottom>
                 <GridPane BorderPane.alignment="CENTER">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="405.0" minWidth="10.0" prefWidth="401.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="533.0" minWidth="10.0" prefWidth="126.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="489.0" minWidth="0.0" prefWidth="273.0" />
                     </columnConstraints>
                     <rowConstraints>
                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -153,10 +154,25 @@
                     <children>
                         <Button fx:id="cancelButton" mnemonicParsing="false" onMouseClicked="#cancel" text="Cancel" GridPane.rowIndex="1">
                             <GridPane.margin>
-                                <Insets left="250.0" />
+                                <Insets left="200.0" />
                             </GridPane.margin>
                         </Button>
-                        <Button fx:id="submitButton" mnemonicParsing="false" onMouseClicked="#submit" text="Submit" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="updateButton" mnemonicParsing="false" onMouseClicked="#updateButtonClicked" text="Update" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Button fx:id="editBtn" mnemonicParsing="false" onAction="#editButtonClicked" text="Edit" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="259.0" />
+                            </GridPane.margin>
+                        </Button>
+                        <Button fx:id="contactsBtn" mnemonicParsing="false" onAction="#contactsButtonClicked" text="Contacts" GridPane.columnIndex="1" GridPane.rowIndex="1">
+                            <GridPane.margin>
+                                <Insets left="60.0" />
+                            </GridPane.margin>
+                        </Button>
+                  <Button fx:id="notifyLabButton" mnemonicParsing="false" onAction="#notifyLaboratoryButtonClicked" text="Notify Laboratory" GridPane.columnIndex="2" GridPane.rowIndex="1">
+                     <GridPane.margin>
+                        <Insets left="50.0" />
+                     </GridPane.margin>
+                  </Button>
                     </children>
                 </GridPane>
             </bottom>
