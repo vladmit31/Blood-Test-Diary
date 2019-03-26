@@ -11,38 +11,33 @@ import java.util.stream.Stream;
 
 public class EditNotificationEmailModel {
 
-    private static String fileName = "DefaultEmail/Email.txt";
+    public enum EmailType{
+        REMINDER,
+        MISSED
+    }
+
+    private static String reminderFileName = "DefaultEmail/ReminderEmail.txt";
+    private static String missedAppointmentFileName = "DefaultEmail/MissedAppointmentEmail.txt";
 
     private static List<String> lines = new ArrayList<>();
 
-    /*public static String getSubject() {
-        //read from file
-
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
-        File file = new File(classLoader.getResource(fileName).getFile());
-
-        try (BufferedReader br = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = br.readLine()) != null) {
-                return line;
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        return "";
-    }*/
-
-    public static void setAll(String subject, List<String> content) {
+    public static void setAll(String subject, List<String> content, EmailType type) {
         //write to file
+
+        String fileName = "";
+
+        if(type == EmailType.REMINDER){
+            fileName = reminderFileName;
+        }else if(type == EmailType.MISSED){
+            fileName = missedAppointmentFileName;
+        }
 
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
         File file = new File(classLoader.getResource(fileName).getFile());
         System.out.println(file.getName());
         try {
-            PrintWriter outFile = new PrintWriter("src/main/resources/DefaultEmail/Email.txt");
+            PrintWriter outFile = new PrintWriter("src/main/resources/" + fileName);
             outFile.println(subject);
             for(String line : content) {
                 System.out.println(line);
@@ -53,10 +48,23 @@ public class EditNotificationEmailModel {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        clearContents();
     }
 
-    public static void getFileContents() {
+    public static void getFileContents(EmailType type) {
+        clearContents();
+
+        String fileName = "";
+
+        if(type == EmailType.REMINDER){
+            fileName = reminderFileName;
+        }else if(type == EmailType.MISSED){
+            fileName = missedAppointmentFileName;
+        }
+
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
+
+        System.out.println("{+{{{{" + fileName);
 
         File file = new File(classLoader.getResource(fileName).getFile());
 
@@ -77,10 +85,18 @@ public class EditNotificationEmailModel {
     }
 
     public static String getSubject() {
+        if(lines.size() == 0){
+            return "No Subject found";
+        }
         return lines.get(0);
     }
 
     public static List<String> getBody() {
+        if(lines.size() <= 1){
+            ArrayList<String> list = new ArrayList<>();
+            list.add("No Body found");
+            return list;
+        }
         return lines.subList(1,lines.size());
     }
 

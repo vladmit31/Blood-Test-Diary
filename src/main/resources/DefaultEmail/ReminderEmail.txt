@@ -1,0 +1,19 @@
+Appointment reminder for blood test!
+
+This is a gentle reminder that PATIENT_NAME related to CONTACT_NAME is due to have Shared Care bloods taken locally on APPOINTMENT_DATE
+
+Parent/carer please can you inform the Liver CNS Team at King’s College Hospital once these bloods have been taken by e-mailing kch-tr.livercns@nhs.net
+
+Local Shared Care Team please can you forward results once available to kch-tr.livercns@nhs.net
+
+Please note that it is not possible to reply directly to this message.
+
+Many thanks and kind regards,
+
+Liver CNS / Shared Care Team
+
+King’s College Hospital
+
+T: 020 3299 3774
+
+E: kch-tr.livercns@nhs.net
