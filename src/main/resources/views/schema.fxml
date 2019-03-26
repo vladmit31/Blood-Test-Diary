@@ -30,6 +30,7 @@
                         <MenuItem fx:id="menuPatientsInfo" mnemonicParsing="false" onAction="#switchToPatients" text="Switch to Patient Info" />
                   <MenuItem mnemonicParsing="false" onAction="#changePassword" text="Change password" />
                         <MenuItem fx:id="menuExit" mnemonicParsing="false" text="Exit" />
+                  <MenuItem fx:id="editReminderEmail" mnemonicParsing="false" onAction="#editReminderEmailClicked" text="Edit Reminder Menu" />
                     </items>
             </Menu>
             </menus>

@@ -9,15 +9,10 @@ import javafx.scene.input.KeyEvent;
 import seg.major.App;
 import seg.major.model.EditNotificationEmailModel;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
-public class EditNotificationEmailController implements Initializable, ControllerInterface{
-
+public class CustomReminderController implements Initializable, ControllerInterface {
     public TextField subjectTextField;
     public TextArea contentTextArea;
     public Button cancelButton;
@@ -31,11 +26,7 @@ public class EditNotificationEmailController implements Initializable, Controlle
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        this.type = EditNotificationEmailModel.EmailType.MISSED;
-
-        if(data.size() != 0){
-            this.type = (EditNotificationEmailModel.EmailType)data.get("type");
-        }
+        this.type = EditNotificationEmailModel.EmailType.REMINDER;
 
         saveButton.setDisable(true);
 
@@ -54,6 +45,10 @@ public class EditNotificationEmailController implements Initializable, Controlle
         this.data = toInject;
     }
 
+    private void fillTextArea() {
+        this.contentTextArea.setText(EditNotificationEmailModel.getBodyAsString());
+    }
+
     @Override
     public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
@@ -65,29 +60,21 @@ public class EditNotificationEmailController implements Initializable, Controlle
 
     }
 
-    private void fillTextArea() {
-        StringBuilder sb = new StringBuilder();
-        for(String line : EditNotificationEmailModel.getBody()) {
-            sb.append(line);
-            sb.append("\n");
-        }
-        this.contentTextArea.setText(sb.toString());
-    }
-
-    public void cancelButtonClicked(ActionEvent event) {
-        this.primaryController.setPane(App.notifyList);
-    }
-
-    public void saveButtonClicked(ActionEvent event) {
-        List<String> lines = Arrays.asList(this.contentTextArea.getText().split("\n"));
-        EditNotificationEmailModel.setAll(this.subjectTextField.getText(), lines, type);
+    public void onSubjectModified(KeyEvent keyEvent) {
+        this.saveButton.setDisable(false);
     }
 
     public void onContentModified(KeyEvent keyEvent) {
         this.saveButton.setDisable(false);
     }
 
-    public void onSubjectModified(KeyEvent keyEvent) {
-        this.saveButton.setDisable(false);
+    public void cancelButtonClicked(ActionEvent event) {
+        this.primaryController.setPane(App.schema);
+    }
+
+    public void saveButtonClicked(ActionEvent event) {
+        List<String> lines = Arrays.asList(this.contentTextArea.getText().split("\n"));
+        EditNotificationEmailModel.setAll(this.subjectTextField.getText(), lines, type);
+        primaryController.setPane(App.schema);
     }
 }

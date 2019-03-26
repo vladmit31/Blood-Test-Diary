@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
+import seg.major.model.EditNotificationEmailModel;
 import seg.major.model.SchemaModel;
 import seg.major.structure.AppointmentEntry;
 import seg.major.structure.User;
@@ -30,8 +31,9 @@ import seg.major.structure.User;
 public class SchemaController implements Initializable, ControllerInterface {
 
   public Button logoutButton;
+  public MenuItem editReminderEmail;
+  private PrimaryController primaryController;
   public MenuItem addNewUser;
-    private PrimaryController primaryController;
   private Map<String, Object> data = new HashMap<>();
 
   @FXML
@@ -372,7 +374,8 @@ public class SchemaController implements Initializable, ControllerInterface {
     primaryController.setPane("change_password");
   }
 
-  public void addNewUserClicked(ActionEvent event) {
-    primaryController.setPane(App.addUser);
+  public void editReminderEmailClicked(ActionEvent event) {
+      // primaryController.sendTo(App.editDefaultEmail, "type", EditNotificationEmailModel.EmailType.REMINDER);
+      primaryController.setPane(App.customReminder);
   }
 }

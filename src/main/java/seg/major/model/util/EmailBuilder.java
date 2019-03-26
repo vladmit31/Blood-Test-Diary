@@ -6,31 +6,27 @@ import seg.major.structure.Contact;
 import seg.major.structure.Patient;
 
 public class EmailBuilder {
-    public static String generate(Contact contact, Patient patient, Appointment appointment){
-        return buildEmailFromFile(contact, patient, appointment);
+    public static String generate(Contact contact, Patient patient, Appointment appointment, EditNotificationEmailModel.EmailType type){
+        return buildEmailFromFile(contact, patient, appointment, type);
     }
 
-    private static String buildEmail(Contact contact, Patient patient, Appointment appointment){
-        StringBuilder builder = new StringBuilder();
+    private static String buildEmailFromFile(Contact contact, Patient patient, Appointment appointment, EditNotificationEmailModel.EmailType type){
 
-        builder.append("Dear ");
-        builder.append(contact.getForename() + " " + contact.getSurname() + ", \n");
-        builder.append("This is a reminder email for " +
-                patient.getForename() + " " + patient.getSurname());
-        builder.append("'s appointment on " + appointment.getDueDate() + " at " + patient.getLabName() + "\n");
-        builder.append("Please write us an email confirming the patient's attendence \n");
-        builder.append("Kind regards, \n");
+        String body = "Body not found";
 
-        return builder.toString();
-    }
-
-    private static String buildEmailFromFile(Contact contact, Patient patient, Appointment appointment){
-        EditNotificationEmailModel.clearContents();
-
-        EditNotificationEmailModel.getFileContents();
+        if(type == EditNotificationEmailModel.EmailType.REMINDER){
+            EditNotificationEmailModel.getFileContents(EditNotificationEmailModel.EmailType.REMINDER);
 
 
-        String body = EditNotificationEmailModel.getBodyAsString();
+            body = EditNotificationEmailModel.getBodyAsString();
+        }else if(type == EditNotificationEmailModel.EmailType.MISSED){
+            EditNotificationEmailModel.getFileContents(EditNotificationEmailModel.EmailType.MISSED);
+
+
+            body = EditNotificationEmailModel.getBodyAsString();
+        }
+
+
 
         //System.out.println("!!!!!!!" + body + "???????");
 
