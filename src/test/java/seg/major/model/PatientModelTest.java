@@ -50,7 +50,13 @@ public class PatientModelTest {
         PatientModel model = new PatientModel();
         List <Patient> over12 = model.over12();
         for (Patient patient : over12){
+            System.out.println(patient.getDob());
             Assert.assertTrue(patient.getDob().isBefore(LocalDate.now().minusYears(12)) || patient.getDob().equals(LocalDate.now().minusYears(12)));
+        }
+        for (Patient patient : PatientDAO.getAll()){
+            if (patient.getDob().isBefore(LocalDate.now().minusYears(12)) || patient.getDob().equals(LocalDate.now().minusYears(12))){
+                Assert.assertTrue(over12.contains(patient));
+            }
         }
     }
 
@@ -60,6 +66,11 @@ public class PatientModelTest {
         List <Patient> under12 = model.under12();
         for (Patient patient : under12){
             Assert.assertTrue(patient.getDob().isAfter(LocalDate.now().minusYears(12)));
+        }
+        for (Patient patient : PatientDAO.getAll()){
+            if (patient.getDob().isAfter(LocalDate.now().minusYears(12))){
+                Assert.assertTrue(under12.contains(patient));
+            }
         }
     }
 }

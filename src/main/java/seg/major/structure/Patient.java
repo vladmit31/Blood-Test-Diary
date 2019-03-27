@@ -2,6 +2,7 @@ package seg.major.structure;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 public class Patient {
     private int id;
@@ -173,4 +174,27 @@ public class Patient {
         return this.getSurname() + " " + this.getForename();
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Patient patient = (Patient) o;
+        return id == patient.id &&
+                Objects.equals(forename, patient.forename) &&
+                Objects.equals(surname, patient.surname) &&
+                Objects.equals(dob, patient.dob) &&
+                Objects.equals(hospital_number, patient.hospital_number) &&
+                Objects.equals(local_clinic, patient.local_clinic) &&
+                Objects.equals(diagnosis, patient.diagnosis) &&
+                Objects.equals(refresh_rate, patient.refresh_rate) &&
+                Objects.equals(labName, patient.labName) &&
+                Objects.equals(labContact, patient.labContact) &&
+                Objects.equals(nhsNumber, patient.nhsNumber) &&
+                Objects.equals(lastTimeNotified, patient.lastTimeNotified);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, forename, surname, dob, hospital_number, local_clinic, diagnosis, refresh_rate, labName, labContact, nhsNumber, lastTimeNotified);
+    }
 }
