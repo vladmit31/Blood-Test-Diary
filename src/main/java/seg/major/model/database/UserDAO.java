@@ -391,10 +391,10 @@ public class UserDAO {
    */
   private static List<User> resultSetToUserArray(ResultSet toConvert) throws SQLException {
     List<User> toReturn = new ArrayList<User>();
-    while (toConvert.next()) {
+    while (!toConvert.isAfterLast()) {
       toReturn.add(resultSetToUser(toConvert));
     }
-
+    toReturn.remove(toReturn.size()-1);
     return toReturn;
   }
 

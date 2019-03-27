@@ -216,7 +216,9 @@ public class PatientDAO {
             ps = conn.prepareStatement(query);
             ps.execute("USE db");
             rs = ps.executeQuery();
-            toReturn = resultSetToPatient(rs);
+            if(rs.next()){
+                toReturn = resultSetToPatient(rs);
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
@@ -359,7 +361,6 @@ public class PatientDAO {
      * @return the patient
      */
     private static Patient resultSetToPatient(ResultSet toConvert) throws SQLException {
-
         int id = toConvert.getInt(ID);
         String hospitalNumber = toConvert.getString(V_NUMBER);
         String forename = toConvert.getString(FORENAME);
