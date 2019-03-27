@@ -17,6 +17,10 @@ public class PatientModel {
     public PatientModel() {
     }
 
+    public PatientModel(List<Patient> patientList) {
+        this.patientList = patientList;
+    }
+
     public List<Patient> getPatientList() {
         return patientList;
     }
@@ -30,7 +34,16 @@ public class PatientModel {
         appointmentList = AppointmentDAO.getAll();
     }
 
-    public List<Patient> searchByName(String name) {
+    public List<Patient> search(String searchString) {
+        if (searchString.matches(".*\\d+.*")) {
+            return searchByNumber(searchString);
+        } else {
+            return searchByName(searchString);
+        }
+    }
+
+
+    private List<Patient> searchByName(String name) {
         List<Patient> filtered = new ArrayList<>();
         patientList.stream()
                 .filter(p -> (p.getForename() + " " + p.getSurname()).toLowerCase().contains(name.toLowerCase()))
@@ -38,7 +51,7 @@ public class PatientModel {
         return filtered;
     }
 
-    public List<Patient> searchByNumber(String number) {
+    private List<Patient> searchByNumber(String number) {
         List<Patient> filtered = new ArrayList<>();
         patientList.stream().filter(p -> p.getHospitalNumber().toLowerCase().contains(number.toLowerCase()))
                 .forEach(p -> filtered.add(p));

@@ -195,7 +195,9 @@ public class AppointmentDAO {
       ps = conn.prepareStatement(query);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      toReturn = resultSetToAppointment(rs);
+      if(rs.next()){
+        toReturn = resultSetToAppointment(rs);
+      }
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
