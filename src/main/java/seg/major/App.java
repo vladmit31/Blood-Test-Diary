@@ -33,7 +33,7 @@ public class App extends Application {
     public static final String editDefaultEmail = "edit_default_email";
     public static final String customLabNotification = "custom_lab_notification";
     public static final String changePassword = "change_password";
-    public static Props props;
+    public static Props props = new Props(App.class.getClassLoader().getResource(propertiesLocation));
 
     public static void main(String[] args) {
         System.out.println("App Started!");
