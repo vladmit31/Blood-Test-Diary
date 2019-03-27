@@ -13,12 +13,14 @@ import seg.major.model.NotificationListModel;
 import seg.major.model.database.AppointmentDAO;
 import seg.major.model.database.ContactDAO;
 import seg.major.model.database.PatientDAO;
+import seg.major.model.util.EmailBuilder;
 import seg.major.structure.Appointment;
 import seg.major.structure.Contact;
 import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
 
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -30,6 +32,7 @@ public class NotificationListController implements Initializable, ControllerInte
     public TableColumn<PatientEntry, String> diagnosisColumn;
     public TableColumn<PatientEntry, String> surnameColumn;
     public TableColumn<PatientEntry, String> dueDateColumn;
+    public TableColumn <PatientEntry, String> lastNotifiedColumn;
     public Button backButton;
     public TableView notificationTable;
     public Button notifyAllButton;
@@ -82,6 +85,8 @@ public class NotificationListController implements Initializable, ControllerInte
         hospitalNumberColumn.setCellValueFactory(new PropertyValueFactory<>("hospitalNumber"));
         diagnosisColumn.setCellValueFactory(new PropertyValueFactory<>("diagnosis"));
         dueDateColumn.setCellValueFactory(new PropertyValueFactory<>("nextAppointment"));
+        lastNotifiedColumn.setCellValueFactory(new PropertyValueFactory<>("lastNotified"));
+
     }
 
     private void fillTable(List<PatientEntry> patientEntries) {
@@ -111,18 +116,55 @@ public class NotificationListController implements Initializable, ControllerInte
 
     public void notifyButtonClicked(ActionEvent event) {
         List<Contact> patientContacts = new ArrayList<>();
+        HashMap<Contact, String> toNotifiy = new HashMap<>();
         for(var p : notificationTable.getSelectionModel().getSelectedItems()) {
             PatientEntry patientEntry = (PatientEntry)p;
-            System.out.println(patientEntry.getPatientID());
+
+            Patient patient = PatientDAO.getByID(patientEntry.getPatientID());
+
+            patient.setLastTimeNotified(LocalDate.now());
+
+            PatientDAO.update(patient);
+
+            Appointment app = AppointmentDAO.getById(patientEntry.getAppointmentID());
+
+            List<Contact> contacts = ContactDAO.getByPatientId(patientEntry.getPatientID());
+
             patientContacts.addAll(ContactDAO.getByPatientId(patientEntry.getPatientID()));
-            /*for (Contact contact : patientContacts) {
-                (new CustomEmailModel(contact, EditNotificationEmailModel.getSubject(), EditNotificationEmailModel.getBodyAsString()))
-                        .start();
-            }*/
+
+            for(Contact cont : contacts){
+                toNotifiy.put(cont, EmailBuilder.generate(cont, patient, app, EditNotificationEmailModel.EmailType.MISSED));
+            }
         }
-        EmailSender emailSender = new EmailSender(patientContacts, EditNotificationEmailModel.getSubject(),
-                EditNotificationEmailModel.getBodyAsString());
-        emailSender.start();
+        if(toNotifiy.size() != 0){
+
+            Iterator it = toNotifiy.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+
+                //it.remove(); // avoids a ConcurrentModificationException
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("Your email has been sent to: \n");
+
+            Iterator it1 = toNotifiy.entrySet().iterator();
+            while (it1.hasNext()) {
+                Map.Entry pair = (Map.Entry)it1.next();
+                Contact contact = (Contact)pair.getKey();
+                String generatedContent = (String)pair.getValue();
+                sb.append(contact.getForename() + " " + contact.getSurname() + "\n");
+                //it1.remove(); // avoids a ConcurrentModificationException
+            }
+
+            System.out.println(sb.toString());
+            EmailSender sender = new EmailSender(toNotifiy, "Missed appointment!");
+            sender.start();
+        }
+
+
+        update();
     }
 
     public void backButtonClicked(ActionEvent event) {
@@ -131,18 +173,56 @@ public class NotificationListController implements Initializable, ControllerInte
 
     public void notifyAllButtonClicked(ActionEvent event) {
         List<Contact> patientContacts = new ArrayList<>();
+        HashMap<Contact, String> toNotifiy = new HashMap<>();
         for (var p : notificationTable.getItems()){
             PatientEntry patientEntry = (PatientEntry)p;
-            System.out.println(patientEntry.getPatientID());
+
+            Patient patient = PatientDAO.getByID(patientEntry.getPatientID());
+
+            patient.setLastTimeNotified(LocalDate.now());
+
+            PatientDAO.update(patient);
+
+
+            Appointment app = AppointmentDAO.getById(patientEntry.getAppointmentID());
+
+            List<Contact> contacts = ContactDAO.getByPatientId(patientEntry.getPatientID());
+
             patientContacts.addAll(ContactDAO.getByPatientId(patientEntry.getPatientID()));
-            /*for (Contact contact : patientContacts) {
-                (new CustomEmailModel(contact, EditNotificationEmailModel.getSubject(), EditNotificationEmailModel.getBodyAsString()))
-                        .start();
-            }*/
+
+            for(Contact cont : contacts){
+                toNotifiy.put(cont, EmailBuilder.generate(cont, patient, app, EditNotificationEmailModel.EmailType.MISSED));
+            }
         }
-        EmailSender emailSender = new EmailSender(patientContacts, EditNotificationEmailModel.getSubject(),
-                EditNotificationEmailModel.getBodyAsString());
-        emailSender.start();
+        if(toNotifiy.size() != 0){
+
+            Iterator it = toNotifiy.entrySet().iterator();
+            while (it.hasNext()) {
+                Map.Entry pair = (Map.Entry)it.next();
+
+                //it.remove(); // avoids a ConcurrentModificationException
+            }
+
+            StringBuilder sb = new StringBuilder();
+
+            sb.append("Your email has been sent to: \n");
+
+            Iterator it1 = toNotifiy.entrySet().iterator();
+            while (it1.hasNext()) {
+                Map.Entry pair = (Map.Entry)it1.next();
+                Contact contact = (Contact)pair.getKey();
+                String generatedContent = (String)pair.getValue();
+                sb.append(contact.getForename() + " " + contact.getSurname() + "\n");
+                //it1.remove(); // avoids a ConcurrentModificationException
+            }
+
+            System.out.println(sb.toString());
+            EmailSender sender = new EmailSender(toNotifiy, "Missed appointment!");
+            sender.start();
+        }
+
+        update();
+
     }
 
     public void editDefaultEmailButtonClicked(ActionEvent event) {

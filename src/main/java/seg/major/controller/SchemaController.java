@@ -20,6 +20,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
+import seg.major.model.EditNotificationEmailModel;
 import seg.major.model.SchemaModel;
 import seg.major.structure.AppointmentEntry;
 import seg.major.structure.User;
@@ -30,7 +31,9 @@ import seg.major.structure.User;
 public class SchemaController implements Initializable, ControllerInterface {
 
   public Button logoutButton;
+  public MenuItem editReminderEmail;
   private PrimaryController primaryController;
+  public MenuItem addNewUser;
   private Map<String, Object> data = new HashMap<>();
 
   @FXML
@@ -40,7 +43,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> carriedOverComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> carriedOverDueDate;
+  public TableColumn<AppointmentEntry, String> carriedOverDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> thisWeekName;
   @FXML
@@ -48,7 +51,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> thisWeekComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> thisWeekDueDate;
+  public TableColumn<AppointmentEntry, String> thisWeekDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> mondayName;
   @FXML
@@ -56,7 +59,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> mondayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> mondayDueDate;
+  public TableColumn<AppointmentEntry, String> mondayDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> tuesdayName;
   @FXML
@@ -64,7 +67,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> tuesdayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> tuesdayDueDate;
+  public TableColumn<AppointmentEntry, String> tuesdayDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> wednesdayName;
   @FXML
@@ -72,7 +75,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> wednesdayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> wednesdayDueDate;
+  public TableColumn<AppointmentEntry, String> wednesdayDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> thursdayName;
   @FXML
@@ -80,7 +83,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> thursdayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> thursdayDueDate;
+  public TableColumn<AppointmentEntry, String> thursdayDueDate;
   @FXML
   public TableColumn<AppointmentEntry, String> fridayName;
   @FXML
@@ -88,7 +91,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public TableColumn<AppointmentEntry, String> fridayComplete;
   @FXML
-  public TableColumn<AppointmentEntry, LocalDate> fridayDueDate;
+  public TableColumn<AppointmentEntry, String> fridayDueDate;
 
   @FXML
   public Button under12Btn;
@@ -199,16 +202,17 @@ public class SchemaController implements Initializable, ControllerInterface {
       row.setOnMouseClicked(click -> {
         if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
           AppointmentEntry appointmentEntry = row.getItem();
-          //System.out.println("Am intrat!");
 
           primaryController.sendTo(App.updateAppointment, "appointmentEntry", appointmentEntry);
           primaryController.setPane(App.updateAppointment);
 
         }
       });
+
       return row;
     });
   }
+
 
   private void setUpRows() {
     setUpRowsForTable(carriedOverTable);
@@ -242,8 +246,8 @@ public class SchemaController implements Initializable, ControllerInterface {
     fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.FRIDAY));
   }
 
-  private void fillTablesForOver12() {
-    fillTable(carriedOverTable, schemaModel.getAll());
+  public void fillTablesForOver12() {
+    fillTable(carriedOverTable, schemaModel.getCarriedOverAppointments());
     fillTable(thisWeekTable, schemaModel.getAll());
     fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.MONDAY));
     fillTable(tuesdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.TUESDAY));
@@ -252,41 +256,41 @@ public class SchemaController implements Initializable, ControllerInterface {
     fillTable(fridayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.FRIDAY));
   }
 
-  private void setUpColumns() {
+  public void setUpColumns() {
     carriedOverName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     carriedOverHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     carriedOverComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    carriedOverDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    carriedOverDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     thisWeekName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     thisWeekHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     thisWeekComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    thisWeekDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    thisWeekDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     mondayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     mondayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     mondayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    mondayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    mondayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     tuesdayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     tuesdayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     tuesdayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    tuesdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    tuesdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     wednesdayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     wednesdayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     wednesdayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    wednesdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    wednesdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     thursdayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     thursdayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     thursdayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    thursdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    thursdayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
 
     fridayName.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("name"));
     fridayHospital.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("vnumber"));
     fridayComplete.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("complete"));
-    fridayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, LocalDate>("dueDate"));
+    fridayDueDate.setCellValueFactory(new PropertyValueFactory<AppointmentEntry, String>("dateString"));
   }
 
   /**
@@ -334,7 +338,11 @@ public class SchemaController implements Initializable, ControllerInterface {
   /** ---------- Inherited / Implemented ---------- */
 
   public void setAuthenticatedUser() {
-     userInfo.setText("User: " + ((User) data.get("user")).getUsername());
+     User loggedInUser = (User) data.get("user");
+     userInfo.setText("User: " + loggedInUser.getUsername());
+    if(loggedInUser.getIsAdmin() == 0) {
+      addNewUser.setVisible(false);
+    }
   }
 
   public void switchToPatients(ActionEvent event) {
@@ -365,4 +373,13 @@ public class SchemaController implements Initializable, ControllerInterface {
     primaryController.sendTo(App.changePassword, "user", data.get("user"));
     primaryController.setPane("change_password");
   }
+
+  public void editReminderEmailClicked(ActionEvent event) {
+      // primaryController.sendTo(App.editDefaultEmail, "type", EditNotificationEmailModel.EmailType.REMINDER);
+      primaryController.setPane(App.customReminder);
+  }
+
+    public void addNewUserClicked(ActionEvent event) {
+      primaryController.setPane(App.addUser);
+    }
 }

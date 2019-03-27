@@ -21,16 +21,16 @@
          <center>
             <GridPane BorderPane.alignment="CENTER">
               <columnConstraints>
-                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="50.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="162.60003662109375" minWidth="10.0" prefWidth="162.60003662109375" />
-                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="296.0" minWidth="166.5999755859375" prefWidth="181.0" />
-                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="0.0" prefWidth="56.0" />
+                  <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="166.5999755859375" />
+                <ColumnConstraints hgrow="SOMETIMES" maxWidth="95.0" minWidth="0.0" prefWidth="75.0" />
                 <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
               </columnConstraints>
               <rowConstraints>
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="40.0" vgrow="SOMETIMES" />
                   <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -42,32 +42,22 @@
                         <Insets left="15.0" />
                      </GridPane.margin>
                      <font>
-                        <Font name="Consolas" size="12.0" />
+                        <Font name="Consolas" size="13.0" />
                      </font>
                   </Text>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment status" GridPane.columnIndex="1" GridPane.rowIndex="2">
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Appointment status" wrappingWidth="134.654296875" GridPane.columnIndex="1" GridPane.rowIndex="2">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                      <font>
-                        <Font name="Consolas" size="12.0" />
+                        <Font name="Consolas" size="13.0" />
                      </font>
                   </Text>
-                  <CheckBox fx:id="completed" mnemonicParsing="false" onAction="#completedCheckboxClicked" text="Completed" GridPane.columnIndex="2" GridPane.rowIndex="2">
-                     <GridPane.margin>
-                        <Insets left="20.0" />
-                     </GridPane.margin>
-                  </CheckBox>
-                  <DatePicker fx:id="appDueDate" GridPane.columnIndex="2" GridPane.rowIndex="3">
+                  <DatePicker fx:id="appDueDate" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="3">
                      <GridPane.margin>
                         <Insets left="20.0" />
                      </GridPane.margin>
                   </DatePicker>
-                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" GridPane.columnIndex="3" GridPane.rowIndex="3">
-                     <GridPane.margin>
-                        <Insets left="50.0" />
-                     </GridPane.margin>
-                  </Text>
                   <RadioButton fx:id="oneMonthRadioButton" mnemonicParsing="false" text="1 Month" GridPane.columnIndex="4" GridPane.rowIndex="3">
                      <toggleGroup>
                         <ToggleGroup fx:id="nextAppointmentDate" />
@@ -75,6 +65,45 @@
                   </RadioButton>
                   <RadioButton fx:id="threeMonthsRadioButton" mnemonicParsing="false" text="3 Months" toggleGroup="$nextAppointmentDate" GridPane.columnIndex="4" GridPane.rowIndex="4" />
                   <RadioButton fx:id="twoWeeksRadioButton" mnemonicParsing="false" text="2 Weeks" toggleGroup="$nextAppointmentDate" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                  <FlowPane prefHeight="45.0" GridPane.columnIndex="2" GridPane.rowIndex="2">
+                     <children>
+                        <CheckBox fx:id="completed" mnemonicParsing="false" onAction="#completedCheckboxClicked" text="Completed">
+                           <FlowPane.margin>
+                              <Insets />
+                           </FlowPane.margin>
+                           <padding>
+                              <Insets left="10.0" />
+                           </padding>
+                        </CheckBox>
+                        <CheckBox fx:id="underReview" mnemonicParsing="false" onAction="#completedCheckboxClicked" text="Under review">
+                           <FlowPane.margin>
+                              <Insets left="10.0" />
+                           </FlowPane.margin>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </CheckBox>
+                        <CheckBox fx:id="notReceived" mnemonicParsing="false" onAction="#completedCheckboxClicked" text="Results not received yet">
+                           <FlowPane.margin>
+                              <Insets left="10.0" />
+                           </FlowPane.margin>
+                           <padding>
+                              <Insets left="20.0" />
+                           </padding>
+                        </CheckBox>
+                     </children>
+                     <padding>
+                        <Insets left="5.0" top="11.0" />
+                     </padding>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                  </FlowPane>
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="/" textAlignment="CENTER" wrappingWidth="75.203125" GridPane.columnIndex="3" GridPane.rowIndex="3">
+                     <font>
+                        <Font size="16.0" />
+                     </font>
+                  </Text>
                </children>
             </GridPane>
          </center>
@@ -113,7 +142,7 @@
                <children>
                   <Button fx:id="updateBtn" mnemonicParsing="false" onAction="#updateButtonClicked" prefHeight="25.0" prefWidth="106.0" text="Update" GridPane.columnIndex="4" />
                   <Button fx:id="cancelBtn" mnemonicParsing="false" onAction="#cancelButtonClicked" prefHeight="25.0" prefWidth="106.0" text="Cancel" GridPane.columnIndex="2" />
-                  <Button fx:id="cancelBtn1" mnemonicParsing="false" onAction="#resetButtonClicked" prefHeight="25.0" prefWidth="106.0" text="Reset" GridPane.columnIndex="3" />
+                  <Button fx:id="resetBtn" mnemonicParsing="false" onAction="#resetButtonClicked" prefHeight="25.0" prefWidth="106.0" text="Reset" GridPane.columnIndex="3" />
                </children>
             </GridPane>
          </bottom>

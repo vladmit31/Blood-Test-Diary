@@ -17,6 +17,13 @@ import seg.major.structure.Patient;
 import java.net.URL;
 import java.util.*;
 
+/**
+ * Controller class for contacts panel. Manages the communication between contacts panel and
+ * contacts model.
+ * @author
+ * @version
+ */
+
 public class ContactsController implements Initializable, ControllerInterface {
 
     private Contact toBeDeleted = null;

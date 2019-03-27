@@ -11,6 +11,7 @@ import seg.major.App;
 import seg.major.model.PatientModel;
 import seg.major.model.database.AppointmentDAO;
 import seg.major.model.database.PatientDAO;
+import seg.major.model.util.DateReverser;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
@@ -121,7 +122,7 @@ public class PatientsController implements Initializable, ControllerInterface {
     setupColumns();
     setupRows();
     fillTable(patientModel.under12());
-    under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+    under12Button.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
     patientTable.setPlaceholder(new Label("No patients found"));
   }
 
@@ -155,14 +156,14 @@ public class PatientsController implements Initializable, ControllerInterface {
 
   private void setupButtons() {
     under12Button.setOnAction(e -> {
-      under12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+      under12Button.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
       over12Button.setStyle(null);
       isUnder12 = true;
       fillTable(patientModel.under12());
       update();
     });
     over12Button.setOnAction(e -> {
-      over12Button.setStyle("-fx-background-color: blue;" + "-fx-text-fill: white");
+      over12Button.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
       under12Button.setStyle(null);
       isUnder12 = false;
       fillTable(patientModel.over12());
@@ -190,7 +191,8 @@ public class PatientsController implements Initializable, ControllerInterface {
         if(appointment.getPatientID() == patient.getID()) {
           patientTable.getItems().add(new PatientEntry(patient.getID(),appointment.getID(),
                   patient.getForename(),patient.getSurname(),patient.getHospitalNumber(),
-                  patient.getLocalClinic(),appointment.getDueDate(),patient.getDiagnosis()));
+                  patient.getLocalClinic(), DateReverser.reverseDateFormat(appointment.getDueDate()),
+                  patient.getDiagnosis(), DateReverser.reverseDateFormat(patient.getLastTimeNotified())));
         }
       }
     }
