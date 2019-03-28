@@ -226,12 +226,6 @@ public class SchemaController implements Initializable, ControllerInterface {
     setUpRowsForTable(fridayTable);
   }
 
-  /*
-   * private void fillTable(){ patientTable.getItems().clear(); for (Patient
-   * patient : patientModel.getPatientList()) {
-   * patientTable.getItems().add(patient); } }
-   */
-
   public void fillTable(TableView<AppointmentEntry> tb, List<AppointmentEntry> appEntryList) {
     tb.getItems().clear();
     ObservableList<AppointmentEntry> toFill = FXCollections.observableArrayList(appEntryList);
@@ -377,7 +371,6 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void editReminderEmailClicked(ActionEvent event) {
-      // primaryController.sendTo(App.editDefaultEmail, "type", EditNotificationEmailModel.EmailType.REMINDER);
       primaryController.setPane(App.customReminder);
   }
 
