@@ -1,5 +1,10 @@
 package seg.major.structure;
-
+/**
+ * Models contact objects in order to keep them in
+ * memory in a managed way.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class Contact {
     private int id;
     private final int patientID;

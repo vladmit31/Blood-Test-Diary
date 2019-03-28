@@ -1,7 +1,12 @@
 package seg.major.structure;
 
 import java.time.LocalDate;
-
+/**
+ * Models patient entries for easy display
+ * in the tables from the application.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class PatientEntry {
 
     private final int patientID;

@@ -15,7 +15,11 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-
+/**
+ * AddPatientController acts as the controller for the edit_default_email.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class EditNotificationEmailController implements Initializable, ControllerInterface{
 
     public TextField subjectTextField;

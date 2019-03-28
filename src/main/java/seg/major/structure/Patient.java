@@ -3,7 +3,12 @@ package seg.major.structure;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Objects;
-
+/**
+ * Models patient objects in order to keep them in
+ * memory in a managed way.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class Patient {
     private int id;
     private String forename;

@@ -10,6 +10,11 @@ import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 
+/**
+ * Models basic structure of an e-mail.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class Email {
 
 	private String emailHost;

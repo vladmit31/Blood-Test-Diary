@@ -4,7 +4,12 @@ import java.time.LocalDate;
 
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
-
+/**
+ * Models appointment entries for easy display
+ * in the tables from the application.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class AppointmentEntry {
 
     private final SimpleIntegerProperty patientId;

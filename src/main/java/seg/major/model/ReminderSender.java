@@ -15,7 +15,12 @@ import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.*;
 
-
+/**
+ * Sends reminders for people that have appointments
+ * in the next 2 days.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class ReminderSender {
 
     public static void sendRemainders(){

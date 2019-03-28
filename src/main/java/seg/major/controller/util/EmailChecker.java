@@ -2,6 +2,11 @@ package seg.major.controller.util;
 
 import java.util.regex.Pattern;
 
+/**
+ * Checks if a string has the correct e-mail structure.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class EmailChecker {
     public static boolean isValid(String email)
     {

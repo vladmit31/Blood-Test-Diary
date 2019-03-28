@@ -13,7 +13,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 import seg.major.model.database.PatientDAO;
 import seg.major.model.database.AppointmentDAO;
-
+/**
+ * Model class for SchemaController class.
+ * Provides communication between controller and DAOs if needed.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class SchemaModel {
 
     private List<Appointment> appointmentList;

@@ -19,6 +19,8 @@ import javax.swing.*;
 
 /**
  * AddPatientController acts as the controller for the add_patient.fxml file
+ * @author Team Pacane
+ * @version 1.0
  */
 public class AddPatientController implements Initializable, ControllerInterface {
 

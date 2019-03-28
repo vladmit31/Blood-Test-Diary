@@ -5,7 +5,12 @@ import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.model.database.PatientDAO;
 import java.time.LocalDate;
-
+/**
+ * Model class for UpdatePatientController class.
+ * Provides communication between controller and DAOs if needed.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class UpdatePatientModel {
 
     public UpdatePatientModel() {

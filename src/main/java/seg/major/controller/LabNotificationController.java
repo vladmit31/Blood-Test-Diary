@@ -15,7 +15,11 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+/**
+ * AddPatientController acts as the controller for the custom_lab_notification.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class LabNotificationController implements Initializable, ControllerInterface {
 
     @FXML

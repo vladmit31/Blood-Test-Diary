@@ -4,6 +4,11 @@ import java.sql.*;
 
 import seg.major.App;
 
+/**
+ * Provides database connection for the application.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class DAOConnection {
 
     // Credentials

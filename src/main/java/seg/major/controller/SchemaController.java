@@ -27,6 +27,8 @@ import seg.major.structure.User;
 
 /**
  * SchemaController acts as the controller for the schema.fxml file
+ * @author Team Pacane
+ * @version 1.0
  */
 public class SchemaController implements Initializable, ControllerInterface {
 

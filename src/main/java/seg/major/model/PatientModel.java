@@ -7,7 +7,12 @@ import java.util.ArrayList;
 import java.util.List;
 import seg.major.model.database.PatientDAO;
 import seg.major.model.database.AppointmentDAO;
-
+/**
+ * Model class for PatientsController class.
+ * Provides communication between controller and DAOs if needed.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class PatientModel {
 
     private List<Patient> patientList;

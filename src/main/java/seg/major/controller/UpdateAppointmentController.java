@@ -23,7 +23,11 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+/**
+ * AddPatientController acts as the controller for the update_appointment.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class UpdateAppointmentController implements Initializable, ControllerInterface {
 
 

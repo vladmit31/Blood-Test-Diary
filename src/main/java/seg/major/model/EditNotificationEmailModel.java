@@ -8,7 +8,12 @@ import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
-
+/**
+ * Model class for EditNotificationEmailController class.
+ * Provides communication between controller and DAOs if needed.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class EditNotificationEmailModel {
 
     public enum EmailType{

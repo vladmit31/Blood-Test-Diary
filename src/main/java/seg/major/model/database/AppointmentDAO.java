@@ -13,6 +13,11 @@ import java.time.LocalDate;
 import seg.major.model.Week;
 import seg.major.structure.Appointment;
 
+/**
+ * Data access object for Appointment instances
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class AppointmentDAO {
 
   private static final String TABLE_NAME = "appointment";

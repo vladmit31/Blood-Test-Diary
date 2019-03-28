@@ -5,6 +5,12 @@ import seg.major.structure.Appointment;
 import seg.major.structure.Contact;
 import seg.major.structure.Patient;
 
+/**
+ * Creates e-mails from templates provided by
+ * our client.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class EmailBuilder {
     public static String generate(Contact contact, Patient patient, Appointment appointment, EditNotificationEmailModel.EmailType type){
         return buildEmailFromFile(contact, patient, appointment, type);

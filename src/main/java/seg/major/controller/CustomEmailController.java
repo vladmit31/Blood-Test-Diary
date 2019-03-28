@@ -14,7 +14,11 @@ import seg.major.structure.Contact;
 
 import java.net.URL;
 import java.util.*;
-
+/**
+ * AddPatientController acts as the controller for the custom_email.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class CustomEmailController implements Initializable, ControllerInterface {
 
     public TextField sendToTextBox;

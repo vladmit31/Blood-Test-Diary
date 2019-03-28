@@ -9,7 +9,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
-
+/**
+ * Class sends e-mails and notifies the user that
+ * the e-mail has been sent.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class EmailSender extends Thread {
     private final List<Contact> contacts;
     private final Map<Contact, String> contactsWithContent;

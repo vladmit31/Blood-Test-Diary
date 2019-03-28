@@ -7,6 +7,12 @@ import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.model.database.PatientDAO;
 
+/**
+ * Model class for AddPatientController class.
+ * Provides communication between controller and DAOs if needed.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class AddPatientModel {
 
   public AddPatientModel() {

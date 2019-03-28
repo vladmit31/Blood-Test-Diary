@@ -9,7 +9,11 @@ import java.util.List;
 import java.util.Map;
 
 import seg.major.structure.User;
-
+/**
+ * Data access object for User instances
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class UserDAO {
 
   private static final String TABLE_NAME = "user";

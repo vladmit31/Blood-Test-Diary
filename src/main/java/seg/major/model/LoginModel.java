@@ -5,7 +5,12 @@ import seg.major.structure.User;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import seg.major.model.database.UserDAO;
-
+/**
+ * Model class for LoginController class.
+ * Provides communication between controller and DAOs if needed.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class LoginModel {
 
     public LoginModel() {

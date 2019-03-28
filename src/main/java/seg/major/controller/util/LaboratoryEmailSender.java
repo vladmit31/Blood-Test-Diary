@@ -4,7 +4,12 @@ import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import seg.major.model.util.Email;
 import seg.major.structure.Contact;
-
+/**
+ * Sends e-mails to laboratories notifying them
+ * that they should send their results to a specific contact.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class LaboratoryEmailSender extends Thread {
 
     private String sendTo;

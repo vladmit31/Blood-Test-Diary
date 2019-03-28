@@ -3,7 +3,11 @@ package seg.major.controller.util;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
-
+/**
+ * Generates a password for the password recovery e-mail.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public final class PasswordGenerator {
 
     private static final String LOWER = "abcdefghijklmnopqrstuvwxyz";

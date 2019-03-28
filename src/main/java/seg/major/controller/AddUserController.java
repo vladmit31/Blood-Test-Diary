@@ -17,7 +17,11 @@ import java.security.spec.InvalidKeySpecException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+/**
+ * AddPatientController acts as the controller for the add_user.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class AddUserController implements Initializable, ControllerInterface {
 
     public TextField usernameField;

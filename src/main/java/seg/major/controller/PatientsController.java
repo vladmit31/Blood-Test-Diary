@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 
 /**
  * PatientsController acts as the controller for the patients.fxml file
+ * @author Team Pacane
+ * @version 1.0
  */
 public class PatientsController implements Initializable, ControllerInterface {
 

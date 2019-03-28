@@ -25,7 +25,11 @@ import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
-
+/**
+ * AddPatientController acts as the controller for the change_password.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class ChangePasswordController implements Initializable, ControllerInterface {
 
     @FXML

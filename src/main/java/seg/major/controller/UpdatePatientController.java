@@ -21,7 +21,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
- * AddPatientController acts as the controller for the add_patient.fxml file
+ * AddPatientController acts as the controller for the udpate_patient.fxml file
+ * @author Team Pacane
+ * @version 1.0
  */
 public class UpdatePatientController implements Initializable, ControllerInterface {
 

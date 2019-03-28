@@ -20,10 +20,9 @@ import java.util.*;
 /**
  * Controller class for contacts panel. Manages the communication between contacts panel and
  * contacts model.
- * @author
- * @version
+ * @author Team Pacane
+ * @version 1.0
  */
-
 public class ContactsController implements Initializable, ControllerInterface {
 
     private Contact toBeDeleted = null;

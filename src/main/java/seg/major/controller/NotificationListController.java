@@ -23,7 +23,11 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.stream.Collectors;
-
+/**
+ * AddPatientController acts as the controller for the notifyList.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class NotificationListController implements Initializable, ControllerInterface {
 
     public Button notifyButton;

@@ -5,7 +5,12 @@ import seg.major.model.database.ContactDAO;
 import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
-
+/**
+ * Model class for ContactsController class.
+ * Provides communication between controller and DAOs if needed.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class ContactsModel {
 
     private static List<Contact> contactList;

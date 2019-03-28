@@ -1,7 +1,12 @@
 package seg.major.structure;
 
 import java.time.LocalDate;
-
+/**
+ * Models appointment objects in order to keep them in
+ * memory in a managed way.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class Appointment {
   private int id;
   private int status;

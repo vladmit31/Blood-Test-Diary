@@ -11,7 +11,11 @@ import seg.major.model.EditNotificationEmailModel;
 
 import java.net.URL;
 import java.util.*;
-
+/**
+ * AddPatientController acts as the controller for the custom_reminder.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class CustomReminderController implements Initializable, ControllerInterface {
     public TextField subjectTextField;
     public TextArea contentTextArea;

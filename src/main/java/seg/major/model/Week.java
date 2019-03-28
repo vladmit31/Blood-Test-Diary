@@ -6,7 +6,12 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.FormatStyle;
 import java.time.temporal.ChronoUnit;
 import java.util.Locale;
-
+/**
+ * Takes care of the calendar and the current week
+ * displaying in the application.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class Week {
     private LocalDate mondayDate;
     private LocalDate fridayDate;

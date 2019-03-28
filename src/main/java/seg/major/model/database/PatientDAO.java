@@ -11,7 +11,11 @@ import java.util.Map;
 import java.time.LocalDate;
 
 import seg.major.structure.Patient;
-
+/**
+ * Data access object for Patient instances
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class PatientDAO {
 
     private static final String TABLE_NAME = "patient";

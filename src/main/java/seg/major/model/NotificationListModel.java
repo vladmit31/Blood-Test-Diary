@@ -12,7 +12,12 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-
+/**
+ * Model class for NotificationListController class.
+ * Provides communication between controller and DAOs if needed.
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class NotificationListModel {
 
  public List<PatientEntry> getCarriedOverAppointmentEntries(){

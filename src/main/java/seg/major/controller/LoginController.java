@@ -28,7 +28,11 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.ResourceBundle;
 
-
+/**
+ * AddPatientController acts as the controller for the login.fxml file
+ * @author Team Pacane
+ * @version 1.0
+ */
 public class LoginController implements Initializable, ControllerInterface {
 
 
@@ -54,7 +58,7 @@ public class LoginController implements Initializable, ControllerInterface {
 
     /**
      * The login button was clicked, so load the patient schema view
-     * 
+     *
      * @param e click event
      */
     @FXML
