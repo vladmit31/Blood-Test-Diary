@@ -22,8 +22,6 @@ public class UserDAO {
   public UserDAO() {
   }
 
-  /** ---------- Inherited / Implemented ---------- */
-
   /**
    * Lookup a record by ID
    * 
@@ -407,7 +405,7 @@ public class UserDAO {
    * @param toQuery the map to convery to a query
    * @return the constructed statement
    */
-  private static String mapToSQLQuery(Map<String, String> toQuery) {
+  public static String mapToSQLQuery(Map<String, String> toQuery) {
 
     // build the statement
     StringBuilder sb = new StringBuilder();
