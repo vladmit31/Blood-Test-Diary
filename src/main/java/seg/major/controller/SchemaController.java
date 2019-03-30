@@ -157,7 +157,6 @@ public class SchemaController implements Initializable, ControllerInterface {
    */
   public void initialize(URL url, ResourceBundle rb) {
     this.schemaModel = new SchemaModel();
-    // this.userInfo.setText(this.data.get("User"));
     setUpTable();
     setUpButtons();
     setCurrentDate();

@@ -178,7 +178,7 @@ public class SchemaModel {
     }
 
     /**
-     * Get appointments due for a specific day of the week
+     * Get appointments scheduled for a specific day of the week
      *
      * @param day the day of the week tog et appointments for
      * @return all appointments on that day
