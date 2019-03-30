@@ -88,8 +88,7 @@ public class CustomEmailController implements Initializable, ControllerInterface
      */
     public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
-        ArrayList<Contact> = (ArrayList<Contact>)toAddVal;
-        for(Contact value : toAddVal){
+        for(Contact value : (ArrayList<Contact>)toAddVal){
             this.contacts.add(value);
         }
     }

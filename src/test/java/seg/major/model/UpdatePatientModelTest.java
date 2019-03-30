@@ -8,12 +8,9 @@ import seg.major.model.database.AppointmentDAO;
 import seg.major.model.database.PatientDAO;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 public class UpdatePatientModelTest {
 
