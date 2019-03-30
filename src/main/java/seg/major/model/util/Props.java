@@ -1,13 +1,13 @@
 package seg.major.model.util;
 
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.util.Properties;
-import java.util.HashMap;
-import java.util.Map;
 import java.io.OutputStream;
 import java.net.URL;
-import java.io.FileOutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Properties;
 
 /**
  * Props allows access to a properties file, giving access to external variables

@@ -1,14 +1,9 @@
 package seg.major.model.util;
 
-import java.util.Properties;
-
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.util.Properties;
 
 /**
  * Models basic structure of an e-mail.
@@ -25,9 +20,17 @@ public class Email {
 	private String subject;
 	private String body;
 
-	public Email() {
-	}
-
+	/**
+	 * Constructs an email with the given fields
+	 *
+	 * @param emailHost
+	 * @param port
+	 * @param emailFrom
+	 * @param emailPassword
+	 * @param emailTo
+	 * @param subject
+	 * @param body
+	 */
 	public Email(String emailHost, String port, String emailFrom, String emailPassword, String emailTo, String subject,
 			String body) {
 		this.emailHost = emailHost;
@@ -95,6 +98,9 @@ public class Email {
 		this.body = body;
 	}
 
+	/**
+	 * Sends the stored email
+	 */
 	public void sendEmail() {
 
 		Properties props = new Properties();

@@ -1,16 +1,12 @@
 package seg.major.model.database;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import seg.major.structure.Patient;
+
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.time.LocalDate;
-
-import seg.major.structure.Patient;
 /**
  * Data access object for Patient instances
  * @author Team Pacane
@@ -31,11 +27,6 @@ public class PatientDAO {
     private static final String LAB_NAME = "lab_name";
     private static final String NHS_NUMBER = "nhs_number";
     private static final String LAST_NOTIFICATION = "last_notification";
-
-    public PatientDAO() {
-    }
-
-    /** ---------- Inherited / Implemented ---------- */
 
     /**
      * Lookup a record by ID
@@ -160,7 +151,6 @@ public class PatientDAO {
         String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, diagnosis = ? , lab_name = ?, lab_contact = ?, nhs_number = ?, last_notification = ? WHERE id = ?";
 
         PreparedStatement ps = null;
-        ResultSet rs = null;
         Connection conn = null;
         try {
             conn = DAOConnection.getConnection();
@@ -181,10 +171,6 @@ public class PatientDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                rs.close();
-            } catch (Exception e) {
-            }
             try {
                 ps.close();
             } catch (Exception e) {
@@ -318,8 +304,11 @@ public class PatientDAO {
         return toReturn;
     }
 
-    /** ---------- Inherited / Implemented ---------- */
-
+    /**
+     * Get the most recently inserted patient ID
+     *
+     * @return the ID of the most recently inserted patient
+     */
     private static int getLastInsertedPatientID() {
 
         String query = "SELECT MAX(id) FROM patient";
@@ -380,8 +369,6 @@ public class PatientDAO {
 
         Patient toReturn = new Patient(id, forename, surname, dob,
                 hospitalNumber, localClinic, diagnosis,refreshRate, labName, labContact, nhsNumber, lastTimeNotified);
-
-        //System.out.println(toReturn.toString());
 
         return toReturn;
 

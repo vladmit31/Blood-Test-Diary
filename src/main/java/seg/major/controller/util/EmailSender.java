@@ -5,7 +5,6 @@ import javafx.scene.control.Alert;
 import seg.major.model.CustomEmailModel;
 import seg.major.structure.Contact;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;

@@ -1,13 +1,12 @@
 package seg.major.model;
 
-import seg.major.controller.EditNotificationEmailController;
-
-import java.io.*;
-import java.net.URI;
-
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Stream;
 /**
  * Model class for EditNotificationEmailController class.
  * Provides communication between controller and DAOs if needed.
@@ -23,9 +22,15 @@ public class EditNotificationEmailModel {
 
     private static String reminderFileName = "DefaultEmail/ReminderEmail.txt";
     private static String missedAppointmentFileName = "DefaultEmail/MissedAppointmentEmail.txt";
-
     private static List<String> lines = new ArrayList<>();
 
+    /**
+     * Set the subject, content, and type of a email notificatoin
+     *
+     * @param subject of the email
+     * @param content of the email
+     * @param type of the notification
+     */
     public static void setAll(String subject, List<String> content, EmailType type) {
         //write to file
 
@@ -40,12 +45,10 @@ public class EditNotificationEmailModel {
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
 
         File file = new File(classLoader.getResource(fileName).getFile());
-        System.out.println(file.getName());
         try {
             PrintWriter outFile = new PrintWriter("src/main/resources/" + fileName);
             outFile.println(subject);
             for(String line : content) {
-                System.out.println(line);
                 outFile.println(line);
             }
             outFile.flush();
@@ -56,6 +59,11 @@ public class EditNotificationEmailModel {
         clearContents();
     }
 
+    /**
+     * Read a file from disk
+     *
+     * @param type
+     */
     public static void getFileContents(EmailType type) {
         clearContents();
 
@@ -68,9 +76,6 @@ public class EditNotificationEmailModel {
         }
 
         ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-
-        System.out.println("{+{{{{" + fileName);
-
         File file = new File(classLoader.getResource(fileName).getFile());
 
         try {
@@ -78,7 +83,6 @@ public class EditNotificationEmailModel {
             BufferedReader br = new BufferedReader(fr);
             String line;
             while ((line = br.readLine()) != null) {
-                System.out.println(line);
                 lines.add(line);
             }
             fr.close();
@@ -89,6 +93,11 @@ public class EditNotificationEmailModel {
         }
     }
 
+    /**
+     * Get the subject of the email
+     *
+     * @return the subject of the email
+     */
     public static String getSubject() {
         if(lines.size() == 0){
             return "No Subject found";
@@ -96,6 +105,11 @@ public class EditNotificationEmailModel {
         return lines.get(0);
     }
 
+    /**
+     * Get the body of the email
+     *
+     * @return the body of the email
+     */
     public static List<String> getBody() {
         if(lines.size() <= 1){
             ArrayList<String> list = new ArrayList<>();
@@ -105,12 +119,22 @@ public class EditNotificationEmailModel {
         return lines.subList(1,lines.size());
     }
 
+    /**
+     * Clear the contents of the lines array
+     */
     public static void clearContents() {
         lines.clear();
     }
 
+    /**
+     * Reads the body of the email and returns it as a string
+     *
+     * @return the body of the email
+     */
     public static String getBodyAsString() {
         StringBuilder sb = new StringBuilder();
+
+        // while there is still body to be read...
         for (int i = 1 ; i < lines.size() ; ++i) {
             sb.append(lines.get(i));
             sb.append("\n");

@@ -3,7 +3,6 @@ package seg.major.controller.util;
 import javafx.application.Platform;
 import javafx.scene.control.Alert;
 import seg.major.model.util.Email;
-import seg.major.structure.Contact;
 /**
  * Sends a password recovery e-mail to the user
  * requesting the password change.

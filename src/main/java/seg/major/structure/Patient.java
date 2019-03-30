@@ -1,7 +1,6 @@
 package seg.major.structure;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.Objects;
 /**
  * Models patient objects in order to keep them in
@@ -58,7 +57,6 @@ public class Patient {
 
     public Patient(String forename, String surname, LocalDate dob, String hospital_number, String local_clinic,
                    String diagnosis, Double refresh_rate, String labName, String labContact, String nhsNumber) {
-        this.id = id;
         this.forename = forename;
         this.surname = surname;
         this.dob = dob;

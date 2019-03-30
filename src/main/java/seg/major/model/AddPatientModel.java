@@ -1,11 +1,11 @@
 package seg.major.model;
 
-import java.time.LocalDate;
-
 import seg.major.model.database.AppointmentDAO;
+import seg.major.model.database.PatientDAO;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
-import seg.major.model.database.PatientDAO;
+
+import java.time.LocalDate;
 
 /**
  * Model class for AddPatientController class.
@@ -15,9 +15,21 @@ import seg.major.model.database.PatientDAO;
  */
 public class AddPatientModel {
 
-  public AddPatientModel() {
-  }
-
+  /**
+   * Create a new patient in the database
+   *
+   * @param forename
+   * @param surname
+   * @param dob
+   * @param hospitalNumber
+   * @param localClinic
+   * @param diagnosis
+   * @param refreshRate
+   * @param nextAppointment
+   * @param labName
+   * @param labContact
+   * @param nhsNumber
+   */
   public static void createPatient(String forename, String surname, LocalDate dob, String hospitalNumber,
       String localClinic, String diagnosis, Double refreshRate, LocalDate nextAppointment, String labName, String labContact, String nhsNumber) {
 
@@ -27,6 +39,12 @@ public class AddPatientModel {
 
   }
 
+  /**
+   * Create an appointment for the patient
+   *
+   * @param dueDate date of the appointment
+   * @param patientId the ID of the patient
+   */
   private static void createAppointment(LocalDate dueDate, int patientId) {
     AppointmentDAO.create(new Appointment(0,dueDate,patientId));
   }

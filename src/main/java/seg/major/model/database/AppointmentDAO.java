@@ -1,17 +1,13 @@
 package seg.major.model.database;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import seg.major.model.Week;
+import seg.major.structure.Appointment;
+
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.time.LocalDate;
-
-import seg.major.model.Week;
-import seg.major.structure.Appointment;
 
 /**
  * Data access object for Appointment instances
@@ -25,11 +21,6 @@ public class AppointmentDAO {
   private static final String STATUS = "status";
   private static final String DUE_DATE = "due_date";
   private static final String PATIENT_ID = "patient_id";
-
-  public AppointmentDAO() {
-  }
-
-  /** ---------- Inherited / Implemented ---------- */
 
   /**
    * Lookup a record by ID
@@ -147,7 +138,6 @@ public class AppointmentDAO {
     String query = "UPDATE appointment SET status = ?, due_date = ?, patient_id = ? WHERE id = ?";
 
     PreparedStatement ps = null;
-    ResultSet rs = null;
     Connection conn = null;
     try {
       conn = DAOConnection.getConnection();
@@ -161,10 +151,6 @@ public class AppointmentDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      try {
-        rs.close();
-      } catch (Exception e) {
-      }
       try {
         ps.close();
       } catch (Exception e) {
@@ -297,8 +283,6 @@ public class AppointmentDAO {
 
     return toReturn;
   }
-
-  /** ---------- Inherited / Implemented ---------- */
 
   private static int getLastInsertedAppointmentID() {
 
@@ -434,6 +418,12 @@ public class AppointmentDAO {
     return toReturn;
   }
 
+  /**
+   * Build a query select the days between the monday and friday of the current week
+   *
+   * @param curWeek the current week
+   * @return a string of the query
+   */
   private static String buildWeekQuery(Week curWeek) {
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT * FROM appointment WHERE due_date BETWEEN '");

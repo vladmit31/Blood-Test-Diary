@@ -1,10 +1,11 @@
 package seg.major.model;
 
 import com.ja.security.PasswordHash;
+import seg.major.model.database.UserDAO;
 import seg.major.structure.User;
+
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import seg.major.model.database.UserDAO;
 /**
  * Model class for LoginController class.
  * Provides communication between controller and DAOs if needed.
@@ -42,6 +43,12 @@ public class LoginModel {
         return false;
     }
 
+    /**
+     * Get a user by their username
+     * 
+     * @param toGet username to search
+     * @return the corresponding user
+     */
     public static User getUserByUsername(String toGet) {
         return UserDAO.getByUsername(toGet);
     }

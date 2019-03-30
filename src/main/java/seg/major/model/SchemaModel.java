@@ -1,17 +1,18 @@
 package seg.major.model;
 
+import seg.major.model.database.AppointmentDAO;
+import seg.major.model.database.PatientDAO;
 import seg.major.model.util.DateReverser;
 import seg.major.structure.Appointment;
 import seg.major.structure.AppointmentEntry;
 import seg.major.structure.Patient;
+
 import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
-import seg.major.model.database.PatientDAO;
-import seg.major.model.database.AppointmentDAO;
 
 /**
  * Model class for SchemaController class. Provides communication between
@@ -25,7 +26,6 @@ public class SchemaModel {
     private List<Appointment> appointmentList;
     private List<Patient> patientListUnder12;
     private List<Patient> patientListOver12;
-
     private Week currentWeek;
 
     public SchemaModel() {
@@ -33,6 +33,9 @@ public class SchemaModel {
         updateData();
     }
 
+    /**
+     * Update all list fields with latest data from the database
+     */
     public void updateData() {
         this.appointmentList = AppointmentDAO.getCurrentWeek(currentWeek);
 
@@ -45,6 +48,11 @@ public class SchemaModel {
                 .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())).collect(Collectors.toList());
     }
 
+    /**
+     * Get all appointments
+     *
+     * @return a list of all of the appointments
+     */
     public List<AppointmentEntry> getAll() {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
         List<Appointment> appointments = AppointmentDAO.getCurrentWeek(currentWeek);
@@ -81,6 +89,11 @@ public class SchemaModel {
         return toReturn;
     }
 
+    /**
+     * Get all the patients that are aged over 12 years old
+     *
+     * @return all patients aged over 12 years old
+     */
     public List<AppointmentEntry> getPatientsOver12() {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
@@ -120,6 +133,11 @@ public class SchemaModel {
         return toReturn;
     }
 
+    /**
+     * Get all the patients that are aged under 12 years old
+     *
+     * @return all patients aged under 12 years old
+     */
     public List<AppointmentEntry> getPatientsUnder12() {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
@@ -159,6 +177,12 @@ public class SchemaModel {
         return toReturn;
     }
 
+    /**
+     * Get appointments due for a specific day of the week
+     *
+     * @param day the day of the week tog et appointments for
+     * @return all appointments on that day
+     */
     private List<Appointment> getAppointmentsForDate(DayOfWeek day) {
         List<Appointment> toReturn = new ArrayList<>();
 
@@ -203,13 +227,16 @@ public class SchemaModel {
         return toReturn;
     }
 
+    /**
+     * Get all the missed and overdue appointments from previous weeks
+     *
+     * @return the carried over appointments
+     */
     public List<AppointmentEntry> getCarriedOverAppointments() {
         List<AppointmentEntry> allAppointments = getAllAppointmentsEntry();
 
         List<AppointmentEntry> toReturn = new ArrayList<>();
         for (AppointmentEntry appointmentEntry : allAppointments) {
-            System.out.println(appointmentEntry.getName() + "------------ */");
-            System.out.println(appointmentEntry.getDueDate().compareTo(LocalDate.now()));
             if (appointmentEntry.getComplete().equals("Incomplete")
                     && appointmentEntry.getDueDate().compareTo(LocalDate.now()) < 0) {
                 toReturn.add(appointmentEntry);
@@ -220,6 +247,11 @@ public class SchemaModel {
         return toReturn;
     }
 
+    /**
+     * Get the appointments and patients aged 12 and under for a day of the week
+     * @param day to get appointments for
+     * @return the appointments for under 12 year olds on that day
+     */
     public List<AppointmentEntry> getAppointmentsAndPatientsForDayUnder12(DayOfWeek day) {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
@@ -256,6 +288,11 @@ public class SchemaModel {
         return toReturn;
     }
 
+    /**
+     * Get the appointments and patients aged 12 and over for a day of the week
+     * @param day to get appointments for
+     * @return the appointments for over 12 year olds on that day
+     */
     public List<AppointmentEntry> getAppointmentsAndPatientsForDayOver12(DayOfWeek day) {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
@@ -299,12 +336,18 @@ public class SchemaModel {
         return currentWeek.toString();
     }
 
+    /**
+     * Increase the week to view appointments for upcoming weeks
+     */
     public void incrementWeek() {
         currentWeek.increment();
         updateData();
 
     }
 
+    /**
+     * Increase the week to view appointments for previous weeks
+     */
     public void decrementWeek() {
         currentWeek.decrement();
         updateData();

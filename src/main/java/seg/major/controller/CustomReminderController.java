@@ -1,6 +1,7 @@
 package seg.major.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -8,27 +9,34 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyEvent;
 import seg.major.App;
 import seg.major.model.EditNotificationEmailModel;
-
 import java.net.URL;
-import java.util.*;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 /**
  * AddPatientController acts as the controller for the custom_reminder.fxml file
  * @author Team Pacane
  * @version 1.0
  */
 public class CustomReminderController implements Initializable, ControllerInterface {
-    public TextField subjectTextField;
-    public TextArea contentTextArea;
-    public Button cancelButton;
-    public Button saveButton;
 
     private Map<String, Object> data = new HashMap<>();
-
     private EditNotificationEmailModel.EmailType type;
-
     private PrimaryController primaryController;
 
-    @Override
+    public TextField subjectTextField;
+    @FXML
+    public TextArea contentTextArea;
+    @FXML
+    public Button cancelButton;
+    @FXML
+    public Button saveButton;
+
+    /**
+     * Allow javafx to initalise the controller with the view
+     */
     public void initialize(URL location, ResourceBundle resources) {
         this.type = EditNotificationEmailModel.EmailType.REMINDER;
 
@@ -39,29 +47,46 @@ public class CustomReminderController implements Initializable, ControllerInterf
         fillTextArea();
     }
 
-    @Override
+    /**
+     * Set the primaryController
+     *
+     * @param primaryController the PrimaryController to set
+     */
     public void setScreenParent(PrimaryController primaryController) {
         this.primaryController = primaryController;
     }
 
-    @Override
-    public void setData(Map<String, Object> toInject) {
-        this.data = toInject;
+    /**
+     * Set the data
+     *
+     * @param data the data to set
+     */
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
-    private void fillTextArea() {
-        this.contentTextArea.setText(EditNotificationEmailModel.getBodyAsString());
-    }
-
-    @Override
+    /**
+     * Add data to the given fx-item and update the scene
+     *
+     * @param toAddKey the key of the data
+     * @param toAddVal the value of the data
+     */
     public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
         update();
     }
 
-    @Override
+    /**
+     * Update the scene with changes from the data HashMap
+     */
     public void update() {
+    }
 
+    /**
+     * Fill the text area with a pre-generated email
+     */
+    private void fillTextArea() {
+        this.contentTextArea.setText(EditNotificationEmailModel.getBodyAsString());
     }
 
     public void onSubjectModified(KeyEvent keyEvent) {

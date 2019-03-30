@@ -1,11 +1,9 @@
 package seg.major.model;
 
 import org.junit.Test;
-import seg.major.App;
 import seg.major.model.database.PatientDAO;
 import seg.major.structure.Patient;
 import org.junit.Assert;
-
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -50,7 +48,6 @@ public class PatientModelTest {
         PatientModel model = new PatientModel();
         List <Patient> over12 = model.over12();
         for (Patient patient : over12){
-            System.out.println(patient.getDob());
             Assert.assertTrue(patient.getDob().isBefore(LocalDate.now().minusYears(12)) || patient.getDob().equals(LocalDate.now().minusYears(12)));
         }
         for (Patient patient : PatientDAO.getAll()){

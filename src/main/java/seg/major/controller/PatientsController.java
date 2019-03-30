@@ -1,7 +1,13 @@
 package seg.major.controller;
 
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
@@ -15,7 +21,6 @@ import seg.major.model.util.DateReverser;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
-
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.HashMap;
@@ -30,37 +35,46 @@ import java.util.ResourceBundle;
  */
 public class PatientsController implements Initializable, ControllerInterface {
 
-  public MenuItem switchToDiary;
-  public Text infoText;
-  public FlowPane infoBar;
-  public BorderPane infoFieldBorder;
   private PrimaryController primaryController;
   private Map<String, Object> data = new HashMap<>();
-
-  public TextField searchField;
-  public Button searchButton;
-  public Button filterButton;
-  public TableView<PatientEntry> patientTable;
-  public TableColumn<PatientEntry, String> forename;
-  public TableColumn<PatientEntry, String> surname;
-  public TableColumn<PatientEntry, String> hospitalNumber;
-  public TableColumn<PatientEntry, String> localClinic;
-  public TableColumn<PatientEntry, String > diagnosis;
-  public TableColumn<PatientEntry, LocalDate> nextAppointment;
-  public Button under12Button;
-  public Button over12Button;
-  public MenuItem addNewPatientMenuItem;
-
   private boolean isUnder12 = true;
-
-
   private PatientModel patientModel;
 
-  /** ---------- FXML ---------- */
+  @FXML
+  public MenuItem switchToDiary;
+  @FXML
+  public Text infoText;
+  @FXML
+  public FlowPane infoBar;
+  @FXML
+  public BorderPane infoFieldBorder;
+  @FXML
+  public TextField searchField;
+  @FXML
+  public Button searchButton;
+  @FXML
+  public Button filterButton;
+  @FXML
+  public TableView<PatientEntry> patientTable;
+  @FXML
+  public TableColumn<PatientEntry, String> forename;
+  @FXML
+  public TableColumn<PatientEntry, String> surname;
+  @FXML
+  public TableColumn<PatientEntry, String> hospitalNumber;
+  @FXML
+  public TableColumn<PatientEntry, String> localClinic;
+  @FXML
+  public TableColumn<PatientEntry, String > diagnosis;
+  @FXML
+  public TableColumn<PatientEntry, LocalDate> nextAppointment;
+  @FXML
+  public Button under12Button;
+  @FXML
+  public Button over12Button;
+  @FXML
+  public MenuItem addNewPatientMenuItem;
 
-  /** ---------- FXML ---------- */
-
-  /** ---------- Inherited / Implemented ---------- */
   /**
    * Allow javafx to initalise the controller with the view
    */
@@ -73,11 +87,15 @@ public class PatientsController implements Initializable, ControllerInterface {
     setUpDynamicSearchField();
   }
 
+  /**
+   * Setup the search field to search on each new keystroke
+   */
   private void setUpDynamicSearchField(){
     searchField.textProperty().addListener((observable, oldValue, newValue) -> {
       searchButton.fire();
     });
   }
+
   /**
    * Set the primaryController
    * 
@@ -118,14 +136,13 @@ public class PatientsController implements Initializable, ControllerInterface {
     }
   }
 
-  /** ---------- Inherited / Implemented ---------- */
 
   private void setupTable() {
     setupColumns();
     setupRows();
     fillTable(patientModel.under12());
     under12Button.setStyle("-fx-background-color: #0096c9;" + "-fx-text-fill: white");
-    patientTable.setPlaceholder(new Label("No patients found"));
+    // patientTable.setPlaceholder(new Label("No patients found"));
   }
 
   private void setupRows() {
@@ -179,13 +196,6 @@ public class PatientsController implements Initializable, ControllerInterface {
     });
   }
 
-/*  private void fillTable() {
-    patientTable.getItems().clear();
-    for (Patient patient : patientModel.getPatientList()) {
-      patientTable.getItems().add(patient);
-    }
-  }*/
-
   private void fillTable(List<Patient> patients) {
     patientTable.getItems().clear();
     for (Patient patient : patients) {
@@ -206,15 +216,6 @@ public class PatientsController implements Initializable, ControllerInterface {
 
   public void addNewPatientMenuItemClicked() {
     primaryController.setPane(App.addPatient);
-  }
-
-  public void refresh() {
-    patientModel.fetchData();
-    if (isUnder12) {
-      fillTable(patientModel.under12());
-    } else {
-      fillTable(patientModel.over12());
-    }
   }
 
   public void setInfoText(String text) {

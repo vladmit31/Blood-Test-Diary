@@ -1,29 +1,32 @@
 package seg.major.controller;
 
-import java.util.HashMap;
-import java.util.Map;
-import java.util.ResourceBundle;
-import java.net.URL;
-
-import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import seg.major.App;
-import java.time.DayOfWeek;
-import java.time.LocalDate;
-import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
-import javafx.scene.control.*;
+import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import javafx.scene.text.Text;
-import seg.major.model.EditNotificationEmailModel;
+import seg.major.App;
 import seg.major.model.SchemaModel;
 import seg.major.structure.AppointmentEntry;
 import seg.major.structure.User;
+
+import java.net.URL;
+import java.time.DayOfWeek;
+import java.time.LocalDate;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.ResourceBundle;
 
 /**
  * SchemaController acts as the controller for the schema.fxml file
@@ -33,11 +36,14 @@ import seg.major.structure.User;
  */
 public class SchemaController implements Initializable, ControllerInterface {
 
-  public Button logoutButton;
   public MenuItem editReminderEmail;
-  private PrimaryController primaryController;
   public MenuItem addNewUser;
+  public boolean isUnder12 = true;
+
+  private PrimaryController primaryController;
   private Map<String, Object> data = new HashMap<>();
+  private MenuItem notificationList;
+  private SchemaModel schemaModel;
 
   @FXML
   public TableColumn<AppointmentEntry, String> carriedOverName;
@@ -95,14 +101,12 @@ public class SchemaController implements Initializable, ControllerInterface {
   public TableColumn<AppointmentEntry, String> fridayComplete;
   @FXML
   public TableColumn<AppointmentEntry, String> fridayDueDate;
-
   @FXML
   public Button under12Btn;
-
   @FXML
   public Button over12Btn;
   @FXML
-  public boolean isUnder12 = true;
+  public Button logoutButton;
   @FXML
   public Label bottomInfo;
   @FXML
@@ -133,10 +137,6 @@ public class SchemaController implements Initializable, ControllerInterface {
   public Tab fridayTab;
   @FXML
   public TableView<AppointmentEntry> fridayTable;
-
-  /** ---------- FXML ---------- */
-
-  private SchemaModel schemaModel;
   @FXML
   public Button prevWeekBtn;
   @FXML
@@ -152,12 +152,6 @@ public class SchemaController implements Initializable, ControllerInterface {
   @FXML
   public MenuItem menuExit;
 
-  @FXML
-  private MenuItem notificationList;
-
-  /** ---------- FXML ---------- */
-
-  /** ---------- Inherited / Implemented ---------- */
   /**
    * Allow javafx to initalise the controller with the view
    */
@@ -331,8 +325,6 @@ public class SchemaController implements Initializable, ControllerInterface {
       fillTablesForOver12();
     }
   }
-
-  /** ---------- Inherited / Implemented ---------- */
 
   public void setAuthenticatedUser() {
     User loggedInUser = (User) data.get("user");
