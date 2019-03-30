@@ -363,7 +363,6 @@ public class AppointmentDAO {
    */
   public static String mapToSQLQuery(Map<String, String> toQuery) {
 
-    // build the statement
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT * FROM appointment WHERE ( ");
     for (Map.Entry<String, String> entry : toQuery.entrySet()) {
@@ -373,7 +372,7 @@ public class AppointmentDAO {
       sb.append("' AND ");
     }
     // remove the last AND then close the brackets
-    sb.delete(sb.length() - 4, sb.length());
+    sb.delete(sb.length() - 5, sb.length());
     sb.append(");");
 
     return sb.toString();
@@ -425,6 +424,7 @@ public class AppointmentDAO {
    * @return the constructed statement
    */
   public static String buildWeekQuery(Week curWeek) {
+
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT * FROM appointment WHERE due_date BETWEEN '");
     sb.append(curWeek.getMondayDate());

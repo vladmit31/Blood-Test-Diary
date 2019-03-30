@@ -10,7 +10,7 @@ public class AppointmentDAOTest {
 
   @Test
   public void testMapToSQLQuery() {
-    String expectedString = "SELECT * FROM appointment WHERE ( patient_id='32' AND status='2' );";
+    String expectedString = "SELECT * FROM appointment WHERE ( patient_id='32' AND status='2');";
 
     HashMap<String, String> toTest = new HashMap<>();
     toTest.put("status", "2");

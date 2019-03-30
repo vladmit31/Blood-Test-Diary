@@ -8,7 +8,7 @@ public class UserDAOTest {
 
   @Test
   public void testMapToSQLQuery() {
-    String expectedString = "SELECT * FROM user WHERE ( password='testPassword' AND username='testUsername' );";
+    String expectedString = "SELECT * FROM user WHERE ( password='testPassword' AND username='testUsername');";
 
     HashMap<String, String> toTest = new HashMap<>();
     toTest.put("username", "testUsername");

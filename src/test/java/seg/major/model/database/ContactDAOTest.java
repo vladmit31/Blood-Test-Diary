@@ -8,7 +8,7 @@ public class ContactDAOTest {
 
   @Test
   public void testMapToSQLQuery() {
-    String expectedString = "SELECT * FROM contact WHERE ( forename='testForename' AND surname='testSurname' );";
+    String expectedString = "SELECT * FROM contact WHERE ( forename='testForename' AND surname='testSurname');";
 
     HashMap<String, String> toTest = new HashMap<>();
     toTest.put("forename", "testForename");

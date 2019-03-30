@@ -379,7 +379,6 @@ public class ContactDAO {
    */
   public static String mapToSQLQuery(Map<String, String> toQuery) {
 
-    // build the statement
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT * FROM contact WHERE ( ");
     for (Map.Entry<String, String> entry : toQuery.entrySet()) {
@@ -389,7 +388,7 @@ public class ContactDAO {
       sb.append("' AND ");
     }
     // remove the last AND then close the brackets
-    sb.delete(sb.length() - 4, sb.length());
+    sb.delete(sb.length() - 5, sb.length());
     sb.append(");");
 
     return sb.toString();
