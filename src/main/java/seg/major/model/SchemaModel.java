@@ -8,14 +8,15 @@ import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 import seg.major.model.database.PatientDAO;
 import seg.major.model.database.AppointmentDAO;
+
 /**
- * Model class for SchemaController class.
- * Provides communication between controller and DAOs if needed.
+ * Model class for SchemaController class. Provides communication between
+ * controller and DAOs if needed.
+ * 
  * @author Team Pacane
  * @version 1.0
  */
@@ -36,9 +37,9 @@ public class SchemaModel {
         this.appointmentList = AppointmentDAO.getCurrentWeek(currentWeek);
 
         this.patientListUnder12 = PatientDAO.getAll().stream()
-                .filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now()) ||
-                        p.getDob().plusYears(12).isEqual(LocalDate.now())).collect(Collectors.toList());
-
+                .filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now())
+                        || p.getDob().plusYears(12).isEqual(LocalDate.now()))
+                .collect(Collectors.toList());
 
         this.patientListOver12 = PatientDAO.getAll().stream()
                 .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())).collect(Collectors.toList());
@@ -53,19 +54,95 @@ public class SchemaModel {
                 if (appointment.getPatientID() == patient.getID()) {
                     String name = patient.getForename() + " " + patient.getSurname();
                     String status = "Incomplete";
-                    if(appointment.getStatus() == 1) {
+                    if (appointment.getStatus() == 1) {
                         status = "Complete";
                     }
-                    if(appointment.getStatus()== 2)
-                    {
+                    if (appointment.getStatus() == 2) {
                         status = "Under review";
                     }
-                    if(appointment.getStatus() == 3) {
+                    if (appointment.getStatus() == 3) {
                         status = "Not received yet";
                     }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
                             patient.getHospitalNumber(), status, appointment.getDueDate());
 
+                    String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
+
+                    entry.setDateString(newDate);
+
+                    toReturn.add(entry);
+                    // A patient can have only one appointment per day, so it's not necessary to
+                    // search the whole list
+                    break;
+                }
+            }
+        }
+
+        return toReturn;
+    }
+
+    public List<AppointmentEntry> getPatientsOver12() {
+        List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
+
+        List<Appointment> appointments = appointmentList;
+
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        for (var appointment : appointments) {
+            for (var patient : patientListOver12) {
+                if (appointment.getPatientID() == patient.getID()) {
+                    String name = patient.getForename() + " " + patient.getSurname();
+                    String status = "Incomplete";
+                    if (appointment.getStatus() == 1) {
+                        status = "Complete";
+                    }
+                    if (appointment.getStatus() == 2) {
+                        status = "Under review";
+                    }
+                    if (appointment.getStatus() == 3) {
+                        status = "Not received yet";
+                    }
+                    AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
+                            patient.getHospitalNumber(), status, appointment.getDueDate());
+
+                    String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
+
+                    entry.setDateString(newDate);
+
+                    toReturn.add(entry);
+                    // A patient can have only one appointment per day, so it's not necessary to
+                    // search the whole list
+                    break;
+                }
+            }
+        }
+
+        return toReturn;
+    }
+
+    public List<AppointmentEntry> getPatientsUnder12() {
+        List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
+
+        List<Appointment> appointments = appointmentList;
+
+        DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+
+        for (var appointment : appointments) {
+            for (var patient : patientListUnder12) {
+                if (appointment.getPatientID() == patient.getID()) {
+                    String name = patient.getForename() + " " + patient.getSurname();
+                    String status = "Incomplete";
+                    if (appointment.getStatus() == 1) {
+                        status = "Complete";
+                    }
+                    if (appointment.getStatus() == 2) {
+                        status = "Under review";
+                    }
+                    if (appointment.getStatus() == 3) {
+                        status = "Not received yet";
+                    }
+                    AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
+                            patient.getHospitalNumber(), status, appointment.getDueDate());
 
                     String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
 
@@ -85,8 +162,7 @@ public class SchemaModel {
     private List<Appointment> getAppointmentsForDate(DayOfWeek day) {
         List<Appointment> toReturn = new ArrayList<>();
 
-        appointmentList.stream().filter(a -> a.getDueDate().getDayOfWeek().equals(day))
-                .forEach(a -> toReturn.add(a));
+        appointmentList.stream().filter(a -> a.getDueDate().getDayOfWeek().equals(day)).forEach(a -> toReturn.add(a));
 
         return toReturn;
     }
@@ -100,19 +176,17 @@ public class SchemaModel {
                 if (appointment.getPatientID() == patient.getID()) {
                     String name = patient.getForename() + " " + patient.getSurname();
                     String status = "Incomplete";
-                    if(appointment.getStatus() == 1) {
+                    if (appointment.getStatus() == 1) {
                         status = "Complete";
                     }
-                    if(appointment.getStatus()== 2)
-                    {
+                    if (appointment.getStatus() == 2) {
                         status = "Under review";
                     }
-                    if(appointment.getStatus() == 3) {
+                    if (appointment.getStatus() == 3) {
                         status = "Not received yet";
                     }
                     AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
                             patient.getHospitalNumber(), status, appointment.getDueDate());
-
 
                     String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
 
@@ -133,10 +207,10 @@ public class SchemaModel {
         List<AppointmentEntry> allAppointments = getAllAppointmentsEntry();
 
         List<AppointmentEntry> toReturn = new ArrayList<>();
-        for(AppointmentEntry appointmentEntry : allAppointments) {
-            System.out.println(appointmentEntry.getName() + "------------ */" );
+        for (AppointmentEntry appointmentEntry : allAppointments) {
+            System.out.println(appointmentEntry.getName() + "------------ */");
             System.out.println(appointmentEntry.getDueDate().compareTo(LocalDate.now()));
-            if(appointmentEntry.getComplete().equals("Incomplete")
+            if (appointmentEntry.getComplete().equals("Incomplete")
                     && appointmentEntry.getDueDate().compareTo(LocalDate.now()) < 0) {
                 toReturn.add(appointmentEntry);
 
@@ -146,42 +220,35 @@ public class SchemaModel {
         return toReturn;
     }
 
-
     public List<AppointmentEntry> getAppointmentsAndPatientsForDayUnder12(DayOfWeek day) {
         List<AppointmentEntry> toReturn = new ArrayList<AppointmentEntry>();
 
         List<Appointment> appointments = getAppointmentsForDate(day);
 
-/*        List<Patient> patientListUnder12 = PatientDAO.getAll().stream()
-                .filter(p -> p.getDob().plusYears(12).isAfter(LocalDate.now()) ||
-                        p.getDob().plusYears(12).isEqual(LocalDate.now())).collect(Collectors.toList());*/
-
-        for(var appointment : appointments){
-            for(var patient : patientListUnder12){
-                if(appointment.getPatientID() == patient.getID()){
+        for (var appointment : appointments) {
+            for (var patient : patientListUnder12) {
+                if (appointment.getPatientID() == patient.getID()) {
                     String name = patient.getForename() + " " + patient.getSurname();
                     String status = "Incomplete";
-                    if(appointment.getStatus() == 1) {
+                    if (appointment.getStatus() == 1) {
                         status = "Complete";
                     }
-                    if(appointment.getStatus()== 2)
-                    {
+                    if (appointment.getStatus() == 2) {
                         status = "Under review";
                     }
-                    if(appointment.getStatus() == 3) {
+                    if (appointment.getStatus() == 3) {
                         status = "Not received yet";
                     }
-                    AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(),
-                            name, patient.getHospitalNumber(), status, appointment.getDueDate());
-
+                    AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
+                            patient.getHospitalNumber(), status, appointment.getDueDate());
 
                     String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
 
                     entry.setDateString(newDate);
 
                     toReturn.add(entry);
-                    //System.out.println(entry);
-                    //A patient can have only one appointment per day, so it's not necessary to search the whole list
+                    // A patient can have only one appointment per day, so it's not necessary to
+                    // search the whole list
                     break;
                 }
             }
@@ -194,38 +261,32 @@ public class SchemaModel {
 
         List<Appointment> appointments = getAppointmentsForDate(day);
 
-        /*List<Patient> patientListOver12 = PatientDAO.getAll().stream()
-                .filter(p -> p.getDob().plusYears(12).isBefore(LocalDate.now())).collect(Collectors.toList());*/
-
         DateTimeFormatter formatters = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
-
-        for(var appointment : appointments){
-            for(var patient : patientListOver12){
-                if(appointment.getPatientID() == patient.getID()){
+        for (var appointment : appointments) {
+            for (var patient : patientListOver12) {
+                if (appointment.getPatientID() == patient.getID()) {
                     String name = patient.getForename() + " " + patient.getSurname();
                     String status = "Incomplete";
-                    if(appointment.getStatus() == 1) {
+                    if (appointment.getStatus() == 1) {
                         status = "Complete";
                     }
-                    if(appointment.getStatus()== 2)
-                    {
+                    if (appointment.getStatus() == 2) {
                         status = "Under review";
                     }
-                    if(appointment.getStatus() == 3) {
+                    if (appointment.getStatus() == 3) {
                         status = "Not received yet";
                     }
-                    AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(),
-                            name, patient.getHospitalNumber(), status, appointment.getDueDate());
-
+                    AppointmentEntry entry = new AppointmentEntry(patient.getID(), appointment.getID(), name,
+                            patient.getHospitalNumber(), status, appointment.getDueDate());
 
                     String newDate = DateReverser.reverseDateFormat(entry.getDueDate());
 
                     entry.setDateString(newDate);
 
                     toReturn.add(entry);
-                    //System.out.println(entry);
-                    //A patient can have only one appointment per day, so it's not necessary to search the whole list
+                    // A patient can have only one appointment per day, so it's not necessary to
+                    // search the whole list
                     break;
                 }
             }
