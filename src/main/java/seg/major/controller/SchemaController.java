@@ -27,6 +27,7 @@ import seg.major.structure.User;
 
 /**
  * SchemaController acts as the controller for the schema.fxml file
+ * 
  * @author Team Pacane
  * @version 1.0
  */
@@ -153,6 +154,7 @@ public class SchemaController implements Initializable, ControllerInterface {
 
   @FXML
   private MenuItem notificationList;
+
   /** ---------- FXML ---------- */
 
   /** ---------- Inherited / Implemented ---------- */
@@ -198,7 +200,7 @@ public class SchemaController implements Initializable, ControllerInterface {
     over12Btn.setStyle(null);
   }
 
-  private void setUpRowsForTable(TableView<AppointmentEntry> tbv){
+  private void setUpRowsForTable(TableView<AppointmentEntry> tbv) {
     tbv.setRowFactory(t -> {
       TableRow<AppointmentEntry> row = new TableRow<>();
       row.setOnMouseClicked(click -> {
@@ -214,7 +216,6 @@ public class SchemaController implements Initializable, ControllerInterface {
       return row;
     });
   }
-
 
   private void setUpRows() {
     setUpRowsForTable(carriedOverTable);
@@ -234,7 +235,7 @@ public class SchemaController implements Initializable, ControllerInterface {
 
   private void fillTablesForUnder12() {
     fillTable(carriedOverTable, schemaModel.getCarriedOverAppointments());
-    fillTable(thisWeekTable, schemaModel.getAll());
+    fillTable(thisWeekTable, schemaModel.getPatientsUnder12());
     fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.MONDAY));
     fillTable(tuesdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.TUESDAY));
     fillTable(wednesdayTable, schemaModel.getAppointmentsAndPatientsForDayUnder12(DayOfWeek.WEDNESDAY));
@@ -244,7 +245,7 @@ public class SchemaController implements Initializable, ControllerInterface {
 
   public void fillTablesForOver12() {
     fillTable(carriedOverTable, schemaModel.getCarriedOverAppointments());
-    fillTable(thisWeekTable, schemaModel.getAll());
+    fillTable(thisWeekTable, schemaModel.getPatientsOver12());
     fillTable(mondayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.MONDAY));
     fillTable(tuesdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.TUESDAY));
     fillTable(wednesdayTable, schemaModel.getAppointmentsAndPatientsForDayOver12(DayOfWeek.WEDNESDAY));
@@ -334,9 +335,9 @@ public class SchemaController implements Initializable, ControllerInterface {
   /** ---------- Inherited / Implemented ---------- */
 
   public void setAuthenticatedUser() {
-     User loggedInUser = (User) data.get("user");
-     userInfo.setText("User: " + loggedInUser.getUsername());
-    if(loggedInUser.getIsAdmin() == 0) {
+    User loggedInUser = (User) data.get("user");
+    userInfo.setText("User: " + loggedInUser.getUsername());
+    if (loggedInUser.getIsAdmin() == 0) {
       addNewUser.setVisible(false);
     }
   }
@@ -358,7 +359,7 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void notificationListMenuItemClicked() {
-      primaryController.setPane(App.notifyList);
+    primaryController.setPane(App.notifyList);
   }
 
   public void logoutButtonClicked(ActionEvent event) {
@@ -371,10 +372,10 @@ public class SchemaController implements Initializable, ControllerInterface {
   }
 
   public void editReminderEmailClicked(ActionEvent event) {
-      primaryController.setPane(App.customReminder);
+    primaryController.setPane(App.customReminder);
   }
 
-    public void addNewUserClicked(ActionEvent event) {
-      primaryController.setPane(App.addUser);
-    }
+  public void addNewUserClicked(ActionEvent event) {
+    primaryController.setPane(App.addUser);
+  }
 }
