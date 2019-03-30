@@ -120,7 +120,7 @@ public class PatientDAO {
             ps = conn.prepareStatement(query);
             ps.execute("USE db");
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 toReturn = resultSetToPatient(rs);
             }
 
@@ -160,7 +160,7 @@ public class PatientDAO {
             ps.setString(3, toUpdate.getSurname());
             ps.setDate(4, Date.valueOf(toUpdate.getDob()));
             ps.setString(5, toUpdate.getLocalClinic());
-            ps.setString(6,toUpdate.getDiagnosis());
+            ps.setString(6, toUpdate.getDiagnosis());
             ps.setString(7, toUpdate.getLabName());
             ps.setString(8, toUpdate.getLabContact());
             ps.setString(9, toUpdate.getNhsNumber());
@@ -367,12 +367,13 @@ public class PatientDAO {
         String nhsNumber = toConvert.getString(NHS_NUMBER);
         LocalDate lastTimeNotified = toConvert.getDate(LAST_NOTIFICATION).toLocalDate();
 
-        Patient toReturn = new Patient(id, forename, surname, dob,
-                hospitalNumber, localClinic, diagnosis,refreshRate, labName, labContact, nhsNumber, lastTimeNotified);
+        Patient toReturn = new Patient(id, forename, surname, dob, hospitalNumber, localClinic, diagnosis, refreshRate,
+                labName, labContact, nhsNumber, lastTimeNotified);
 
         return toReturn;
 
     }
+
     /**
      * Convert a ResultSet to an array containing all records contained
      * 
@@ -397,7 +398,7 @@ public class PatientDAO {
      * @param toQuery the map to convery to a query
      * @return the constructed statement
      */
-    private static String mapToSQLQuery(Map<String, String> toQuery) {
+    public static String mapToSQLQuery(Map<String, String> toQuery) {
 
         // build the statement
         StringBuilder sb = new StringBuilder();

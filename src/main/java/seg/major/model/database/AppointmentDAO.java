@@ -107,7 +107,7 @@ public class AppointmentDAO {
       ps.setInt(1, toGet);
       ps.execute("USE db");
       rs = ps.executeQuery();
-      if(rs.next()){
+      if (rs.next()) {
         toReturn = resultSetToAppointment(rs);
       }
 
@@ -361,7 +361,7 @@ public class AppointmentDAO {
    * @param toQuery the map to convery to a query
    * @return the constructed statement
    */
-  private static String mapToSQLQuery(Map<String, String> toQuery) {
+  public static String mapToSQLQuery(Map<String, String> toQuery) {
 
     // build the statement
     StringBuilder sb = new StringBuilder();
@@ -419,12 +419,12 @@ public class AppointmentDAO {
   }
 
   /**
-   * Build a query select the days between the monday and friday of the current week
-   *
+   * Builds an SQL statment to select the monday and friday of the current week
+   * 
    * @param curWeek the current week
-   * @return a string of the query
+   * @return the constructed statement
    */
-  private static String buildWeekQuery(Week curWeek) {
+  public static String buildWeekQuery(Week curWeek) {
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT * FROM appointment WHERE due_date BETWEEN '");
     sb.append(curWeek.getMondayDate());
