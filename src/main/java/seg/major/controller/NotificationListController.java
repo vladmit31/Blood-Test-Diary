@@ -1,13 +1,18 @@
 package seg.major.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.SelectionMode;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableRow;
+import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseButton;
 import seg.major.App;
 import seg.major.controller.util.EmailSender;
-import seg.major.model.CustomEmailModel;
 import seg.major.model.EditNotificationEmailModel;
 import seg.major.model.NotificationListModel;
 import seg.major.model.database.AppointmentDAO;
@@ -18,10 +23,16 @@ import seg.major.structure.Appointment;
 import seg.major.structure.Contact;
 import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
+import java.util.Map;
+import java.util.ResourceBundle;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+
 
 import java.net.URL;
 import java.time.LocalDate;
-import java.util.*;
 import java.util.stream.Collectors;
 /**
  * AddPatientController acts as the controller for the notifyList.fxml file
@@ -30,24 +41,37 @@ import java.util.stream.Collectors;
  */
 public class NotificationListController implements Initializable, ControllerInterface {
 
-    public Button notifyButton;
-    public TableColumn<PatientEntry, String> forenameColumn;
-    public TableColumn<PatientEntry, String> hospitalNumberColumn;
-    public TableColumn<PatientEntry, String> diagnosisColumn;
-    public TableColumn<PatientEntry, String> surnameColumn;
-    public TableColumn<PatientEntry, String> dueDateColumn;
-    public TableColumn <PatientEntry, String> lastNotifiedColumn;
-    public Button backButton;
-    public TableView notificationTable;
-    public Button notifyAllButton;
-    public Button editDefaultEmail;
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
-
     private NotificationListModel notificationListModel;
-
     private List<PatientEntry> toBeNotified = null;
 
+    @FXML
+    public Button notifyButton;
+    @FXML
+    public TableColumn<PatientEntry, String> forenameColumn;
+    @FXML
+    public TableColumn<PatientEntry, String> hospitalNumberColumn;
+    @FXML
+    public TableColumn<PatientEntry, String> diagnosisColumn;
+    @FXML
+    public TableColumn<PatientEntry, String> surnameColumn;
+    @FXML
+    public TableColumn<PatientEntry, String> dueDateColumn;
+    @FXML
+    public TableColumn<PatientEntry, String> lastNotifiedColumn;
+    @FXML
+    public Button backButton;
+    @FXML
+    public TableView<PatientEntry> notificationTable;
+    @FXML
+    public Button notifyAllButton;
+    @FXML
+    public Button editDefaultEmail;
+
+    /**
+     * Allow javafx to initalise the controller with the view
+     */
     public void initialize(URL url, ResourceBundle rb) {
         this.notificationListModel = new NotificationListModel();
 
@@ -55,9 +79,7 @@ public class NotificationListController implements Initializable, ControllerInte
     }
 
     private void setupTable() {
-        notificationTable.getSelectionModel().setSelectionMode(
-                SelectionMode.MULTIPLE
-        );
+        notificationTable.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
         setupColumns();
         setupRows();
         fillTable(this.notificationListModel.getCarriedOverAppointmentEntries());
@@ -66,21 +88,18 @@ public class NotificationListController implements Initializable, ControllerInte
 
     private void setupRows() {
         notificationTable.setRowFactory(t -> {
-            TableRow<PatientEntry> row = new TableRow<>();
+            TableRow<PatientEntry> row = new TableRow<PatientEntry>();
             row.setOnMouseClicked(click -> {
                 if (!row.isEmpty() && click.getButton() == MouseButton.PRIMARY && click.getClickCount() == 2) {
-                        Patient patient = PatientDAO.get(row.getItem().getPatientID());
-                        List<Contact> listOfContacts = ContactDAO.getAll().stream().filter(contact -> contact.getPatientID() == patient.getID()).collect(Collectors.toList());
-                        primaryController.sendTo(App.customEmail,"contacts_list", listOfContacts);
-                        primaryController.setPane(App.customEmail);
+                    Patient patient = NotificationListModel.getPatientByID(row.getItem().getPatientID());
+                    List<Contact> listOfContacts = NotificationListModel.getAllContacts().stream()
+                            .filter(contact -> contact.getPatientID() == patient.getID()).collect(Collectors.toList());
+                    primaryController.sendTo(App.customEmail, "contacts_list", listOfContacts);
+                    primaryController.setPane(App.customEmail);
                 }
             });
             return row;
         });
-    }
-
-    private void viewPatient(PatientEntry patientEntry){
-        System.out.println(patientEntry.getPatientID() + " " + patientEntry.getForename() + " " + patientEntry.getSurname() + " | " + patientEntry.getDiagnosis());
     }
 
     private void setupColumns() {
@@ -95,25 +114,43 @@ public class NotificationListController implements Initializable, ControllerInte
 
     private void fillTable(List<PatientEntry> patientEntries) {
         notificationTable.getItems().clear();
-        for(PatientEntry patientEntry : patientEntries) {
+        for (PatientEntry patientEntry : patientEntries) {
             notificationTable.getItems().add(patientEntry);
         }
     }
 
-
-
+    /**
+     * Set the primaryController
+     *
+     * @param primaryController the PrimaryController to set
+     */
     public void setScreenParent(PrimaryController primaryController) {
         this.primaryController = primaryController;
     }
 
-    public void setData(Map<String, Object> toInject) {
-
+    /**
+     * Set the data
+     *
+     * @param data the data to set
+     */
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
+    /**
+     * Add data to the given fx-item and update the scene
+     *
+     * @param toAddKey the key of the data
+     * @param toAddVal the value of the data
+     */
     public void addData(String toAddKey, Object toAddVal) {
-
+        data.put(toAddKey, toAddVal);
+        update();
     }
 
+    /**
+     * Update the scene with changes from the data HashMap
+     */
     public void update() {
         fillTable(notificationListModel.getCarriedOverAppointmentEntries());
     }
@@ -161,8 +198,6 @@ public class NotificationListController implements Initializable, ControllerInte
                 sb.append(contact.getForename() + " " + contact.getSurname() + "\n");
                 //it1.remove(); // avoids a ConcurrentModificationException
             }
-
-            System.out.println(sb.toString());
             EmailSender sender = new EmailSender(toNotifiy, "Missed appointment!");
             sender.start();
         }
@@ -204,7 +239,6 @@ public class NotificationListController implements Initializable, ControllerInte
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
 
-                //it.remove(); // avoids a ConcurrentModificationException
             }
 
             StringBuilder sb = new StringBuilder();
@@ -217,10 +251,8 @@ public class NotificationListController implements Initializable, ControllerInte
                 Contact contact = (Contact)pair.getKey();
                 String generatedContent = (String)pair.getValue();
                 sb.append(contact.getForename() + " " + contact.getSurname() + "\n");
-                //it1.remove(); // avoids a ConcurrentModificationException
             }
 
-            System.out.println(sb.toString());
             EmailSender sender = new EmailSender(toNotifiy, "Missed appointment!");
             sender.start();
         }

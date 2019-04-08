@@ -4,11 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
-import java.util.Map;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * PrimaryController is the main views controller, it works by storing a HashMap
@@ -60,7 +59,6 @@ public class PrimaryController extends StackPane {
       FXMLLoader loader = new FXMLLoader(getClass().getClassLoader().getResource("views/" + toLoad + ".fxml"));
       Parent toReturn = (Parent) loader.load();
       ControllerInterface ci = ((ControllerInterface) loader.getController());
-      System.out.println("Initalised " + toLoad);
       ci.setScreenParent(this);
       data.put(toLoad, ci);
       return toReturn;
@@ -100,7 +98,6 @@ public class PrimaryController extends StackPane {
       stage.sizeToScene();
       return true;
     } else {
-      System.out.println("screen hasn't been loaded!!! \n");
       return false;
     }
   }
@@ -121,14 +118,10 @@ public class PrimaryController extends StackPane {
   public void closeStage(){
     stage.close();
   }
+
   public Stage getStage(){
     return stage;
   }
-/*  public void triggerUpdate(String toReceive) {
-    ControllerInterface ci = data.get(toReceive);
-    if(ci != null) {
-      ci.update();
-    }
-  }*/
+
 
 }

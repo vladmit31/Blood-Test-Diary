@@ -12,7 +12,6 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.text.Text;
 import seg.major.App;
 import seg.major.model.UpdateAppointmentModel;
-import seg.major.model.util.DateReverser;
 import seg.major.structure.Appointment;
 import seg.major.structure.AppointmentEntry;
 
@@ -30,13 +29,9 @@ import java.util.ResourceBundle;
  */
 public class UpdateAppointmentController implements Initializable, ControllerInterface {
 
-
     private PrimaryController primaryController;
-
     private Map<String, Object> data = new HashMap<>();
     private boolean isInitialState;
-
-    /** ---------- FXML ---------- */
 
     @FXML
     public CheckBox completed;
@@ -58,7 +53,7 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
     public RadioButton threeMonthsRadioButton;
     @FXML
     public RadioButton twoWeeksRadioButton;
-    /** ---------- Inherited / Implemented ---------- */
+
     /**
      * Allow javafx to initalise the controller with the view
      */
@@ -66,6 +61,7 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
         isInitialState = true;
         setExclusionProperty();
     }
+
     private void setExclusionProperty() {
         appDueDate.setOnAction(new EventHandler() {
             public void handle(Event t) {
@@ -198,31 +194,29 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
         data.remove("appointmentEntry");
 
         if(twoWeeksRadioButton.isSelected()){
-            //System.out.println(appDueDate.getValue().plus(2, ChronoUnit.WEEKS));
             appointment.setDueDate(appDueDate.getValue().plus(2, ChronoUnit.WEEKS));
             if(appointment.getDueDate().getDayOfWeek().equals(DayOfWeek.SATURDAY))
                 appointment.setDueDate(appointment.getDueDate().plus(2,ChronoUnit.DAYS));
             if(appointment.getDueDate().getDayOfWeek().equals(DayOfWeek.SUNDAY))
                 appointment.setDueDate(appointment.getDueDate().plus(1,ChronoUnit.DAYS));
-            System.out.println(appointment.getDueDate());
+
         }
         else if(oneMonthRadioButton.isSelected()){
-            //System.out.println(appDueDate.getValue().plus(1, ChronoUnit.MONTHS));
             appointment.setDueDate(appDueDate.getValue().plus(1, ChronoUnit.MONTHS));
             if(appointment.getDueDate().getDayOfWeek().equals(DayOfWeek.SATURDAY))
                 appointment.setDueDate(appointment.getDueDate().plus(2,ChronoUnit.DAYS));
             if(appointment.getDueDate().getDayOfWeek().equals(DayOfWeek.SUNDAY))
                 appointment.setDueDate(appointment.getDueDate().plus(1,ChronoUnit.DAYS));
-            System.out.println(appointment.getDueDate());
+
         }
         else if(threeMonthsRadioButton.isSelected()){
-            //System.out.println(appDueDate.getValue().plus(3, ChronoUnit.MONTHS));
+
             appointment.setDueDate(appDueDate.getValue().plus(3, ChronoUnit.MONTHS));
             if(appointment.getDueDate().getDayOfWeek().equals(DayOfWeek.SATURDAY))
                 appointment.setDueDate(appointment.getDueDate().plus(2,ChronoUnit.DAYS));
             if(appointment.getDueDate().getDayOfWeek().equals(DayOfWeek.SUNDAY))
                 appointment.setDueDate(appointment.getDueDate().plus(1,ChronoUnit.DAYS));
-            System.out.println(appointment.getDueDate());
+
         }
         else{
             appointment.setDueDate(appDueDate.getValue());
@@ -269,5 +263,4 @@ public class UpdateAppointmentController implements Initializable, ControllerInt
         setChosenAppointmentEntry();
     }
 
-    /** ---------- Inherited / Implemented ---------- */
 }

@@ -7,7 +7,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seg.major.App;
-import seg.major.controller.util.EmailSender;
 import seg.major.controller.util.LaboratoryEmailSender;
 import seg.major.structure.Patient;
 
@@ -22,46 +21,59 @@ import java.util.ResourceBundle;
  */
 public class LabNotificationController implements Initializable, ControllerInterface {
 
+    private PrimaryController primaryController;
+    private Map<String, Object> data = new HashMap<>();
+
     @FXML
     public TextField sendToTextBox;
-
     @FXML
     public TextField subjectTextBox;
-
     @FXML
     public TextArea emailBody;
-
     @FXML
     public Button backButton111;
-
     @FXML
     public Button sendButton111;
 
-    private PrimaryController primaryController;
-
-    private Map<String, Object> data = new HashMap<>();
-
-    @Override
+    /**
+     * Allow javafx to initalise the controller with the view
+     */
     public void initialize(URL location, ResourceBundle resources) {
         this.sendToTextBox.setDisable(true);
     }
 
-    @Override
+    /**
+     * Set the primaryController
+     *
+     * @param primaryController the PrimaryController to set
+     */
     public void setScreenParent(PrimaryController primaryController) {
         this.primaryController = primaryController;
     }
 
-    @Override
-    public void setData(Map<String, Object> toInject) {
+    /**
+     * Set the data
+     *
+     * @param data the data to set
+     */
+    public void setData(Map<String, Object> data) {
         this.data = data;
     }
 
-    @Override
+    /**
+     * Add data to the given fx-item and update the scene
+     *
+     * @param toAddKey the key of the data
+     * @param toAddVal the value of the data
+     */
     public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
+        update();
     }
 
-    @Override
+    /**
+     * Update the scene with changes from the data HashMap
+     */
     public void update() {
         if(data.get("patient") != null) {
             Patient patient = (Patient) data.get("patient");

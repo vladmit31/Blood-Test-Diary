@@ -8,12 +8,9 @@ import seg.major.model.database.AppointmentDAO;
 import seg.major.model.database.PatientDAO;
 import seg.major.structure.Appointment;
 import seg.major.structure.Patient;
-
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.Map;
-
-import static org.junit.Assert.*;
 
 public class UpdatePatientModelTest {
 
@@ -24,14 +21,14 @@ public class UpdatePatientModelTest {
     public void setUp() throws Exception {
         Patient p1 = new Patient("Person","One", LocalDate.parse("2000-02-13"),"4252","London","",1.0,"","","");
         PatientDAO.create(p1);
-        Map<String,String> patientMap = new HashMap();
+        Map<String,String> patientMap = new HashMap<>();
         patientMap.put("vnumber","4252");
         Patient patient = PatientDAO.get(patientMap);
         patient1ID = patient.getID();
 
         Patient p2 = new Patient("Person","One", LocalDate.parse("2000-02-13"),"4253","London","",1.0,"","","");
         PatientDAO.create(p2);
-        Map<String,String> patient2Map = new HashMap();
+        Map<String,String> patient2Map = new HashMap<>();
         patient2Map.put("vnumber","4253");
         Patient patient2 = PatientDAO.get(patient2Map);
         patient2ID = patient2.getID();
@@ -65,7 +62,7 @@ public class UpdatePatientModelTest {
 
         Appointment a1 = new Appointment(0,LocalDate.parse("2019-04-10"), patient1ID);
         AppointmentDAO.create(a1);
-        Map<String,String> appointmentMap = new HashMap();
+        Map<String,String> appointmentMap = new HashMap<>();
         appointmentMap.put("patient_id","" + patient1ID);
         Appointment dbAppointment = AppointmentDAO.get(appointmentMap);
         int appointmentID = dbAppointment.getID();

@@ -1,5 +1,7 @@
 package seg.major.model.database;
 
+import seg.major.structure.Contact;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import seg.major.structure.Contact;
 /**
  * Data access object for Contact instances
  * @author Team Pacane
@@ -24,11 +24,6 @@ public class ContactDAO {
   private static final String PHONE = "phone";
   private static final String EMAIL = "email";
   private static final String PATIENT_ID = "patient_id";
-
-  public ContactDAO() {
-  }
-
-  /** ---------- Inherited / Implemented ---------- */
 
   /**
    * Lookup a record by ID
@@ -299,8 +294,6 @@ public class ContactDAO {
     return toReturn;
   }
 
-  /** ---------- Inherited / Implemented ---------- */
-
   /**
    * Lookup a record by contactname
    * 
@@ -368,7 +361,6 @@ public class ContactDAO {
    */
   private static List<Contact> resultSetToContactArray(ResultSet toConvert) throws SQLException {
     List<Contact> toReturn = new ArrayList<Contact>();
-    // toConvert.first();
     while (toConvert.next()) {
       toReturn.add(resultSetToContact(toConvert));
     }
@@ -385,9 +377,8 @@ public class ContactDAO {
    * @param toQuery the map to convery to a query
    * @return the constructed statement
    */
-  private static String mapToSQLQuery(Map<String, String> toQuery) {
+  public static String mapToSQLQuery(Map<String, String> toQuery) {
 
-    // build the statement
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT * FROM contact WHERE ( ");
     for (Map.Entry<String, String> entry : toQuery.entrySet()) {
@@ -403,7 +394,12 @@ public class ContactDAO {
     return sb.toString();
   }
 
-  public static List<Contact> getByPatientId(int patientId) {
+  /**
+   * Get all the contacts for a given patient ID
+   * @param patientID the
+   * @return the list of contacts for the patient
+   */
+  public static List<Contact> getByPatientId(int patientID) {
     String query = "SELECT * FROM contact WHERE patient_id = ?;";
     List<Contact> toReturn = new ArrayList<>();
     PreparedStatement ps = null;
@@ -412,7 +408,7 @@ public class ContactDAO {
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
-      ps.setInt(1, patientId);
+      ps.setInt(1, patientID);
       ps.execute("USE db");
       rs = ps.executeQuery();
       toReturn = resultSetToContactArray(rs);

@@ -1,16 +1,16 @@
 package seg.major.model;
 
 import seg.major.model.database.AppointmentDAO;
+import seg.major.model.database.ContactDAO;
 import seg.major.model.database.PatientDAO;
 import seg.major.model.util.DateReverser;
 import seg.major.structure.Appointment;
-import seg.major.structure.AppointmentEntry;
+import seg.major.structure.Contact;
 import seg.major.structure.Patient;
 import seg.major.structure.PatientEntry;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 /**
  * Model class for NotificationListController class.
@@ -20,7 +20,12 @@ import java.util.List;
  */
 public class NotificationListModel {
 
- public List<PatientEntry> getCarriedOverAppointmentEntries(){
+    /**
+     * Get all the appointments which have been missed
+     *
+     * @return
+     */
+    public List<PatientEntry> getCarriedOverAppointmentEntries(){
 
         List<PatientEntry> toReturn = new ArrayList<PatientEntry>();
 
@@ -38,11 +43,32 @@ public class NotificationListModel {
         return toReturn;
     }
 
-    private boolean isCarriedOver(Appointment app){
-        return (app.getStatus() == 0) && (app.getDueDate().compareTo(LocalDate.now()) < 0);
+    /**
+     * Check if an appointment has been missed and so should be carried over
+     *
+     * @param toCheck appointment to check
+     * @return true if overdue
+     */
+    private boolean isCarriedOver(Appointment toCheck){
+        return (toCheck.getStatus() == 0) && (toCheck.getDueDate().compareTo(LocalDate.now()) < 0);
     }
 
-    public void updateData() {
+    /**
+     * Get a patient by ID
+     *
+     * @param toGet ID of patient to get
+     * @return the patient
+     */
+    public static Patient getPatientByID(int toGet){
+        return PatientDAO.get(toGet);
+    }
 
+    /**
+     * Get all contacts for a patient
+     *
+     * @return a list of contacts for the patient
+     */
+    public static List<Contact> getAllContacts(){
+        return ContactDAO.getAll();
     }
 }

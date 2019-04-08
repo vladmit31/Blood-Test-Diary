@@ -1,6 +1,5 @@
 package seg.major.structure;
 
-import java.time.LocalDate;
 /**
  * Models patient entries for easy display
  * in the tables from the application.

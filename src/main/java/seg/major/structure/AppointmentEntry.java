@@ -1,9 +1,9 @@
 package seg.major.structure;
 
-import java.time.LocalDate;
-
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
+
+import java.time.LocalDate;
 /**
  * Models appointment entries for easy display
  * in the tables from the application.

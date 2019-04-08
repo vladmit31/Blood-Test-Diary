@@ -1,5 +1,7 @@
 package seg.major.model.database;
 
+import seg.major.structure.User;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -7,8 +9,6 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-
-import seg.major.structure.User;
 /**
  * Data access object for User instances
  * @author Team Pacane
@@ -22,11 +22,6 @@ public class UserDAO {
   private static final String EMAIL = "email";
   private static final String PASSWORD = "password";
   private static final String IS_ADMIN = "is_admin";
-
-  public UserDAO() {
-  }
-
-  /** ---------- Inherited / Implemented ---------- */
 
   /**
    * Lookup a record by ID
@@ -136,6 +131,12 @@ public class UserDAO {
     return toReturn;
   }
 
+  /**
+   * Get a user by email address
+   *
+   * @param toGet the email to get
+   * @return the user of the email address
+   */
   public static User getByEmail(String toGet) {
     String query = "SELECT * FROM user WHERE email = ? LIMIT 1;";
     User toReturn = null;
@@ -175,7 +176,6 @@ public class UserDAO {
   public static void update(User toUpdate) {
     String query = "UPDATE user SET username = ?, email = ?, password = ?, is_admin = ?  WHERE id = ? AND email = ?";
     PreparedStatement ps = null;
-    ResultSet rs = null;
     Connection conn = null;
     try {
       conn = DAOConnection.getConnection();
@@ -191,10 +191,6 @@ public class UserDAO {
     } catch (SQLException e) {
       e.printStackTrace();
     } finally {
-      try {
-        rs.close();
-      } catch (Exception e) {
-      }
       try {
         ps.close();
       } catch (Exception e) {
@@ -326,8 +322,6 @@ public class UserDAO {
     return toReturn;
   }
 
-  /** ---------- Inherited / Implemented ---------- */
-
   /**
    * Lookup a record by username
    * 
@@ -411,9 +405,8 @@ public class UserDAO {
    * @param toQuery the map to convery to a query
    * @return the constructed statement
    */
-  private static String mapToSQLQuery(Map<String, String> toQuery) {
+  public static String mapToSQLQuery(Map<String, String> toQuery) {
 
-    // build the statement
     StringBuilder sb = new StringBuilder();
     sb.append("SELECT * FROM user WHERE ( ");
     for (Map.Entry<String, String> entry : toQuery.entrySet()) {
@@ -423,7 +416,7 @@ public class UserDAO {
       sb.append("' AND ");
     }
     // remove the last AND then close the brackets
-    sb.delete(sb.length() - 4, sb.length());
+    sb.delete(sb.length() - 5, sb.length());
     sb.append(");");
 
     return sb.toString();

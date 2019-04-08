@@ -14,8 +14,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import static org.junit.Assert.*;
-
 public class ContactsModelTest {
 
     private int patientID;
@@ -24,7 +22,7 @@ public class ContactsModelTest {
     public void setUp() throws Exception {
         Patient p1 = new Patient("Person","One", LocalDate.parse("2000-02-13"),"4252","London","",1.0,"","","");
         PatientDAO.create(p1);
-        Map<String,String> patientMap = new HashMap();
+        Map<String,String> patientMap = new HashMap<>();
         patientMap.put("vnumber","4252");
         Patient patient = PatientDAO.get(patientMap);
         patientID = patient.getID();
@@ -47,7 +45,7 @@ public class ContactsModelTest {
 
         Assert.assertEquals(ContactsModel.getContactList(patientID).get(0).getForename(), "contact");
 
-        Map<String,String> contactMap = new HashMap();
+        Map<String,String> contactMap = new HashMap<>();
         contactMap.put("patient_id","" + patientID);
         List<Contact> contacts = ContactDAO.getAll(contactMap);
 

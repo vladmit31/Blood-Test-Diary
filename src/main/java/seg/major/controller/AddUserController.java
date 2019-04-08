@@ -2,6 +2,7 @@ package seg.major.controller;
 
 import com.ja.security.PasswordHash;
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
@@ -10,7 +11,6 @@ import seg.major.App;
 import seg.major.controller.util.EmailChecker;
 import seg.major.model.database.UserDAO;
 import seg.major.structure.User;
-
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -24,46 +24,71 @@ import java.util.ResourceBundle;
  */
 public class AddUserController implements Initializable, ControllerInterface {
 
-    public TextField usernameField;
-    public TextField passwordField;
-    public TextField confirmPasswordField;
-    public TextField emailField;
-    public Button addButton;
-    public Button backButton;
     private PrimaryController primaryController;
-
     private Map<String, Object> data = new HashMap<>();
 
-    @Override
-    public void initialize(URL location, ResourceBundle resources) {
+    @FXML
+    public TextField usernameField;
+    @FXML
+    public TextField passwordField;
+    @FXML
+    public TextField confirmPasswordField;
+    @FXML
+    public TextField emailField;
+    @FXML
+    public Button addButton;
+    @FXML
+    public Button backButton;
 
+    /**
+     * Allow javafx to initalise the controller with the view
+     */
+    public void initialize(URL url, ResourceBundle rb) {
     }
 
-    @Override
+    /**
+     * Set the primaryController
+     *
+     * @param primaryController the PrimaryController to set
+     */
     public void setScreenParent(PrimaryController primaryController) {
         this.primaryController = primaryController;
     }
 
-    @Override
-    public void setData(Map<String, Object> toInject) {
-        this.data = toInject;
+    /**
+     * Set the data
+     *
+     * @param data the data to set
+     */
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
-    @Override
+    /**
+     * Add data to the given fx-item and update the scene
+     *
+     * @param toAddKey the key of the data
+     * @param toAddVal the value of the data
+     */
     public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
         update();
     }
 
-    @Override
+    /**
+     * Update the scene with changes from the data HashMap
+     */
     public void update() {
-
     }
 
     public void backButtonClicked(ActionEvent event) {
         primaryController.setPane(App.schema);
     }
 
+    /**
+     * Check that that no fields are blank
+     * @return true if no fields are blank
+     */
     private boolean checkUserInput() {
         return usernameField.getText().equals("") || passwordField.getText().equals("")
                 || confirmPasswordField.getText().equals("") || emailField.getText().equals("");

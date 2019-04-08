@@ -1,8 +1,9 @@
 package seg.major.model;
 
-import java.util.List;
 import seg.major.model.database.AppointmentDAO;
 import seg.major.structure.Appointment;
+
+import java.util.List;
 /**
  * Model class for UpdateAppointmentController class.
  * Provides communication between controller and DAOs if needed.
@@ -16,7 +17,11 @@ public class UpdateAppointmentModel {
     return AppointmentDAO.getAll();
   }
 
-  public static void updateAppointment(Appointment appointment) {
-    AppointmentDAO.update(appointment);
+  /**
+   * Update a given appointment
+   * @param toUpdate the appointment to update
+   */
+  public static void updateAppointment(Appointment toUpdate) {
+    AppointmentDAO.update(toUpdate);
   }
 }

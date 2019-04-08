@@ -5,7 +5,11 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
-import javafx.scene.control.*;
+import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -19,7 +23,6 @@ import seg.major.controller.util.RecoveryEmailSender;
 import seg.major.model.LoginModel;
 import seg.major.model.database.UserDAO;
 import seg.major.structure.User;
-
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
@@ -35,12 +38,9 @@ import java.util.ResourceBundle;
  */
 public class LoginController implements Initializable, ControllerInterface {
 
-
-
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
 
-    /** ---------- FXML ---------- */
     @FXML
     public Text errorLabel;
     @FXML
@@ -78,9 +78,6 @@ public class LoginController implements Initializable, ControllerInterface {
         }
     }
 
-    /** ---------- FXML ---------- */
-
-    /** ---------- Inherited / Implemented ---------- */
     /**
      * Allow javafx to initalise the controller with the view
      */
@@ -89,7 +86,6 @@ public class LoginController implements Initializable, ControllerInterface {
         humanImg.setImage(new Image("images/humanIcon.png"));
         keyImg.setImage(new Image("images/keyIcon.png"));
     }
-
 
     private void setGlobalEventHandler(Node root) {
             root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
@@ -140,7 +136,6 @@ public class LoginController implements Initializable, ControllerInterface {
 
 
     public void recoverAccount(ActionEvent actionEvent) {
-        //TODO
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Recovery window");
         dialog.setHeaderText("Forgot your login credentials?");
@@ -149,7 +144,6 @@ public class LoginController implements Initializable, ControllerInterface {
         Optional<String> result = dialog.showAndWait();
         User user = UserDAO.getByEmail(result.get());
         if (result.isPresent() && user != null ){
-            System.out.println("it work");
             PasswordGenerator passwordGenerator = new PasswordGenerator.PasswordGeneratorBuilder()
                     .useDigits(true)
                     .useLower(true)
@@ -179,11 +173,5 @@ public class LoginController implements Initializable, ControllerInterface {
             dialogFailure.show();
         }
     }
-
-
-
-
-
-    /** ---------- Inherited / Implemented ---------- */
 
 }

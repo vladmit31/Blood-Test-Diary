@@ -32,10 +32,6 @@ public class EmailBuilder {
             body = EditNotificationEmailModel.getBodyAsString();
         }
 
-
-
-        //System.out.println("!!!!!!!" + body + "???????");
-
         body = body.replaceAll("CONTACT_NAME", contact.getForename() + " " + contact.getSurname());
         body = body.replaceAll("PATIENT_NAME", patient.getForename() + " " + patient.getSurname());
         body = body.replaceAll("APPOINTMENT_DATE", appointment.getDueDate().toString());

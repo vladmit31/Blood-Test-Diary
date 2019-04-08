@@ -1,19 +1,20 @@
 package seg.major.controller;
 
 import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import seg.major.App;
 import seg.major.controller.util.EmailSender;
-import seg.major.model.CustomEmailModel;
-import seg.major.model.EditNotificationEmailModel;
-import seg.major.model.util.Email;
 import seg.major.structure.Contact;
-
 import java.net.URL;
-import java.util.*;
+import java.util.ResourceBundle;
+import java.util.List;
+import java.util.ArrayList;
+import java.util.Map;
+import java.util.HashMap;
 /**
  * AddPatientController acts as the controller for the custom_email.fxml file
  * @author Team Pacane
@@ -21,26 +22,32 @@ import java.util.*;
  */
 public class CustomEmailController implements Initializable, ControllerInterface {
 
-    public TextField sendToTextBox;
-    public TextField subjectTextBox;
-    public Button backButton;
-    public Button sendButton;
-    public TextArea emailBody;
-
     private PrimaryController primaryController;
-
-
     private Map<String, Object> data = new HashMap<>();
-
     private List<Contact> contacts;
 
+    @FXML
+    public TextField sendToTextBox;
+    @FXML
+    public TextField subjectTextBox;
+    @FXML
+    public Button backButton;
+    @FXML
+    public Button sendButton;
+    @FXML
+    public TextArea emailBody;
 
-    @Override
+    /**
+     * Allow javafx to initalise the controller with the view
+     */
     public void initialize(URL location, ResourceBundle resources) {
         this.contacts = new ArrayList<>();
         this.sendToTextBox.setEditable(false);
     }
 
+    /**
+     * Populate the sendToBox with the email addresses of the contacts
+     */
     private void fillSendToTextBox() {
         if(this.contacts.size() == 0){
             this.sendToTextBox.appendText("No contacts found");
@@ -53,29 +60,42 @@ public class CustomEmailController implements Initializable, ControllerInterface
             this.sendToTextBox.appendText(this.contacts.get(this.contacts.size()-1).getEmail());
         }
 
-
     }
 
-    @Override
+    /**
+     * Set the primaryController
+     *
+     * @param primaryController the PrimaryController to set
+     */
     public void setScreenParent(PrimaryController primaryController) {
         this.primaryController = primaryController;
     }
 
-    @Override
-    public void setData(Map<String, Object> toInject) {
-
+    /**
+     * Set the data
+     *
+     * @param data the data to set
+     */
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
-    @Override
+    /**
+     * Add data to the given fx-item and update the scene
+     *
+     * @param toAddKey the key of the data
+     * @param toAddVal the value of the data
+     */
     public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
-        for(var value : (ArrayList<Contact>)toAddVal){
-            System.out.println(value.getEmail());
+        for(Contact value : (ArrayList<Contact>)toAddVal){
             this.contacts.add(value);
         }
     }
 
-    @Override
+    /**
+     * Update the scene with changes from the data HashMap
+     */
     public void update() {
         this.sendToTextBox.setText("");
         this.subjectTextBox.setText("");

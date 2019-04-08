@@ -3,7 +3,10 @@ package seg.major.controller;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.DatePicker;
+import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
@@ -17,7 +20,6 @@ import seg.major.structure.Patient;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Optional;
 import java.util.ResourceBundle;
 
 /**
@@ -27,60 +29,42 @@ import java.util.ResourceBundle;
  */
 public class UpdatePatientController implements Initializable, ControllerInterface {
 
-    @FXML
-    public TextField nhsNumber;
-
-    @FXML
-    public TextField labName;
-
-    @FXML
-    public TextField labContact;
-
-    @FXML
-    public Button notifyLabButton;
-
     private PrimaryController primaryController;
     private Map<String, Object> data = new HashMap<>();
     private Boolean isEditable;
 
-    /** ---------- FXML ---------- */
+    @FXML
+    public TextField nhsNumber;
+    @FXML
+    public TextField labName;
+    @FXML
+    public TextField labContact;
+    @FXML
+    public Button notifyLabButton;
     @FXML
     private Text TitleText;
-
     @FXML
     private TextField forenameField;
-
     @FXML
     private TextField surnameField;
-
     @FXML
     private DatePicker dobField;
-
     @FXML
     private DatePicker nextAppField;
-
     @FXML
     private TextField hospitalField;
-
     @FXML
     private TextField clinicField;
-
     @FXML
     public Button editBtn;
-
     @FXML
     public Button contactsBtn;
-
     @FXML
     private Button cancelButton;
-
     @FXML
     private Button updateButton;
-
     @FXML
     private TextField diagnosisField;
-
-    /** ---------- FXML ---------- */
 
     @FXML
     public void updateButtonClicked(MouseEvent mouseEvent) {
@@ -130,6 +114,10 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         initialState();
     }
 
+    /**
+     * Check that the user has not left any text boxes blank
+     * @return true if no blank text boxes
+     */
     private boolean checkUserInput() {
         return !forenameField.getText().equals("") && !surnameField.getText().equals("") && dobField.getValue() != null
                 && !hospitalField.getText().equals("") && !clinicField.getText().equals("")
@@ -139,11 +127,9 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
                 && !nhsNumber.getText().equals("");
     }
 
-    /** ---------- Inherited / Implemented ---------- */
     /**
      * Allow javafx to initalise the controller with the view
      */
-
     public void initialize(URL url, ResourceBundle rb) {
         initialState();
     }
@@ -200,9 +186,6 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         nhsNumber.setDisable(value);
     }
 
-    public void setUp() {
-    }
-
     public void passPatient(Patient p) {
         TitleText.setText(p.getForename() + " " + p.getSurname());
         forenameField.setText(p.getForename());
@@ -255,10 +238,7 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
         }
     }
 
-    /** ---------- Inherited / Implemented ---------- */
     public void contactsButtonClicked(ActionEvent event) {
-        // Pair<Integer,Integer> p = (Pair<Integer, Integer>) data;
-
         if (data == null) {
             return;
         }
@@ -269,7 +249,6 @@ public class UpdatePatientController implements Initializable, ControllerInterfa
 
         initialState();
     }
-
 
     public void editButtonClicked(ActionEvent event) {
         if(isEditable){

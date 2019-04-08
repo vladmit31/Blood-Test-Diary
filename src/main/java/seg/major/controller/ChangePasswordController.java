@@ -21,7 +21,6 @@ import seg.major.structure.User;
 import java.net.URL;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
-import java.util.EventListener;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.ResourceBundle;
@@ -31,6 +30,9 @@ import java.util.ResourceBundle;
  * @version 1.0
  */
 public class ChangePasswordController implements Initializable, ControllerInterface {
+
+    private PrimaryController primaryController;
+    private Map<String, Object> data = new HashMap<>();
 
     @FXML
     public PasswordField passField2;
@@ -43,14 +45,18 @@ public class ChangePasswordController implements Initializable, ControllerInterf
     @FXML
     public VBox parent;
 
-    private PrimaryController primaryController;
-    private Map<String, Object> data = new HashMap<>();     
-
-    @Override
+    /**
+     * Allow javafx to initalise the controller with the view
+     */
     public void initialize(URL location, ResourceBundle resources) {
     setGlobalEventHandler(parent);
     }
 
+    /**
+     * Set the event handler to allow keystrokes to interact with GUI
+     *
+     * @param root the node to set as the handler
+     */
     private void setGlobalEventHandler(Node root) {
         root.addEventHandler(KeyEvent.KEY_PRESSED, ev -> {
             if (ev.getCode() == KeyCode.ENTER) {
@@ -60,25 +66,39 @@ public class ChangePasswordController implements Initializable, ControllerInterf
         });
     }
 
-    @Override
+    /**
+     * Set the primaryController
+     *
+     * @param primaryController the PrimaryController to set
+     */
     public void setScreenParent(PrimaryController primaryController) {
-    this.primaryController = primaryController;
+        this.primaryController = primaryController;
     }
 
-    @Override
-    public void setData(Map<String, Object> toInject) {
-
+    /**
+     * Set the data
+     *
+     * @param data the data to set
+     */
+    public void setData(Map<String, Object> data) {
+        this.data = data;
     }
 
-    @Override
+    /**
+     * Add data to the given fx-item and update the scene
+     *
+     * @param toAddKey the key of the data
+     * @param toAddVal the value of the data
+     */
     public void addData(String toAddKey, Object toAddVal) {
         data.put(toAddKey, toAddVal);
         update();
     }
 
-    @Override
+    /**
+     * Update the scene with changes from the data HashMap
+     */
     public void update() {
-
     }
 
     public void confirmBtn() {

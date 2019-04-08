@@ -1,6 +1,5 @@
 package seg.major.model;
 
-import seg.major.App;
 import seg.major.controller.util.EmailSender;
 import seg.major.model.database.AppointmentDAO;
 import seg.major.model.database.ContactDAO;
@@ -9,11 +8,13 @@ import seg.major.model.util.EmailBuilder;
 import seg.major.structure.Appointment;
 import seg.major.structure.Contact;
 import seg.major.structure.Patient;
-
-import java.time.DayOfWeek;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
-import java.util.*;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+import java.util.List;
+
 
 /**
  * Sends reminders for people that have appointments
@@ -23,6 +24,9 @@ import java.util.*;
  */
 public class ReminderSender {
 
+    /**
+     * Send out reminder emails to all patients set to notify
+     */
     public static void sendRemainders(){
         List<Patient> patients = PatientDAO.getAll();
         List<Appointment> appointments = AppointmentDAO.getAll();
@@ -46,8 +50,6 @@ public class ReminderSender {
             Iterator it = toNotifiy.entrySet().iterator();
             while (it.hasNext()) {
                 Map.Entry pair = (Map.Entry)it.next();
-
-                //it.remove(); // avoids a ConcurrentModificationException
             }
 
             StringBuilder sb = new StringBuilder();
@@ -60,15 +62,19 @@ public class ReminderSender {
                 Contact contact = (Contact)pair.getKey();
                 String generatedContent = (String)pair.getValue();
                 sb.append(contact.getForename() + " " + contact.getSurname() + "\n");
-                //it1.remove(); // avoids a ConcurrentModificationException
             }
 
-            System.out.println(sb.toString());
             EmailSender sender = new EmailSender(toNotifiy, "Reminder");
             sender.start();
         }
     }
 
+    /**
+     * Check if the appointment is soon enough to not be an issue
+     *
+     * @param appointment the appointment to check
+     * @return true if the appointment is soon
+     */
     private static boolean soonEnough(Appointment appointment){
         LocalDate today = LocalDate.now();
 
@@ -79,6 +85,13 @@ public class ReminderSender {
 
     }
 
+    /**
+     * Check if the patient was recently notified as they should not be spammed
+     *
+     * @param patient the patient to check
+     * @param appointment the appointment to check
+     * @return true if they have not been notified recently
+     */
     private static boolean notNotifiedRecently(Patient patient, Appointment appointment){
         return patient.getLastTimeNotified().plus(2, ChronoUnit.DAYS).
                     compareTo(appointment.getDueDate()) < 0;

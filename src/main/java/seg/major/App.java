@@ -3,11 +3,11 @@
  */
 package seg.major;
 
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.Group;
 import seg.major.controller.PrimaryController;
 import seg.major.model.ReminderSender;
 import seg.major.model.database.PatientDAO;
@@ -39,7 +39,6 @@ public class App extends Application {
 
 
     public static void main(String[] args) {
-        System.out.println("App Started!");
         props = new Props(App.class.getClassLoader().getResource(propertiesLocation));
         launch(args);
     }

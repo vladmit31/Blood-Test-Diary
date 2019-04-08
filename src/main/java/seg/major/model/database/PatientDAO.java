@@ -1,16 +1,12 @@
 package seg.major.model.database;
 
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import seg.major.structure.Patient;
+
+import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
-import java.time.LocalDate;
-
-import seg.major.structure.Patient;
 /**
  * Data access object for Patient instances
  * @author Team Pacane
@@ -31,11 +27,6 @@ public class PatientDAO {
     private static final String LAB_NAME = "lab_name";
     private static final String NHS_NUMBER = "nhs_number";
     private static final String LAST_NOTIFICATION = "last_notification";
-
-    public PatientDAO() {
-    }
-
-    /** ---------- Inherited / Implemented ---------- */
 
     /**
      * Lookup a record by ID
@@ -129,7 +120,7 @@ public class PatientDAO {
             ps = conn.prepareStatement(query);
             ps.execute("USE db");
             rs = ps.executeQuery();
-            if(rs.next()){
+            if (rs.next()) {
                 toReturn = resultSetToPatient(rs);
             }
 
@@ -160,7 +151,6 @@ public class PatientDAO {
         String query = "UPDATE patient SET vnumber = ?, fname = ?, sname = ?, dob = ?,  local_clinic = ?, diagnosis = ? , lab_name = ?, lab_contact = ?, nhs_number = ?, last_notification = ? WHERE id = ?";
 
         PreparedStatement ps = null;
-        ResultSet rs = null;
         Connection conn = null;
         try {
             conn = DAOConnection.getConnection();
@@ -170,7 +160,7 @@ public class PatientDAO {
             ps.setString(3, toUpdate.getSurname());
             ps.setDate(4, Date.valueOf(toUpdate.getDob()));
             ps.setString(5, toUpdate.getLocalClinic());
-            ps.setString(6,toUpdate.getDiagnosis());
+            ps.setString(6, toUpdate.getDiagnosis());
             ps.setString(7, toUpdate.getLabName());
             ps.setString(8, toUpdate.getLabContact());
             ps.setString(9, toUpdate.getNhsNumber());
@@ -181,10 +171,6 @@ public class PatientDAO {
         } catch (SQLException e) {
             e.printStackTrace();
         } finally {
-            try {
-                rs.close();
-            } catch (Exception e) {
-            }
             try {
                 ps.close();
             } catch (Exception e) {
@@ -318,8 +304,11 @@ public class PatientDAO {
         return toReturn;
     }
 
-    /** ---------- Inherited / Implemented ---------- */
-
+    /**
+     * Get the most recently inserted patient ID
+     *
+     * @return the ID of the most recently inserted patient
+     */
     private static int getLastInsertedPatientID() {
 
         String query = "SELECT MAX(id) FROM patient";
@@ -378,14 +367,13 @@ public class PatientDAO {
         String nhsNumber = toConvert.getString(NHS_NUMBER);
         LocalDate lastTimeNotified = toConvert.getDate(LAST_NOTIFICATION).toLocalDate();
 
-        Patient toReturn = new Patient(id, forename, surname, dob,
-                hospitalNumber, localClinic, diagnosis,refreshRate, labName, labContact, nhsNumber, lastTimeNotified);
-
-        //System.out.println(toReturn.toString());
+        Patient toReturn = new Patient(id, forename, surname, dob, hospitalNumber, localClinic, diagnosis, refreshRate,
+                labName, labContact, nhsNumber, lastTimeNotified);
 
         return toReturn;
 
     }
+
     /**
      * Convert a ResultSet to an array containing all records contained
      * 
@@ -410,9 +398,8 @@ public class PatientDAO {
      * @param toQuery the map to convery to a query
      * @return the constructed statement
      */
-    private static String mapToSQLQuery(Map<String, String> toQuery) {
+    public static String mapToSQLQuery(Map<String, String> toQuery) {
 
-        // build the statement
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT * FROM patient WHERE ( ");
         for (Map.Entry<String, String> entry : toQuery.entrySet()) {
@@ -422,7 +409,7 @@ public class PatientDAO {
             sb.append("' AND ");
         }
         // remove the last AND then close the brackets
-        sb.delete(sb.length() - 4, sb.length());
+        sb.delete(sb.length() - 5, sb.length());
         sb.append(");");
 
         return sb.toString();
