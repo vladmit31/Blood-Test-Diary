@@ -45,6 +45,12 @@ For Windows:
 
     gradlew.bat run
 
+## JDBC MySQL Connector
+
+Download from [here](https://dev.mysql.com/get/Downloads/Connector-J/mysql-connector-java-8.0.15.zip)
+
+Click here to see: [How to add JDBC Library to IntelliJ idea](https://stackoverflow.com/questions/30651830/use-jdbc-mysql-connector-in-intellij-idea)
+
 # Project 1: Blood test diary
 Client: Dr Marianne Samyn, King's College Hospital
 
