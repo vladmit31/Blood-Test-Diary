@@ -385,7 +385,7 @@ public class ContactDAO {
    * @param toQuery the map to convery to a query
    * @return the constructed statement
    */
-  private static String mapToSQLQuery(Map<String, String> toQuery) {
+  public static String mapToSQLQuery(Map<String, String> toQuery) {
 
     // build the statement
     StringBuilder sb = new StringBuilder();
@@ -397,13 +397,19 @@ public class ContactDAO {
       sb.append("' AND ");
     }
     // remove the last AND then close the brackets
-    sb.delete(sb.length() - 5, sb.length());
+    sb.delete(sb.length() - 4, sb.length());
     sb.append(");");
 
     return sb.toString();
   }
 
-  public static List<Contact> getByPatientId(int patientId) {
+  /**
+   * Lookup a record by patient ID
+   * 
+   * @param toGet the patient ID to lookup and fetch the record for
+   * @return the list of contacts that were found
+   */
+  public static List<Contact> getByPatientId(int toGet) {
     String query = "SELECT * FROM contact WHERE patient_id = ?;";
     List<Contact> toReturn = new ArrayList<>();
     PreparedStatement ps = null;
@@ -412,7 +418,7 @@ public class ContactDAO {
     try {
       conn = DAOConnection.getConnection();
       ps = conn.prepareStatement(query);
-      ps.setInt(1, patientId);
+      ps.setInt(1, toGet);
       ps.execute("USE db");
       rs = ps.executeQuery();
       toReturn = resultSetToContactArray(rs);
